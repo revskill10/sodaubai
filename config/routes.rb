@@ -1,4 +1,7 @@
 Trytest::Application.routes.draw do
+  resources :tkb_giang_viens
+
+
   resources :nhat_kies
 
 

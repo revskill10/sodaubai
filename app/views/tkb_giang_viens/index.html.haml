@@ -1,0 +1,43 @@
+%h1 Listing tkb_giang_viens
+
+%table
+  %tr
+    %th Ma giang vien
+    %th Ma lop
+    %th Ma mon hoc
+    %th Phong
+    %th Nam hoc
+    %th Hoc ky
+    %th Tuan hoc bat dau
+    %th So tuan
+    %th Ngay bat dau
+    %th Ngay ket thuc
+    %th So tiet
+    %th Tiet bat dau
+    %th Thu
+    %th
+    %th
+    %th
+
+  - @tkb_giang_viens.each do |tkb_giang_vien|
+    %tr
+      %td= tkb_giang_vien.ma_giang_vien
+      %td= tkb_giang_vien.ma_lop
+      %td= tkb_giang_vien.ma_mon_hoc
+      %td= tkb_giang_vien.phong
+      %td= tkb_giang_vien.nam_hoc
+      %td= tkb_giang_vien.hoc_ky
+      %td= tkb_giang_vien.tuan_hoc_bat_dau
+      %td= tkb_giang_vien.so_tuan
+      %td= tkb_giang_vien.ngay_bat_dau
+      %td= tkb_giang_vien.ngay_ket_thuc
+      %td= tkb_giang_vien.so_tiet
+      %td= tkb_giang_vien.tiet_bat_dau
+      %td= tkb_giang_vien.thu
+      %td= link_to 'Show', tkb_giang_vien
+      %td= link_to 'Edit', edit_tkb_giang_vien_path(tkb_giang_vien)
+      %td= link_to 'Destroy', tkb_giang_vien, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Tkb giang vien', new_tkb_giang_vien_path

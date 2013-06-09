@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe GiangVien do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { create(:giang_vien) }
+  its(:ho_ten) { should include("hoten")}
 end

@@ -46,5 +46,9 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'wdm'
+  gem 'watchr'
 end
 gem "haml-rails"
+gem "simple_form"
+gem "split_datetime"
+gem 'factory_girl_rails'

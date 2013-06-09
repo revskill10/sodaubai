@@ -1,5 +1,9 @@
 require 'spec_helper'
 
 describe SinhVien do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { create(:sinh_vien)}
+  its(:ten) { should include("ten") }
+  it "should be valid with a name" do
+  	should respond_to(:ma_sinh_vien)  	
+  end
 end
