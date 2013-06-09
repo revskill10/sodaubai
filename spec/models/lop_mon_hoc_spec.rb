@@ -6,5 +6,5 @@ describe LopMonHoc do
 
   its(:nam_hoc) {should include("2012")}
   its(:giang_vien) {should respond_to("ma_giang_vien")}
-
+  its(:ma_giang_vien) {should be_instance_of(String)}
 end

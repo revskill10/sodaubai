@@ -22,4 +22,8 @@ FactoryGirl.define do
 		nam_hoc "2012-2013"
 		hoc_ky 2
 	end
+	factory :thong_bao_lop_hoc do
+		lop_mon_hoc
+		sequence(:noi_dung) {|nd| "noi dung #{nd}"}
+	end
 end
