@@ -1,0 +1,31 @@
+%h1 Listing nghi_days
+
+%table
+  %tr
+    %th Ma giang vien
+    %th Ma lop
+    %th Ma mon hoc
+    %th Nam hoc
+    %th Hoc ky
+    %th Ngay day
+    %th Phong
+    %th
+    %th
+    %th
+
+  - @nghi_days.each do |nghi_day|
+    %tr
+      %td= nghi_day.ma_giang_vien
+      %td= nghi_day.ma_lop
+      %td= nghi_day.ma_mon_hoc
+      %td= nghi_day.nam_hoc
+      %td= nghi_day.hoc_ky
+      %td= nghi_day.ngay_day
+      %td= nghi_day.phong
+      %td= link_to 'Show', nghi_day
+      %td= link_to 'Edit', edit_nghi_day_path(nghi_day)
+      %td= link_to 'Destroy', nghi_day, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Nghi day', new_nghi_day_path

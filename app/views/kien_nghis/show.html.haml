@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Ma sinh vien:
+  = @kien_nghi.ma_sinh_vien
+%p
+  %b Ma lop:
+  = @kien_nghi.ma_lop
+%p
+  %b Ma mon hoc:
+  = @kien_nghi.ma_mon_hoc
+%p
+  %b Noi dung:
+  = @kien_nghi.noi_dung
+%p
+  %b Nam hoc:
+  = @kien_nghi.nam_hoc
+%p
+  %b Hoc ky:
+  = @kien_nghi.hoc_ky
+%p
+  %b Nhom:
+  = @kien_nghi.nhom_id
+%p
+  %b Trang thai:
+  = @kien_nghi.trang_thai
+
+= link_to 'Edit', edit_kien_nghi_path(@kien_nghi)
+\|
+= link_to 'Back', kien_nghis_path

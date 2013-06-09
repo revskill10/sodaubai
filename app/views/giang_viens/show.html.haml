@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Ho ten:
+  = @giang_vien.ho_ten
+%p
+  %b Hoc vi:
+  = @giang_vien.hoc_vi
+%p
+  %b Hoc ham:
+  = @giang_vien.hoc_ham
+%p
+  %b Ma don vi:
+  = @giang_vien.ma_don_vi
+%p
+  %b Ma loai:
+  = @giang_vien.ma_loai
+%p
+  %b Ma giang vien:
+  = @giang_vien.ma_giang_vien
+
+= link_to 'Edit', edit_giang_vien_path(@giang_vien)
+\|
+= link_to 'Back', giang_viens_path

@@ -1,0 +1,33 @@
+%h1 Listing diem_chuyen_cans
+
+%table
+  %tr
+    %th Ma sinh vien
+    %th Ma lop
+    %th Ma mon hoc
+    %th Nam hoc
+    %th Hoc ky
+    %th Tong so tiet
+    %th Tong so tiet vang
+    %th Diem
+    %th
+    %th
+    %th
+
+  - @diem_chuyen_cans.each do |diem_chuyen_can|
+    %tr
+      %td= diem_chuyen_can.ma_sinh_vien
+      %td= diem_chuyen_can.ma_lop
+      %td= diem_chuyen_can.ma_mon_hoc
+      %td= diem_chuyen_can.nam_hoc
+      %td= diem_chuyen_can.hoc_ky
+      %td= diem_chuyen_can.tong_so_tiet
+      %td= diem_chuyen_can.tong_so_tiet_vang
+      %td= diem_chuyen_can.diem
+      %td= link_to 'Show', diem_chuyen_can
+      %td= link_to 'Edit', edit_diem_chuyen_can_path(diem_chuyen_can)
+      %td= link_to 'Destroy', diem_chuyen_can, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Diem chuyen can', new_diem_chuyen_can_path

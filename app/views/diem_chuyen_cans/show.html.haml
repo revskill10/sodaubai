@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Ma sinh vien:
+  = @diem_chuyen_can.ma_sinh_vien
+%p
+  %b Ma lop:
+  = @diem_chuyen_can.ma_lop
+%p
+  %b Ma mon hoc:
+  = @diem_chuyen_can.ma_mon_hoc
+%p
+  %b Nam hoc:
+  = @diem_chuyen_can.nam_hoc
+%p
+  %b Hoc ky:
+  = @diem_chuyen_can.hoc_ky
+%p
+  %b Tong so tiet:
+  = @diem_chuyen_can.tong_so_tiet
+%p
+  %b Tong so tiet vang:
+  = @diem_chuyen_can.tong_so_tiet_vang
+%p
+  %b Diem:
+  = @diem_chuyen_can.diem
+
+= link_to 'Edit', edit_diem_chuyen_can_path(@diem_chuyen_can)
+\|
+= link_to 'Back', diem_chuyen_cans_path

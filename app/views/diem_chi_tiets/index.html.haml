@@ -1,0 +1,33 @@
+%h1 Listing diem_chi_tiets
+
+%table
+  %tr
+    %th Ma sinh vien
+    %th Ma lop
+    %th Ma mon hoc
+    %th Nam hoc
+    %th Hoc ky
+    %th Diem
+    %th Loai diem
+    %th Lan
+    %th
+    %th
+    %th
+
+  - @diem_chi_tiets.each do |diem_chi_tiet|
+    %tr
+      %td= diem_chi_tiet.ma_sinh_vien
+      %td= diem_chi_tiet.ma_lop
+      %td= diem_chi_tiet.ma_mon_hoc
+      %td= diem_chi_tiet.nam_hoc
+      %td= diem_chi_tiet.hoc_ky
+      %td= diem_chi_tiet.diem
+      %td= diem_chi_tiet.loai_diem
+      %td= diem_chi_tiet.lan
+      %td= link_to 'Show', diem_chi_tiet
+      %td= link_to 'Edit', edit_diem_chi_tiet_path(diem_chi_tiet)
+      %td= link_to 'Destroy', diem_chi_tiet, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Diem chi tiet', new_diem_chi_tiet_path

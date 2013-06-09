@@ -1,0 +1,33 @@
+%h1 Listing dang_ky_day_bus
+
+%table
+  %tr
+    %th Ma giang vien
+    %th Ma lop
+    %th Ma mon hoc
+    %th Nam hoc
+    %th Hoc ky
+    %th Ngay day dang ky
+    %th Tiet bat dau
+    %th Phong
+    %th
+    %th
+    %th
+
+  - @dang_ky_day_bus.each do |dang_ky_day_bu|
+    %tr
+      %td= dang_ky_day_bu.ma_giang_vien
+      %td= dang_ky_day_bu.ma_lop
+      %td= dang_ky_day_bu.ma_mon_hoc
+      %td= dang_ky_day_bu.nam_hoc
+      %td= dang_ky_day_bu.hoc_ky
+      %td= dang_ky_day_bu.ngay_day_dang_ky
+      %td= dang_ky_day_bu.tiet_bat_dau
+      %td= dang_ky_day_bu.phong
+      %td= link_to 'Show', dang_ky_day_bu
+      %td= link_to 'Edit', edit_dang_ky_day_bu_path(dang_ky_day_bu)
+      %td= link_to 'Destroy', dang_ky_day_bu, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Dang ky day bu', new_dang_ky_day_bu_path

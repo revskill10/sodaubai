@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Ma sinh vien:
+  = @can_bo_lop.ma_sinh_vien
+%p
+  %b Ma lop:
+  = @can_bo_lop.ma_lop
+%p
+  %b Ma mon hoc:
+  = @can_bo_lop.ma_mon_hoc
+%p
+  %b Nam hoc:
+  = @can_bo_lop.nam_hoc
+%p
+  %b Hoc ky:
+  = @can_bo_lop.hoc_ky
+
+= link_to 'Edit', edit_can_bo_lop_path(@can_bo_lop)
+\|
+= link_to 'Back', can_bo_lops_path

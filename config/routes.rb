@@ -1,4 +1,58 @@
 Trytest::Application.routes.draw do
+  resources :nhat_kies
+
+
+  resources :ra_som_vao_muons
+
+
+  resources :kien_nghis
+
+
+  resources :dang_ky_day_bus
+
+
+  resources :tai_lieu_mon_hocs
+
+
+  resources :thong_bao_lop_hocs
+
+
+  resources :mon_hocs
+
+
+  resources :can_bo_lops
+
+
+  resources :lop_mon_hoc_sinh_viens
+
+
+  resources :day_thays
+
+
+  resources :nghi_days
+
+
+  resources :diem_chi_tiets
+
+
+  resources :diem_danhs
+
+
+  resources :lich_trinh_giang_days
+
+
+  resources :diem_chuyen_cans
+
+
+  resources :lop_mon_hocs
+
+
+  resources :giang_viens
+
+
+  resources :sinh_viens
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

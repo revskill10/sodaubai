@@ -1,0 +1,2 @@
+module DiemDanhsHelper
+end

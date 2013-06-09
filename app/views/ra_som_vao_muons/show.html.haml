@@ -1,0 +1,33 @@
+%p#notice= notice
+
+%p
+  %b Ma giang vien:
+  = @ra_som_vao_muon.ma_giang_vien
+%p
+  %b Ma lop:
+  = @ra_som_vao_muon.ma_lop
+%p
+  %b Ma mon hoc:
+  = @ra_som_vao_muon.ma_mon_hoc
+%p
+  %b Nam hoc:
+  = @ra_som_vao_muon.nam_hoc
+%p
+  %b Hoc ky:
+  = @ra_som_vao_muon.hoc_ky
+%p
+  %b Ngay day:
+  = @ra_som_vao_muon.ngay_day
+%p
+  %b Loai:
+  = @ra_som_vao_muon.loai
+%p
+  %b Phong:
+  = @ra_som_vao_muon.phong
+%p
+  %b Tiet:
+  = @ra_som_vao_muon.tiet
+
+= link_to 'Edit', edit_ra_som_vao_muon_path(@ra_som_vao_muon)
+\|
+= link_to 'Back', ra_som_vao_muons_path

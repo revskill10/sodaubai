@@ -1,0 +1,31 @@
+= form_for @diem_danh do |f|
+  - if @diem_danh.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@diem_danh.errors.count, "error")} prohibited this diem_danh from being saved:"
+      %ul
+        - @diem_danh.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :ma_sinh_vien
+    = f.text_field :ma_sinh_vien
+  .field
+    = f.label :ma_lop
+    = f.text_field :ma_lop
+  .field
+    = f.label :ma_mon_hoc
+    = f.text_field :ma_mon_hoc
+  .field
+    = f.label :nam_hoc
+    = f.text_field :nam_hoc
+  .field
+    = f.label :hoc_ky
+    = f.number_field :hoc_ky
+  .field
+    = f.label :ngay_vang
+    = f.datetime_select :ngay_vang
+  .field
+    = f.label :so_tiet_vang
+    = f.number_field :so_tiet_vang
+  .actions
+    = f.submit 'Save'

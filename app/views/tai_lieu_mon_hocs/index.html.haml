@@ -1,0 +1,29 @@
+%h1 Listing tai_lieu_mon_hocs
+
+%table
+  %tr
+    %th Ma giang vien
+    %th Ma lop
+    %th Ma mon hoc
+    %th Noi dung
+    %th Nam hoc
+    %th Hoc ky
+    %th
+    %th
+    %th
+
+  - @tai_lieu_mon_hocs.each do |tai_lieu_mon_hoc|
+    %tr
+      %td= tai_lieu_mon_hoc.ma_giang_vien
+      %td= tai_lieu_mon_hoc.ma_lop
+      %td= tai_lieu_mon_hoc.ma_mon_hoc
+      %td= tai_lieu_mon_hoc.noi_dung
+      %td= tai_lieu_mon_hoc.nam_hoc
+      %td= tai_lieu_mon_hoc.hoc_ky
+      %td= link_to 'Show', tai_lieu_mon_hoc
+      %td= link_to 'Edit', edit_tai_lieu_mon_hoc_path(tai_lieu_mon_hoc)
+      %td= link_to 'Destroy', tai_lieu_mon_hoc, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Tai lieu mon hoc', new_tai_lieu_mon_hoc_path

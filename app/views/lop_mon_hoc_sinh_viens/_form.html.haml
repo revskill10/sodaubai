@@ -1,0 +1,25 @@
+= form_for @lop_mon_hoc_sinh_vien do |f|
+  - if @lop_mon_hoc_sinh_vien.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@lop_mon_hoc_sinh_vien.errors.count, "error")} prohibited this lop_mon_hoc_sinh_vien from being saved:"
+      %ul
+        - @lop_mon_hoc_sinh_vien.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :ma_sinh_vien
+    = f.text_field :ma_sinh_vien
+  .field
+    = f.label :ma_lop
+    = f.text_field :ma_lop
+  .field
+    = f.label :ma_mon_hoc
+    = f.text_field :ma_mon_hoc
+  .field
+    = f.label :nam_hoc
+    = f.text_field :nam_hoc
+  .field
+    = f.label :hoc_ky
+    = f.text_field :hoc_ky
+  .actions
+    = f.submit 'Save'

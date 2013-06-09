@@ -1,0 +1,36 @@
+%p#notice= notice
+
+%p
+  %b Ma lop:
+  = @lop_mon_hoc.ma_lop
+%p
+  %b Ma giang vien:
+  = @lop_mon_hoc.ma_giang_vien
+%p
+  %b Ma mon hoc:
+  = @lop_mon_hoc.ma_mon_hoc
+%p
+  %b Nam hoc:
+  = @lop_mon_hoc.nam_hoc
+%p
+  %b Hoc ky:
+  = @lop_mon_hoc.hoc_ky
+%p
+  %b So tiet:
+  = @lop_mon_hoc.so_tiet
+%p
+  %b So tuan hoc:
+  = @lop_mon_hoc.so_tuan_hoc
+%p
+  %b Ngay bat dau:
+  = @lop_mon_hoc.ngay_bat_dau
+%p
+  %b Ngay ket thuc:
+  = @lop_mon_hoc.ngay_ket_thuc
+%p
+  %b Phong hoc:
+  = @lop_mon_hoc.phong_hoc
+
+= link_to 'Edit', edit_lop_mon_hoc_path(@lop_mon_hoc)
+\|
+= link_to 'Back', lop_mon_hocs_path

@@ -1,0 +1,21 @@
+%h1 Listing mon_hocs
+
+%table
+  %tr
+    %th Ma mon hoc
+    %th Ten mon
+    %th
+    %th
+    %th
+
+  - @mon_hocs.each do |mon_hoc|
+    %tr
+      %td= mon_hoc.ma_mon_hoc
+      %td= mon_hoc.ten_mon
+      %td= link_to 'Show', mon_hoc
+      %td= link_to 'Edit', edit_mon_hoc_path(mon_hoc)
+      %td= link_to 'Destroy', mon_hoc, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Mon hoc', new_mon_hoc_path

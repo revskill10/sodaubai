@@ -1,0 +1,27 @@
+%h1 Listing lop_mon_hoc_sinh_viens
+
+%table
+  %tr
+    %th Ma sinh vien
+    %th Ma lop
+    %th Ma mon hoc
+    %th Nam hoc
+    %th Hoc ky
+    %th
+    %th
+    %th
+
+  - @lop_mon_hoc_sinh_viens.each do |lop_mon_hoc_sinh_vien|
+    %tr
+      %td= lop_mon_hoc_sinh_vien.ma_sinh_vien
+      %td= lop_mon_hoc_sinh_vien.ma_lop
+      %td= lop_mon_hoc_sinh_vien.ma_mon_hoc
+      %td= lop_mon_hoc_sinh_vien.nam_hoc
+      %td= lop_mon_hoc_sinh_vien.hoc_ky
+      %td= link_to 'Show', lop_mon_hoc_sinh_vien
+      %td= link_to 'Edit', edit_lop_mon_hoc_sinh_vien_path(lop_mon_hoc_sinh_vien)
+      %td= link_to 'Destroy', lop_mon_hoc_sinh_vien, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Lop mon hoc sinh vien', new_lop_mon_hoc_sinh_vien_path

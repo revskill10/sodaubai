@@ -1,0 +1,35 @@
+%h1 Listing sinh_viens
+
+%table
+  %tr
+    %th Ma sinh vien
+    %th Ho dem
+    %th Ten
+    %th Ngay sinh
+    %th Gioi tinh
+    %th Lop hc
+    %th Ma khoa hoc
+    %th Ma he dao tao
+    %th Ma nganh
+    %th
+    %th
+    %th
+
+  - @sinh_viens.each do |sinh_vien|
+    %tr
+      %td= sinh_vien.ma_sinh_vien
+      %td= sinh_vien.ho_dem
+      %td= sinh_vien.ten
+      %td= sinh_vien.ngay_sinh
+      %td= sinh_vien.gioi_tinh
+      %td= sinh_vien.lop_hc
+      %td= sinh_vien.ma_khoa_hoc
+      %td= sinh_vien.ma_he_dao_tao
+      %td= sinh_vien.ma_nganh
+      %td= link_to 'Show', sinh_vien
+      %td= link_to 'Edit', edit_sinh_vien_path(sinh_vien)
+      %td= link_to 'Destroy', sinh_vien, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Sinh vien', new_sinh_vien_path

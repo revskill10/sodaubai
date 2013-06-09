@@ -47,3 +47,4 @@ group :development, :test do
   gem 'guard-spork'
   gem 'wdm'
 end
+gem "haml-rails"

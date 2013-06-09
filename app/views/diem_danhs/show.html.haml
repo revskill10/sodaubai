@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Ma sinh vien:
+  = @diem_danh.ma_sinh_vien
+%p
+  %b Ma lop:
+  = @diem_danh.ma_lop
+%p
+  %b Ma mon hoc:
+  = @diem_danh.ma_mon_hoc
+%p
+  %b Nam hoc:
+  = @diem_danh.nam_hoc
+%p
+  %b Hoc ky:
+  = @diem_danh.hoc_ky
+%p
+  %b Ngay vang:
+  = @diem_danh.ngay_vang
+%p
+  %b So tiet vang:
+  = @diem_danh.so_tiet_vang
+
+= link_to 'Edit', edit_diem_danh_path(@diem_danh)
+\|
+= link_to 'Back', diem_danhs_path
