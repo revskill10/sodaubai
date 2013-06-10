@@ -19,6 +19,10 @@
   %b Ma giang vien:
   = @giang_vien.ma_giang_vien
 
+- @giang_vien.lop_mon_hocs.each do |lop|
+  = link_to lop.ma_lop, lop
+
+%br/
 = link_to 'Edit', edit_giang_vien_path(@giang_vien)
 \|
 = link_to 'Back', giang_viens_path

@@ -3,6 +3,8 @@ class GiangVien < ActiveRecord::Base
   #association
   has_many :lop_mon_hocs, :foreign_key => 'ma_giang_vien', :dependent => :destroy, :primary_key => 'ma_giang_vien'
   has_many :tkb_giang_viens, :foreign_key => 'ma_giang_vien', :dependent => :destroy, :primary_key => 'ma_giang_vien'
+  has_many :lich_trinh_giang_days, :through => :lop_mon_hocs
+  has_many :nghi_days, :foreign_key => 'ma_giang_vien', :dependent => :destroy, :primary_key => 'ma_giang_vien'  
   #validation
   validates :ho_ten, :ma_giang_vien, :presence => true
   validates :ma_giang_vien, :uniqueness => { :case_sensitive => false }

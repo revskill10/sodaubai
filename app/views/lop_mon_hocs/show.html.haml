@@ -30,7 +30,12 @@
 %p
   %b Phong hoc:
   = @lop_mon_hoc.phong_hoc
+%br/
 
+- @lop_mon_hoc.sinh_viens.each do |sv|
+  = link_to sv.ten, sv
+  %br/
+%br/
 = link_to 'Edit', edit_lop_mon_hoc_path(@lop_mon_hoc)
 \|
 = link_to 'Back', lop_mon_hocs_path

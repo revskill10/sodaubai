@@ -47,6 +47,9 @@ group :development, :test do
   gem 'guard-spork'
   gem 'wdm'
   gem 'watchr'
+  gem 'xray-rails'
+  gem 'thin'
+  gem "shoulda-matchers"
 end
 gem "haml-rails"
 gem "simple_form"

@@ -6,4 +6,16 @@ FactoryGirl.define do
 		hoc_ham "GiaoSu"
 		ma_don_vi "DonVi"		
 	end
+	factory :nghi_day do 
+		lop_mon_hoc
+		giang_vien
+		ngay_day DateTime.now
+		phong "C101"
+	end
+	factory :day_thay do 
+		lop_mon_hoc
+		giang_vien
+		ngay_day DateTime.now
+		phong "C102"
+	end
 end

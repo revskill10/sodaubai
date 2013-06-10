@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130609064306) do
+ActiveRecord::Schema.define(:version => 20130609164857) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -233,6 +233,24 @@ ActiveRecord::Schema.define(:version => 20130609064306) do
     t.datetime "thoi_gian"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "tkb_giang_viens", :force => true do |t|
+    t.string   "ma_giang_vien"
+    t.string   "ma_lop"
+    t.string   "ma_mon_hoc"
+    t.string   "phong"
+    t.string   "nam_hoc"
+    t.integer  "hoc_ky"
+    t.integer  "tuan_hoc_bat_dau"
+    t.integer  "so_tuan"
+    t.datetime "ngay_bat_dau"
+    t.datetime "ngay_ket_thuc"
+    t.integer  "so_tiet"
+    t.integer  "tiet_bat_dau"
+    t.integer  "thu"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
 end

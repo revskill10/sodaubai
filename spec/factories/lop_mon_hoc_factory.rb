@@ -17,13 +17,36 @@ FactoryGirl.define do
 	end
 	factory :lop_mon_hoc_sinh_vien do 
 		sinh_vien 
-		lop_mon_hoc
-		mon_hoc
-		nam_hoc "2012-2013"
-		hoc_ky 2
+		lop_mon_hoc		
 	end
 	factory :thong_bao_lop_hoc do
 		lop_mon_hoc
 		sequence(:noi_dung) {|nd| "noi dung #{nd}"}
+	end
+	factory :lich_trinh_giang_day do
+		lop_mon_hoc		
+		ngay_day DateTime.now
+		noi_dung_day "Noi dung ngay hom nay"
+		so_tiet_day 3
+		nhan_xet_buoi_hoc "Tot"
+		phong "C101"
+	end
+	factory :diem_chuyen_can do
+		sinh_vien
+		lop_mon_hoc		
+		diem 8
+	end
+	factory :diem_chi_tiet do
+		sinh_vien
+		lop_mon_hoc
+		diem 8
+		loai_diem "test"
+		lan 3
+	end
+	factory :diem_danh do 
+		sinh_vien
+		lop_mon_hoc
+		sequence(:ngay_vang){|n| DateTime.now + n.weeks }
+		so_tiet_vang 1
 	end
 end
