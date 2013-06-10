@@ -55,3 +55,7 @@ gem "haml-rails"
 gem "simple_form"
 gem "split_datetime"
 gem 'factory_girl_rails'
+gem "devise_cas_authenticatable"
+gem "cancan"
+gem "rails_admin"
+gem "rails_admin-i18n"

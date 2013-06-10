@@ -1,4 +1,12 @@
 Trytest::Application.routes.draw do
+  
+
+  get "dashboard/index"
+   root :to => 'dashboard#index'
+  devise_for :users do
+   get '/users/sign_out' => 'devise/cas_sessions#destroy'
+  end
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   resources :tkb_giang_viens
 
 

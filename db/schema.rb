@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130609164857) do
+ActiveRecord::Schema.define(:version => 20130610234830) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -198,6 +198,19 @@ ActiveRecord::Schema.define(:version => 20130609164857) do
     t.datetime "updated_at",    :null => false
   end
 
+  create_table "rails_admin_histories", :force => true do |t|
+    t.text     "message"
+    t.string   "username"
+    t.integer  "item"
+    t.string   "table"
+    t.integer  "month",      :limit => 2
+    t.integer  "year",       :limit => 5
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
   create_table "sinh_viens", :force => true do |t|
     t.string   "ma_sinh_vien"
     t.string   "ho_dem"
@@ -252,5 +265,26 @@ ActiveRecord::Schema.define(:version => 20130609164857) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
+
+  create_table "users", :force => true do |t|
+    t.string   "username",               :default => "",      :null => false
+    t.string   "encrypted_password",     :default => "",      :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "role",                   :default => "guest", :null => false
+    t.string   "code",                   :default => "",      :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.boolean  "admin",                  :default => false
+  end
+
+  add_index "users", ["code"], :name => "index_users_on_code", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end
