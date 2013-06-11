@@ -2,5 +2,7 @@
 
 FactoryGirl.define do
   factory :user do
+  	username "dungth@hpu.edu.vn"
+  	code "dungth"
   end
 end

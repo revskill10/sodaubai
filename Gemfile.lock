@@ -63,7 +63,7 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
-    ffi (1.8.1-x86-mingw32)
+    ffi (1.9.0-x86-mingw32)
     font-awesome-rails (3.1.1.3)
       railties (>= 3.2, < 5.0)
     formatador (0.2.4)
@@ -176,6 +176,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     remotipart (1.0.5)
+    rolify (3.2.0)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
@@ -252,6 +253,7 @@ DEPENDENCIES
   rails (= 3.2.13)
   rails_admin
   rails_admin-i18n
+  rolify
   rspec-rails
   sass-rails (~> 3.2.3)
   shoulda-matchers
