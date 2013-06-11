@@ -7,8 +7,9 @@ describe LopMonHocSinhVien do
   	sv2 = create(:sinh_vien)
   	enroll1 = create(:lop_mon_hoc_sinh_vien, sinh_vien: sv1, lop_mon_hoc: lop1)
   	enroll2 = create(:lop_mon_hoc_sinh_vien, sinh_vien: sv2, lop_mon_hoc: lop1)
-  	lop1.sinh_viens.should include(sv1)
-  	lop1.sinh_viens.should include(sv2)
-  	enroll1.nam_hoc.should == lop1.nam_hoc
+  	lop1.sinh_viens.should have(2).records
+  	
+  	sv1.lop_mon_hocs.should have(1).records
+  	sv2.lop_mon_hocs.should have(1).records
   end
 end

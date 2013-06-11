@@ -50,6 +50,8 @@ group :development, :test do
   gem 'xray-rails'
   gem 'thin'
   gem "shoulda-matchers"
+  gem "database_cleaner"
+   gem "webrat"
 end
 gem "haml-rails"
 gem "simple_form"

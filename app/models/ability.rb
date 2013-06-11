@@ -8,7 +8,8 @@ class Ability
         can :dashboard
         can :manage, :all
     else
-        can :read, LopMonHoc
+        can :read, LopMonHoc, :ma_lop => LopMonHoc.with_role(:giangvien, user).map(&:ma_lop) 
+        can :read, LopMonHoc, :ma_lop => LopMonHoc.with_role(:sinhvien, user).map(&:ma_lop)
         can :manage, LichTrinhGiangDay, :ma_lop => LopMonHoc.with_role(:giangvien, user).map(&:ma_lop)
     end
     # Define abilities for the passed in user here. For example:

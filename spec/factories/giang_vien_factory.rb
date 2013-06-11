@@ -4,7 +4,7 @@ FactoryGirl.define do
 		sequence(:ho_ten) {|ht| "hoten#{ht}"}
 		hoc_vi "TienSi"
 		hoc_ham "GiaoSu"
-		ma_don_vi "DonVi"		
+		ma_don_vi "DonVi"				
 	end
 	factory :nghi_day do 
 		lop_mon_hoc

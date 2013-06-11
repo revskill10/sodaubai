@@ -55,7 +55,7 @@ Trytest::Application.routes.draw do
   resources :diem_chuyen_cans
 
 
-  resources :lop_mon_hocs
+  resources :lop_mon_hocs, :only => :show
 
 
   resources :giang_viens

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130611023558) do
+ActiveRecord::Schema.define(:version => 20130611030412) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -291,6 +291,8 @@ ActiveRecord::Schema.define(:version => 20130611023558) do
     t.string   "code",                   :default => "", :null => false
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
   end
 
   add_index "users", ["code"], :name => "index_users_on_code", :unique => true
