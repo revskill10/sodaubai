@@ -8,7 +8,7 @@ class SinhVien < ActiveRecord::Base
   delegate :username, :to => :user
   has_one :can_bo_lop, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien'
   has_many :lop_mon_hoc_sinh_viens, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien', :dependent => :destroy
-  has_many :lop_mon_hocs, :through => :lop_mon_hoc_sinh_viens
+  has_many :lop_mon_hocs, :through => :lop_mon_hoc_sinh_viens    
   has_many :diem_chuyen_cans, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien', :dependent => :destroy do 
   	def with_lop(ma_lop)
   		where("diem_chuyen_cans.ma_lop" => ma_lop)

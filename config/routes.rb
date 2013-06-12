@@ -1,6 +1,8 @@
 Trytest::Application.routes.draw do
   
 
+  
+
   get "dashboard/index"
   get "dashboard/access_denied", :as => "access_denied"
    root :to => 'dashboard#index'
@@ -29,6 +31,7 @@ Trytest::Application.routes.draw do
     resources :ra_som_vao_muons
     resources :day_thays
     resources :nghi_days
+    resources :buoihoc, :only => :show
   end
 
   match '*a', :to => 'application#routing'
