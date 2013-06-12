@@ -6,14 +6,16 @@ class User < ActiveRecord::Base
   attr_accessible :username, :code
   devise :cas_authenticatable
   belongs_to :imageable, :polymorphic => true
-  after_create :set_roles
+  delegate :lop_mon_hocs, :to => :imageable
+  
 
 
   def cas_extra_attributes=(extra_attributes)
     if extra_attributes["status"] == 0
     	self.add_role :guest unless self.has_role?(:guest)
     else    	    		 
-        self.remove_role :guest if self.has_role?(:guest)       
+        self.remove_role :guest if self.has_role?(:guest)      
+        self.add_role :normal unless self.has_role?(:normal) 
     		self.code = extra_attributes["masinhvien"]
         svs = SinhVien.where(:ma_sinh_vien => self.code)
         sv = svs.first unless svs.empty?
@@ -24,21 +26,5 @@ class User < ActiveRecord::Base
     end
   end
   
-  protected
-  def set_roles
-    unless self.has_role?(:guest)
-      self.add_role :normal 
-      if self.imageable then 
-        if self.imageable.is_a?(GiangVien) then 
-          self.imageable.lop_mon_hocs.each do |lop|
-            self.add_role(:giangvien, lop)
-          end
-        elsif self.imageable.is_a?(SinhVien) then 
-          self.imageable.lop_mon_hocs.each do |lop|
-            self.add_role(:sinhvien, lop)
-          end
-        end
-      end
-    end
-  end
+  
 end

@@ -34,16 +34,22 @@ describe LopMonHocsController do
       #us2.should_receive(:after_create)
       #lop.roles.map(&:name).should include("giangvien")
       #LopMonHoc.with_role(:giangvien, us2).should include(lop)
-      #LopMonHoc.with_role(:giangvien, @user).should include(lop)
+      #LopMonHoc.with_role(:giangvien, @user).should include(lop)f
       get :show, {:id => lop.id}
       #subject.current_user.username.should == "dungth@hpu.edu.vn"
       #subject.current_user.has_role?(:giangvien, lop).should be_false
       #LopMonHoc.with_role(:giangvien, subject.current_user).map(&:ma_lop).should include(@lops[0].ma_lop)
-      ability = Ability.new(subject.current_user)
+      #subject.current_user.username.should == @user.username
+      #ability = Ability.new(subject.current_user)
+
       #ability.should be_able_to(:read, @lops[0])
-      ability.should be_able_to(:read, lop)
+      #ability.should_not be_able_to(:read, lop)
       #us2.has_role?(:normal).should be_true
-      #response.should redirect_to(dashboard_access_denied_path)
+      response.should redirect_to(root_path)
+    end
+    it "giang vien co quyen xem lop minh" do  
+      get :show, {:id => lop.id}
+
     end
   end
   

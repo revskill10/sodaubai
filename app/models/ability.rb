@@ -7,10 +7,14 @@ class Ability
         can :access, :rails_admin
         can :dashboard
         can :manage, :all
-    elsif user and user.has_role? :normal
-        can :read, LopMonHoc, :id => LopMonHoc.with_role(:giangvien, user).map(&:id)
-        can :read, LopMonHoc, :id => LopMonHoc.with_role(:sinhvien, user).map(&:id)
-        can :manage, LichTrinhGiangDay, :ma_lop => LopMonHoc.with_role(:giangvien, user).map(&:ma_lop)
+    elsif user and user.imageable.is_a?(GiangVien)
+        can :read, LopMonHoc do |lop|
+            user.imageable.lop_mon_hocs.include?(lop)
+        end        
+        can :read, SinhVien, :lop_mon_hocs => {:ma_giang_vien => user.imageable.ma_giang_vien}
+        can :manage, LichTrinhGiangDay do |lich|
+            user.imageable.lop_mon_hocs.include?(lich.lop_mon_hoc)
+        end
     end
     # Define abilities for the passed in user here. For example:
     #
