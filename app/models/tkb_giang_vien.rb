@@ -1,3 +1,4 @@
+require 'active_support/time'
 class TkbGiangVien < ActiveRecord::Base
   include IceCube
   attr_accessible :hoc_ky, :ma_giang_vien, :ma_lop, :ma_mon_hoc, :nam_hoc, :ngay_bat_dau, :ngay_ket_thuc, :phong, :so_tiet, :so_tuan, :thu, :tiet_bat_dau, :tuan_hoc_bat_dau
@@ -15,7 +16,7 @@ class TkbGiangVien < ActiveRecord::Base
   THU = {2 => :monday, 3 => :tuesday, 4 => :wednesday, 5 => :thursday, 6 => :friday, 7 => :saturday, 8 => :sunday}
   def schedule
     new_schedule = Schedule.new(ngay_bat_dau)
-    new_schedule.add_recurrence_rule(Rule.weekly.day(THU[thu]).hour_of_day(TIET[tiet_bat_dau][0]).minute_of_hour(TIET[tiet_bat_dau[1]]).second_of_minute(0).until(ngay_ket_thuc))    
+    new_schedule.add_recurrence_rule(Rule.daily.day(THU[thu]).hour_of_day(TIET[tiet_bat_dau][0]).minute_of_hour(TIET[tiet_bat_dau][1]).second_of_minute(0).until(ngay_ket_thuc))    
     new_schedule
   end
 end
