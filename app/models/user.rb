@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
         svs = SinhVien.where(:ma_sinh_vien => self.code)
         sv = svs.first unless svs.empty?
         gvs = GiangVien.where(:ma_giang_vien => self.code)
-        gv = gvs.first unless gvs
+        gv = gvs.first unless gvs.empty?
         self.imageable = sv if sv
         self.imageable = gv if gv
     end

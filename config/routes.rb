@@ -2,6 +2,7 @@ Trytest::Application.routes.draw do
   
 
   get "dashboard/index"
+  get "dashboard/access_denied", :as => "access_denied"
    root :to => 'dashboard#index'
   devise_for :users do
    get '/users/sign_out' => 'devise/cas_sessions#destroy'

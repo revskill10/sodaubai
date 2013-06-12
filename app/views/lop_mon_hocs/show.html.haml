@@ -2,7 +2,7 @@
 
 %p
   %b Ma lop:
-  = @lop_mon_hoc.ma_lop
+  = link_to @lop_mon_hoc.ma_lop, @lop_mon_hoc
 
 
 - @lop_mon_hoc.sinh_viens.each do |sv|
@@ -10,6 +10,6 @@
   = sv.ten unless sv.user
   %br/
 %br/
-= link_to 'Edit', edit_lop_mon_hoc_path(@lop_mon_hoc)
+
 \|
-= link_to 'Back', lop_mon_hocs_path
+= link_to 'Back', root_path
