@@ -1,73 +1,42 @@
 class DiemDanhsController < ApplicationController
-  # GET /diem_danhs
-  # GET /diem_danhs.json
-  def index
-    @diem_danhs = DiemDanh.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @diem_danhs }
-    end
-  end
-
-  # GET /diem_danhs/1
-  # GET /diem_danhs/1.json
-  def show
-    @diem_danh = DiemDanh.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @diem_danh }
-    end
-  end
-
-  # GET /diem_danhs/new
-  # GET /diem_danhs/new.json
-  def new
-    @diem_danh = DiemDanh.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @diem_danh }
-    end
-  end
-
-  # GET /diem_danhs/1/edit
-  def edit
-    @diem_danh = DiemDanh.find(params[:id])
-  end
-
+  
+  before_filter :load_lop
   # POST /diem_danhs
   # POST /diem_danhs.json
   def create
-    @diem_danh = DiemDanh.new(params[:diem_danh])
-
-    respond_to do |format|
-      if @diem_danh.save
-        format.html { redirect_to @diem_danh, notice: 'Diem danh was successfully created.' }
-        format.json { render json: @diem_danh, status: :created, location: @diem_danh }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @diem_danh.errors, status: :unprocessable_entity }
+    @diem_danh2 = DiemDanh.by_lop_sinhvien_ngay(params[:lop_mon_hoc_id],
+      params[:ma_sinh_vien], params[:ngay_vang])
+    @diem_danh = DiemDanh.new(params[:diem_danh]) if @diem_danh2.empty?
+    @current_diemdanh = @diem_danh if @diem_danh 
+    @current_diemdanh = @diem_danh2.first unless @diem_danh2.empty?
+    if @diem_danh 
+      respond_to do |format|
+        if @current_diemdanh.save
+          format.html { redirect_to @lop_mon_hoc, notice: 'Diem danh was successfully created.' }
+          format.json { render json: @current_diemdanh, status: :created, location: @lop_mon_hoc }
+          format.js
+        else
+          format.html { render action: "new" }
+          format.json { render json: @current_diemdanh.errors, status: :unprocessable_entity }
+          format.js
+        end
+      end
+    elsif @diem_danh2.first
+      respond_to do |format|
+        if @current_diemdanh.update_attributes(params[:diem_danh])
+          format.html { redirect_to @lop_mon_hoc, notice: 'Diem danh was successfully created.' }
+          format.json { render json: @current_diemdanh, status: :created, location: @lop_mon_hoc }
+          format.js
+        else
+          format.html { render action: "new" }
+          format.json { render json: @current_diemdanh.errors, status: :unprocessable_entity }
+          format.js
+        end
       end
     end
   end
 
-  # PUT /diem_danhs/1
-  # PUT /diem_danhs/1.json
-  def update
-    @diem_danh = DiemDanh.find(params[:id])
-
-    respond_to do |format|
-      if @diem_danh.update_attributes(params[:diem_danh])
-        format.html { redirect_to @diem_danh, notice: 'Diem danh was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @diem_danh.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  
 
   # DELETE /diem_danhs/1
   # DELETE /diem_danhs/1.json
@@ -79,5 +48,10 @@ class DiemDanhsController < ApplicationController
       format.html { redirect_to diem_danhs_url }
       format.json { head :no_content }
     end
+  end
+
+  protected
+  def load_lop
+    @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])
   end
 end

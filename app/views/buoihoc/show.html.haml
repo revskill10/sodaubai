@@ -1,15 +1,26 @@
-%h1 Buoihoc
+%h1 Buoihoc "#{@ngay}"
 %h2 Sinh vien vang
 
-- @svs.each do |sv|
-  = sv.ma_sinh_vien
-  %br
+%div{:id => "status"}
 
-= form_for [@lop_mon_hoc, DiemDanh.new], :url => {:controller => "diem_danhs" ,:action => "create"}, :remote => true do |f|
-  = f.hidden_field :ngay_vang, {:value => @ngay.strftime("%Y-%m-%d")}
-  = f.text_field :so_tiet_vang
-  = f.collection_select  :sinh_vien, @svs, :ma_sinh_vien, :ten , :html => {:id => "msv"}
-  = f.submit "Create"
+= form_tag diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay), :method => :post, :remote => true do 
+  %table
+    %thead
+      %td Ma Sinh Vien
+      %td Ho va ten
+      %td So tiet vang    
+    %tbody
+      - @svs.each do |sv|
+        %tr
+          %td= sv.ma_sinh_vien
+          %td= sv.fullname
+          %td= text_field_tag sv.ma_sinh_vien, sv.ma_sinh_vien, :value => sv.thong_tin_diem_danh(@malop, @ngay) 
 
-%div{:id => "svvang"}
+  = submit_tag "Update"                
+
+
+        
+
+
+      
 

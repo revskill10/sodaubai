@@ -17,6 +17,18 @@ class SinhVien < ActiveRecord::Base
   has_many :diem_danhs, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien', :dependent => :destroy do 
   	def with_lop(ma_lop)
   		where("diem_danhs.ma_lop" => ma_lop)
-  	end
+  	end    
   end
+  def thong_tin_diem_danh(ma_lop, ngay_vang)
+    res  = DiemDanh.by_lop_sinhvien_ngay(ma_lop, self.ma_sinh_vien, ngay_vang)
+    if res.empty? then return  0 
+    else return res.first.so_tiet_vang end
+  end
+  def fullname
+    if self.ho_dem
+      self.ho_dem + self.ten 
+    else
+      self.ten
+    end
+  end 
 end

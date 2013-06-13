@@ -31,7 +31,11 @@ Trytest::Application.routes.draw do
     resources :ra_som_vao_muons
     resources :day_thays
     resources :nghi_days
-    resources :buoihoc, :only => :show
+    resources :buoihoc, :only => :show do 
+      member do
+        post 'diemdanh'
+      end
+    end
   end
 
   match '*a', :to => 'application#routing'
