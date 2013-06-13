@@ -31,6 +31,6 @@ class BuoihocController < ApplicationController
   	@lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])  	
     @ngay = DateTime.strptime(params[:id], "%Y-%m-%d")
     @malop = @lop_mon_hoc.ma_lop
-    @svs = @lop_mon_hoc.sinh_viens
+    @svs = @lop_mon_hoc.sinh_viens.paginate(:page => params[:page], :per_page => 5)
   end
 end

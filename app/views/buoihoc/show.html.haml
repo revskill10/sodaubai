@@ -1,9 +1,8 @@
-%h1 Buoihoc "#{@ngay}"
 %h2 Sinh vien vang
 
-%div{:id => "status"}
+%span{:class => "success"} abc
 
-= form_tag diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay), :method => :post, :remote => true do 
+= form_tag diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay), :method => :post, :remote => true, :class => "table table-bordered table-hover" do 
   %table
     %thead
       %td Ma Sinh Vien
@@ -15,8 +14,9 @@
           %td= sv.ma_sinh_vien
           %td= sv.fullname
           %td= text_field_tag sv.ma_sinh_vien, sv.ma_sinh_vien, :value => sv.thong_tin_diem_danh(@malop, @ngay) 
+= will_paginate @svs, renderer: BootstrapPagination::Rails
 
-  = submit_tag "Update"                
+= submit_tag "Update", :class => "btn btn-primary"               
 
 
         
