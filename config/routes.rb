@@ -1,6 +1,8 @@
 Trytest::Application.routes.draw do
   
 
+  
+
   get "dashboard/index"
   get "dashboard/access_denied", :as => "access_denied"
    root :to => 'dashboard#index'
@@ -10,59 +12,38 @@ Trytest::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   resources :tkb_giang_viens
 
-
-  resources :nhat_kies
-
-
-  resources :ra_som_vao_muons
-
-
-  resources :kien_nghis
-
-
-  resources :dang_ky_day_bus
-
-
-  resources :tai_lieu_mon_hocs
-
-
-  resources :thong_bao_lop_hocs
-
-
+  resources :giang_viens
   resources :mon_hocs
 
+  resources :lop_mon_hocs, :only => :show do 
+    resources :sinh_viens, :only => :index
+    resources :diem_danhs
+    resources :diem_chi_tiets
+    resources :lich_trinh_giang_days
+    resources :diem_chuyen_cans
+    resources :lop_mon_hoc_sinh_viens
+    resources :can_bo_lops
+    resources :tai_lieu_mon_hocs
+    resources :thong_bao_lop_hocs
+    resources :dang_ky_day_bus
+    resources :kien_nghis
+    resources :nhat_kies
+    resources :ra_som_vao_muons
+    resources :day_thays
+    resources :nghi_days
+    resources :buoihoc, :only => :show do 
+      member do
+        post 'diemdanh'
+      end
+    end
+  end
 
-  resources :can_bo_lops
+  match '*a', :to => 'application#routing'
 
-
-  resources :lop_mon_hoc_sinh_viens
-
-
-  resources :day_thays
-
-
-  resources :nghi_days
-
-
-  resources :diem_chi_tiets
-
-
-  resources :diem_danhs
-
-
-  resources :lich_trinh_giang_days
-
-
-  resources :diem_chuyen_cans
-
-
-  resources :lop_mon_hocs, :only => :show
-
-
-  resources :giang_viens
+  
 
 
-  resources :sinh_viens
+  
 
 
   # The priority is based upon order of creation:

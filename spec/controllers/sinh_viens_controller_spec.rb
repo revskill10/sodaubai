@@ -23,138 +23,17 @@ describe SinhViensController do
   # This should return the minimal set of attributes required to create a valid
   # SinhVien. As you add validations to SinhVien, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "ma_sinh_vien" => "MyString" } }
+  context "Giang vien dang nhap" do 
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # SinhViensController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+    login_gv
 
-  describe "GET index" do
-    it "assigns all sinh_viens as @sinh_viens" do
-      sinh_vien = SinhVien.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:sinh_viens).should eq([sinh_vien])
-    end
-  end
-
-  describe "GET show" do
-    it "assigns the requested sinh_vien as @sinh_vien" do
-      sinh_vien = SinhVien.create! valid_attributes
-      get :show, {:id => sinh_vien.to_param}, valid_session
-      assigns(:sinh_vien).should eq(sinh_vien)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new sinh_vien as @sinh_vien" do
-      get :new, {}, valid_session
-      assigns(:sinh_vien).should be_a_new(SinhVien)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested sinh_vien as @sinh_vien" do
-      sinh_vien = SinhVien.create! valid_attributes
-      get :edit, {:id => sinh_vien.to_param}, valid_session
-      assigns(:sinh_vien).should eq(sinh_vien)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new SinhVien" do
-        expect {
-          post :create, {:sinh_vien => valid_attributes}, valid_session
-        }.to change(SinhVien, :count).by(1)
-      end
-
-      it "assigns a newly created sinh_vien as @sinh_vien" do
-        post :create, {:sinh_vien => valid_attributes}, valid_session
-        assigns(:sinh_vien).should be_a(SinhVien)
-        assigns(:sinh_vien).should be_persisted
-      end
-
-      it "redirects to the created sinh_vien" do
-        post :create, {:sinh_vien => valid_attributes}, valid_session
-        response.should redirect_to(SinhVien.last)
+    describe "giang vien co quyen xem danh sach sinh vien lop ho" do
+      it "assigns all sinh_viens as @sinh_viens" do        
+        get :index, :lop_mon_hoc_id => @lops[0].id
+        assigns(:sinh_viens).should == @lops[0].sinh_viens
       end
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved sinh_vien as @sinh_vien" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        SinhVien.any_instance.stub(:save).and_return(false)
-        post :create, {:sinh_vien => { "ma_sinh_vien" => "invalid value" }}, valid_session
-        assigns(:sinh_vien).should be_a_new(SinhVien)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        SinhVien.any_instance.stub(:save).and_return(false)
-        post :create, {:sinh_vien => { "ma_sinh_vien" => "invalid value" }}, valid_session
-        response.should render_template("new")
-      end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested sinh_vien" do
-        sinh_vien = SinhVien.create! valid_attributes
-        # Assuming there are no other sinh_viens in the database, this
-        # specifies that the SinhVien created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        SinhVien.any_instance.should_receive(:update_attributes).with({ "ma_sinh_vien" => "MyString" })
-        put :update, {:id => sinh_vien.to_param, :sinh_vien => { "ma_sinh_vien" => "MyString" }}, valid_session
-      end
-
-      it "assigns the requested sinh_vien as @sinh_vien" do
-        sinh_vien = SinhVien.create! valid_attributes
-        put :update, {:id => sinh_vien.to_param, :sinh_vien => valid_attributes}, valid_session
-        assigns(:sinh_vien).should eq(sinh_vien)
-      end
-
-      it "redirects to the sinh_vien" do
-        sinh_vien = SinhVien.create! valid_attributes
-        put :update, {:id => sinh_vien.to_param, :sinh_vien => valid_attributes}, valid_session
-        response.should redirect_to(sinh_vien)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the sinh_vien as @sinh_vien" do
-        sinh_vien = SinhVien.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        SinhVien.any_instance.stub(:save).and_return(false)
-        put :update, {:id => sinh_vien.to_param, :sinh_vien => { "ma_sinh_vien" => "invalid value" }}, valid_session
-        assigns(:sinh_vien).should eq(sinh_vien)
-      end
-
-      it "re-renders the 'edit' template" do
-        sinh_vien = SinhVien.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        SinhVien.any_instance.stub(:save).and_return(false)
-        put :update, {:id => sinh_vien.to_param, :sinh_vien => { "ma_sinh_vien" => "invalid value" }}, valid_session
-        response.should render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested sinh_vien" do
-      sinh_vien = SinhVien.create! valid_attributes
-      expect {
-        delete :destroy, {:id => sinh_vien.to_param}, valid_session
-      }.to change(SinhVien, :count).by(-1)
-    end
-
-    it "redirects to the sinh_viens list" do
-      sinh_vien = SinhVien.create! valid_attributes
-      delete :destroy, {:id => sinh_vien.to_param}, valid_session
-      response.should redirect_to(sinh_viens_url)
-    end
   end
 
 end

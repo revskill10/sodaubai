@@ -26,7 +26,6 @@ describe GiangVien do
       	lich = create(:lich_trinh_giang_day, lop_mon_hoc: lop)
       	ability = Ability.new(user)
       	ability.should_not be_able_to(:manage, lich)      
-    end
-
+    end    
   end
 end

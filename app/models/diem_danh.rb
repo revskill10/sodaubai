@@ -8,9 +8,11 @@ class DiemDanh < ActiveRecord::Base
   validates :ma_lop, :ma_sinh_vien, :presence => true  
   validate :check_membership
 
-
+  after_save :set_default
   before_create :set_tiet_vang
-  
+  scope :by_lop_sinhvien_ngay, lambda {|ma_lop,ma_sinh_vien, ngay_vang| 
+    where(:ma_lop=>ma_lop).where(:ma_sinh_vien=>ma_sinh_vien).where(:ngay_vang => Time.zone.parse(ngay_vang.to_s))
+}
   
 
   
