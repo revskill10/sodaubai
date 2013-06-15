@@ -4,10 +4,22 @@
   %b Ma lop:
   = link_to @lop_mon_hoc.ma_lop, @lop_mon_hoc
 
-%h2 Lich Hoc:
-- @lichs.each do |lich|
-  = link_to lich.strftime("%Y-%m-%d"), lop_mon_hoc_buoihoc_path(@lop_mon_hoc, lich.strftime("%Y-%m-%d"))
-  %br
+
+
+  
+%table{:class => "table"}
+  %thead
+  - @lichs.each do |lich|
+    %td= lich[:thu]
+  %tbody
+  - @lichs.each do |lich|
+    - lich[:lich].each do |li|
+      %tr      
+        %td= link_to li.strftime("%Y-%m-%d"), lop_mon_hoc_buoihoc_path(@lop_mon_hoc,li.strftime("%Y-%m-%d"))
+  %br/
+  	        
+  
+%br/
 
 - @lop_mon_hoc.sinh_viens.each do |sv|
   = link_to sv.username, sv if sv.user

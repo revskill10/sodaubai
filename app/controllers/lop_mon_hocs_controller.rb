@@ -7,7 +7,7 @@ class LopMonHocsController < ApplicationController
   def show
     @lop_mon_hoc = LopMonHoc.find(params[:id])
     authorize! :read, @lop_mon_hoc
-    @lichs = @lop_mon_hoc.tkb_giang_viens.with_giang_vien(@lop_mon_hoc.ma_giang_vien).first.schedule.all_occurrences
+    @lichs = @lop_mon_hoc.tkb_giang_viens.map {|l| {:thu => l.thu.to_s, :lich => l.schedule.all_occurrences} }
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @lop_mon_hoc }

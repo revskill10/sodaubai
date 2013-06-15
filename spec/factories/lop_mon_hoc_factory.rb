@@ -1,30 +1,33 @@
 FactoryGirl.define do 
 	factory :mon_hoc do 
-		sequence(:ma_mon_hoc) {|mmh| "monhoc#{mmh}"}
+		sequence(:ma_mon_hoc) {|mmh| "mamon#{mmh}"}
 		sequence(:ten_mon) {|ten| "tenmon#{ten}"}
 	end
 	factory :lop_mon_hoc do 
 		giang_vien
-		mon_hoc
+		sequence(:ma_mon_hoc) { |m| "mamon#{m}"}
 		nam_hoc "2012-2013"
 		hoc_ky 2
 		so_tiet 3
 		so_tuan_hoc 13
 		ngay_bat_dau Time.now
 		ngay_ket_thuc Time.now + 3.weeks
-		phong_hoc "C101"
+		sequence(:phong_hoc) { |phong|  "phong#{phong}" }
 		sequence(:ma_lop) {|ml| "malop#{ml}"}
 	end
 	factory :lop_mon_hoc_sinh_vien do 
-		sinh_vien 
-		lop_mon_hoc		
+		sinh_vien
+		lop_mon_hoc
+		sequence(:ma_mon_hoc) { |m| "mamon#{m}"}		
 	end
 	factory :thong_bao_lop_hoc do
 		lop_mon_hoc
+		sequence(:ma_mon_hoc) { |m| "mamon#{m}"}
 		sequence(:noi_dung) {|nd| "noi dung #{nd}"}
 	end
 	factory :lich_trinh_giang_day do
-		lop_mon_hoc		
+		lop_mon_hoc	
+		sequence(:ma_mon_hoc) { |m| "mamon#{m}"}	
 		ngay_day DateTime.now
 		noi_dung_day "Noi dung ngay hom nay"
 		so_tiet_day 3
@@ -33,11 +36,13 @@ FactoryGirl.define do
 	end
 	factory :diem_chuyen_can do
 		sinh_vien
+		sequence(:ma_mon_hoc) { |m| "mamon#{m}"}
 		lop_mon_hoc		
 		diem 8
 	end
 	factory :diem_chi_tiet do
 		sinh_vien
+		sequence(:ma_mon_hoc) { |m| "mamon#{m}"}
 		lop_mon_hoc
 		diem 8
 		loai_diem "test"
@@ -46,6 +51,7 @@ FactoryGirl.define do
 	factory :diem_danh do 
 		sinh_vien
 		lop_mon_hoc
+		sequence(:ma_mon_hoc) { |m| "mamon#{m}"}
 		sequence(:ngay_vang){|n| DateTime.now + n.weeks }
 		so_tiet_vang 1
 	end
