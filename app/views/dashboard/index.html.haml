@@ -1,4 +1,13 @@
 %h1 Lops
-%ul
-- @current_lops.each do |lop|
-	%li= link_to lop.ma_lop, lop
+
+%table{:class => "table"}
+  %thead
+    %td Ma Lop
+    %td Ma Mon     
+    %td ID 
+  %tbody
+    - @current_lops.each do |lop|
+      %tr
+        %td= lop.ma_lop
+        %td= lop.ma_mon_hoc
+        %td= link_to lop.id, lop          

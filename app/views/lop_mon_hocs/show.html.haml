@@ -3,11 +3,27 @@
 %p
   %b Ma lop:
   = link_to @lop_mon_hoc.ma_lop, @lop_mon_hoc
+  = "(Tuan: #{@tuan_bat_dau} - #{@tuan_ket_thuc})"
 
-%h2 Lich Hoc:
-- @lichs.each do |lich|
-  = link_to lich.strftime("%Y-%m-%d"), lop_mon_hoc_buoihoc_path(@lop_mon_hoc, lich.strftime("%Y-%m-%d"))
-  %br
+
+%h2= @current_day.inspect
+  
+%table{:class => "table table-bordered"}
+  %thead
+  - if @lichs2.empty? == false and @lichs2[0].empty? == false
+    %td Week
+    - @lichs2[0].each do |lich|
+      %td= TkbGiangVien::THU[lich.wday+1]
+    %tbody
+    - @lichs2.each_with_index do |lich, id|      
+      %tr{:class => ("success" if is_today?(lich))}
+        %td= id+ @tuan_bat_dau
+        - lich.each do |li|          
+          %td{:class =>("hputoday" if li and li.to_date === @current_day)}= link_to li.strftime("%Y-%m-%d"), lop_mon_hoc_buoihoc_path(@lop_mon_hoc,li.strftime("%Y-%m-%d")) if li
+  %br/
+  	        
+  
+%br/
 
 - @lop_mon_hoc.sinh_viens.each do |sv|
   = link_to sv.username, sv if sv.user

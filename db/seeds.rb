@@ -7,14 +7,26 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'factory_girl_rails'
 
+mon = FactoryGirl.create(:mon_hoc, ma_mon_hoc: "monhoc1")
+mon2 = FactoryGirl.create(:mon_hoc, ma_mon_hoc: "monhoc2")
 gv = FactoryGirl.create(:giang_vien, ma_giang_vien: "dungth")
-gv2 = FactoryGirl.create(:giang_vien, ma_giang_vien: "dungth2")
 svs = FactoryGirl.create_list(:sinh_vien, 10)
 
-lop1 = FactoryGirl.create(:lop_mon_hoc, giang_vien: gv)
+lop1 = FactoryGirl.create(:lop_mon_hoc, ma_mon_hoc: mon.ma_mon_hoc, giang_vien: gv)
 svs.each do |sv|
-	FactoryGirl.create(:lop_mon_hoc_sinh_vien, lop_mon_hoc: lop1, sinh_vien: sv)
+	FactoryGirl.create(:lop_mon_hoc_sinh_vien, lop_mon_hoc: lop1, ma_mon_hoc: mon.ma_mon_hoc, sinh_vien: sv)
 end
-lop2 = FactoryGirl.create(:lop_mon_hoc, giang_vien: gv)
-tkbgv = FactoryGirl.create(:tkb_giang_vien, giang_vien: gv, lop_mon_hoc: lop1, ngay_bat_dau: "2013-02-09", ngay_ket_thuc: "2013-06-09")
-tkbgv2 = FactoryGirl.create(:tkb_giang_vien, giang_vien: gv, lop_mon_hoc: lop2, ngay_bat_dau: "2013-03-10", ngay_ket_thuc: "2013-09-10", tiet_bat_dau: 4, thu: 4)
+tkbs = FactoryGirl.create_list(:tkb_giang_vien, 3, giang_vien: gv, 
+	lop_mon_hoc: lop1, ma_mon_hoc: mon.ma_mon_hoc
+	)
+
+svs2 = FactoryGirl.create_list(:sinh_vien, 10)
+lop2 = FactoryGirl.create(:lop_mon_hoc, ma_mon_hoc: mon2.ma_mon_hoc, giang_vien: gv)
+svs2.each do |sv|
+	FactoryGirl.create(:lop_mon_hoc_sinh_vien, lop_mon_hoc: lop2, ma_mon_hoc: mon2.ma_mon_hoc, sinh_vien: sv)
+end
+tkbs2 = FactoryGirl.create_list(:tkb_giang_vien, 3, giang_vien: gv, 
+	lop_mon_hoc: lop2, ma_mon_hoc: mon2.ma_mon_hoc, tuan_hoc_bat_dau: 33, so_tuan: 10,
+	ngay_bat_dau: Date.strptime("2013-09-09","%Y-%m-%d") ,
+	ngay_ket_thuc: Date.strptime("2013-12-09","%Y-%m-%d") 
+	)

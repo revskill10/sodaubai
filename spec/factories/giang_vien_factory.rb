@@ -8,12 +8,14 @@ FactoryGirl.define do
 	end
 	factory :nghi_day do 
 		lop_mon_hoc
+		sequence(:ma_mon_hoc) { |m| "mamon#{m}"}
 		giang_vien
 		ngay_day DateTime.now
 		phong "C101"
 	end
 	factory :day_thay do 
 		lop_mon_hoc
+		sequence(:ma_mon_hoc) { |m| "mamon#{m}"}
 		giang_vien
 		ngay_day DateTime.now
 		phong "C102"
