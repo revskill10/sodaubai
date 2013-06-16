@@ -45,6 +45,8 @@ group :development, :test do
   gem 'guard-bundler'
   gem 'guard-rspec'
   gem 'guard-spork'
+  gem 'rb-notifu'
+  gem 'win32console'
   gem 'wdm'
   gem 'watchr'
   gem 'xray-rails'
