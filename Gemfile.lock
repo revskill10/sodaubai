@@ -1,3 +1,14 @@
+GIT
+  remote: git://github.com/jnicklas/capybara.git
+  revision: 89ba2c6ecc8666e5a4d6a8b61d69968d04a71bc9
+  specs:
+    capybara (2.1.0)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -28,7 +39,9 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
+    addressable (2.3.4)
     arel (3.0.2)
+    bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-x86-mingw32)
     bootstrap-sass (2.3.1.3)
       sass (~> 3.2)
@@ -56,6 +69,7 @@ GEM
       rubycas-client (>= 2.2.1)
     diff-lcs (1.2.4)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     eventmachine (1.0.3-x86-mingw32)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -64,6 +78,7 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    ffi (1.9.0)
     ffi (1.9.0-x86-mingw32)
     font-awesome-rails (3.1.1.3)
       railties (>= 3.2, < 5.0)
@@ -106,6 +121,8 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    launchy (2.3.0)
+      addressable (~> 2.3)
     listen (1.1.6)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -119,10 +136,16 @@ GEM
     mini_portile (0.5.0)
     multi_json (1.7.6)
     nested_form (0.3.2)
+    nokogiri (1.6.0)
+      mini_portile (~> 0.5.0)
     nokogiri (1.6.0-x86-mingw32)
       mini_portile (~> 0.5.0)
     orm_adapter (0.4.0)
     polyglot (0.3.3)
+    pry (0.9.12.2)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
     pry (0.9.12.2-x86-mingw32)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -216,6 +239,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    sqlite3 (1.3.7)
     sqlite3 (1.3.7-x86-mingw32)
     thin (1.5.1)
       daemons (>= 1.0.9)
@@ -246,7 +270,10 @@ GEM
     will_paginate (3.0.4)
     will_paginate-bootstrap (0.2.3)
       will_paginate (>= 3.0.3)
+    win32console (1.3.2)
     win32console (1.3.2-x86-mingw32)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
     xray-rails (0.1.5)
       coffee-rails
       rails (>= 3.1.0)
@@ -256,6 +283,7 @@ PLATFORMS
 
 DEPENDENCIES
   cancan
+  capybara!
   coffee-rails (~> 3.2.1)
   database_cleaner
   devise_cas_authenticatable
@@ -267,6 +295,7 @@ DEPENDENCIES
   haml-rails
   ice_cube
   jquery-rails
+  launchy
   rails (= 3.2.13)
   rails_admin
   rails_admin-i18n

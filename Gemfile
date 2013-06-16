@@ -54,6 +54,8 @@ group :development, :test do
   gem "shoulda-matchers"
   gem "database_cleaner"
    gem "webrat"
+   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
+   gem 'launchy'
 end
 gem "haml-rails"
 gem "simple_form"
