@@ -3,8 +3,8 @@ class GiangVien < ActiveRecord::Base
   #association
   has_many :lop_mon_hocs, :foreign_key => 'ma_giang_vien', :dependent => :destroy, :primary_key => 'ma_giang_vien'
   has_many :tkb_giang_viens, :foreign_key => 'ma_giang_vien', :dependent => :destroy, :primary_key => 'ma_giang_vien' do 
-    def with_lop(ma_lop)
-      where("tkb_giang_viens.ma_lop" => ma_lop)
+    def with_lop(ma_lop, ma_mon)
+      where("tkb_giang_viens.ma_lop = ? and tkb_giang_viens.ma_mon_hoc = ?", ma_lop, ma_mon)
     end
   end
 

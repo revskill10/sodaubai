@@ -36,7 +36,7 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
-group :development, :test do
+group :development, :test do   
   gem 'rspec-rails'  
   gem 'spork'
   # Guard
