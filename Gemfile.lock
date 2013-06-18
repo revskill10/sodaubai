@@ -36,6 +36,15 @@ GEM
     cancan (1.6.10)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
+    ckeditor (4.0.4)
+      mime-types
+      orm_adapter
+    ckeditor_rails (4.1.2)
+      railties (>= 3.0)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.1)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -122,6 +131,12 @@ GEM
     nokogiri (1.6.0-x86-mingw32)
       mini_portile (~> 0.5.0)
     orm_adapter (0.4.0)
+    paperclip (3.4.2)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.0)
+      mime-types
     polyglot (0.3.3)
     pry (0.9.12.2-x86-mingw32)
       coderay (~> 1.0.5)
@@ -255,6 +270,8 @@ PLATFORMS
 
 DEPENDENCIES
   cancan
+  ckeditor
+  ckeditor_rails
   coffee-rails (~> 3.2.1)
   database_cleaner
   devise_cas_authenticatable
@@ -266,6 +283,7 @@ DEPENDENCIES
   haml-rails
   ice_cube
   jquery-rails
+  paperclip (~> 3.0)
   rails (= 3.2.13)
   rails_admin
   rails_admin-i18n

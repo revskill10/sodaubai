@@ -3,6 +3,8 @@ Trytest::Application.routes.draw do
 
   
 
+  mount Ckeditor::Engine => '/ckeditor'
+
   get "dashboard/index"
   get "dashboard/access_denied", :as => "access_denied"
    root :to => 'dashboard#index'
