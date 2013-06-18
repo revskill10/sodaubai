@@ -19,4 +19,9 @@ class TkbGiangVien < ActiveRecord::Base
     new_schedule.add_recurrence_rule(Rule.daily.day(THU[thu]).hour_of_day(TIET[tiet_bat_dau][0]).minute_of_hour(TIET[tiet_bat_dau][1]).second_of_minute(0).until(ngay_ket_thuc))    
     new_schedule
   end
+  def get_days
+    x = schedule.all_occurrences
+    y = x.each_slice(x.count/so_tuan).to_a
+    z = y.each_with_index.map {|m,t| {:tuan => tuan_hoc_bat_dau + t, :time => m, :lop => lop_mon_hoc}}    
+  end
 end
