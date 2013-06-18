@@ -6,6 +6,9 @@ class GiangVien < ActiveRecord::Base
     def with_lop(ma_lop, ma_mon)
       where("tkb_giang_viens.ma_lop = ? and tkb_giang_viens.ma_mon_hoc = ?", ma_lop, ma_mon)
     end
+    def tuans
+      group(:tuan_hoc_bat_dau).count
+    end
   end
 
   has_many :lich_trinh_giang_days, :through => :lop_mon_hocs
