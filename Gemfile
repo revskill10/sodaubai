@@ -68,5 +68,6 @@ gem "rails_admin-i18n"
 gem "rolify"
 gem "ice_cube"
 gem "twitter-bootstrap-rails"
+gem 'kaminari'
 gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
