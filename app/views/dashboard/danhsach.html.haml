@@ -1,0 +1,30 @@
+%h1 Lops
+
+
+%table{:class => "table"}
+  %thead
+    %td Ma Lop
+    %td Ma Mon     
+    %td ID 
+  %tbody
+    - @current_lops.each do |lop|
+      %tr
+        %td= lop.ma_lop
+        %td= lop.ma_mon_hoc
+        %td= link_to lop.id, lop     
+
+-@g4.each do |k,v|
+  %p= k
+  %table{:class => "table table-bordered"}
+    %thead        
+      %tbody              
+      - v.each do |li|          
+        %tr
+        - li.each do |lii|            
+          %td= link_to lii[:lich].strftime("%Y-%m-%d-%H-%M"), lop_mon_hoc_buoihoc_path(lii[:lop],lii[:lich].strftime("%Y-%m-%d-%H-%M")) if lii
+
+
+
+%div{:id => "bb"}
+
+  

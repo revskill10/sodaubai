@@ -1,31 +1,18 @@
-= form_for @thong_bao_lop_hoc do |f|
+= form_for [@lop_mon_hoc,@thong_bao_lop_hoc], :html => { :multipart => true } do |f|
   - if @thong_bao_lop_hoc.errors.any?
     #error_explanation
       %h2= "#{pluralize(@thong_bao_lop_hoc.errors.count, "error")} prohibited this thong_bao_lop_hoc from being saved:"
       %ul
         - @thong_bao_lop_hoc.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :ma_giang_vien
-    = f.text_field :ma_giang_vien
-  .field
-    = f.label :ma_lop
-    = f.text_field :ma_lop
-  .field
-    = f.label :ma_mon_hoc
-    = f.text_field :ma_mon_hoc
+ 
   .field
     = f.label :noi_dung
-    = f.text_area :noi_dung
+    = f.text_area :noi_dung, :class => 'ckeditor' 
+  
   .field
-    = f.label :nam_hoc
-    = f.text_field :nam_hoc
-  .field
-    = f.label :hoc_ky
-    = f.number_field :hoc_ky
-  .field
-    = f.label :thoi_gian
-    = f.datetime_select :thoi_gian
+    = f.label :attachment
+    = f.file_field :attachment
+  
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', :class => "btn primary"

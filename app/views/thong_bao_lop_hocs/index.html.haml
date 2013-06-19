@@ -1,31 +1,21 @@
 %h1 Listing thong_bao_lop_hocs
 
-%table
-  %tr
-    %th Ma giang vien
-    %th Ma lop
-    %th Ma mon hoc
-    %th Noi dung
-    %th Nam hoc
-    %th Hoc ky
+%table{:class => "table"}
+  %tr    
+    %th Noi dung    
     %th Thoi gian
     %th
     %th
     %th
 
   - @thong_bao_lop_hocs.each do |thong_bao_lop_hoc|
-    %tr
-      %td= thong_bao_lop_hoc.ma_giang_vien
-      %td= thong_bao_lop_hoc.ma_lop
-      %td= thong_bao_lop_hoc.ma_mon_hoc
-      %td= thong_bao_lop_hoc.noi_dung
-      %td= thong_bao_lop_hoc.nam_hoc
-      %td= thong_bao_lop_hoc.hoc_ky
+    %tr      
+      %td= thong_bao_lop_hoc.noi_dung      
       %td= thong_bao_lop_hoc.thoi_gian
-      %td= link_to 'Show', thong_bao_lop_hoc
-      %td= link_to 'Edit', edit_thong_bao_lop_hoc_path(thong_bao_lop_hoc)
-      %td= link_to 'Destroy', thong_bao_lop_hoc, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to 'Show', [@lop_mon_hoc,thong_bao_lop_hoc]
+      %td= link_to 'Edit', edit_lop_mon_hoc_thong_bao_lop_hoc_path(@lop_mon_hoc,thong_bao_lop_hoc)
+      %td= link_to 'Destroy', [@lop_mon_hoc,thong_bao_lop_hoc], :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Thong bao lop hoc', new_thong_bao_lop_hoc_path
+= link_to 'New Thong bao lop hoc', new_lop_mon_hoc_thong_bao_lop_hoc_path

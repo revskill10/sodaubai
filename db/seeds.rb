@@ -17,7 +17,7 @@ svs.each do |sv|
 	FactoryGirl.create(:lop_mon_hoc_sinh_vien, lop_mon_hoc: lop1, ma_mon_hoc: mon.ma_mon_hoc, sinh_vien: sv)
 end
 tkbs = FactoryGirl.create_list(:tkb_giang_vien, 3, giang_vien: gv, 
-	lop_mon_hoc: lop1, ma_mon_hoc: mon.ma_mon_hoc
+	lop_mon_hoc: lop1, ma_mon_hoc: mon.ma_mon_hoc, tuan_hoc_bat_dau: 23
 	)
 
 svs2 = FactoryGirl.create_list(:sinh_vien, 10)

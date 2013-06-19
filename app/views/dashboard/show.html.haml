@@ -1,0 +1,4 @@
+
+%ul= @tuanhienthoi.to_s
+- @tuans.each do |tuan|
+  %li= link_to tuan[:time][0].strftime("%Y-%m-%d-%H-%M"), lop_mon_hoc_buoihoc_path(tuan[:lop].id.to_s,  tuan[:time][0].strftime("%Y-%m-%d-%H-%M"))

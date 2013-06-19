@@ -71,3 +71,7 @@ gem "twitter-bootstrap-rails"
 gem 'kaminari'
 gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
+gem "ckeditor"
+gem "paperclip", "~> 3.0"
+gem 'ckeditor_rails'
+gem 'savon'

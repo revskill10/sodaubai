@@ -1,27 +1,18 @@
 %p#notice= notice
 
 %p
-  %b Ma giang vien:
-  = @thong_bao_lop_hoc.ma_giang_vien
-%p
-  %b Ma lop:
-  = @thong_bao_lop_hoc.ma_lop
-%p
-  %b Ma mon hoc:
-  = @thong_bao_lop_hoc.ma_mon_hoc
-%p
   %b Noi dung:
-  = @thong_bao_lop_hoc.noi_dung
+  = raw(@thong_bao_lop_hoc.noi_dung)
 %p
   %b Nam hoc:
   = @thong_bao_lop_hoc.nam_hoc
 %p
-  %b Hoc ky:
-  = @thong_bao_lop_hoc.hoc_ky
-%p
   %b Thoi gian:
   = @thong_bao_lop_hoc.thoi_gian
+%p
+  %b File:
+  = @thong_bao_lop_hoc.attachment_file_name
 
-= link_to 'Edit', edit_thong_bao_lop_hoc_path(@thong_bao_lop_hoc)
+= link_to 'Edit', edit_lop_mon_hoc_thong_bao_lop_hoc_path(@lop_mon_hoc,@thong_bao_lop_hoc)
 \|
-= link_to 'Back', thong_bao_lop_hocs_path
+= link_to 'Back', lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc)

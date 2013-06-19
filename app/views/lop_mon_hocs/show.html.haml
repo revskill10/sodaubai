@@ -19,7 +19,7 @@
       %tr{:class => ("success" if is_today?(lich))}
         %td= id+ @tuan_bat_dau
         - lich.each do |li|          
-          %td{:class =>("hputoday" if li and li.to_date === @current_day)}= link_to li.strftime("%Y-%m-%d"), lop_mon_hoc_buoihoc_path(@lop_mon_hoc,li.strftime("%Y-%m-%d")) if li
+          %td{:class =>("hputoday" if li and li.to_date === @current_day)}= link_to li.strftime("%Y-%m-%d-%H-%M"), lop_mon_hoc_buoihoc_path(@lop_mon_hoc,li.strftime("%Y-%m-%d-%H-%M")) if li
   %br/
   	        
   

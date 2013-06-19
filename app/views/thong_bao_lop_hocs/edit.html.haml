@@ -2,6 +2,8 @@
 
 = render 'form'
 
-= link_to 'Show', @thong_bao_lop_hoc
+%span{:id => "status"}
+
+= link_to 'Show', [@lop_mon_hoc,@thong_bao_lop_hoc]
 \|
-= link_to 'Back', thong_bao_lop_hocs_path
+= link_to 'Back', lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc)
