@@ -5,7 +5,8 @@ class DashboardController < ApplicationController
     @tuans = @alltuans.select {|t| t[:tuan] == @stt}
   end
   def show
-
+    @tuanhienthoi = params[:id].to_i    
+    @tuans = @alltuans.select {|t| t[:tuan] == @tuanhienthoi}
   end
   def danhsach
     @globallich = {}
