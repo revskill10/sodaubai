@@ -1,3 +1,14 @@
+GIT
+  remote: git://github.com/jnicklas/capybara.git
+  revision: 89ba2c6ecc8666e5a4d6a8b61d69968d04a71bc9
+  specs:
+    capybara (2.1.0)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -28,9 +39,13 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
+<<<<<<< HEAD
+    addressable (2.3.4)
+=======
     akami (1.2.0)
       gyoku (>= 0.4.0)
       nokogiri (>= 1.4.0)
+>>>>>>> cd5437b63d66aaa1586811bed4eff88f6b12b946
     arel (3.0.2)
     bcrypt-ruby (3.0.1-x86-mingw32)
     bootstrap-sass (2.3.1.3)
@@ -122,6 +137,8 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    launchy (2.3.0)
+      addressable (~> 2.3)
     listen (1.1.6)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -198,6 +215,7 @@ GEM
       ffi (>= 0.5.0)
     rb-kqueue (0.2.0)
       ffi (>= 0.5.0)
+    rb-notifu (0.0.4)
     rdoc (3.12.2)
       json (~> 1.4)
     remotipart (1.0.5)
@@ -280,6 +298,8 @@ GEM
     will_paginate-bootstrap (0.2.3)
       will_paginate (>= 3.0.3)
     win32console (1.3.2-x86-mingw32)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
     xray-rails (0.1.5)
       coffee-rails
       rails (>= 3.1.0)
@@ -289,8 +309,12 @@ PLATFORMS
 
 DEPENDENCIES
   cancan
+<<<<<<< HEAD
+  capybara!
+=======
   ckeditor
   ckeditor_rails
+>>>>>>> cd5437b63d66aaa1586811bed4eff88f6b12b946
   coffee-rails (~> 3.2.1)
   database_cleaner
   devise_cas_authenticatable
@@ -302,10 +326,16 @@ DEPENDENCIES
   haml-rails
   ice_cube
   jquery-rails
+<<<<<<< HEAD
+  kaminari
+  launchy
+=======
   paperclip (~> 3.0)
+>>>>>>> cd5437b63d66aaa1586811bed4eff88f6b12b946
   rails (= 3.2.13)
   rails_admin
   rails_admin-i18n
+  rb-notifu
   rolify
   rspec-rails
   sass-rails (~> 3.2.3)
@@ -323,4 +353,5 @@ DEPENDENCIES
   webrat
   will_paginate (~> 3.0)
   will_paginate-bootstrap
+  win32console
   xray-rails

@@ -45,6 +45,8 @@ group :development, :test do
   gem 'guard-bundler'
   gem 'guard-rspec'
   gem 'guard-spork'
+  gem 'rb-notifu'
+  gem 'win32console'
   gem 'wdm'
   gem 'watchr'
   gem 'xray-rails'
@@ -52,6 +54,8 @@ group :development, :test do
   gem "shoulda-matchers"
   gem "database_cleaner"
    gem "webrat"
+   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
+   gem 'launchy'
 end
 gem "haml-rails"
 gem "simple_form"
@@ -64,6 +68,7 @@ gem "rails_admin-i18n"
 gem "rolify"
 gem "ice_cube"
 gem "twitter-bootstrap-rails"
+gem 'kaminari'
 gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
 gem "ckeditor"

@@ -1,3 +1,17 @@
+%h1 Welcome Lops
+what the fact
+%table{:class => "table"}
+  %thead
+    %td Ma Lop
+    %td Ma Mon     
+    %td ID 
+  %tbody
+    - @current_lops.each do |lop|
+      %tr
+        %td= lop.ma_lop
+        %td= lop.ma_mon_hoc
+        %td= link_to lop.id, lop          
+
 
 %ul= @stt.to_s
 - @tuans.each do |tuan|
@@ -5,3 +19,4 @@
 
 %div= link_to "prev", showdashboard_path(@stt-1)
 %div= link_to "next", showdashboard_path(@stt+1)
+
