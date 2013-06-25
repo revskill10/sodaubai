@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130625012052) do
+ActiveRecord::Schema.define(:version => 20130625031334) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -171,8 +171,10 @@ ActiveRecord::Schema.define(:version => 20130625012052) do
     t.datetime "ngay_bat_dau"
     t.datetime "ngay_ket_thuc"
     t.string   "phong_hoc"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "ten_giang_vien"
+    t.string   "ten_mon_hoc"
   end
 
   create_table "mon_hocs", :force => true do |t|
