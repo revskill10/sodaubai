@@ -7,7 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'factory_girl_rails'
 
-mon = FactoryGirl.create(:mon_hoc, ma_mon_hoc: "monhoc1")
+=begin
+ mon = FactoryGirl.create(:mon_hoc, ma_mon_hoc: "monhoc1")
 mon2 = FactoryGirl.create(:mon_hoc, ma_mon_hoc: "monhoc2")
 gv = FactoryGirl.create(:giang_vien, ma_giang_vien: "dungth")
 svs = FactoryGirl.create_list(:sinh_vien, 10)
@@ -30,3 +31,4 @@ tkbs2 = FactoryGirl.create_list(:tkb_giang_vien, 3, giang_vien: gv,
 	ngay_bat_dau: Date.strptime("2013-09-09","%Y-%m-%d") ,
 	ngay_ket_thuc: Date.strptime("2013-12-09","%Y-%m-%d") 
 	)
+=end

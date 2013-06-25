@@ -2,7 +2,7 @@ class SinhVien < ActiveRecord::Base
   attr_accessible :gioi_tinh, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ngay_sinh, :ten
 
   validates :ma_sinh_vien, :uniqueness => { :case_sensitive => false }
-  validates :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ten, :presence => true
+  validates :ma_sinh_vien, :presence => true
 
   has_one :user, :as => :imageable
   delegate :username, :to => :user

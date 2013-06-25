@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130618102042) do
+ActiveRecord::Schema.define(:version => 20130625012052) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -153,8 +153,11 @@ ActiveRecord::Schema.define(:version => 20130618102042) do
     t.string   "ma_mon_hoc"
     t.string   "nam_hoc"
     t.integer  "hoc_ky"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "ten_mon_hoc"
+    t.string   "ma_lop_hanh_chinh"
+    t.string   "loai"
   end
 
   create_table "lop_mon_hocs", :force => true do |t|
@@ -220,7 +223,7 @@ ActiveRecord::Schema.define(:version => 20130618102042) do
     t.integer  "item"
     t.string   "table"
     t.integer  "month",      :limit => 2
-    t.integer  "year",       :limit => 5
+    t.integer  "year",       :limit => 8
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
   end
@@ -295,6 +298,10 @@ ActiveRecord::Schema.define(:version => 20130618102042) do
     t.integer  "thu"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.text     "days"
+    t.string   "ten_mon_hoc"
+    t.string   "ten_giang_vien"
+    t.string   "loai"
   end
 
   create_table "tuans", :force => true do |t|
