@@ -70,6 +70,13 @@ namespace :hpu do
   	Rake::Task["hpu:load_tkbgiangvien"].invoke  	# load tkb_giang_vien, giang_vien, lop_mon_hoc
   	Rake::Task["hpu:load_lopsv"].invoke # load lop_mon_hoc_sinh_vien, sinh_vien  	
   end
+
+  task :update_gv => :environment do 
+  	GiangVien.all.each do |gv|
+  		gv.days = gv.get_days
+      gv.save rescue puts "Error #{gv.ma_giang_vien}}"
+  	end
+  end
 end
 def titleize(str)
   str.split(" ").map(&:capitalize).join(" ")

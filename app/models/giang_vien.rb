@@ -1,5 +1,6 @@
+require 'json'
 class GiangVien < ActiveRecord::Base
-  attr_accessible :ho_ten, :hoc_ham, :hoc_vi, :ma_don_vi, :ma_giang_vien, :ma_loai
+  attr_accessible :ho_ten, :hoc_ham, :hoc_vi, :ma_don_vi, :ma_giang_vien, :ma_loai, :days
   #association
   has_many :lop_mon_hocs, :foreign_key => 'ma_giang_vien', :dependent => :destroy, :primary_key => 'ma_giang_vien'
   has_many :tkb_giang_viens, :foreign_key => 'ma_giang_vien', :dependent => :destroy, :primary_key => 'ma_giang_vien' do 
@@ -18,4 +19,13 @@ class GiangVien < ActiveRecord::Base
   #validation
   validates :ho_ten, :ma_giang_vien, :presence => true
   validates :ma_giang_vien, :uniqueness => { :case_sensitive => false }
+
+  def get_days
+    ngays = []
+    tkb_giang_viens.all.each do |tkb|
+      ngay = JSON.parse(tkb.days)["ngay"]
+      ngays = ngays + ngay
+    end
+    return {:ngay => ngays}.to_json
+  end
 end
