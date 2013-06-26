@@ -1,23 +1,19 @@
 %table{:class => "table table-bordered datatable"}
   %thead    
-    %td Tuan
-    %td Time
-    %td Thu
-    %td Tiet
-    %td So Tiet
-    %td Phong    
-    %td Mon
-    %td Lop
+    %td Tuần    
+    %td Thời gian 
+    %td So Tiet      
+    %td Phòng    
+    %td Môn
+    %td Mã lớp
   %tbody
     - @lich.each_with_index do |lich, index|
       %tr        
-        %td= "tuan_" + lich["tuan"].to_s
-        %td= link_to DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M"), lop_mon_hoc_buoihoc_path(lich["lop"]["id"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M"))       
-        %td= lich["thu"]
-        %td= lich["tiet_bat_dau"]
-        %td= lich["so_tiet"]
-        %td= lich["phong"] 
-        %td= lich["ten_mon_hoc"]
+        %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= "T" + lich["tuan"].to_s
+        %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= link_to "Thứ " + lich["thu"].to_s + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"]["id"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M"))  
+        %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= lich["so_tiet"]             
+        %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= lich["phong"]                 
+        %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
         %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= link_to lich["lop"]["ma_lop"], lop_mon_hoc_path(lich["lop"]["id"])
 
 
