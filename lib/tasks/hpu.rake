@@ -1,5 +1,11 @@
 namespace :hpu do
   desc "TODO"
+  task :update_days_tkb => :environment do 
+    TkbGiangVien.all.each do |tkb|
+      tkb.update_attributes(days: tkb.get_days)
+      tkb.save rescue puts "Error #{tkb.ma_lop}"
+    end
+  end
   task :load_tkbgiangvien => :environment do
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
 	response = @client.call(:tkb_theo_giai_doan)   	
@@ -35,33 +41,33 @@ namespace :hpu do
   	response = @client.call(:sinh_vien_lop_mon_hoc)
   	res_hash = response.body.to_hash
   	ls = res_hash[:sinh_vien_lop_mon_hoc_response][:sinh_vien_lop_mon_hoc_result][:diffgram][:document_element]
-	ls = ls[:sinh_vien_lop_mon_hoc]  
-	SinhVien.delete_all
-	LopMonHocSinhVien.delete_all	
-	puts "loading... lopsv"
-	ls.each do |l|
-		SinhVien.where(:ma_sinh_vien => l[:ma_sinh_vien].strip.upcase).first_or_create!
-		lop = LopMonHocSinhVien.create!(ma_lop: l[:ma_lop].strip, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase, ma_lop_hanh_chinh: l[:ma_lop_hanh_chinh].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase))
-		ml = lop.ma_lop
-		if ml.include?("BT") then
-  			lop.loai = ml[ml.rindex("-")+1..ml.length-1]
-  			lop.ma_lop = lop.ma_lop.tap {|s| s.slice!(lop.loai)}  			
-  			lop.save rescue puts "error #{lop.ma_lop}"
-  		end
+  	ls = ls[:sinh_vien_lop_mon_hoc]  
+  	SinhVien.delete_all
+  	LopMonHocSinhVien.delete_all	
+  	puts "loading... lopsv"
+  	ls.each do |l|
+  		SinhVien.where(:ma_sinh_vien => l[:ma_sinh_vien].strip.upcase).first_or_create!
+  		lop = LopMonHocSinhVien.create!(ma_lop: l[:ma_lop].strip, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase, ma_lop_hanh_chinh: l[:ma_lop_hanh_chinh].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase))
+  		ml = lop.ma_lop
+  		if ml.include?("BT") then
+    			lop.loai = ml[ml.rindex("-")+1..ml.length-1]
+    			lop.ma_lop = lop.ma_lop.tap {|s| s.slice!(lop.loai)}  			
+    			lop.save rescue puts "error #{lop.ma_lop}"
+    		end
 
-	end	
+  	end	
   end
   task :load_tuans => :environment do
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
-	response = @client.call(:thoi_gian_tuan)   	
-	res_hash = response.body.to_hash		
-	ls = res_hash[:thoi_gian_tuan_response][:thoi_gian_tuan_result][:diffgram][:document_element]
-	ls = ls[:thoi_gian_tuan]
-	Tuan.delete_all
-	puts "loading... tuan"
-	ls.each do |l|		
-		Tuan.create(stt: l[:tuan], tu_ngay: l[:tu_ngay].new_offset(Rational(7, 24)), den_ngay: l[:den_ngay].new_offset(Rational(7, 24)))
-	end
+  	response = @client.call(:thoi_gian_tuan)   	
+  	res_hash = response.body.to_hash		
+  	ls = res_hash[:thoi_gian_tuan_response][:thoi_gian_tuan_result][:diffgram][:document_element]
+  	ls = ls[:thoi_gian_tuan]
+  	Tuan.delete_all
+  	puts "loading... tuan"
+  	ls.each do |l|		
+  		Tuan.create(stt: l[:tuan], tu_ngay: l[:tu_ngay].new_offset(Rational(7, 24)), den_ngay: l[:den_ngay].new_offset(Rational(7, 24)))
+  	end
   end
 
 

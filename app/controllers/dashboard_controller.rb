@@ -10,7 +10,11 @@ class DashboardController < ApplicationController
   
   protected
   def load_lops
-  	@current_lops = [] unless current_user.imageable  	
-  	@current_lops = current_user.imageable.lop_mon_hocs if current_user.imageable	                
+    @type = current_user.imageable    
+  	@current_lops = [] unless @type
+  	@current_lops = @type.lop_mon_hocs if @type	    
+    if @type.is_a?(GiangVien) then 
+      @lich = JSON.parse(@type.days)["ngay"]
+    end                
   end
 end

@@ -1,5 +1,5 @@
 %h1 Welcome Lops
-what the fact
+
 %table{:class => "table"}
   %thead
     %td Ma Lop
@@ -7,10 +7,33 @@ what the fact
     %td ID 
   %tbody
     - @current_lops.each do |lop|
-      %tr
+      %tr        
         %td= lop.ma_lop
         %td= lop.ma_mon_hoc
         %td= link_to lop.id, lop          
 
+
+%h2 Lich
+
+  
+%table{:class => "table"}
+  %thead    
+    %td Tuan
+    %td Time
+    %td Thu
+    %td Tiet
+    %td Phong    
+    %td Mon
+    %td Lop
+  %tbody
+    - @lich.each_with_index do |lich, index|
+      %tr        
+        %td= lich["tuan"]
+        %td= link_to DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M"), lop_mon_hoc_buoihoc_path(lich["lop"]["id"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M"))       
+        %td= lich["thu"]
+        %td= lich["tiet_bat_dau"]
+        %td= lich["phong"] 
+        %td= lich["ten_mon_hoc"]
+        %td= link_to lich["lop"]["ma_lop"], lop_mon_hoc_path(lich["lop"]["id"])
 
 

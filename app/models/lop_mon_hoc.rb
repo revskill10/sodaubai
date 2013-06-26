@@ -24,5 +24,5 @@ class LopMonHoc < ActiveRecord::Base
   validates :ma_giang_vien, :ma_lop, :ma_mon_hoc, :presence => true
   validates_uniqueness_of :ma_lop, :scope => [:ma_giang_vien, :ma_mon_hoc]
   
-  
+
 end
