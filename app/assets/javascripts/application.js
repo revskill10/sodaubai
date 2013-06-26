@@ -13,6 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require ckeditor/init
-//= require ckeditor-jquery
+//= require jquery.pjax
+//= require dataTables/jquery.dataTables
+//= require dataTables/jquery.dataTables.bootstrap
 //= require_tree .
+$(function() {
+  $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]');
+});

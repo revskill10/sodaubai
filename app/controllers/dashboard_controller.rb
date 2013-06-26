@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  
+  include DashboardHelper
   before_filter :load_lops
   def index    
   
@@ -8,6 +8,7 @@ class DashboardController < ApplicationController
   
   end
   
+  
   protected
   def load_lops
     @type = current_user.imageable    
@@ -15,6 +16,15 @@ class DashboardController < ApplicationController
   	@current_lops = @type.lop_mon_hocs if @type	    
     if @type.is_a?(GiangVien) then 
       @lich = JSON.parse(@type.days)["ngay"]
-    end                
+    end    
+    generator = ColorGenerator.new saturation: 0.3, lightness: 0.75
+    @color = [] 
+    20.times do |i|
+      @color << generator.create_hex
+    end
+    @color_map = {}
+    @current_lops.each_with_index do |l,i|
+      @color_map["#{l.ma_lop}-#{l.ma_mon_hoc}"] = @color[i]
+    end           
   end
 end

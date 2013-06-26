@@ -75,3 +75,6 @@ gem "ckeditor"
 gem "paperclip", "~> 3.0"
 gem 'ckeditor_rails'
 gem 'savon'
+gem 'pjax_rails'
+gem 'color-generator'
+gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
