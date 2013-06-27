@@ -17,7 +17,7 @@
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
         
 
-  %body
+  %body    
     .navbar.navbar-fluid-top
       .navbar-inner
         .container-fluid
@@ -29,18 +29,16 @@
           .container.nav-collapse
             %ul.nav
               %li= link_to "Home", "/"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
+              %li= link_to "Link 2", "/calendar"              
 
     .container-fluid
 
-      .row-fluid        
+      .row-fluid
         .span10.offset1
-          = bootstrap_flash
+          = bootstrap_flash                
           = yield
     
-      %footer
-        %p &copy; Company 2013
+          
     /
       Javascripts
       \==================================================

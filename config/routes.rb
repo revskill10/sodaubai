@@ -6,8 +6,8 @@ Trytest::Application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
 
   get "dashboard/index"
-  get "dashboard/danhsach"
-  match 'dashboard/:id' => 'dashboard#show', :as => "showdashboard"
+  match '/calendar' => 'dashboard#calendar', :as => "calendar"
+  match 'tuan/:id' => 'dashboard#show', :as => "tuan"
   get "dashboard/access_denied", :as => "access_denied"
    root :to => 'dashboard#index'
   devise_for :users do

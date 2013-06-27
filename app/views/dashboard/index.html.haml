@@ -1,20 +1,17 @@
-%table{:class => "table table-bordered datatable"}
-  %thead    
-    %td Tuần    
-    %td Thời gian 
-    %td So Tiet      
-    %td Phòng    
-    %td Môn
-    %td Mã lớp
-  %tbody
-    - @lich.each_with_index do |lich, index|
-      %tr        
-        %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= "T" + lich["tuan"].to_s
-        %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= link_to "Thứ " + lich["thu"].to_s + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"]["id"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M"))  
-        %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= lich["so_tiet"]             
-        %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= lich["phong"]                 
-        %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
-        %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= link_to lich["lop"]["ma_lop"], lop_mon_hoc_path(lich["lop"]["id"])
-
-
-        
+               
+%div{:id => "pjax-container"}
+  %table{:class => "table table-bordered datatable"}
+    %thead          
+      %td Thời gian 
+      %td So Tiet      
+      %td Phòng    
+      %td Môn
+      %td Mã lớp
+    %tbody
+      - @current_lich.each_with_index do |lich, index|
+        %tr                 
+          %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= link_to "Thứ " + lich["thu"].to_s + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"]["id"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M"))  
+          %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= lich["so_tiet"]             
+          %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= lich["phong"]                 
+          %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
+          %td{:style => "background: ##{@color_map["#{lich["lop"]["ma_lop"]}-#{lich["lop"]["ma_mon_hoc"]}"]}" }= link_to lich["lop"]["ma_lop"], lop_mon_hoc_path(lich["lop"]["id"])    

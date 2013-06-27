@@ -2,15 +2,27 @@ class DashboardController < ApplicationController
   include DashboardHelper
   before_filter :load_lops
   def index    
-  
+    @current_lich = @lich.select {|l| l["tuan"] == @current_week}
+    if request.headers['X-PJAX']
+      render :layout => false
+    end
   end
   def show
-  
+    @current_lich = @lich.select {|l| l["tuan"] == params[:id].to_i}    
+    if request.headers['X-PJAX']
+      render :layout => false
+    end
+  end
+  def calendar
+    
+
+    if request.headers['X-PJAX']
+      render :layout => false
+    end
   end
   
-  
   protected
-  def load_lops
+  def load_lops    
     @type = current_user.imageable    
   	@current_lops = [] unless @type
   	@current_lops = @type.lop_mon_hocs if @type	    

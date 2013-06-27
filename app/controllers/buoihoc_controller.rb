@@ -4,6 +4,10 @@ class BuoihocController < ApplicationController
   def show
   	authorize! :read, @lop_mon_hoc
   	
+
+    if request.headers['X-PJAX']
+      render :layout => false
+    end
   end
   
   def diemdanh
@@ -21,6 +25,7 @@ class BuoihocController < ApplicationController
         dds.first.update_attributes(so_tiet_vang: ms[:vang])
       end
     end
+
     respond_to do |format|
       format.js
     end
@@ -31,6 +36,6 @@ class BuoihocController < ApplicationController
   	@lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])  	
     @ngay = DateTime.strptime(params[:id], "%Y-%m-%d-%H-%M")
     @malop = @lop_mon_hoc.ma_lop
-    @svs = @lop_mon_hoc.sinh_viens.paginate(:page => params[:page], :per_page => 5)
+    @svs = @lop_mon_hoc.sinh_viens
   end
 end
