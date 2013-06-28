@@ -32,3 +32,15 @@ tkbs2 = FactoryGirl.create_list(:tkb_giang_vien, 3, giang_vien: gv,
 	ngay_ket_thuc: Date.strptime("2013-12-09","%Y-%m-%d") 
 	)
 =end
+Tuan.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('tuans')
+LopMonHoc.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hocs')
+GiangVien.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('giang_viens')
+TkbGiangVien.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('tkb_giang_viens')
+SinhVien.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('sinh_viens')
+LopMonHocSinhVien.delete_all	
+ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hoc_sinh_viens')

@@ -11,10 +11,7 @@ namespace :hpu do
 	response = @client.call(:tkb_theo_giai_doan)   	
 	res_hash = response.body.to_hash		
 	ls = res_hash[:tkb_theo_giai_doan_response][:tkb_theo_giai_doan_result][:diffgram][:document_element]
-	ls = ls[:tkb_theo_giai_doan]
-	LopMonHoc.delete_all
-	GiangVien.delete_all
-	TkbGiangVien.delete_all
+	ls = ls[:tkb_theo_giai_doan]	
 	puts "loading... giang_vien"
 	ls.each_with_index do |l,i|
 		
@@ -26,7 +23,7 @@ namespace :hpu do
 		ml = tkb.ma_lop
 		if ml.include?("BT") then
   			tkb.loai = ml[ml.rindex("-")+1..ml.length-1]
-  			tkb.ma_lop = tkb.ma_lop.tap {|s| s.slice!(tkb.loai)}  			
+  			tkb.ma_lop = tkb.ma_lop.tap {|s| s.slice!("-"+tkb.loai)}  			
   		end
   		tkb.save rescue puts "Error #{tkb.ma_lop}"
   		
@@ -38,24 +35,32 @@ namespace :hpu do
   end
   task :load_lopsv => :environment do  
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
-  	response = @client.call(:sinh_vien_lop_mon_hoc)
+  	response = @client.call(:lop_mon_hoc_sinh_vien_hk)
   	res_hash = response.body.to_hash
-  	ls = res_hash[:sinh_vien_lop_mon_hoc_response][:sinh_vien_lop_mon_hoc_result][:diffgram][:document_element]
-  	ls = ls[:sinh_vien_lop_mon_hoc]  
-  	SinhVien.delete_all
-  	LopMonHocSinhVien.delete_all	
+  	ls = res_hash[:lop_mon_hoc_sinh_vien_hk_response][:lop_mon_hoc_sinh_vien_hk_result][:diffgram][:document_element]
+  	ls = ls[:lop_mon_hoc_sinh_vien_hk]  
+  	
   	puts "loading... lopsv"
   	ls.each do |l|
   		SinhVien.where(:ma_sinh_vien => l[:ma_sinh_vien].strip.upcase).first_or_create!
-  		lop = LopMonHocSinhVien.create!(ma_lop: l[:ma_lop].strip, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase, ma_lop_hanh_chinh: l[:ma_lop_hanh_chinh].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase))
+  		lop = LopMonHocSinhVien.create!(ma_lop: l[:malop].strip, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase))
   		ml = lop.ma_lop
   		if ml.include?("BT") then
     			lop.loai = ml[ml.rindex("-")+1..ml.length-1]
-    			lop.ma_lop = lop.ma_lop.tap {|s| s.slice!(lop.loai)}  			
+    			lop.ma_lop = lop.ma_lop.tap {|s| s.slice!("-"+lop.loai)}  			
     			lop.save rescue puts "error #{lop.ma_lop}"
     		end
 
   	end	
+  end
+  task :test_lopsv => :environment do 
+    lops = []
+    LopMonHoc.all.each do |lop|
+      lops << lop.ma_lop if lop.sinh_viens.count == 0
+    end
+    lops = lops.uniq 
+    puts lops.inspect
+    puts lops.count
   end
   task :load_tuans => :environment do
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
@@ -63,7 +68,7 @@ namespace :hpu do
   	res_hash = response.body.to_hash		
   	ls = res_hash[:thoi_gian_tuan_response][:thoi_gian_tuan_result][:diffgram][:document_element]
   	ls = ls[:thoi_gian_tuan]
-  	Tuan.delete_all
+  	
   	puts "loading... tuan"
   	ls.each do |l|		
   		Tuan.create(stt: l[:tuan], tu_ngay: l[:tu_ngay].new_offset(Rational(7, 24)), den_ngay: l[:den_ngay].new_offset(Rational(7, 24)))
@@ -74,7 +79,8 @@ namespace :hpu do
   task :load_all => :environment do 
   	Rake::Task["hpu:load_tuans"].invoke # load tuans
   	Rake::Task["hpu:load_tkbgiangvien"].invoke  	# load tkb_giang_vien, giang_vien, lop_mon_hoc
-  	Rake::Task["hpu:load_lopsv"].invoke # load lop_mon_hoc_sinh_vien, sinh_vien  	
+  	Rake::Task["hpu:load_lopsv"].invoke # load lop_mon_hoc_sinh_vien, sinh_vien  
+    Rake::Task["hpu:update_gv"].invoke	
   end
 
   task :update_gv => :environment do 
@@ -85,5 +91,5 @@ namespace :hpu do
   end
 end
 def titleize(str)
-  str.split(" ").map(&:capitalize).join(" ")
+  str.split(" ").map(&:capitalize).join(" ").gsub("Ii","II")
 end

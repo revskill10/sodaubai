@@ -15,7 +15,7 @@
     = favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72'
     = favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
-        
+    
 
   %body    
     .navbar.navbar-fluid-top
@@ -27,20 +27,21 @@
             %span.icon-bar
           %a.brand(href="#") Trytest
           .container.nav-collapse
-            %ul.nav
+            %ul.nav#urls
               %li= link_to "Home", "/"
-              %li= link_to "Link 2", "/calendar"              
+              %li= link_to "Link 2", "/calendar", :'data-pjax' => '#pjax_container'
 
     .container-fluid
 
       .row-fluid
         .span10.offset1
           = bootstrap_flash                
-          = yield
+          %div{:id => "pjax-container"}
+            = yield          
     
           
     /
       Javascripts
       \==================================================
     / Placed at the end of the document so the pages load faster
-    = javascript_include_tag "application"
+    = javascript_include_tag "application", controller_name

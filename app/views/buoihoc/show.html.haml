@@ -2,22 +2,22 @@
 
 
 
-%div{:id => "pjax-container"}
-  = form_tag diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true, :class => "table table-bordered table-hover" do 
-    %table{:class => "table table-bordered datatable"}
-      %thead
-        %td Ma Sinh Vien
-        %td Ho va ten
-        %td So tiet vang    
-      %tbody
-        - @svs.each do |sv|
-          %tr
-            %td= sv.ma_sinh_vien
-            %td= sv.fullname
-            %td= text_field_tag sv.ma_sinh_vien, sv.ma_sinh_vien, :value => sv.thong_tin_diem_danh(@malop, @ngay) 
-    
 
-    = submit_tag "Update", :class => "btn btn-primary"               
+= form_tag diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true, :class => "table table-bordered table-hover" do 
+  %table{:class => "table table-bordered datatable"}
+    %thead
+      %td Ma Sinh Vien
+      %td Ho va ten
+      %td So tiet vang    
+    %tbody
+      - @svs.each do |sv|
+        %tr
+          %td= sv.ma_sinh_vien
+          %td= sv.fullname
+          %td= text_field_tag sv.ma_sinh_vien, sv.ma_sinh_vien, :value => sv.thong_tin_diem_danh(@malop, @ngay) 
+  
+
+  = submit_tag "Update", :class => "btn btn-primary"               
 
 
-  %span{:class=> "success", :id=>"status"}                  
+%span{:class=> "success", :id=>"status"}                  

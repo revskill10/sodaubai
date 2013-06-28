@@ -16,15 +16,10 @@
 //= require jquery.pjax
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
+//= require dashboard
 
-$(function() {
-  $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]');
-});
+
 $(document).ready(function(){
 	oTable = $('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bRetrieve": true,"iDisplayLength": 25, "bDestroy":true,"bInfo":false,"bProcessing":true,"bStateSave":true,"bAutoWidth":true});
-});
-  
-
-	  
-
-$(document).pjax('a', '#pjax-container');  
+});  
+$(document).pjax('a[data-pjax]', '#pjax-container')
