@@ -2,11 +2,15 @@ namespace :hpu do
   desc "TODO"
   
   task :load_tkbgiangvien => :environment do
+    dbname = ENV['dbname']
+    Apartment::Database.switch(dbname)
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
   	response = @client.call(:tkb_theo_giai_doan)   	
   	res_hash = response.body.to_hash		
   	ls = res_hash[:tkb_theo_giai_doan_response][:tkb_theo_giai_doan_result][:diffgram][:document_element]
   	ls = ls[:tkb_theo_giai_doan]
+    GiangVien.delete_all
+    ActiveRecord::Base.connection.reset_pk_sequence!('giang_viens') 
     TkbGiangVien.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('tkb_giang_viens')	
   	puts "loading... giang_vien"
@@ -15,16 +19,16 @@ namespace :hpu do
   		GiangVien.where(:ho_ten => titleize(l[:ten_giao_vien].strip.downcase), :ma_giang_vien => l[:ma_giao_vien].strip.upcase).first_or_create!
   						
   		tkb = TkbGiangVien.create!(hoc_ky: l[:hoc_ky].strip, ma_giang_vien: l[:ma_giao_vien].strip.upcase, ma_lop: l[:ma_lop].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), nam_hoc: l[:nam_hoc].strip, ngay_bat_dau: l[:tu_ngay].new_offset(Rational(7, 24)), ngay_ket_thuc: l[:ngay_ket_thuc].new_offset(Rational(7, 24)), phong: (l[:ma_phong_hoc].strip if l.has_key?(:ma_phong_hoc) and l[:ma_phong_hoc].is_a?(String)), so_tiet: l[:so_tiet], so_tuan: l[:so_tuan_hoc], thu: l[:thu], tiet_bat_dau: l[:tiet_bat_dau], tuan_hoc_bat_dau: l[:tuan_hoc_bat_dau], ten_giang_vien: titleize(l[:ten_giao_vien].strip.downcase))		
-
-  		
-  		
-  		
-  		
-		
+  		  		  		  				
   	end
+    Rake::Task["hpu:update_tkb1"].invoke 
+    Rake::Task["hpu:create_lopmonhoc"].invoke 
+    Rake::Task["hpu:update_tkb2"].invoke         
   end
   # cap nhat ma lop tkb
   task :update_tkb1 => :environment do 
+    dbname = ENV['dbname']
+    Apartment::Database.switch(dbname)
     TkbGiangVien.all.each do |tkb|
       ml = tkb.ma_lop
       if ml.include?("BT") then
@@ -35,6 +39,8 @@ namespace :hpu do
     end
   end
   task :create_lopmonhoc => :environment do 
+    dbname = ENV['dbname']
+    Apartment::Database.switch(dbname)
     LopMonHoc.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hocs') 
     TkbGiangVien.all.each do |tkb|
@@ -42,9 +48,12 @@ namespace :hpu do
       l.update_attributes(ten_giang_vien: tkb.ten_giang_vien, ten_mon_hoc: tkb.ten_mon_hoc, phong_hoc: tkb.phong, ngay_bat_dau: tkb.ngay_bat_dau, ngay_ket_thuc: tkb.ngay_ket_thuc, so_tuan_hoc: tkb.so_tuan)
       l.save rescue puts "error #{l.id}"
     end
+    
   end
   # cap nhat tkb set days
   task :update_tkb2 => :environment do 
+    dbname = ENV['dbname']
+    Apartment::Database.switch(dbname)
     TkbGiangVien.all.each do |tkb|
       tkb.update_attributes(days: tkb.get_days)
       tkb.save rescue puts "Error #{tkb.ma_lop}"
@@ -55,6 +64,8 @@ namespace :hpu do
   
   
   task :load_sv => :environment do 
+    dbname = ENV['dbname']
+    Apartment::Database.switch(dbname)
     SinhVien.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('sinh_viens')
     # attr_accessible :gioi_tinh, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ngay_sinh, :ten, :trang_thai, :ten_nganh
@@ -81,6 +92,8 @@ namespace :hpu do
     end
   end
   task :load_lopsv => :environment do  
+    dbname = ENV['dbname']
+    Apartment::Database.switch(dbname)
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
   	response = @client.call(:lop_mon_hoc_sinh_vien_hk)
   	res_hash = response.body.to_hash
@@ -89,11 +102,18 @@ namespace :hpu do
   	LopMonHocSinhVien.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hoc_sinh_viens')
   	puts "loading... lopsv"
+    LopMonHocSinhVien.delete_all
+    ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hoc_sinh_viens') 
   	ls.each do |l|  		
   		lop = LopMonHocSinhVien.create!(ma_lop: l[:malop].strip, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase))  	
   	end	
+    Rake::Task["hpu:update_lopsv"].invoke 
+    Rake::Task["hpu:update_dssv"].invoke 
+    Rake::Task["hpu:update_gv"].invoke 
   end
   task :update_lopsv => :environment do 
+    dbname = ENV['dbname']
+    Apartment::Database.switch(dbname)
     LopMonHocSinhVien.all.each do |lop|
       ml = lop.ma_lop
       if ml.include?("BT") then
@@ -105,6 +125,8 @@ namespace :hpu do
   end
   # cap nhat danh sach sinh vien lop mon hoc
   task :update_dssv => :environment do 
+    dbname = ENV['dbname']
+    Apartment::Database.switch(dbname)
     LopMonHoc.all.each do |lop|
       lop.dssv = lop.get_sinh_viens.map {|sv| {:ma_sinh_vien => sv.ma_sinh_vien,
         :ho_dem => sv.ho_dem, :ten => sv.ten} }.to_json
@@ -112,24 +134,30 @@ namespace :hpu do
     end
   end
   task :load_tuans => :environment do
+    dbname = ENV['dbname']
+    Apartment::Database.switch(dbname)
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
   	response = @client.call(:thoi_gian_tuan)   	
   	res_hash = response.body.to_hash		
   	ls = res_hash[:thoi_gian_tuan_response][:thoi_gian_tuan_result][:diffgram][:document_element]
   	ls = ls[:thoi_gian_tuan]
-  	
+  	Tuan.delete_all
+    ActiveRecord::Base.connection.reset_pk_sequence!('tuans') 
   	puts "loading... tuan"
   	ls.each do |l|		
   		Tuan.create(stt: l[:tuan], tu_ngay: l[:tu_ngay].new_offset(Rational(7, 24)), den_ngay: l[:den_ngay].new_offset(Rational(7, 24)))
   	end
   end
   task :load_lopghep => :environment do 
+    dbname = ENV['dbname']
+    Apartment::Database.switch(dbname)
     @client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
     response = @client.call(:lop_ghep_hk)    
     res_hash = response.body.to_hash    
     ls = res_hash[:lop_ghep_hk_response][:lop_ghep_hk_result][:diffgram][:document_element]
     ls = ls[:t_lop_ghep_hk]
-    
+    LopGhep.delete_all
+    ActiveRecord::Base.connection.reset_pk_sequence!('lop_gheps') 
     puts "loading... lop ghep"
     ls.each do |l|
       LopGhep.create!(ma_lop_ghep: l[:ma_lop_ghep].strip, nam_hoc: l[:nam_hoc].strip,
@@ -138,20 +166,41 @@ namespace :hpu do
   end
 
   task :load_all => :environment do 
+    dbname = ENV['dbname']
+    Apartment::Database.switch(dbname)
+
   	Rake::Task["hpu:load_tuans"].invoke # load tuans
+    Rake::Task["hpu:load_lopghep"].invoke 
   	Rake::Task["hpu:load_tkbgiangvien"].invoke  	# load tkb_giang_vien, giang_vien, lop_mon_hoc
   	Rake::Task["hpu:load_lopsv"].invoke # load lop_mon_hoc_sinh_vien, sinh_vien  
     Rake::Task["hpu:update_gv"].invoke	
   end
 
   task :update_gv => :environment do 
+    dbname = ENV['dbname']
+    Apartment::Database.switch(dbname)
   	GiangVien.all.each do |gv|
   		gv.days = gv.get_days
       gv.save rescue puts "Error #{gv.ma_giang_vien}}"
   	end
   end
-
-
+  task :test_gv => :environment do 
+    dbname = ENV['dbname']
+    Apartment::Database.switch(dbname)
+    GiangVien.all.each do |gv|
+      puts gv.ma_giang_vien if gv.days = nil
+    end
+  end
+  task :create_tenant => :environment do 
+    begin
+      dbname = ENV['dbname']
+      Apartment::Database.switch(dbname)
+      t = Tenant.create!(:nam_hoc => '2012-2013', :hoc_ky => 2, :scheme => dbname)
+      
+    rescue
+      puts ""
+    end
+  end
 end
 def titleize(str)
   str.split(" ").map(&:capitalize).join(" ").gsub("Ii","II")

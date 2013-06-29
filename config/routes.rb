@@ -1,7 +1,5 @@
 Trytest::Application.routes.draw do
-  
-
-  
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   mount Ckeditor::Engine => '/ckeditor'
 
@@ -13,37 +11,38 @@ Trytest::Application.routes.draw do
   devise_for :users do
    get '/users/sign_out' => 'devise/cas_sessions#destroy'
   end
-  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
-  resources :tkb_giang_viens
+  
+  
+    resources :tkb_giang_viens
 
-  resources :giang_viens
-  resources :mon_hocs
-
-  resources :lop_mon_hocs, :only => :show do 
-    resources :sinh_viens, :only => :index
-    resources :diem_danhs
-    resources :diem_chi_tiets
-    resources :lich_trinh_giang_days
-    resources :diem_chuyen_cans
-    resources :lop_mon_hoc_sinh_viens
-    resources :can_bo_lops
-    resources :tai_lieu_mon_hocs
-    resources :thong_bao_lop_hocs
-    resources :dang_ky_day_bus
-    resources :kien_nghis
-    resources :nhat_kies
-    resources :ra_som_vao_muons
-    resources :day_thays
-    resources :nghi_days
-    resources :buoihoc, :only => :show do 
-      member do
-        post 'diemdanh'
+    resources :giang_viens
+    resources :mon_hocs
+  
+    resources :lop_mon_hocs, :only => :show do 
+      resources :sinh_viens, :only => :index
+      resources :diem_danhs
+      resources :diem_chi_tiets
+      resources :lich_trinh_giang_days
+      resources :diem_chuyen_cans
+      resources :lop_mon_hoc_sinh_viens
+      resources :can_bo_lops
+      resources :tai_lieu_mon_hocs
+      resources :thong_bao_lop_hocs
+      resources :dang_ky_day_bus
+      resources :kien_nghis
+      resources :nhat_kies
+      resources :ra_som_vao_muons
+      resources :day_thays
+      resources :nghi_days
+      resources :buoihoc, :only => :show do 
+        member do
+          post 'diemdanh'
+        end
       end
     end
-  end
-
-  match '*a', :to => 'application#routing'
-
+  
+    match '*a', :to => 'application#routing'
+  
   
 
 
