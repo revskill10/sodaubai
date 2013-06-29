@@ -57,6 +57,10 @@ group :development, :test do
    gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
    gem 'launchy'
 end
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
+end
 gem "haml-rails"
 gem "simple_form"
 gem "split_datetime"

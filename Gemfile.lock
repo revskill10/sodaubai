@@ -53,8 +53,14 @@ GEM
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-x86-mingw32)
+    better_errors (0.9.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (2.3.2.0)
       sass (~> 3.2)
+    breadcrumbs_on_rails (2.3.0)
     builder (3.0.4)
     cancan (1.6.10)
     childprocess (0.3.9)
@@ -79,6 +85,7 @@ GEM
     color-generator (0.0.3)
     daemons (1.1.9)
     database_cleaner (1.0.1)
+    debug_inspector (0.0.2)
     devise (2.2.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -327,6 +334,9 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  better_errors
+  binding_of_caller
+  breadcrumbs_on_rails
   cancan
   capybara!
   ckeditor

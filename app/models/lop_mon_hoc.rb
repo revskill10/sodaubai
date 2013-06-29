@@ -1,6 +1,6 @@
 class LopMonHoc < ActiveRecord::Base
   
-  attr_accessible :hoc_ky, :ma_giang_vien, :ma_lop, :ma_mon_hoc, :nam_hoc, :ngay_bat_dau, :ngay_ket_thuc, :phong_hoc, :so_tiet, :so_tuan_hoc, :ten_giang_vien, :ten_mon_hoc
+  attr_accessible :hoc_ky, :ma_giang_vien, :ma_lop, :ma_mon_hoc, :nam_hoc, :ngay_bat_dau, :ngay_ket_thuc, :phong_hoc, :so_tiet, :so_tuan_hoc, :ten_giang_vien, :ten_mon_hoc, :dssv
 
   belongs_to :giang_vien, :foreign_key => 'ma_giang_vien', :primary_key => 'ma_giang_vien'
 
@@ -10,6 +10,8 @@ class LopMonHoc < ActiveRecord::Base
       where("tkb_giang_viens.tuan_hoc_bat_dau = ?",tuan)
     end
   end
+  has_many :lop_gheps, :foreign_key => 'ma_lop_ghep', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{ma_mon_hoc}'"]}
+
 
   has_many :thong_bao_lop_hocs, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}' and ma_giang_vien = '#{self.ma_giang_vien}'"]}
 
@@ -23,6 +25,16 @@ class LopMonHoc < ActiveRecord::Base
 
   validates :ma_giang_vien, :ma_lop, :ma_mon_hoc, :presence => true
   validates_uniqueness_of :ma_lop, :scope => [:ma_giang_vien, :ma_mon_hoc]
-  
+  def get_sinh_viens
+    gheps = []
+    if lop_gheps.empty? then 
+      return sinh_viens
+    else
+      lop_gheps.each do |lg|
+        gheps = gheps + lg.sinh_viens
+      end
+      return gheps
+    end
+  end
 
 end

@@ -12,9 +12,9 @@
     %tbody
       - @svs.each do |sv|
         %tr
-          %td= sv.ma_sinh_vien
-          %td= sv.fullname
-          %td= text_field_tag sv.ma_sinh_vien, sv.ma_sinh_vien, :value => sv.thong_tin_diem_danh(@malop, @ngay) 
+          %td= sv["ma_sinh_vien"]
+          %td= sv["ho_dem"] + " " + sv["ten"]
+          %td= text_field_tag "msv_" + sv["ma_sinh_vien"], sv["ma_sinh_vien"], :value => DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv["ma_sinh_vien"], @ngay).first.try(:so_tiet_vang) || 0
   
 
   = submit_tag "Update", :class => "btn btn-primary"               

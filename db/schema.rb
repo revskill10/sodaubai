@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130625100008) do
+ActiveRecord::Schema.define(:version => 20130628084651) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -148,6 +148,16 @@ ActiveRecord::Schema.define(:version => 20130625100008) do
     t.datetime "updated_at",        :null => false
   end
 
+  create_table "lop_gheps", :force => true do |t|
+    t.string   "ma_lop_ghep"
+    t.string   "nam_hoc"
+    t.integer  "hoc_ky"
+    t.string   "ma_lop"
+    t.string   "ma_mon_hoc"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "lop_mon_hoc_sinh_viens", :force => true do |t|
     t.string   "ma_sinh_vien"
     t.string   "ma_lop"
@@ -176,6 +186,7 @@ ActiveRecord::Schema.define(:version => 20130625100008) do
     t.datetime "updated_at",     :null => false
     t.string   "ten_giang_vien"
     t.string   "ten_mon_hoc"
+    t.text     "dssv"
   end
 
   create_table "mon_hocs", :force => true do |t|
@@ -256,6 +267,8 @@ ActiveRecord::Schema.define(:version => 20130625100008) do
     t.string   "ma_nganh"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.integer  "trang_thai"
+    t.string   "ten_nganh"
   end
 
   create_table "tai_lieu_mon_hocs", :force => true do |t|

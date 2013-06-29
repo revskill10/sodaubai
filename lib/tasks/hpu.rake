@@ -1,37 +1,84 @@
 namespace :hpu do
   desc "TODO"
-  task :update_days_tkb => :environment do 
+  
+  task :load_tkbgiangvien => :environment do
+  	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
+  	response = @client.call(:tkb_theo_giai_doan)   	
+  	res_hash = response.body.to_hash		
+  	ls = res_hash[:tkb_theo_giai_doan_response][:tkb_theo_giai_doan_result][:diffgram][:document_element]
+  	ls = ls[:tkb_theo_giai_doan]
+    TkbGiangVien.delete_all
+    ActiveRecord::Base.connection.reset_pk_sequence!('tkb_giang_viens')	
+  	puts "loading... giang_vien"
+  	ls.each_with_index do |l,i|
+		
+  		GiangVien.where(:ho_ten => titleize(l[:ten_giao_vien].strip.downcase), :ma_giang_vien => l[:ma_giao_vien].strip.upcase).first_or_create!
+  						
+  		tkb = TkbGiangVien.create!(hoc_ky: l[:hoc_ky].strip, ma_giang_vien: l[:ma_giao_vien].strip.upcase, ma_lop: l[:ma_lop].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), nam_hoc: l[:nam_hoc].strip, ngay_bat_dau: l[:tu_ngay].new_offset(Rational(7, 24)), ngay_ket_thuc: l[:ngay_ket_thuc].new_offset(Rational(7, 24)), phong: (l[:ma_phong_hoc].strip if l.has_key?(:ma_phong_hoc) and l[:ma_phong_hoc].is_a?(String)), so_tiet: l[:so_tiet], so_tuan: l[:so_tuan_hoc], thu: l[:thu], tiet_bat_dau: l[:tiet_bat_dau], tuan_hoc_bat_dau: l[:tuan_hoc_bat_dau], ten_giang_vien: titleize(l[:ten_giao_vien].strip.downcase))		
+
+  		
+  		
+  		
+  		
+		
+  	end
+  end
+  # cap nhat ma lop tkb
+  task :update_tkb1 => :environment do 
     TkbGiangVien.all.each do |tkb|
-      tkb.update_attributes(days: tkb.get_days)
+      ml = tkb.ma_lop
+      if ml.include?("BT") then
+        tkb.loai = ml[-3..-1]
+        tkb.update_attributes(:ma_lop => ml[0..-5])
+      end
       tkb.save rescue puts "Error #{tkb.ma_lop}"
     end
   end
-  task :load_tkbgiangvien => :environment do
-  	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
-	response = @client.call(:tkb_theo_giai_doan)   	
-	res_hash = response.body.to_hash		
-	ls = res_hash[:tkb_theo_giai_doan_response][:tkb_theo_giai_doan_result][:diffgram][:document_element]
-	ls = ls[:tkb_theo_giai_doan]	
-	puts "loading... giang_vien"
-	ls.each_with_index do |l,i|
-		
-		GiangVien.where(:ho_ten => titleize(l[:ten_giao_vien].strip.downcase), :ma_giang_vien => l[:ma_giao_vien].strip.upcase).first_or_create!
-						
-		tkb = TkbGiangVien.create!(hoc_ky: l[:hoc_ky].strip, ma_giang_vien: l[:ma_giao_vien].strip.upcase, ma_lop: l[:ma_lop].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), nam_hoc: l[:nam_hoc].strip, ngay_bat_dau: l[:tu_ngay].new_offset(Rational(7, 24)), ngay_ket_thuc: l[:ngay_ket_thuc].new_offset(Rational(7, 24)), phong: (l[:ma_phong_hoc].strip if l.has_key?(:ma_phong_hoc) and l[:ma_phong_hoc].is_a?(String)), so_tiet: l[:so_tiet], so_tuan: l[:so_tuan_hoc], thu: l[:thu], tiet_bat_dau: l[:tiet_bat_dau], tuan_hoc_bat_dau: l[:tuan_hoc_bat_dau], ten_giang_vien: titleize(l[:ten_giao_vien].strip.downcase))		
+  task :create_lopmonhoc => :environment do 
+    LopMonHoc.delete_all
+    ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hocs') 
+    TkbGiangVien.all.each do |tkb|
+      l = LopMonHoc.where(:ma_giang_vien => tkb.ma_giang_vien, :ma_lop => tkb.ma_lop, :ma_mon_hoc => tkb.ma_mon_hoc).first_or_create!
+      l.update_attributes(ten_giang_vien: tkb.ten_giang_vien, ten_mon_hoc: tkb.ten_mon_hoc, phong_hoc: tkb.phong, ngay_bat_dau: tkb.ngay_bat_dau, ngay_ket_thuc: tkb.ngay_ket_thuc, so_tuan_hoc: tkb.so_tuan)
+      l.save rescue puts "error #{l.id}"
+    end
+  end
+  # cap nhat tkb set days
+  task :update_tkb2 => :environment do 
+    TkbGiangVien.all.each do |tkb|
+      tkb.update_attributes(days: tkb.get_days)
+      tkb.save rescue puts "Error #{tkb.ma_lop}"
+      #puts tkb.id if tkb.lop_mon_hoc.nil?
+    end
+  end
+  
+  
+  
+  task :load_sv => :environment do 
+    SinhVien.delete_all
+    ActiveRecord::Base.connection.reset_pk_sequence!('sinh_viens')
+    # attr_accessible :gioi_tinh, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ngay_sinh, :ten, :trang_thai, :ten_nganh
 
-		tkb.update_attributes(days: tkb.get_days)
-		ml = tkb.ma_lop
-		if ml.include?("BT") then
-  			tkb.loai = ml[ml.rindex("-")+1..ml.length-1]
-  			tkb.ma_lop = tkb.ma_lop.tap {|s| s.slice!("-"+tkb.loai)}  			
-  		end
-  		tkb.save rescue puts "Error #{tkb.ma_lop}"
-  		
-  		l = LopMonHoc.where(:ma_giang_vien => tkb.ma_giang_vien, :ma_lop => tkb.ma_lop, :ma_mon_hoc => tkb.ma_mon_hoc).first_or_create!
-  		l.update_attributes(ten_giang_vien: tkb.ten_giang_vien, ten_mon_hoc: tkb.ten_mon_hoc, phong_hoc: tkb.phong, ngay_bat_dau: tkb.ngay_bat_dau, ngay_ket_thuc: tkb.ngay_ket_thuc, so_tuan_hoc: tkb.so_tuan)
-  		l.save rescue puts "error #{l.id}"
-		
-  	end
+    @client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
+    response = @client.call(:sinh_vien)
+    res_hash = response.body.to_hash
+    ls = res_hash[:sinh_vien_response][:sinh_vien_result][:diffgram][:document_element]
+    ls = ls[:sinh_vien]  
+    puts "loading ... sinh viens"
+    ls.each do |l|
+      SinhVien.create!(
+        gioi_tinh: (l[:gioi_tinh] if l[:gioi_tinh] and l[:gioi_tinh]),
+        ho_dem: (titleize(l[:hodem].strip.downcase) if l[:hodem] and l[:hodem].is_a?(String)), 
+        lop_hc: (l[:lop].strip.upcase if  l[:lop] and l[:lop].is_a?(String) ) ,
+        ma_he_dao_tao: ( titleize(l[:ten_he_dao_tao].strip.downcase) if l[:ten_he_dao_tao] and l[:ten_he_dao_tao].is_a?(String) ),
+        ma_khoa_hoc: ( titleize(l[:ten_khoa_hoc].strip.downcase) if l[:ten_khoa_hoc] and l[:ten_khoa_hoc].is_a?(String) ) ,
+        ma_sinh_vien: (l[:ma_sinh_vien].strip.upcase if l[:ma_sinh_vien]),
+        ngay_sinh: (l[:ngay_sinh].new_offset(Rational(7, 24)) if l[:ngay_sinh]),
+        ten: ( titleize(l[:ten].strip.downcase) if l[:ten] and l[:ten].is_a?(String) ),
+        trang_thai: (l[:trang_thai] if l[:trang_thai]),
+        ten_nganh: ( titleize(l[:ten_nganh].strip.downcase) if l[:ten_nganh] and l[:ten_nganh].is_a?(String))
+      )
+    end
   end
   task :load_lopsv => :environment do  
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
@@ -39,28 +86,30 @@ namespace :hpu do
   	res_hash = response.body.to_hash
   	ls = res_hash[:lop_mon_hoc_sinh_vien_hk_response][:lop_mon_hoc_sinh_vien_hk_result][:diffgram][:document_element]
   	ls = ls[:lop_mon_hoc_sinh_vien_hk]  
-  	
+  	LopMonHocSinhVien.delete_all
+    ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hoc_sinh_viens')
   	puts "loading... lopsv"
-  	ls.each do |l|
-  		SinhVien.where(:ma_sinh_vien => l[:ma_sinh_vien].strip.upcase).first_or_create!
-  		lop = LopMonHocSinhVien.create!(ma_lop: l[:malop].strip, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase))
-  		ml = lop.ma_lop
-  		if ml.include?("BT") then
-    			lop.loai = ml[ml.rindex("-")+1..ml.length-1]
-    			lop.ma_lop = lop.ma_lop.tap {|s| s.slice!("-"+lop.loai)}  			
-    			lop.save rescue puts "error #{lop.ma_lop}"
-    		end
-
+  	ls.each do |l|  		
+  		lop = LopMonHocSinhVien.create!(ma_lop: l[:malop].strip, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase))  	
   	end	
   end
-  task :test_lopsv => :environment do 
-    lops = []
-    LopMonHoc.all.each do |lop|
-      lops << lop.ma_lop if lop.sinh_viens.count == 0
+  task :update_lopsv => :environment do 
+    LopMonHocSinhVien.all.each do |lop|
+      ml = lop.ma_lop
+      if ml.include?("BT") then
+          lop.loai = ml[-3..-1]
+          lop.update_attributes(:ma_lop => ml[0..-5])       
+          lop.save rescue puts "error #{lop.ma_lop}"
+      end
     end
-    lops = lops.uniq 
-    puts lops.inspect
-    puts lops.count
+  end
+  # cap nhat danh sach sinh vien lop mon hoc
+  task :update_dssv => :environment do 
+    LopMonHoc.all.each do |lop|
+      lop.dssv = lop.get_sinh_viens.map {|sv| {:ma_sinh_vien => sv.ma_sinh_vien,
+        :ho_dem => sv.ho_dem, :ten => sv.ten} }.to_json
+      lop.save rescue puts "error #{lop.ma_lop}"
+    end
   end
   task :load_tuans => :environment do
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
@@ -74,7 +123,19 @@ namespace :hpu do
   		Tuan.create(stt: l[:tuan], tu_ngay: l[:tu_ngay].new_offset(Rational(7, 24)), den_ngay: l[:den_ngay].new_offset(Rational(7, 24)))
   	end
   end
-
+  task :load_lopghep => :environment do 
+    @client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
+    response = @client.call(:lop_ghep_hk)    
+    res_hash = response.body.to_hash    
+    ls = res_hash[:lop_ghep_hk_response][:lop_ghep_hk_result][:diffgram][:document_element]
+    ls = ls[:t_lop_ghep_hk]
+    
+    puts "loading... lop ghep"
+    ls.each do |l|
+      LopGhep.create!(ma_lop_ghep: l[:ma_lop_ghep].strip, nam_hoc: l[:nam_hoc].strip,
+        hoc_ky: l[:hoc_ky], ma_lop: l[:ma_lop].strip, ma_mon_hoc: l[:ma_mon_hoc].strip)
+    end
+  end
 
   task :load_all => :environment do 
   	Rake::Task["hpu:load_tuans"].invoke # load tuans
@@ -89,6 +150,8 @@ namespace :hpu do
       gv.save rescue puts "Error #{gv.ma_giang_vien}}"
   	end
   end
+
+
 end
 def titleize(str)
   str.split(" ").map(&:capitalize).join(" ").gsub("Ii","II")

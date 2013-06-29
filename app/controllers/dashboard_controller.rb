@@ -1,13 +1,16 @@
 class DashboardController < ApplicationController
-  include DashboardHelper
+
+  
   before_filter :load_lops
   def index    
+
     @current_lich = @lich.select {|l| l["tuan"] == @current_week}
     if request.headers['X-PJAX']
       render :layout => false
     end
   end
   def show
+    
     @current_lich = @lich.select {|l| l["tuan"] == params[:id].to_i}    
     if request.headers['X-PJAX']
       render :layout => false
