@@ -1,0 +1,16 @@
+%ul.nav.nav-pills
+  %li= link_to "Home", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
+  %li.active= link_to "Lich Trinh", lichtrinh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")),  :'data-pjax' => '#pjax_container'
+
+%span{:class=> "success", :id=>"status"}      
+
+%div.span10.offset1
+  = form_tag syllabus_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do
+    = submit_tag "Update", :class => "btn btn-primary"
+    
+    %label{:for => :noidung} Noi dung
+    %textarea{:id => :noidung, :name => :noidung, :class => 'wysihtml5', :style => "width: 80%; height: 200px;"}
+    %label{:for => :nhanxet} Nhan xet
+    %textarea{:id => :nhanxet, :name => :nhanxet, :class => 'wysihtml5', :style => "width: 80%; height: 200px;"}  
+
+    

@@ -2,16 +2,30 @@ require 'date'
 require 'json'
 
 class BuoihocController < ApplicationController
-  before_filter :load_lop, :only => [:show, :diemdanh]
+  before_filter :load_lop, :only => [:show, :lichtrinh, :syllabus, :diemdanh]
   def show
   	authorize! :read, @lop_mon_hoc
-  	
+  	@svs = @lop_mon_hoc.get_sinh_viens
 
     if request.headers['X-PJAX']
       render :layout => false
     end
   end
-  
+  def lichtrinh
+    @lich_trinh_giang_day = LichTrinhGiangDay.new
+    if request.headers['X-PJAX']
+      render :layout => false
+    end
+  end
+
+  def syllabus
+
+
+    if request.headers['X-PJAX']
+      render :layout => false
+    end
+  end
+
   def diemdanh
     msvs = []
     params.each do |k,v|
@@ -30,10 +44,8 @@ class BuoihocController < ApplicationController
         dds.first.update_attributes(so_tiet_vang: ms[:vang])
       end
     end
-
-    respond_to do |format|
-      format.js
-    end
+    
+    redirect_to :action => :show
   end
 
   protected
@@ -43,6 +55,6 @@ class BuoihocController < ApplicationController
     @malop = @lop_mon_hoc.ma_lop
     @mamonhoc = @lop_mon_hoc.ma_mon_hoc
     #@svs = JSON.parse(@lop_mon_hoc.dssv)
-    @svs = @lop_mon_hoc.get_sinh_viens
+    
   end
 end

@@ -26,10 +26,10 @@
               %span.icon-bar
               %span.icon-bar
               %span.icon-bar
-            %a.brand(href="#") Trytest
+            %a.brand(href="#") HPU
             .container.nav-collapse
               %ul.nav#urls
-                %li= link_to "Home", "/"
+                %li= link_to "Home", "/",:'data-pjax' => '#pjax_container'
                 %li= link_to "Link 2", "/calendar", :'data-pjax' => '#pjax_container'
 
       .container-fluid

@@ -1,23 +1,28 @@
 
 
+%ul.nav.nav-pills
+  %li.active= link_to "Home", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
+  %li= link_to "Lich Trinh", lichtrinh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")),  :'data-pjax' => '#pjax_container'
 
+%span{:class=> "success", :id=>"status"}      
 
-
-= form_tag diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true, :class => "table table-bordered table-hover" do 
-  %table{:class => "table table-bordered datatable"}
+= form_tag diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post do 
+  = submit_tag "Update", :class => "btn btn-primary"  
+  %br/
+  %table{:class => "table datatable"}
     %thead
       %td Ma Sinh Vien
-      %td Ho va ten
+      %td Ho dem
+      %td Ten
+      %td Vang
       %td So tiet vang    
     %tbody
       - @svs.each do |sv|
         %tr
           %td= sv[:ma_sinh_vien]
-          %td= sv[:ho_dem] + " " + sv[:ten]
-          %td= text_field_tag "msv_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay).first.try(:so_tiet_vang) || 0
-  
+          %td= sv[:ho_dem]
+          %td= sv[:ten]
+          %td= check_box_tag "smv_" + sv[:ma_sinh_vien], {}, get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay)
+          %td= text_field_tag "msv_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay).first.try(:so_tiet_vang) || 0          
 
-  = submit_tag "Update", :class => "btn btn-primary"               
-
-
-%span{:class=> "success", :id=>"status"}                  
+            

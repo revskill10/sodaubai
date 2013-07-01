@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/Nerian/bootstrap-wysihtml5-rails.git
+  revision: 75d8c060fcee2b5967603abcad5b02a82f83d093
+  specs:
+    bootstrap-wysihtml5-rails (0.3.1.20)
+      railties (>= 3.0)
+
+GIT
   remote: git://github.com/jnicklas/capybara.git
   revision: 89ba2c6ecc8666e5a4d6a8b61d69968d04a71bc9
   specs:
@@ -50,9 +57,6 @@ GEM
     akami (1.2.0)
       gyoku (>= 0.4.0)
       nokogiri (>= 1.4.0)
-    apartment (0.21.1)
-      activerecord (>= 3.1.2)
-      rack (>= 1.3.6)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-x86-mingw32)
@@ -336,9 +340,9 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  apartment
   better_errors
   binding_of_caller
+  bootstrap-wysihtml5-rails!
   cancan
   capybara!
   ckeditor

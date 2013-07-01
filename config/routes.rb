@@ -1,8 +1,5 @@
 Trytest::Application.routes.draw do
-  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
-
-  mount Ckeditor::Engine => '/ckeditor'
-
+  
   get "dashboard/index"
   match '/calendar' => 'dashboard#calendar', :as => "calendar"
   match 'tuan/:id' => 'dashboard#show', :as => "tuan"
@@ -19,10 +16,8 @@ Trytest::Application.routes.draw do
     resources :mon_hocs
   
     resources :lop_mon_hocs, :only => :show do 
-      resources :sinh_viens, :only => :index
-      resources :diem_danhs
-      resources :diem_chi_tiets
-      resources :lich_trinh_giang_days
+      resources :sinh_viens, :only => :index      
+      resources :diem_chi_tiets      
       resources :diem_chuyen_cans
       resources :lop_mon_hoc_sinh_viens
       resources :can_bo_lops
@@ -37,6 +32,10 @@ Trytest::Application.routes.draw do
       resources :buoihoc, :only => :show do 
         member do
           post 'diemdanh'
+        end
+        member do 
+          get 'lichtrinh'
+          post 'syllabus'          
         end
       end
     end
