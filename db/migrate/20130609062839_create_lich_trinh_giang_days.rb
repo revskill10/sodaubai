@@ -1,5 +1,6 @@
 class CreateLichTrinhGiangDays < ActiveRecord::Migration
   def change
+    
     create_table :lich_trinh_giang_days do |t|
       t.string :ma_lop
       t.string :ma_mon_hoc

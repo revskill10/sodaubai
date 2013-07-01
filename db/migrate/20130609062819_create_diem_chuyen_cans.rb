@@ -1,5 +1,6 @@
 class CreateDiemChuyenCans < ActiveRecord::Migration
   def change
+    
     create_table :diem_chuyen_cans do |t|
       t.string :ma_sinh_vien
       t.string :ma_lop

@@ -1,5 +1,5 @@
 class CreateDayThays < ActiveRecord::Migration
-  def change
+  def change    
     create_table :day_thays do |t|
       t.string :ma_giang_vien
       t.string :ma_lop

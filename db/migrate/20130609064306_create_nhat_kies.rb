@@ -1,5 +1,6 @@
 class CreateNhatKies < ActiveRecord::Migration
   def change
+  	
     create_table :nhat_kies do |t|
       t.string :ma_nguoi_dung
       t.string :ma_lop

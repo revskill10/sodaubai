@@ -1,5 +1,5 @@
 class CreateSinhViens < ActiveRecord::Migration
-  def change
+  def change    
     create_table :sinh_viens do |t|
       t.string :ma_sinh_vien
       t.string :ho_dem

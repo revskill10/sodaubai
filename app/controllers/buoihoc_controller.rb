@@ -16,14 +16,17 @@ class BuoihocController < ApplicationController
     msvs = []
     params.each do |k,v|
       if k.to_s.include?("msv") then 
-        msvs << {:msv => k.to_s, :vang => v.to_i}
+        msvs << {:msv => k[4..-1], :vang => v.to_i}
       end
     end
     msvs.each do |ms|
       dds = DiemDanh.thongtin(@malop,@mamonhoc,ms[:msv], @ngay)
-      if dds.empty? then 
+      if dds.empty?   
+        if ms[:vang] > 0  
         DiemDanh.create(ma_sinh_vien: ms[:msv], ma_lop: @malop, ma_mon_hoc: @mamonhoc, ngay_vang: @ngay, so_tiet_vang: ms[:vang])
+        end
       else
+
         dds.first.update_attributes(so_tiet_vang: ms[:vang])
       end
     end
@@ -39,6 +42,7 @@ class BuoihocController < ApplicationController
     @ngay = DateTime.strptime(params[:id], "%Y-%m-%d-%H-%M")
     @malop = @lop_mon_hoc.ma_lop
     @mamonhoc = @lop_mon_hoc.ma_mon_hoc
-    @svs = JSON.parse(@lop_mon_hoc.dssv)
+    #@svs = JSON.parse(@lop_mon_hoc.dssv)
+    @svs = @lop_mon_hoc.get_sinh_viens
   end
 end

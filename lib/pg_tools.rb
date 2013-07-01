@@ -26,5 +26,7 @@ module PgTools
     sql = "SELECT nspname FROM pg_namespace WHERE nspname !~ '^pg_.*'"
     ActiveRecord::Base.connection.query(sql).flatten
   end
-
+  def private_search_path?
+    !search_path.match /public/
+  end  
 end

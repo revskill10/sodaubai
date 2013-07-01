@@ -1,5 +1,5 @@
 class CreateRaSomVaoMuons < ActiveRecord::Migration
-  def change
+  def change    
     create_table :ra_som_vao_muons do |t|
       t.string :ma_giang_vien
       t.string :ma_lop

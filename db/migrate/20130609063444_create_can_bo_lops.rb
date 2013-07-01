@@ -1,5 +1,5 @@
 class CreateCanBoLops < ActiveRecord::Migration
-  def change
+  def change    
     create_table :can_bo_lops do |t|
       t.string :ma_sinh_vien
       t.string :ma_lop

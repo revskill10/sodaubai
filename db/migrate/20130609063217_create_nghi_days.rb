@@ -1,5 +1,5 @@
 class CreateNghiDays < ActiveRecord::Migration
-  def change
+  def change    
     create_table :nghi_days do |t|
       t.string :ma_giang_vien
       t.string :ma_lop

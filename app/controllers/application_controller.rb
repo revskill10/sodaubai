@@ -1,8 +1,10 @@
+require 'pg_tools'
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :load_tenant
   before_filter :authenticate_user!  
   before_filter :load_tuan
-  before_filter :load_tenant
+  
   rescue_from CanCan::AccessDenied do |exception| 
 	 render :file => "#{Rails.root}/public/403.html", :status => 403, :layout => false
   end
@@ -17,7 +19,10 @@ class ApplicationController < ActionController::Base
     @current_week = 24
   end
   def load_tenant
-    @current_tenant ||= Tenant.last
-    Apartment::Database.switch(@current_tenant.scheme)
+    if @current_tenant ||= Tenant.last     
+      PgTools.set_search_path @current_tenant.scheme    
+    else
+      PgTools.restore_default_search_path
+    end
   end
 end

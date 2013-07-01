@@ -1,5 +1,5 @@
 class CreateTkbGiangViens < ActiveRecord::Migration
-  def change
+  def change    
     create_table :tkb_giang_viens do |t|
       t.string :ma_giang_vien
       t.string :ma_lop

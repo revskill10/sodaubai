@@ -1,13 +1,8 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
-    
-    if user and user.has_role? :admin
-        can :access, :rails_admin
-        can :dashboard
-        can :manage, :all
-    elsif user and user.imageable.is_a?(GiangVien)
+  def initialize(user)    
+    if user and user.imageable.is_a?(GiangVien)
         can :read, LopMonHoc do |lop|
             user.imageable.lop_mon_hocs.include?(lop)
         end        

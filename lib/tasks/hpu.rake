@@ -1,9 +1,9 @@
+require 'pg_tools'
 namespace :hpu do
   desc "TODO"
   
   task :load_tkbgiangvien => :environment do
-    dbname = ENV['dbname']
-    Apartment::Database.switch(dbname)
+    
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
   	response = @client.call(:tkb_theo_giai_doan)   	
   	res_hash = response.body.to_hash		
@@ -27,8 +27,7 @@ namespace :hpu do
   end
   # cap nhat ma lop tkb
   task :update_tkb1 => :environment do 
-    dbname = ENV['dbname']
-    Apartment::Database.switch(dbname)
+    
     TkbGiangVien.all.each do |tkb|
       ml = tkb.ma_lop
       if ml.include?("BT") then
@@ -39,8 +38,7 @@ namespace :hpu do
     end
   end
   task :create_lopmonhoc => :environment do 
-    dbname = ENV['dbname']
-    Apartment::Database.switch(dbname)
+    
     LopMonHoc.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hocs') 
     TkbGiangVien.all.each do |tkb|
@@ -52,8 +50,7 @@ namespace :hpu do
   end
   # cap nhat tkb set days
   task :update_tkb2 => :environment do 
-    dbname = ENV['dbname']
-    Apartment::Database.switch(dbname)
+    
     TkbGiangVien.all.each do |tkb|
       tkb.update_attributes(days: tkb.get_days)
       tkb.save rescue puts "Error #{tkb.ma_lop}"
@@ -63,9 +60,7 @@ namespace :hpu do
   
   
   
-  task :load_sv => :environment do 
-    dbname = ENV['dbname']
-    Apartment::Database.switch(dbname)
+  task :load_sv => :environment do     
     SinhVien.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('sinh_viens')
     # attr_accessible :gioi_tinh, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ngay_sinh, :ten, :trang_thai, :ten_nganh
@@ -92,8 +87,8 @@ namespace :hpu do
     end
   end
   task :load_lopsv => :environment do  
-    dbname = ENV['dbname']
-    Apartment::Database.switch(dbname)
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
   	response = @client.call(:lop_mon_hoc_sinh_vien_hk)
   	res_hash = response.body.to_hash
@@ -105,15 +100,12 @@ namespace :hpu do
     LopMonHocSinhVien.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hoc_sinh_viens') 
   	ls.each do |l|  		
-  		lop = LopMonHocSinhVien.create!(ma_lop: l[:malop].strip, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase))  	
+  		lop = LopMonHocSinhVien.create!(ma_lop: l[:malop].strip, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), ho_dem: titleize(l[:hodem].strip.downcase), ten: titleize(l[:ten].strip.downcase) ) 	
   	end	
-    Rake::Task["hpu:update_lopsv"].invoke 
-    Rake::Task["hpu:update_dssv"].invoke 
-    Rake::Task["hpu:update_gv"].invoke 
+    Rake::Task["hpu:update_lopsv"].invoke         
   end
   task :update_lopsv => :environment do 
-    dbname = ENV['dbname']
-    Apartment::Database.switch(dbname)
+    
     LopMonHocSinhVien.all.each do |lop|
       ml = lop.ma_lop
       if ml.include?("BT") then
@@ -122,20 +114,11 @@ namespace :hpu do
           lop.save rescue puts "error #{lop.ma_lop}"
       end
     end
-  end
-  # cap nhat danh sach sinh vien lop mon hoc
-  task :update_dssv => :environment do 
-    dbname = ENV['dbname']
-    Apartment::Database.switch(dbname)
-    LopMonHoc.all.each do |lop|
-      lop.dssv = lop.get_sinh_viens.map {|sv| {:ma_sinh_vien => sv.ma_sinh_vien,
-        :ho_dem => sv.ho_dem, :ten => sv.ten} }.to_json
-      lop.save rescue puts "error #{lop.ma_lop}"
-    end
-  end
+  end  
+
+  
   task :load_tuans => :environment do
-    dbname = ENV['dbname']
-    Apartment::Database.switch(dbname)
+    
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
   	response = @client.call(:thoi_gian_tuan)   	
   	res_hash = response.body.to_hash		
@@ -149,8 +132,7 @@ namespace :hpu do
   	end
   end
   task :load_lopghep => :environment do 
-    dbname = ENV['dbname']
-    Apartment::Database.switch(dbname)
+    
     @client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
     response = @client.call(:lop_ghep_hk)    
     res_hash = response.body.to_hash    
@@ -166,9 +148,8 @@ namespace :hpu do
   end
 
   task :load_all => :environment do 
-    dbname = ENV['dbname']
-    Apartment::Database.switch(dbname)
-
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
   	Rake::Task["hpu:load_tuans"].invoke # load tuans
     Rake::Task["hpu:load_lopghep"].invoke 
   	Rake::Task["hpu:load_tkbgiangvien"].invoke  	# load tkb_giang_vien, giang_vien, lop_mon_hoc
@@ -176,25 +157,16 @@ namespace :hpu do
     Rake::Task["hpu:update_gv"].invoke	
   end
 
-  task :update_gv => :environment do 
-    dbname = ENV['dbname']
-    Apartment::Database.switch(dbname)
-  	GiangVien.all.each do |gv|
-  		gv.days = gv.get_days
-      gv.save rescue puts "Error #{gv.ma_giang_vien}}"
-  	end
-  end
+ 
   task :test_gv => :environment do 
-    dbname = ENV['dbname']
-    Apartment::Database.switch(dbname)
+    
     GiangVien.all.each do |gv|
       puts gv.ma_giang_vien if gv.days = nil
     end
   end
   task :create_tenant => :environment do 
     begin
-      dbname = ENV['dbname']
-      Apartment::Database.switch(dbname)
+      
       t = Tenant.create!(:nam_hoc => '2012-2013', :hoc_ky => 2, :scheme => dbname)
       
     rescue

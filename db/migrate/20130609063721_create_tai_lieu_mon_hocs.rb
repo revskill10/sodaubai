@@ -1,5 +1,5 @@
 class CreateTaiLieuMonHocs < ActiveRecord::Migration
-  def change
+  def change    
     create_table :tai_lieu_mon_hocs do |t|
       t.string :ma_giang_vien
       t.string :ma_lop

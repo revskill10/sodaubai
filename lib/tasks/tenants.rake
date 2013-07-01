@@ -6,8 +6,8 @@ namespace :tenants do
       ActiveRecord::Migration.verbose = verbose
 
       Tenant.all.each do |tenant|
-        puts "migrating tenant #{tenant.id} (#{tenant.subdomain})"
-        PgTools.set_search_path tenant.id, false
+        puts "migrating tenant #{tenant.id} (#{tenant.scheme})"
+        PgTools.set_search_path tenant.scheme, false
         version = ENV["VERSION"] ? ENV["VERSION"].to_i : nil
         ActiveRecord::Migrator.migrate("db/migrate/", version)
       end

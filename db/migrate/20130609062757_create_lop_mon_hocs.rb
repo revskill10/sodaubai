@@ -1,5 +1,5 @@
 class CreateLopMonHocs < ActiveRecord::Migration
-  def change
+  def change        
     create_table :lop_mon_hocs do |t|
       t.string :ma_lop
       t.string :ma_giang_vien

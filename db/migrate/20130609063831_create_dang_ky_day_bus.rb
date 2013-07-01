@@ -1,5 +1,5 @@
 class CreateDangKyDayBus < ActiveRecord::Migration
-  def change
+  def change    
     create_table :dang_ky_day_bus do |t|
       t.string :ma_giang_vien
       t.string :ma_lop

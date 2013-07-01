@@ -19,7 +19,7 @@ class LopMonHoc < ActiveRecord::Base
   has_many :diem_danhs, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}
   has_many :diem_chuyen_cans, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}
   has_many :lop_mon_hoc_sinh_viens, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}
-  has_many :sinh_viens, :through => :lop_mon_hoc_sinh_viens
+  #has_many :sinh_viens, :through => :lop_mon_hoc_sinh_viens
   has_many :nghi_days, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}
   has_many :day_thays, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}
 
@@ -28,13 +28,15 @@ class LopMonHoc < ActiveRecord::Base
   def get_sinh_viens
     gheps = []
     if lop_gheps.empty? then 
-      return sinh_viens
+      return lop_mon_hoc_sinh_viens.map {|sv| {:ma_sinh_vien => sv.ma_sinh_vien,
+        :ho_dem => sv.ho_dem, :ten => sv.ten }
+    }
     else
       lop_gheps.each do |lg|
-        gheps = gheps + lg.sinh_viens
-      end
-      return gheps
+        gheps = gheps + lg.get_sinh_viens
+      end      
     end
+    return gheps
   end
 
 end

@@ -1,5 +1,4 @@
-class User < ActiveRecord::Base
-  rolify
+class User < ActiveRecord::Base  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -11,11 +10,7 @@ class User < ActiveRecord::Base
 
 
   def cas_extra_attributes=(extra_attributes)
-    if extra_attributes["status"] == 0
-    	self.add_role :guest unless self.has_role?(:guest)
-    else    	    		 
-        self.remove_role :guest if self.has_role?(:guest)      
-        self.add_role :normal unless self.has_role?(:normal) 
+    if extra_attributes["status"] != 0    	    
     		self.code = extra_attributes["masinhvien"]
         svs = SinhVien.where(:ma_sinh_vien => self.code)
         sv = svs.first unless svs.empty?

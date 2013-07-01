@@ -29,22 +29,6 @@ ActiveRecord::Schema.define(:version => 20130629071348) do
     t.datetime "updated_at",   :null => false
   end
 
-  create_table "ckeditor_assets", :force => true do |t|
-    t.string   "data_file_name",                  :null => false
-    t.string   "data_content_type"
-    t.integer  "data_file_size"
-    t.integer  "assetable_id"
-    t.string   "assetable_type",    :limit => 30
-    t.string   "type",              :limit => 30
-    t.integer  "width"
-    t.integer  "height"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-  end
-
-  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], :name => "idx_ckeditor_assetable"
-  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_ckeditor_assetable_type"
-
   create_table "dang_ky_day_bus", :force => true do |t|
     t.string   "ma_giang_vien"
     t.string   "ma_lop"
@@ -231,30 +215,6 @@ ActiveRecord::Schema.define(:version => 20130629071348) do
     t.datetime "updated_at",    :null => false
   end
 
-  create_table "rails_admin_histories", :force => true do |t|
-    t.text     "message"
-    t.string   "username"
-    t.integer  "item"
-    t.string   "table"
-    t.integer  "month",      :limit => 2
-    t.integer  "year",       :limit => 8
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
-  end
-
-  add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
-
-  create_table "roles", :force => true do |t|
-    t.string   "name"
-    t.integer  "resource_id"
-    t.string   "resource_type"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
-  add_index "roles", ["name"], :name => "index_roles_on_name"
-
   create_table "sinh_viens", :force => true do |t|
     t.string   "ma_sinh_vien"
     t.string   "ho_dem"
@@ -298,12 +258,8 @@ ActiveRecord::Schema.define(:version => 20130629071348) do
     t.string   "nam_hoc"
     t.integer  "hoc_ky"
     t.datetime "thoi_gian"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
-    t.string   "attachment_file_name"
-    t.string   "attachment_content_type"
-    t.integer  "attachment_file_size"
-    t.datetime "attachment_updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "tkb_giang_viens", :force => true do |t|
@@ -328,14 +284,6 @@ ActiveRecord::Schema.define(:version => 20130629071348) do
     t.string   "loai"
   end
 
-  create_table "tuans", :force => true do |t|
-    t.integer  "stt"
-    t.datetime "tu_ngay"
-    t.datetime "den_ngay"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.string   "username",               :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -356,12 +304,5 @@ ActiveRecord::Schema.define(:version => 20130629071348) do
 
   add_index "users", ["code"], :name => "index_users_on_code", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-
-  create_table "users_roles", :id => false, :force => true do |t|
-    t.integer "user_id"
-    t.integer "role_id"
-  end
-
-  add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
 
 end

@@ -1,5 +1,5 @@
 class CreateGiangViens < ActiveRecord::Migration
-  def change
+  def change    
     create_table :giang_viens do |t|
       t.string :ho_ten
       t.string :hoc_vi
