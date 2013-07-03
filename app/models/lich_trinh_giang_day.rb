@@ -5,7 +5,7 @@ class LichTrinhGiangDay < ActiveRecord::Base
   belongs_to :lop_mon_hoc, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}
   delegate :giang_vien, :to => :lop_mon_hoc
 
-  validates :ma_lop, :ma_mon_hoc, :ngay_day, :noi_dung_day, :so_tiet_day, :presence => true
+  validates :ma_lop, :ma_mon_hoc, :ngay_day, :presence => true
   after_create :set_default
 
   private 

@@ -2,27 +2,78 @@ require 'date'
 require 'json'
 
 class BuoihocController < ApplicationController
-  before_filter :load_lop, :only => [:show, :lichtrinh, :syllabus, :diemdanh]
+  before_filter :load_lop
   def show
   	authorize! :read, @lop_mon_hoc
-  	@svs = @lop_mon_hoc.get_sinh_viens
+  	
+    @svs = @lop_mon_hoc.get_sinh_viens.sort_by {|h| h[:ten]}
+    @svs2 = @svs.each_slice(4)
+
 
     if request.headers['X-PJAX']
       render :layout => false
     end
   end
-  def lichtrinh
-    @lich_trinh_giang_day = LichTrinhGiangDay.new
+  def update
+
+    @svs = @lop_mon_hoc.get_sinh_viens.sort_by {|h| h[:ten]}
+    
     if request.headers['X-PJAX']
-      render :layout => false
+      render :show, :layout => false
     end
+    
   end
 
+  # for update/create
   def syllabus
+    puts params.inspect
 
+    @lich = LichTrinhGiangDay.where(ma_lop: @lop_mon_hoc.ma_lop, ma_mon_hoc: @lop_mon_hoc.ma_mon_hoc, ngay_day: Time.zone.parse(@ngay.to_s)).first
+    @lich.noi_dung_day = params[:noidung]
+    @lich.nhan_xet_buoi_hoc = params[:nhanxet]
+    @lich.phong = params[:phong]
+    @lich.so_tiet_day = params[:so_tiet_day]
+    if request.headers['X-PJAX']
+      if @lich.save then 
+        flash[:success] = "Update OK"
+        render :lichtrinh, :layout => false
+      else
+        flash[:error] = "Error update"
+        render :lichtrinh_edit, :layout => false
+      end
+    end
+  end
+  # for get
+  def lichtrinh
+    #@lich_trinh_giang_day = LichTrinhGiangDay.new
+    @lich = LichTrinhGiangDay.where(ma_lop: @lop_mon_hoc.ma_lop, ma_mon_hoc: @lop_mon_hoc.ma_mon_hoc, ngay_day: Time.zone.parse(@ngay.to_s)).first_or_create!
+    
+    if request.headers['X-PJAX']
+      if @lich.save then 
+        render :lichtrinh, :layout => false
+      else
+        render :error, :layout => false
+      end      
+    end
+  end
+  def lichtrinh_edit
+    @lich = LichTrinhGiangDay.where(ma_lop: @lop_mon_hoc.ma_lop, ma_mon_hoc: @lop_mon_hoc.ma_mon_hoc, ngay_day: Time.zone.parse(@ngay.to_s)).first
+    if request.headers['X-PJAX']
+      if @lich.present? then                 
+        render :lichtrinh_edit, :layout => false
+      else
+        render :error, :layout => false
+      end      
+    end
+  end
+  def get_diemdanh
+    
+    @svs = @lop_mon_hoc.get_sinh_viens
 
     if request.headers['X-PJAX']
-      render :layout => false
+      render :diemdanh, :layout => false
+    else
+      render :diemdanh
     end
   end
 
@@ -44,17 +95,19 @@ class BuoihocController < ApplicationController
         dds.first.update_attributes(so_tiet_vang: ms[:vang])
       end
     end
-    
-    redirect_to :action => :show
+    @svs = @lop_mon_hoc.get_sinh_viens
+    if request.headers['X-PJAX']
+      render :diemdanh, :layout => false
+    end
   end
 
   protected
   def load_lop
   	@lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])  	
-    @ngay = DateTime.strptime(params[:id], "%Y-%m-%d-%H-%M")
+    @ngay = DateTime.strptime(params[:id], "%Y-%m-%d-%H-%M").change(:offset => Rational(7,24))
     @malop = @lop_mon_hoc.ma_lop
     @mamonhoc = @lop_mon_hoc.ma_mon_hoc
-    #@svs = JSON.parse(@lop_mon_hoc.dssv)
+    
     
   end
 end

@@ -29,14 +29,15 @@ Trytest::Application.routes.draw do
       resources :ra_som_vao_muons
       resources :day_thays
       resources :nghi_days
-      resources :buoihoc, :only => :show do 
+      resources :buoihoc do 
         member do
+          post 'update', :as => 'update'          
           post 'diemdanh'
-        end
-        member do 
+          get 'diemdanh' => 'buoihoc#get_diemdanh'
           get 'lichtrinh'
-          post 'syllabus'          
-        end
+          get 'lichtrinh_edit' => 'buoihoc#lichtrinh_edit'
+          post 'lichtrinh' => 'buoihoc#syllabus'
+        end        
       end
     end
   

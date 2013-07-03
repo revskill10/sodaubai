@@ -1,6 +1,33 @@
 // Place all the styles related to the Buoihoc controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
 select {
   width: 260px;
+}
+.sillybox { display: inline-block; }
+.div2 {
+	border : 1px solid;
+	border-radius: 10px;	
+}
+.container2 {
+  position: relative;
+  width: 100%;
+}
+
+.container2 div {
+  height: 50px;
+  position: absolute;
+  width: 50px;
+}
+#mynav { 	
+	top: 50px;	
+}
+#content {
+	margin-top: 100px;
+}
+.boxsizingBorder {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 }

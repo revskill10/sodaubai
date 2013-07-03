@@ -1,23 +1,34 @@
 
-%ul.nav.nav-pills
-  %li= link_to "Home", "/", :'data-pjax' => '#pjax_container'
-  %li.active= link_to "Calendar", "/calendar",  :'data-pjax' => '#pjax_container'
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/", :'data-pjax' => '#pjax_container' } HPU
+        .container.nav-collapse
+          %ul.nav.pull-left#urls
+            %li= link_to "Home", "/", :'data-pjax' => '#pjax_container'
+            %li.active= link_to "Calendar", "/calendar", :'data-pjax' => '#pjax_container'
 
-%table{:class => "table table-bordered datatable"}
-  %div#loading
-  %thead    
-    %td Tuần    
-    %td Thời gian 
-    %td So Tiet      
-    %td Phòng    
-    %td Môn
-    %td Mã lớp
-  %tbody
-    - @lich.each_with_index do |lich, index|
-      %tr        
-        %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to "T" + lich["tuan"].to_s, tuan_path(lich["tuan"].to_s), :'data-pjax' => '#pjax_container'
-        %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to "Thứ " + lich["thu"].to_s + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
-        %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["so_tiet"]             
-        %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["phong"]                 
-        %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
-        %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to lich["ma_lop"], lop_mon_hoc_path(lich["lop"]), :'data-pjax' => '#pjax_container'
+.container-fluid{:style=>"margin-top: 100px;"}
+  %table{:class => "table table-bordered datatable"}
+    %div#loading
+    %thead    
+      %td Tuần    
+      %td Thời gian 
+      %td So Tiet      
+      %td Phòng    
+      %td Môn
+      %td Mã lớp
+    %tbody
+      - @lich.each_with_index do |lich, index|
+        %tr        
+          %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to "T" + lich["tuan"].to_s, tuan_path(lich["tuan"].to_s), :'data-pjax' => '#pjax_container'
+          %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to "Thứ " + lich["thu"].to_s + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
+          %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["so_tiet"]             
+          %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["phong"]                 
+          %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
+          %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to lich["ma_lop"], lop_mon_hoc_path(lich["lop"]), :'data-pjax' => '#pjax_container'

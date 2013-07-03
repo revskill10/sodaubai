@@ -1,0 +1,49 @@
+ 
+ 
+
+= form_tag diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do 
+    
+  .container-fluid
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.brand{:href => "/", :'data-pjax' => '#pjax_container' } HPU
+          .container.nav-collapse
+            %ul.nav#urls
+              %li= link_to "Home", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
+              %li.active= link_to "DiemDanh", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
+              %li= link_to "Lich Trinh", lichtrinh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")),  :'data-pjax' => '#pjax_container'
+            %ul.nav.pull-right
+              %li= submit_tag "Update", :class => "btn btn-success" 
+
+  .container-fluid{:style => "margin-top:100px;"}
+    %table{:class => "table datatable"}
+      %thead
+        %td Ma Sinh Vien
+        %td Ho dem
+        %td Ten
+        %td Vang
+        %td So tiet vang    
+      %tbody
+        - @svs.each do |sv|
+          %tr
+            %td= sv[:ma_sinh_vien]
+            %td= sv[:ho_dem]
+            %td= sv[:ten]
+            %td= check_box_tag "smv_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay)
+            %td= text_field_tag "msv_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay).first.try(:so_tiet_vang) || 0 
+
+:javascript
+  $(document).on('submit', 'form', function(event){
+    $.pjax.submit(event, '#pjax-container');    
+  });
+  $(document).ready(function(){
+    $('.wysihtml5').each(function(i, elem){
+      $(elem).wysihtml5();
+    })    ;
+  });
+  

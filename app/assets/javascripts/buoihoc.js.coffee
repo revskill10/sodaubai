@@ -2,6 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 //= require bootstrap-wysiwyg
+//= require jquery.sticky
 
 $('#pjax-container').on 'pjax:popstate', (event) ->  
   if (event.direction == "back" or event.direction == "forward")
@@ -12,14 +13,22 @@ $('#pjax-container').on 'pjax:popstate', (event) ->
 
 $('#pjax-container').on 'pjax:success', () ->     
   oTable = $('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bRetrieve": true,"iDisplayLength": 25, "bDestroy":true,"bInfo":false,"bProcessing":true,"bStateSave":true,"bAutoWidth":true});
-  $('.datatable').show();  
+  $('.datatable').show();    
   $('.wysihtml5').each (i, elem) ->
-    $(elem).wysihtml5()      
+    $(elem).wysihtml5("color": true,
+        "size": 'small',
+        "html": true,
+        "format-code": true)
+  
+    
+  
+  
 
 $(document).ready ->
-  $('.wysihtml5').each (i, elem) ->
-    $(elem).wysihtml5()    
-	    
+  $('textarea').each (i, elem) ->
+    $(elem).wysihtml5() 
+  $(document).on 'submit', 'form', (event) ->
+    $.pjax.submit(event, '#pjax-container')    
   
 
 
