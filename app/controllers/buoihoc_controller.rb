@@ -7,8 +7,14 @@ class BuoihocController < ApplicationController
   	authorize! :read, @lop_mon_hoc
   	
     @svs = @lop_mon_hoc.get_sinh_viens.sort_by {|h| h[:ten]}
+    @ids = @svs.map{|sv| sv[:ma_sinh_vien]}
+    
+    @dds = DiemDanh.thongtin(@malop,@mamonhoc,@ids, @ngay)
+    @svs.each do |sv|
+      b2 = @dds.select {|bi| bi[:ma_sinh_vien] == sv[:ma_sinh_vien]}.first
+      sv.merge!(b2.as_json) if b2
+    end
     @svs2 = @svs.each_slice(4)
-
 
     if request.headers['X-PJAX']
       render :layout => false
@@ -16,10 +22,18 @@ class BuoihocController < ApplicationController
   end
   def update    
     @svs = @lop_mon_hoc.get_sinh_viens.sort_by {|h| h[:ten]}
+    @ids = @svs.map{|sv| sv[:ma_sinh_vien]}
+    @dds = DiemDanh.thongtin(@malop,@mamonhoc,@ids, @ngay)
+    @svs.each do |sv|
+      b2 = @dds.select {|bi| bi[:ma_sinh_vien] == sv.ma_sinh_vien}.first
+      if b2 
+        b3 = b2.as_json.symbolize_keys       
+        sv.merge!(b3)
+      end
+    end
     @svs2 = @svs.each_slice(4)
 
-    dds = DiemDanh.thongtin(@malop,@mamonhoc,params[:msv], @ngay)
-    puts dds.inspect
+    #puts dds.inspect
     if request.headers['X-PJAX']
       render :show, :layout => false
     end
