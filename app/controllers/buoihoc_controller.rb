@@ -14,10 +14,12 @@ class BuoihocController < ApplicationController
       render :layout => false
     end
   end
-  def update
-
+  def update    
     @svs = @lop_mon_hoc.get_sinh_viens.sort_by {|h| h[:ten]}
-    
+    @svs2 = @svs.each_slice(4)
+
+    dds = DiemDanh.thongtin(@malop,@mamonhoc,params[:msv], @ngay)
+    puts dds.inspect
     if request.headers['X-PJAX']
       render :show, :layout => false
     end
@@ -78,21 +80,24 @@ class BuoihocController < ApplicationController
   end
 
   def diemdanh
+    puts params.inspect
     msvs = []
     params.each do |k,v|
       if k.to_s.include?("msv") then 
         msvs << {:msv => k[4..-1], :vang => v.to_i}
       end
     end
-    msvs.each do |ms|
-      dds = DiemDanh.thongtin(@malop,@mamonhoc,ms[:msv], @ngay)
-      if dds.empty?   
-        if ms[:vang] > 0  
-        DiemDanh.create(ma_sinh_vien: ms[:msv], ma_lop: @malop, ma_mon_hoc: @mamonhoc, ngay_vang: @ngay, so_tiet_vang: ms[:vang])
-        end
-      else
+    if msvs.length > 0 then 
+      msvs.each do |ms|
+        dds = DiemDanh.thongtin(@malop,@mamonhoc,ms[:msv], @ngay)
+        if dds.empty?   
+          if ms[:vang] > 0  
+          DiemDanh.create(ma_sinh_vien: ms[:msv], ma_lop: @malop, ma_mon_hoc: @mamonhoc, ngay_vang: @ngay, so_tiet_vang: ms[:vang])
+          end
+        else
 
-        dds.first.update_attributes(so_tiet_vang: ms[:vang])
+          dds.first.update_attributes(so_tiet_vang: ms[:vang])
+        end
       end
     end
     @svs = @lop_mon_hoc.get_sinh_viens

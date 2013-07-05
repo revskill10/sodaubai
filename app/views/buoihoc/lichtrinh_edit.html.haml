@@ -23,9 +23,9 @@
     = label_tag :phong, 'Phong'
     = text_field_tag :phong, @lich.phong, :placeholder => 'Phong hoc'
     = label_tag :noidung, 'Noi dung day'
-    = text_area_tag :noidung, @lich.noi_dung_day, :class => 'wysihtml5', :style => "width: 80%; height: 200px"
+    = text_area_tag :noidung, @lich.noi_dung_day, :class => 'wysihtml5', :style => "overflow:scroll; max-height:300px"
     = label_tag :nhanxet, 'Nhan xet buoi hoc'
-    = text_area_tag :nhanxet, @lich.nhan_xet_buoi_hoc, :class => 'wysihtml5', :style => "width: 80%; height: 200px"
+    = text_area_tag :nhanxet, @lich.nhan_xet_buoi_hoc, :class => 'wysihtml5', :style => "overflow:scroll; max-height:300px"
     = link_to "Lich Trinh", lichtrinh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")),  :'data-pjax' => '#pjax_container'
     
 

@@ -25,6 +25,6 @@
               %div             
                 %p= sv[:ho_dem] + " " + sv[:ten]
                 %span= sv[:ma_sinh_vien]              
-                %span= check_box_tag("smv_" + sv[:ma_sinh_vien],sv[:ma_sinh_vien], get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay), :value => sv[:ma_sinh_vien]  )
+                %span= check_box_tag "msv[]",sv[:ma_sinh_vien], get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay),:id => sv[:ma_sinh_vien]
   
   
