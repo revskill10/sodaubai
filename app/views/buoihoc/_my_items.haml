@@ -1,0 +1,26 @@
+- format_xls '.my-table' do
+  workbook use_autowidth: true
+  sheet    orientation: landscape
+  format 'th', b: true # bold
+  format 'tbody tr', bg_color: lambda { |row| 'ddffdd' if row.index.odd? }
+  format 'A3:B10', i: true # italic
+  format column: 0, width: 35
+  format 'td.custom', lambda { |cell| modify cell somehow.}  
+  default 'td.price', 10
+
+%table.mytable
+  %caption My items
+  %thead
+    %tr
+      %td ID
+      %td Name
+      %td So tiet vang
+  %tbody
+    - my_items.each do |my_item|
+      %tr
+        %td= my_item[:ma_sinh_vien]
+        %td= my_item[:ho_dem] + " " + my_item[:ten]
+        %td= DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, my_item[:ma_sinh_vien], @ngay).first.try(:so_tiet_vang)
+  %tfoot  
+    %tr
+      %td(colspan="2") #{my_items.length}

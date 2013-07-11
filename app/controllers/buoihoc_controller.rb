@@ -3,6 +3,7 @@ require 'json'
 
 class BuoihocController < ApplicationController
   before_filter :load_lop
+  respond_to :xlsx, :html
   def show
   	authorize! :read, @lop_mon_hoc
   	
@@ -16,9 +17,11 @@ class BuoihocController < ApplicationController
     end
     @svs2 = @svs.each_slice(4)
 
+    
     if request.headers['X-PJAX']
-      render :layout => false
+        render :layout => false
     end
+    
   end
   def update    
     @svs = @lop_mon_hoc.get_sinh_viens.sort_by {|h| h[:ten]}
@@ -86,10 +89,13 @@ class BuoihocController < ApplicationController
     
     @svs = @lop_mon_hoc.get_sinh_viens
 
-    if request.headers['X-PJAX']
-      render :diemdanh, :layout => false
-    else
-      render :diemdanh
+    respond_to do |format|
+      if request.headers['X-PJAX']
+        format.html {render :diemdanh, :layout => false}        
+      else
+        format.html {render :diemdanh}
+        format.xlsx {render xlsx: :diemdanh_doc, filename: "diemdanh_doc"}
+      end
     end
   end
 

@@ -1,20 +1,29 @@
 
-%p#notice= notice
-%p Xin chao
-%p
-  %b Ma lop:
-  = link_to @lop_mon_hoc.ma_lop, @lop_mon_hoc
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/", :'data-pjax' => '#pjax_container' } HPU
+        .container.nav-collapse
+          %ul.nav.pull-left#urls
+            %li.active= link_to "Home", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'
+            %li= link_to "Thong Bao", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'
+            %li= link_to "Tai lieu", lop_mon_hoc_tai_lieu_mon_hocs_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
+            
+.container-fluid{:style=>"margin-top: 100px;"}    
+  %table{:class => "table datatable"}
+    %thead
+      %td Ma Sinh Vien
+      %td Ho dem
+      %td Ten        
+    %tbody
+      - @svs.each do |sv|
+        %tr
+          %td= sv[:ma_sinh_vien]
+          %td= sv[:ho_dem]
+          %td= sv[:ten]                      
 
-
-  	        
-  
-%br/
-
-- @lop_mon_hoc.sinh_viens.each do |sv|
-  = sv.ma_sinh_vien
-  
-  %br/
-%br/
-
-\|
-= link_to 'Back', root_path

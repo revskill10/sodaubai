@@ -21,6 +21,11 @@
               %li= submit_tag "Update", :class => "btn btn-success" 
 
   .container-fluid{:style => "margin-top:100px;"}
+    = flash.each do |key, value|
+      .alert{ :class => "alert-#{key}" }
+        %button.close{ :data => { :dismiss => "alert" } } x
+        %strong
+          = value
     %table{:class => "table datatable"}
       %thead
         %td Ma Sinh Vien
@@ -36,6 +41,9 @@
             %td= sv[:ten]
             %td= check_box_tag "smv_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay)
             %td= text_field_tag "msv_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay).first.try(:so_tiet_vang) || 0 
+
+    
+    %li= link_to "Download", diemdanh_lop_mon_hoc_buoihoc_url(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"), format: :xlsx)
 
 :javascript
   $(document).on('submit', 'form', function(event){
