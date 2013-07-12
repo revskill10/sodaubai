@@ -15,7 +15,9 @@ class DiemDanh < ActiveRecord::Base
     .where(:ma_sinh_vien=>ma_sinh_vien).where(:ngay_vang => Time.zone.parse(ngay_vang.to_s))
   }
   
-
+  scope :sotietvang, lambda{|ma_lop, ma_mon_hoc, ma_sinh_vien|
+    where(:ma_lop => ma_lop).where(:ma_mon_hoc => ma_mon_hoc).where(ma_sinh_vien: ma_sinh_vien).sum(:so_tiet_vang)
+  }
   
   private
   def default_values
