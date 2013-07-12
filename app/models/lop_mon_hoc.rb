@@ -38,5 +38,18 @@ class LopMonHoc < ActiveRecord::Base
     end
     return gheps
   end
-
+  def get_days
+    results = []
+    tkb_giang_viens.each do |l|
+      results = results + JSON.parse(l.get_days)['ngay']
+    end
+    return results
+  end
+  def tong_so_tiet
+    sum = 0
+    get_days.each do |k|
+      sum = sum + k["so_tiet"]
+    end
+    return sum
+  end
 end

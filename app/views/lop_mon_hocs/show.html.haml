@@ -10,9 +10,13 @@
         %a.brand{:href => "/", :'data-pjax' => '#pjax_container' } HPU
         .container.nav-collapse
           %ul.nav.pull-left#urls
-            %li.active= link_to "Home", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'
+            %li.active= link_to "Home", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'            
+            %li= link_to "Diem chuyen can", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'            
+            %li= link_to "Diem thuc hanh", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
+            %li= link_to "Diem kiem tra", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
             %li= link_to "Thong Bao", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'
             %li= link_to "Tai lieu", lop_mon_hoc_tai_lieu_mon_hocs_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
+            
             
 .container-fluid{:style=>"margin-top: 100px;"}    
   %table{:class => "table datatable"}
