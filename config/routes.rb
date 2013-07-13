@@ -17,7 +17,12 @@ Trytest::Application.routes.draw do
   
     resources :lop_mon_hocs, :only => :show do 
       resources :sinh_viens, :only => :index      
-      resources :diem_chi_tiets      
+      resources :diem_chi_tiets      do  
+        collection do        
+          get '/:loai' => 'diem_chi_tiets#index'
+          post '/:loai'  => 'diem_chi_tiets#create'
+        end
+      end
       resources :diem_chuyen_cans
       resources :lop_mon_hoc_sinh_viens
       resources :can_bo_lops

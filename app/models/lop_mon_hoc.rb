@@ -18,6 +18,14 @@ class LopMonHoc < ActiveRecord::Base
   has_many :lich_trinh_giang_days, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}
   has_many :diem_danhs, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}
   has_many :diem_chuyen_cans, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}
+  has_many :diem_chi_tiets, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]} do 
+    def diem_thuc_hanh
+      where("diem_chi_tiets.loai_diem = ?", '1')
+    end
+    def diem_kiem_tra
+      where("diem_chi_tiets.loai_diem = ?", '2')
+    end
+  end
   has_many :lop_mon_hoc_sinh_viens, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}
   #has_many :sinh_viens, :through => :lop_mon_hoc_sinh_viens
   has_many :nghi_days, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}

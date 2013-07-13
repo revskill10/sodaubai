@@ -1,32 +1,34 @@
-%h1 Listing diem_chuyen_cans
-
-%table
-  %tr
-    %th Ma sinh vien
-    %th Ma lop
-    %th Ma mon hoc
-    %th Nam hoc
-    %th Hoc ky
-    %th Tong so tiet
-    %th Tong so tiet vang
-    %th Diem
-    %th
-    %th
-    %th
-
-  - @diem_chuyen_cans.each do |diem_chuyen_can|
-    %tr
-      %td= diem_chuyen_can.ma_sinh_vien
-      %td= diem_chuyen_can.ma_lop
-      %td= diem_chuyen_can.ma_mon_hoc
-      %td= diem_chuyen_can.nam_hoc
-      %td= diem_chuyen_can.hoc_ky
-      %td= diem_chuyen_can.tong_so_tiet
-      %td= diem_chuyen_can.tong_so_tiet_vang
-      %td= diem_chuyen_can.diem
-      %td= link_to 'Show', diem_chuyen_can
-      %td= link_to 'Edit', edit_diem_chuyen_can_path(diem_chuyen_can)
-      %td= link_to 'Destroy', diem_chuyen_can, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
+= form_tag lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id), :method => :post, :remote => true do 
+  .container-fluid
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.brand{:href => "/", :'data-pjax' => '#pjax_container' } HPU
+          .container.nav-collapse
+            %ul.nav.pull-left#urls
+              %li= link_to "Home", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'            
+              %li.active= link_to "Diem chuyen can", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'            
+              %li= link_to "Diem thuc hanh", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
+              %li= link_to "Diem kiem tra", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
+              %li= link_to "Thong Bao", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'
+              %li= link_to "Tai lieu", lop_mon_hoc_tai_lieu_mon_hocs_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
+              
+              
+  .container-fluid{:style=>"margin-top: 100px;"}    
+    %table{:class => "table datatable"}
+      %thead
+        %td Ma Sinh Vien
+        %td Ho dem
+        %td Ten     
+        %td Diem   
+      %tbody
+        - @svs.each do |sv|
+          %tr
+            %td= sv[:ma_sinh_vien]
+            %td= sv[:ho_dem]
+            %td= sv[:ten]                      
+            %td= text_field_tag "msv_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => DiemChuyenCan.where(ma_lop: @lop_mon_hoc.ma_lop, ma_mon_hoc:  @lop_mon_hoc.ma_mon_hoc, ma_sinh_vien: sv[:ma_sinh_vien]).first.try(:diem) || ""
