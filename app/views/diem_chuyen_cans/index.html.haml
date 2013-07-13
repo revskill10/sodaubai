@@ -16,7 +16,10 @@
               %li= link_to "Diem kiem tra", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
               %li= link_to "Thong Bao", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'
               %li= link_to "Tai lieu", lop_mon_hoc_tai_lieu_mon_hocs_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
-              
+            %ul.nav.pull-right
+              %li= submit_tag "Update", :class => "btn btn-success"             
+              %li= link_to "Log out" , destroy_user_session_path 
+
               
   .container-fluid{:style=>"margin-top: 100px;"}    
     %table{:class => "table datatable"}

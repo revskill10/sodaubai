@@ -15,6 +15,7 @@ class DiemChuyenCansController < ApplicationController
   # POST /diem_chuyen_cans
   # POST /diem_chuyen_cans.json
   def create
+    puts params.inspect
     #todo
   end
  
