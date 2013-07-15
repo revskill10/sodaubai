@@ -23,11 +23,18 @@
     %thead
       %td Ma Sinh Vien
       %td Ho dem
-      %td Ten        
+      %td Ten   
+      %td DTB
+      %td Status     
     %tbody
       - @svs.each do |sv|
         %tr
           %td= sv[:ma_sinh_vien]
           %td= sv[:ho_dem]
-          %td= sv[:ten]                      
+          %td= sv[:ten]  
+          %td 10   
+          %td
+            %div.progress
+              %div.bar{:style => "width: 60%;"}
+              %div.bar.bar-danger{:style => "width: 40%;"}
 

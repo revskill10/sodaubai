@@ -1,4 +1,4 @@
-= form_tag lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id)+'/1', :method => :post, :remote => true do 
+= form_tag lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id)+'/2', :method => :post, :remote => true do 
   .container-fluid
     .navbar.navbar-fixed-top
       .navbar-inner
@@ -25,11 +25,15 @@
         %td Ma Sinh Vien
         %td Ho dem
         %td Ten     
-        %td Diem   
+        %td Lan 1   
+        %td Lan 2   
+        %td Lan 3   
       %tbody
         - @svs.each do |sv|
           %tr
             %td= sv[:ma_sinh_vien]
             %td= sv[:ho_dem]
             %td= sv[:ten]                      
-            %td= text_field_tag "msv_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien]).first.try(:diem) || "", :class => "span1"
+            %td= text_field_tag "msv_1_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], lan: 1).first.try(:diem) || "", :class => "span1"
+            %td= text_field_tag "msv_2_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], lan: 2).first.try(:diem) || "", :class => "span1"
+            %td= text_field_tag "msv_3_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], lan: 3).first.try(:diem) || "", :class => "span1"
