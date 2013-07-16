@@ -147,6 +147,10 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
+    haml_coffee_assets (1.12.0)
+      coffee-script (>= 1.0.0)
+      sprockets (>= 2.0.3)
+      tilt (>= 1.3.3)
     hike (1.2.3)
     htmlentities (4.3.1)
     httpi (2.0.2)
@@ -369,10 +373,10 @@ DEPENDENCIES
   guard-rspec
   guard-spork
   haml-rails
+  haml_coffee_assets
   ice_cube
   jquery-datatables-rails!
   jquery-rails
-  kaminari
   launchy
   paperclip (~> 3.0)
   pg (= 0.15.1)

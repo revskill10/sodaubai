@@ -18,6 +18,7 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+                     
 end
 
 gem 'jquery-rails'
@@ -72,7 +73,6 @@ gem "rails_admin-i18n"
 gem "rolify"
 gem "ice_cube"
 gem "twitter-bootstrap-rails"
-gem 'kaminari'
 gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
 gem "ckeditor"
@@ -84,4 +84,7 @@ gem 'color-generator'
 gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
 gem 'bootstrap-wysihtml5-rails', :require => 'bootstrap-wysihtml5-rails',
                               :git => 'git://github.com/Nerian/bootstrap-wysihtml5-rails.git'
-gem 'to_spreadsheet'                            
+gem 'to_spreadsheet'
+group :assets do 
+  gem 'haml_coffee_assets'
+end

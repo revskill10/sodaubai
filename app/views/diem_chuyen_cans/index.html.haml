@@ -35,3 +35,6 @@
             %td= sv[:ho_dem]
             %td= sv[:ten]                      
             %td= text_field_tag "msv_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => DiemChuyenCan.where(ma_lop: @lop_mon_hoc.ma_lop, ma_mon_hoc:  @lop_mon_hoc.ma_mon_hoc, ma_sinh_vien: sv[:ma_sinh_vien]).first.try(:diem) || ""
+
+:javascript
+  $(document).ready(alert("Hello"));

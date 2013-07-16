@@ -11,12 +11,12 @@ Trytest::Application.routes.draw do
   
   
     resources :tkb_giang_viens
-
+    
     resources :giang_viens
     resources :mon_hocs
-  
+    resources :sinh_viens, :only => :index  
     resources :lop_mon_hocs, :only => :show do 
-      resources :sinh_viens, :only => :index      
+          
       resources :diem_chi_tiets      do  
         collection do        
           get '/:loai' => 'diem_chi_tiets#index'

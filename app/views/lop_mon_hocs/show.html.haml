@@ -19,6 +19,7 @@
             
             
 .container-fluid{:style=>"margin-top: 100px;"}    
+  %div#test
   %table{:class => "table datatable"}
     %thead
       %td Ma Sinh Vien
@@ -37,4 +38,33 @@
             %div.progress
               %div.bar{:style => "width: 60%;"}
               %div.bar.bar-danger{:style => "width: 40%;"}
+
+:javascript
+  var Model = Backbone.Model.extend({
+    urlRoot: '/lop_mon_hocs/171/lop_mon_hoc_sinh_viens/'
+  });
+  var e = new Model({id: '26770'});  
+  var ModelView = Backbone.View.extend({
+    el: 'li',    
+    events: {
+      "click a": "test"
+    },
+    template: function(model){
+      return '<span>' + model.ho_dem + '</span>';
+    },
+    initialize: function(){
+      this.listenTo(this.model,'change', this.render);
+    },
+    render: function(){      
+      this.$el.html(this.template(this.model.toJSON()));
+      return this;
+    },
+    test: function(e){
+      e.preventDefault();
+      
+    }
+  });
+  var mv = new ModelView({model: e});
+  e.fetch();
+
 

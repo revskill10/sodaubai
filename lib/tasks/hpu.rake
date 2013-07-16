@@ -61,6 +61,8 @@ namespace :hpu do
   
   
   task :load_sv => :environment do     
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
     SinhVien.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('sinh_viens')
     # attr_accessible :gioi_tinh, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ngay_sinh, :ten, :trang_thai, :ten_nganh
@@ -82,6 +84,8 @@ namespace :hpu do
         ngay_sinh: (l[:ngay_sinh].new_offset(Rational(7, 24)) if l[:ngay_sinh]),
         ten: ( titleize(l[:ten].strip.downcase) if l[:ten] and l[:ten].is_a?(String) ),
         trang_thai: (l[:trang_thai] if l[:trang_thai]),
+        ma_nganh: (l[:ma_nganh].strip.upcase if l[:ma_nganh]),
+        email: (l[:email].strip.downcase if l[:email] and l[:email].is_a?(String)),
         ten_nganh: ( titleize(l[:ten_nganh].strip.downcase) if l[:ten_nganh] and l[:ten_nganh].is_a?(String))
       )
     end

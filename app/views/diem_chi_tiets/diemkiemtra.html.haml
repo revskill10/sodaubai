@@ -35,5 +35,5 @@
             %td= sv[:ho_dem]
             %td= sv[:ten]                      
             %td= text_field_tag "msv_1_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], lan: 1).first.try(:diem) || "", :class => "span1"
-            %td= text_field_tag "msv_2_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], lan: 2).first.try(:diem) || "", :class => "span1"
-            %td= text_field_tag "msv_3_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], lan: 3).first.try(:diem) || "", :class => "span1"
+            %td= text_field_tag "msv_2_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], lan: 2).first.try(:diem) || "", :class => "span1", :readonly => true
+            %td= text_field_tag "msv_3_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], lan: 3).first.try(:diem) || "", :class => "span1", :readonly => true

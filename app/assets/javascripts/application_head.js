@@ -1,0 +1,9 @@
+//= require jquery
+//= require jquery_ujs
+//= require twitter/bootstrap
+//= require jquery.pjax
+//= require hamlcoffee
+//= require underscore-min
+//= require json2
+//= require backbone-min
+//= require_tree ./backbone

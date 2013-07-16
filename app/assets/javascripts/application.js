@@ -10,19 +10,12 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_ujs
-//= require twitter/bootstrap
-//= require jquery.pjax
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require dashboard
 //= require bootstrap-wysihtml5
 //= require bootstrap-wysihtml5/locales
-//= require underscore-min
-//= require json2
-//= require backbone-min
-//= require_tree ./backbone
+
 $(document).ready(function(){
 	oTable = $('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bRetrieve": true,"iDisplayLength": 25, "bDestroy":true,"bInfo":false,"bProcessing":true,"bStateSave":true,"bAutoWidth":true});	
 });  
