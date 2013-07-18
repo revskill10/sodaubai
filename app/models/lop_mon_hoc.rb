@@ -34,14 +34,12 @@ class LopMonHoc < ActiveRecord::Base
   validates :ma_giang_vien, :ma_lop, :ma_mon_hoc, :presence => true
   validates_uniqueness_of :ma_lop, :scope => [:ma_giang_vien, :ma_mon_hoc]
   def get_sinh_viens
-    gheps = []
+    gheps = lop_mon_hoc_sinh_viens
     if lop_gheps.empty? then 
-      return lop_mon_hoc_sinh_viens.map {|sv| {:ma_sinh_vien => sv.ma_sinh_vien,
-        :ho_dem => sv.ho_dem, :ten => sv.ten }
-    }
+      return gheps    
     else
       lop_gheps.each do |lg|
-        gheps = gheps + lg.get_sinh_viens
+        gheps = gheps + lg.lop_mon_hoc_sinh_viens
       end      
     end
     return gheps
