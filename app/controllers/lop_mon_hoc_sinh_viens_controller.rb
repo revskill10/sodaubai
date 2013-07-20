@@ -2,11 +2,12 @@ class LopMonHocSinhViensController < ApplicationController
   # GET /lop_mon_hoc_sinh_viens
   # GET /lop_mon_hoc_sinh_viens.json
   before_filter :load_lop
+
   def index
     #@lop_mon_hoc_sinh_viens = LopMonHocSinhVien.all
     @lop_mon_hoc_sinh_viens = @lop_mon_hoc.get_sinh_viens
-
-    
+    @groups = @lop_mon_hoc.groups
+    @groups_arrays = @groups.map {|gr| [gr.name, gr.id] }
     respond_to do |format|
       format.html { render :layout => false if request.headers['X-PJAX']}
       format.json { render json: @lop_mon_hoc_sinh_viens }

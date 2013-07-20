@@ -10,7 +10,7 @@ class LopMonHocsController < ApplicationController
       if request.headers['X-PJAX']
         format.html {render :layout => false}        
       else
-        format.html {render :layout => false}
+        format.html {render :show}
         format.xlsx {render xlsx: :dslop, filename: "dslop_doc"}
       end
     end

@@ -26,6 +26,7 @@ class LopMonHoc < ActiveRecord::Base
       where("diem_chi_tiets.loai_diem = ?", '2')
     end
   end
+  has_many :groups, :dependent => :destroy
   has_many :lop_mon_hoc_sinh_viens, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}
   #has_many :sinh_viens, :through => :lop_mon_hoc_sinh_viens
   has_many :nghi_days, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}

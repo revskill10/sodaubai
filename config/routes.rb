@@ -14,9 +14,9 @@ Trytest::Application.routes.draw do
 
     resources :giang_viens
     resources :mon_hocs
-  
+    resources :sinh_viens, :only => :index  
     resources :lop_mon_hocs, :only => :show do 
-      resources :sinh_viens, :only => :index      
+      resources :groups
       resources :diem_chi_tiets      do  
         collection do        
           get '/:loai' => 'diem_chi_tiets#index'
@@ -24,7 +24,7 @@ Trytest::Application.routes.draw do
         end
       end
       resources :diem_chuyen_cans
-      resources :lop_mon_hoc_sinh_viens
+      resources :lop_mon_hoc_sinh_viens      
       resources :can_bo_lops
       resources :tai_lieu_mon_hocs
       resources :thong_bao_lop_hocs
