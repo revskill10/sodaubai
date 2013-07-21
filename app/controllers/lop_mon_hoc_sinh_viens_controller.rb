@@ -3,6 +3,12 @@ class LopMonHocSinhViensController < ApplicationController
   # GET /lop_mon_hoc_sinh_viens.json
   before_filter :load_lop
 
+  def groupupdate
+    puts params.inspect
+    respond_to do |format|
+      format.js
+    end
+  end
   def index
     #@lop_mon_hoc_sinh_viens = LopMonHocSinhVien.all
     @lop_mon_hoc_sinh_viens = @lop_mon_hoc.get_sinh_viens

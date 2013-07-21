@@ -24,7 +24,11 @@ Trytest::Application.routes.draw do
         end
       end
       resources :diem_chuyen_cans
-      resources :lop_mon_hoc_sinh_viens      
+      resources :lop_mon_hoc_sinh_viens  do 
+        collection do 
+          post '/groupupdate' => 'lop_mon_hoc_sinh_viens#groupupdate'
+        end
+      end    
       resources :can_bo_lops
       resources :tai_lieu_mon_hocs
       resources :thong_bao_lop_hocs
