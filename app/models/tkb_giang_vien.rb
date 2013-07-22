@@ -1,7 +1,7 @@
 require 'active_support/time'
 class TkbGiangVien < ActiveRecord::Base
   include IceCube
-  attr_accessible :hoc_ky, :ma_giang_vien, :ma_lop, :ma_mon_hoc, :nam_hoc, :ngay_bat_dau, :ngay_ket_thuc, :phong, :so_tiet, :so_tuan, :thu, :tiet_bat_dau, :tuan_hoc_bat_dau, :ten_giang_vien, :ten_mon_hoc, :days
+  attr_accessible :hoc_ky, :ma_giang_vien, :ma_lop, :ma_mon_hoc, :nam_hoc, :ngay_bat_dau, :ngay_ket_thuc, :phong, :so_tiet, :so_tuan, :thu, :tiet_bat_dau, :tuan_hoc_bat_dau, :ten_giang_vien, :ten_mon_hoc, :days, :loai
 
   
 
@@ -32,4 +32,5 @@ class TkbGiangVien < ActiveRecord::Base
     :ten_mon_hoc => ten_mon_hoc, :phong => phong } }
     return {:ngay => z}.to_json
   end
+  
 end

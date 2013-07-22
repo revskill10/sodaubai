@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   def cas_extra_attributes=(extra_attributes)
     if extra_attributes["status"] != 0    	    
     		self.code = extra_attributes["masinhvien"]
-        svs = SinhVien.where(:ma_sinh_vien => self.code)
+        svs = SinhVien.where(:ma_sinh_vien => self.code.strip.downcase)
         sv = svs.first unless svs.empty?
         gvs = GiangVien.where(:ma_giang_vien => self.code)
         gv = gvs.first unless gvs.empty?

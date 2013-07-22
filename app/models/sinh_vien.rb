@@ -1,5 +1,5 @@
 class SinhVien < ActiveRecord::Base
-  attr_accessible :gioi_tinh, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ngay_sinh, :ten, :trang_thai, :ten_nganh
+  attr_accessible :gioi_tinh, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ngay_sinh, :ten, :trang_thai, :ten_nganh, :ngay
 
   validates :ma_sinh_vien, :uniqueness => { :case_sensitive => false }
   validates :ma_sinh_vien, :trang_thai, :presence => true
@@ -31,7 +31,32 @@ class SinhVien < ActiveRecord::Base
       self.ten
     end
   end 
-  def get_lops
-    self.lop_mon_hoc_sinh_viens.map {|t| t.lop_mon_hoc }
+
+  def lop_mon_hocs
+    l1 = self.lop_mon_hoc_sinh_viens.map {|t| t and t.lop_mon_hoc }
+    l2 = self.lop_mon_hoc_sinh_viens.map {|t| t and t.lop_ghep and t.lop_ghep.lop_mon_hoc }
+    return (l1 + l2).select {|t| t != nil}
+  end
+
+  def get_tkbs
+    l1 = self.lop_mon_hoc_sinh_viens.map {|t| t and t.lop_mon_hoc }
+    l2 = self.lop_mon_hoc_sinh_viens.map {|t| t and t.lop_ghep and t.lop_ghep.lop_mon_hoc }
+    lops = (l1 + l2).select {|t| t != nil}
+    tkbs = []
+    lops.each do |l|
+      tkbs = tkbs + l.tkb_giang_viens
+    end
+    return tkbs
+  end
+  def get_days
+    ngays = []
+    tkbs = get_tkbs
+    return nil if tkbs.empty?
+    get_tkbs.each do |tkb|
+      ngay = JSON.parse(tkb.days)["ngay"]
+      ngays = ngays + ngay
+    end
+    ngays = ngays.sort_by {|h| [h["tuan"], h["time"]]}
+    return {:ngay => ngays}.to_json
   end
 end

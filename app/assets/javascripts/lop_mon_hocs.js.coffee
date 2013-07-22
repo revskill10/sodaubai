@@ -4,3 +4,5 @@
 
 $('#pjax-container').on 'pjax:success', () ->     
   alert('hello')
+
+

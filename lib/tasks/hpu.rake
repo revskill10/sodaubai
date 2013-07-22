@@ -27,7 +27,8 @@ namespace :hpu do
   end
   # cap nhat ma lop tkb
   task :update_tkb1 => :environment do 
-    
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
     TkbGiangVien.all.each do |tkb|
       ml = tkb.ma_lop
       if ml.include?("BT") then
@@ -84,6 +85,14 @@ namespace :hpu do
         trang_thai: (l[:trang_thai] if l[:trang_thai]),
         ten_nganh: ( titleize(l[:ten_nganh].strip.downcase) if l[:ten_nganh] and l[:ten_nganh].is_a?(String))
       )
+    end
+  end
+  task :update_svdays => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    SinhVien.all.each do |sv|
+      sv.update_attributes(ngay: sv.get_days)
+      sv.save rescue puts "Error saving #{sv.id}"
     end
   end
   task :load_lopsv => :environment do  

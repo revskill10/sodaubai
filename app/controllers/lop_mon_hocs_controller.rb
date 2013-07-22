@@ -15,7 +15,15 @@ class LopMonHocsController < ApplicationController
       end
     end
   end
-  
+  def update
+    @lop_mon_hoc.group = params[:group].to_i
+
+    if @lop_mon_hoc.save! then 
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
   
   protected
   def load_lop
