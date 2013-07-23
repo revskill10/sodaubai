@@ -6,11 +6,11 @@ class LopMonHocSinhVien < ActiveRecord::Base
   belongs_to :group
 
   validates :ma_lop, :ma_sinh_vien, :ma_mon_hoc, :ten_mon_hoc, :presence => true  
-  validate :check_conflict
   
-  after_create :set_ngays
-  protected
-  def check_conflict
+  
+  
+  
+  def conflict?
   	tkbs = sinh_vien.get_tkbs
   	mtkbs = lop_mon_hoc.get_tkbs
   	res = false
@@ -23,11 +23,7 @@ class LopMonHocSinhVien < ActiveRecord::Base
   			end
   		end
   	end
-  	errors.add("Lich trung") if res == true
-  	# todo
+  	return res  	
   end
-  def set_ngays  	
-  	sinh_vien.ngay = sinh_vien.get_days
-  	sinh_vien.save rescue "puts error save ngays"
-  end
+  
 end

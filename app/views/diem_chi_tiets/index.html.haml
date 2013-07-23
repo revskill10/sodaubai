@@ -12,23 +12,32 @@
             %ul.nav.pull-left#urls
               %li= link_to "Home", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'            
               %li= link_to "Diem chuyen can", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'            
-              %li.active= link_to "Diem thuc hanh", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
-              %li= link_to "Diem kiem tra", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
+              %li.active= link_to "Diem nhom", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id)+'/2',  :'data-pjax' => '#pjax_container'  
               %li= link_to "Thong Bao", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'
               %li= link_to "Tai lieu", lop_mon_hoc_tai_lieu_mon_hocs_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
+              %li= link_to "Group", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
+            %ul.nav.pull-right
+              %li= submit_tag "Update", :class => "btn btn-success" 
               
-              
-  .container-fluid{:style=>"margin-top: 100px;"}    
+  .container-fluid{:style=>"margin-top: 100px;"}         
     %table{:class => "table datatable"}
       %thead
         %td Ma Sinh Vien
         %td Ho dem
         %td Ten     
-        %td Diem   
+        %td Nhom
+        %td Diem Thuc Hanh
+        %td Diem Lan 1
+        %td Diem Lan 2
+        %td Diem Lan 3  
       %tbody
         - @svs.each do |sv|
           %tr
             %td= sv[:ma_sinh_vien]
             %td= sv[:ho_dem]
-            %td= sv[:ten]                      
-            %td= text_field_tag "msv_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien]).first.try(:diem) || ""
+            %td= sv[:ten]        
+            %td= sv.group_id || 1              
+            %td= text_field_tag "thuchanh[#{sv[:ma_sinh_vien]}]", nil, :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], loai_diem:"2").first.try(:diem) || "", :style => "width: 15%"
+            %td= text_field_tag "lan1[#{sv[:ma_sinh_vien]}]", nil, :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], loai_diem:"kiemtra", lan: 1).first.try(:diem) || "", :style => "width: 15%"
+            %td= text_field_tag "lan2[#{sv[:ma_sinh_vien]}]", nil, :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], loai_diem:"kiemtra", lan: 2).first.try(:diem) || "", :style => "width: 15%"
+            %td= text_field_tag "lan3[#{sv[:ma_sinh_vien]}]", nil, :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], loai_diem:"kiemtra", lan: 3).first.try(:diem) || "", :style => "width: 15%"

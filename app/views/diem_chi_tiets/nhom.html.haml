@@ -1,4 +1,4 @@
-= form_tag lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id), :method => :post, :remote => true do 
+= form_tag lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id)+"/2" , :method => :post, :remote => true do 
   .container-fluid
     .navbar.navbar-fixed-top
       .navbar-inner
@@ -11,27 +11,21 @@
           .container.nav-collapse
             %ul.nav.pull-left#urls
               %li= link_to "Home", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'            
-              %li.active= link_to "Diem chuyen can", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'            
-              %li= link_to "Diem chi tiet", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'  
+              %li= link_to "Diem chuyen can", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'            
+              %li.active= link_to "Diem chi tiet", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id) + '/1',  :'data-pjax' => '#pjax_container'  
               %li= link_to "Thong Bao", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'
               %li= link_to "Tai lieu", lop_mon_hoc_tai_lieu_mon_hocs_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
               %li= link_to "SV", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
             %ul.nav.pull-right
               %li= submit_tag "Update", :class => "btn btn-success" 
               
-              
-  .container-fluid{:style=>"margin-top: 100px;"}  
-      
+  .container-fluid{:style=>"margin-top: 100px;"}        
     %table{:class => "table datatable"}
       %thead
-        %td Ma Sinh Vien
-        %td Ho dem
-        %td Ten     
-        %td Diem   
+        %td Ten nhom        
+        %td Diem thuc hanh              
       %tbody
-        - @svs.each do |sv|
+        - @lop_mon_hoc.group.times do |g|
           %tr
-            %td= sv[:ma_sinh_vien]
-            %td= sv[:ho_dem]
-            %td= sv[:ten]                      
-            %td= text_field_tag "msv_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => DiemChuyenCan.where(ma_lop: @lop_mon_hoc.ma_lop, ma_mon_hoc:  @lop_mon_hoc.ma_mon_hoc, ma_sinh_vien: sv[:ma_sinh_vien]).first.try(:diem) || ""
+            %td= "Nhom #{(g+1).to_s}"                                  
+            %td= text_field_tag "group[#{(g+1).to_s}]", nil, :value => diemgroup(@group_diem, (g+1).to_s), :style => "width: 15%"            

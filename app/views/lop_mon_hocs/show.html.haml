@@ -12,23 +12,28 @@
           %ul.nav.pull-left#urls
             %li.active= link_to "Home", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'            
             %li= link_to "Diem chuyen can", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'            
-            %li= link_to "Diem thuc hanh", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id) + '/1',  :'data-pjax' => '#pjax_container'
-            %li= link_to "Diem kiem tra", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id) + '/2',  :'data-pjax' => '#pjax_container'
+            %li= link_to "Diem chi tiet", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'          
             %li= link_to "Thong Bao", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'
             %li= link_to "Tai lieu", lop_mon_hoc_tai_lieu_mon_hocs_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
             %li= link_to "SV", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
-            %li= link_to "Groups", lop_mon_hoc_groups_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
+            
 
 .container-fluid{:style=>"margin-top: 100px;"}    
+  = form_tag lop_mon_hoc_path(@lop_mon_hoc.id), :method => :put, :remote => true do 
+    = text_field_tag :so_nhom, @lop_mon_hoc.group, :placeholder => 'So nhom'
+    = submit_tag "Update Nhom", :class => "btn btn-success" 
+  %div#info
   %table{:class => "table datatable"}
     %thead
       %td Ma Sinh Vien
       %td Ho dem
       %td Ten        
+      %td Nhom
     %tbody
       - @svs.each do |sv|
         %tr
           %td= sv.ma_sinh_vien
           %td= sv.ho_dem
           %td= sv.ten
+          %td= sv.group_id || 1
 

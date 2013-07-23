@@ -17,12 +17,24 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require dashboard
+//= require lop_mon_hocs
 //= require bootstrap-wysihtml5
 //= require bootstrap-wysihtml5/locales
-//= require knockout
+//= require bootstrap-combobox
 
 $(document).ready(function(){
-	oTable = $('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bRetrieve": true,"iDisplayLength": 25, "bDestroy":true,"bInfo":false,"bProcessing":true,"bStateSave":true,"bAutoWidth":true});	
+	oTable = $('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bRetrieve": true,"iDisplayLength": 100, "bDestroy":true,"bInfo":false,"bProcessing":true,"bStateSave":true,"bAutoWidth":true});	
+	new AutoFill( oTable );
+	$('.combobox').combobox();
 });  
 $(document).pjax('a[data-pjax]', '#pjax-container')
-//= require app
+
+$('#pjax-container').on('pjax:popstate', function(event){
+	$('.combobox').combobox();
+});
+  
+
+	  
+$('#pjax-container').on('pjax:success', function(){
+	$('.combobox').combobox();
+});

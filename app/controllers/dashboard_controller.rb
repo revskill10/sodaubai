@@ -29,10 +29,8 @@ class DashboardController < ApplicationController
     @type = current_user.imageable    
   	@current_lops = [] unless @type
   	@current_lops = @type.lop_mon_hocs if @type	    
-    if @type.is_a?(GiangVien) then 
-      @lich = JSON.parse(@type.days)["ngay"]
-    elsif @type.is_a?(SinhVien) then
-      @lich = JSON.parse(@type.ngay)["ngay"]
+    if @type.is_a?(GiangVien) or @type.is_a?(SinhVien) then      
+      @lich = @type.get_days[:ngay]
     end
     generator = ColorGenerator.new saturation: 0.3, lightness: 0.75
     @color = [] 

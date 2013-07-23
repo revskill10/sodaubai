@@ -27,6 +27,6 @@ class GiangVien < ActiveRecord::Base
       ngays = ngays + ngay
     end
     ngays = ngays.sort_by {|h| [h["tuan"], h["time"]]}
-    return {:ngay => ngays}.to_json
+    return {:ngay => ngays}
   end
 end

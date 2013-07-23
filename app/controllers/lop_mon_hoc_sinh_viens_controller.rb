@@ -4,7 +4,21 @@ class LopMonHocSinhViensController < ApplicationController
   before_filter :load_lop
 
   def groupupdate
-    puts params.inspect
+    @msvs = params[:nhom].keys
+    #puts msvs.inspect
+    @svs = @lop_mon_hoc.get_sinh_viens.select {|k| @msvs.include?(k.ma_sinh_vien)}
+    @svs.each do |sv|
+      sv.group_id = params[:nhom][sv.ma_sinh_vien].to_i
+      sv.save
+    end
+    #params["nhom"].each do |k,v|
+     # sv = @svs.select {|s| s.ma_sinh_vien == k}.first
+      #if sv then 
+       # sv.group_id = v.to_i
+        #sv.save! rescue "Save group error"
+      #end
+    #end
+    #puts params.inspect
     respond_to do |format|
       format.js
     end
@@ -12,8 +26,12 @@ class LopMonHocSinhViensController < ApplicationController
   def index
     #@lop_mon_hoc_sinh_viens = LopMonHocSinhVien.all
     @lop_mon_hoc_sinh_viens = @lop_mon_hoc.get_sinh_viens
-    @groups = @lop_mon_hoc.groups
-    @groups_arrays = @groups.map {|gr| [gr.name, gr.id] }
+    @group = @lop_mon_hoc.group
+    @groups_arrays = {}
+    @group.times do |g|
+      @groups_arrays[(g+1).to_s] = "Group #{g+1}"
+    end
+    #@groups_arrays = @groups.map {|gr| ["Group #{gr.id}", gr.id] }
     respond_to do |format|
       format.html { render :layout => false if request.headers['X-PJAX']}
       format.json { render json: @lop_mon_hoc_sinh_viens }

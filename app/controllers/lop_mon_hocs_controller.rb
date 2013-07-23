@@ -16,7 +16,8 @@ class LopMonHocsController < ApplicationController
     end
   end
   def update
-    @lop_mon_hoc.group = params[:group].to_i
+    sn = params[:so_nhom].blank? ? 1 : params[:so_nhom]
+    @lop_mon_hoc.update_attributes(group: sn)
 
     if @lop_mon_hoc.save! then 
       respond_to do |format|
