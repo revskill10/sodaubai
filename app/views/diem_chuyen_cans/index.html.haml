@@ -28,10 +28,14 @@
         %td Ho dem
         %td Ten     
         %td Diem   
+        %td Vang co phep
+        %td Tong vang
       %tbody
         - @svs.each do |sv|
           %tr
-            %td= sv[:ma_sinh_vien]
-            %td= sv[:ho_dem]
-            %td= sv[:ten]                      
-            %td= text_field_tag "msv_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => DiemChuyenCan.where(ma_lop: @lop_mon_hoc.ma_lop, ma_mon_hoc:  @lop_mon_hoc.ma_mon_hoc, ma_sinh_vien: sv[:ma_sinh_vien]).first.try(:diem) || ""
+            %td= sv.ma_sinh_vien
+            %td= sv.ho_dem
+            %td= sv.ten                     
+            %td= text_field_tag "msv[#{sv[:ma_sinh_vien]}", nil, :value => @diem_chuyen_cans.where(ma_sinh_vien: sv.ma_sinh_vien).first.try(:diem) || ""
+            %td= @diem_chuyen_cans.where(ma_sinh_vien: sv.ma_sinh_vien).first.try(:tong_vang_co_phep)
+            %td= @diem_chuyen_cans.where(ma_sinh_vien: sv.ma_sinh_vien).first.try(:tong_so_tiet_vang)

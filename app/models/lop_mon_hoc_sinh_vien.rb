@@ -15,7 +15,7 @@ class LopMonHocSinhVien < ActiveRecord::Base
   	mtkbs = lop_mon_hoc.get_tkbs
   	res = false
   	tkbs.each do |tkb|
-  		break if res = true 
+  		break if res == true 
   		mtkbs.each do |tk|
   			if tkb.schedule.conflicts_with?(tk.schedule) then
   				res = true

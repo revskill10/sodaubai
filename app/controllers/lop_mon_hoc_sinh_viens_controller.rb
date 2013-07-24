@@ -9,6 +9,10 @@ class LopMonHocSinhViensController < ApplicationController
     @svs = @lop_mon_hoc.get_sinh_viens.select {|k| @msvs.include?(k.ma_sinh_vien)}
     @svs.each do |sv|
       sv.group_id = params[:nhom][sv.ma_sinh_vien].to_i
+      diem_nhom = JSON.parse(@lop_mon_hoc.group_diem)[sv.group_id.to_s]
+      dct = DiemChiTiet.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc, ma_sinh_vien: sv.ma_sinh_vien, loai_diem:"2").first_or_create!
+      dct.diem = diem_nhom
+      dct.save
       sv.save
     end
     #params["nhom"].each do |k,v|

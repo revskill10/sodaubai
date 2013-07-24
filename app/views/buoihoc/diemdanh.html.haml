@@ -1,6 +1,4 @@
  
- 
-
 = form_tag diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do 
     
   .container-fluid
@@ -20,29 +18,34 @@
             %ul.nav.pull-right
               %li= submit_tag "Update", :class => "btn btn-success" 
 
-  .container-fluid{:style => "margin-top:100px;"}
-    = flash.each do |key, value|
-      .alert{ :class => "alert-#{key}" }
-        %button.close{ :data => { :dismiss => "alert" } } x
-        %strong
-          = value
+  .container-fluid{:style => "margin-top:100px;"}    
     %table{:class => "table datatable"}
+      %colgroup
+        %col{:style => "width: 15%"}
+        %col{:style => "width: 20%"}
+        %col{:style => "width: 15%"}
+        %col{:style => "width: 10%"}
+        %col{:style => "width: 15%"}
+        %col{:style => "width: 10%"}
+        %col{:style => "width: 20%"}
       %thead
         %td Ma Sinh Vien
         %td Ho dem
         %td Ten
         %td Vang
         %td So tiet vang    
+        %td Phep
+        %td Note
       %tbody
         - @svs.each do |sv|
           %tr
             %td= sv[:ma_sinh_vien]
             %td= sv[:ho_dem]
             %td= sv[:ten]
-            %td= check_box_tag "smv_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay)
-            %td= text_field_tag "msv_" + sv[:ma_sinh_vien], sv[:ma_sinh_vien], :value => DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay).first.try(:so_tiet_vang) || 0 
-
-    
+            %td= check_box_tag "msv[#{sv[:ma_sinh_vien]}][status]",nil, get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay)
+            %td= text_field_tag "msv[#{sv[:ma_sinh_vien]}][sotiet]", nil, :value => DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay).first.try(:so_tiet_vang) || 0, :style => "width: 15%"
+            %td= check_box_tag "msv[#{sv[:ma_sinh_vien]}][phep]",nil, get_phep(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay)
+            %td= text_field_tag "msv[#{sv[:ma_sinh_vien]}][note]", nil, :value => DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay).first.try(:note) || ""
     %li= link_to "Download", diemdanh_lop_mon_hoc_buoihoc_url(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"), format: :xlsx)
 
 :javascript

@@ -38,6 +38,6 @@
             %td= sv[:ten]        
             %td= sv.group_id || 1              
             %td= text_field_tag "thuchanh[#{sv[:ma_sinh_vien]}]", nil, :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], loai_diem:"2").first.try(:diem) || "", :style => "width: 15%"
-            %td= text_field_tag "lan1[#{sv[:ma_sinh_vien]}]", nil, :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], loai_diem:"kiemtra", lan: 1).first.try(:diem) || "", :style => "width: 15%"
-            %td= text_field_tag "lan2[#{sv[:ma_sinh_vien]}]", nil, :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], loai_diem:"kiemtra", lan: 2).first.try(:diem) || "", :style => "width: 15%"
-            %td= text_field_tag "lan3[#{sv[:ma_sinh_vien]}]", nil, :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], loai_diem:"kiemtra", lan: 3).first.try(:diem) || "", :style => "width: 15%"
+            %td= text_field_tag "lan1[#{sv[:ma_sinh_vien]}]", nil, :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], loai_diem:"1", lan: 1).first.try(:diem) || "", :style => "width: 15%"
+            %td= text_field_tag "lan2[#{sv[:ma_sinh_vien]}]", nil, :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], loai_diem:"1", lan: 2).first.try(:diem) || "", :style => "width: 15%"
+            %td= text_field_tag "lan3[#{sv[:ma_sinh_vien]}]", nil, :value => @dct.where(ma_sinh_vien: sv[:ma_sinh_vien], loai_diem:"1", lan: 3).first.try(:diem) || "", :style => "width: 15%"

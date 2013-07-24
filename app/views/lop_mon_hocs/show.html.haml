@@ -23,12 +23,13 @@
     = text_field_tag :so_nhom, @lop_mon_hoc.group, :placeholder => 'So nhom'
     = submit_tag "Update Nhom", :class => "btn btn-success" 
   %div#info
-  %table{:class => "table datatable"}
+  %table{:class => "table table-condensed datatable"}
     %thead
       %td Ma Sinh Vien
       %td Ho dem
       %td Ten        
       %td Nhom
+      %td Status
     %tbody
       - @svs.each do |sv|
         %tr
@@ -36,4 +37,7 @@
           %td= sv.ho_dem
           %td= sv.ten
           %td= sv.group_id || 1
-
+          %td.progress  
+            .bar.bar-danger{:style => "width: #{(@dccs[sv.ma_sinh_vien] || 0)*100/(@dccs2[sv.ma_sinh_vien] || 1)}%"}                                        
+            .bar.bar-success{:style => "width: #{100-(@dccs[sv.ma_sinh_vien] || 0)*100/(@dccs2[sv.ma_sinh_vien] || 1)}%"}= (100-(@dccs[sv.ma_sinh_vien] || 0)).to_s + "%"                                          
+              

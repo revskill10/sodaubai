@@ -39,8 +39,31 @@ class DiemChiTietsController < ApplicationController
           dc.save rescue "Save grade error"
         end
       end
-    else
-
+    else      
+      diem_thuc_hanh = params[:thuchanh].select {|k,v| v != ""}
+      diem_lan_1 = params[:lan1].select {|k,v| v != ""}
+      diem_lan_2 = params[:lan2].select {|k,v| v != ""}
+      diem_lan_3 = params[:lan3].select {|k,v| v != ""}
+      diem_thuc_hanh.each do |k,v|
+        dc = @dct.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc,ma_sinh_vien: k, loai_diem: "2").first_or_create!
+        dc.diem = v.to_i
+        dc.save rescue "Save grade error"
+      end
+      diem_lan_1.each do |k,v|
+        dc = @dct.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc,ma_sinh_vien: k, loai_diem: "1", lan: 1).first_or_create!
+        dc.diem = v.to_i
+        dc.save rescue "Save grade error"
+      end
+      diem_lan_2.each do |k,v|
+        dc = @dct.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc,ma_sinh_vien: k, loai_diem: "1", lan: 2).first_or_create!
+        dc.diem = v.to_i
+        dc.save rescue "Save grade error"
+      end
+      diem_lan_3.each do |k,v|
+        dc = @dct.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc,ma_sinh_vien: k, loai_diem: "1", lan: 3).first_or_create!
+        dc.diem = v.to_i
+        dc.save rescue "Save grade error"
+      end
     end
 
     respond_to do |format|
