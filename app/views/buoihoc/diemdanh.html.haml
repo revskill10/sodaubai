@@ -14,9 +14,10 @@
             %ul.nav#urls
               %li= link_to "Home", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
               %li.active= link_to "DiemDanh", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
-              %li= link_to "Lich Trinh", lichtrinh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")),  :'data-pjax' => '#pjax_container'
+              %li= link_to "LopMon", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'
             %ul.nav.pull-right
               %li= submit_tag "Update", :class => "btn btn-success" 
+              %li= link_to "Log out", destroy_user_session_path
 
   .container-fluid{:style => "margin-top:100px;"}   
     %ul.nav.pull-right

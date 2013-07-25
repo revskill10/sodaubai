@@ -20,8 +20,12 @@ class BuoihocController < ApplicationController
     @svs2 = @svs.each_slice(4)
 
     
-    if request.headers['X-PJAX']
-        render :layout => false
+    respond_to do |format|
+      if request.headers['X-PJAX']
+        format.html {render :show, :layout => false}        
+      else
+        format.html {render :show}        
+      end
     end
     
   end
@@ -99,48 +103,7 @@ class BuoihocController < ApplicationController
       puts "error"
     end
   end
-  # for update/create
-  def syllabus
-    puts params.inspect
-
-    @lich = LichTrinhGiangDay.where(ma_lop: @lop_mon_hoc.ma_lop, ma_mon_hoc: @lop_mon_hoc.ma_mon_hoc, ngay_day: Time.zone.parse(@ngay.to_s)).first
-    @lich.noi_dung_day = params[:noidung]
-    @lich.nhan_xet_buoi_hoc = params[:nhanxet]
-    @lich.phong = params[:phong]
-    @lich.so_tiet_day = params[:so_tiet_day]
-    if request.headers['X-PJAX']
-      if @lich.save then 
-        flash[:success] = "Update OK"
-        render :lichtrinh, :layout => false
-      else
-        flash[:error] = "Error update"
-        render :lichtrinh_edit, :layout => false
-      end
-    end
-  end
-  # for get
-  def lichtrinh
-    #@lich_trinh_giang_day = LichTrinhGiangDay.new
-    @lich = LichTrinhGiangDay.where(ma_lop: @lop_mon_hoc.ma_lop, ma_mon_hoc: @lop_mon_hoc.ma_mon_hoc, ngay_day: Time.zone.parse(@ngay.to_s)).first_or_create!
-    
-    if request.headers['X-PJAX']
-      if @lich.save then 
-        render :lichtrinh, :layout => false
-      else
-        render :error, :layout => false
-      end      
-    end
-  end
-  def lichtrinh_edit
-    @lich = LichTrinhGiangDay.where(ma_lop: @lop_mon_hoc.ma_lop, ma_mon_hoc: @lop_mon_hoc.ma_mon_hoc, ngay_day: Time.zone.parse(@ngay.to_s)).first
-    if request.headers['X-PJAX']
-      if @lich.present? then                 
-        render :lichtrinh_edit, :layout => false
-      else
-        render :error, :layout => false
-      end      
-    end
-  end
+  
   def get_diemdanh
     
     @svs = @lop_mon_hoc.get_sinh_viens

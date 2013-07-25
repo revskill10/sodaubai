@@ -8,9 +8,13 @@ class DiemChuyenCansController < ApplicationController
     @diem_chuyen_cans = DiemChuyenCan.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc, ma_sinh_vien: @msvs)
     
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @diem_chuyen_cans }
-    end
+      if request.headers['X-PJAX']
+        format.html {render :index, :layout => false}   
+        format.json { render json: @diem_chuyen_cans }     
+      else
+        format.html {render :index}        
+      end
+    end   
   end
   
   # POST /diem_chuyen_cans
