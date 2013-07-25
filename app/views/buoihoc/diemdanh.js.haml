@@ -1,2 +1,13 @@
+- @vang.each do  |v|    
+  :plain
+    $("#msv_#{v.ma_sinh_vien}_status").prop('checked', #{v.so_tiet_vang > 0});
+    $("#msv_#{v.ma_sinh_vien}_sotiet").val("#{v.so_tiet_vang}");
+    $("#msv_#{v.ma_sinh_vien}_phep").prop('checked', "#{v.phep}");
+
+- @kovang.each do |v|
+  :plain
+    $("#msv_#{v.ma_sinh_vien}_status").prop('checked', false);
+    $("#msv_#{v.ma_sinh_vien}_sotiet").val("0");
+    $("#msv_#{v.ma_sinh_vien}_phep").prop('checked', false);
 alert("OK");
   

@@ -18,23 +18,23 @@
 //= require dataTables/jquery.dataTables.bootstrap
 //= require dashboard
 //= require lop_mon_hocs
-//= require bootstrap-wysihtml5
-//= require bootstrap-wysihtml5/locales
 //= require bootstrap-combobox
 
 $(document).ready(function(){
-	oTable = $('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bRetrieve": true,"iDisplayLength": 100, "bDestroy":true,"bInfo":false,"bProcessing":true,"bStateSave":true,"bAutoWidth":true});	
-	new AutoFill( oTable );
-	$('.combobox').combobox();
+	oTable = $('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bRetrieve": true,"iDisplayLength": 100, "bDestroy":true,"bInfo":false,"bProcessing":true,"bStateSave":true,"bAutoWidth":true});		
+	$('.combobox').combobox();	
 });  
 $(document).pjax('a[data-pjax]', '#pjax-container')
 
 $('#pjax-container').on('pjax:popstate', function(event){
-	$('.combobox').combobox();
+	$('.combobox').combobox();	
 });
   
 
 	  
 $('#pjax-container').on('pjax:success', function(){
 	$('.combobox').combobox();
+	$('.wysihtml5').each(function(i, elem) {
+	  $(elem).wysihtml5();
+	});
 });

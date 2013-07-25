@@ -18,7 +18,21 @@
             %ul.nav.pull-right
               %li= submit_tag "Update", :class => "btn btn-success" 
 
-  .container-fluid{:style => "margin-top:100px;"}    
+  .container-fluid{:style => "margin-top:100px;"}   
+    %ul.nav.pull-right
+      %li
+        %i
+          %strong= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
+    %h4 Thong tin lop mon: 
+    .well.sidebar-nav{:style => "font-size: 12px;"}
+      %strong Mon hoc: 
+      %span= @buoihoc["ten_mon_hoc"]
+      %strong.offset1 Giao Vien:
+      %span= @lop_mon_hoc.ten_giang_vien    
+      %strong.offset1 Lop:
+      %span= @buoihoc["ma_lop"]
+      %strong.offset1 So tiet:
+      %span= @lop_mon_hoc.so_tiet 
     %table{:class => "table datatable"}
       %colgroup
         %col{:style => "width: 15%"}
@@ -42,13 +56,8 @@
             %td= sv[:ma_sinh_vien]
             %td= sv[:ho_dem]
             %td= sv[:ten]
-            %td= check_box_tag "msv[#{sv[:ma_sinh_vien]}][status]",nil, get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay)
-            %td= text_field_tag "msv[#{sv[:ma_sinh_vien]}][sotiet]", nil, :value => DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay).first.try(:so_tiet_vang) || 0, :style => "width: 15%"
+            %td= check_box_tag "msv[#{sv[:ma_sinh_vien]}][status]",nil, get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay), :disabled => "disabled"
+            %td= text_field_tag "msv[#{sv[:ma_sinh_vien]}][sotiet]", nil, :value => DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay).first.try(:so_tiet_vang) || 0,  :style => "width: 15%"
             %td= check_box_tag "msv[#{sv[:ma_sinh_vien]}][phep]",nil, get_phep(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay)
             %td= text_field_tag "msv[#{sv[:ma_sinh_vien]}][note]", nil, :value => DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay).first.try(:note) || ""
     %li= link_to "Download", diemdanh_lop_mon_hoc_buoihoc_url(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"), format: :xlsx)
-
-:javascript
-  $(document).on('submit', 'form', function(event){
-    $.pjax.submit(event, '#pjax-container');    
-  });  

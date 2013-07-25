@@ -1,4 +1,5 @@
 class LopMonHocsController < ApplicationController
+  include DashboardHelper
   respond_to :xlsx, :html
   before_filter :authenticate_user!
   before_filter :load_lop
@@ -33,7 +34,17 @@ class LopMonHocsController < ApplicationController
       end
     end
   end
-  
+  def calendar
+    @lich = @lop_mon_hoc.get_days
+    respond_to do |format|
+      if request.headers['X-PJAX']
+        format.html {render :calendar, :layout => false}        
+      else        
+        format.html {render :calendar}        
+      end
+
+    end
+  end
   protected
   def load_lop
     @lop_mon_hoc ||= LopMonHoc.find(params[:id])

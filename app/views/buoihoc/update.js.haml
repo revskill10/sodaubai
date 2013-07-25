@@ -1,1 +1,9 @@
 alert("OK");
+s = $("ul#vang");
+sosv = $("span#sovang");
+:plain  
+  sosv.html("#{escape_javascript(@vang.count.to_s)}")
+s.empty();
+- @vang.each do  |v|    
+  :plain
+    s.append("<li>#{escape_javascript(v.ma_sinh_vien)}</li>");

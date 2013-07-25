@@ -16,6 +16,9 @@ Trytest::Application.routes.draw do
     resources :mon_hocs
     resources :sinh_viens, :only => :index  
     resources :lop_mon_hocs do       
+      member do 
+        get '/calendar' => 'lop_mon_hocs#calendar'
+      end
       resources :diem_chi_tiets      do  
         collection do        
           get '/:loai' => 'diem_chi_tiets#index'

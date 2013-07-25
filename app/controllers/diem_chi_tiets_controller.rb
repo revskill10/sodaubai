@@ -3,7 +3,7 @@ class DiemChiTietsController < ApplicationController
   def index    
     
     @svs = @lop_mon_hoc.get_sinh_viens
-    @group_diem = JSON.parse(@lop_mon_hoc.group_diem)
+    @group_diem = JSON.parse(@lop_mon_hoc.group_diem || {}.to_json) 
     respond_to do |format|
       
       format.html do 
