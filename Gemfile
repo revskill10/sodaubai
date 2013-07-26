@@ -87,3 +87,4 @@ gem 'bootstrap-wysihtml5-rails', :require => 'bootstrap-wysihtml5-rails',
 gem 'to_spreadsheet'                            
 gem 'destroyed_at'
 gem 'mmailer'
+gem 'best_in_place'

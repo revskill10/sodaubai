@@ -63,6 +63,9 @@ GEM
       nokogiri (>= 1.4.1)
       rubyzip (>= 0.9.5)
     bcrypt-ruby (3.0.1-x86-mingw32)
+    best_in_place (2.1.0)
+      jquery-rails
+      rails (~> 3.1)
     better_errors (0.9.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -347,6 +350,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  best_in_place
   better_errors
   binding_of_caller
   bootstrap-wysihtml5-rails!

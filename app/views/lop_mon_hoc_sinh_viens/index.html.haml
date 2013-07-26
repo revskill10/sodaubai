@@ -14,8 +14,7 @@
               %li= link_to "Home", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'            
               %li= link_to "Diem chuyen can", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'            
               %li= link_to "Diem chi tiet", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'  
-              %li= link_to "Thong Bao", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'
-              %li= link_to "Tai lieu", lop_mon_hoc_tai_lieu_mon_hocs_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'   
+              %li= link_to "Thong Bao", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'          
               %li.active= link_to "Group", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'           
             %ul.nav.pull-right
               %li= submit_tag "Update", :class => "btn btn-success" 

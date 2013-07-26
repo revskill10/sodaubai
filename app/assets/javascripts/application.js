@@ -19,22 +19,22 @@
 //= require dashboard
 //= require lop_mon_hocs
 //= require bootstrap-combobox
+//= require best_in_place
 
 $(document).ready(function(){
 	oTable = $('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bRetrieve": true,"iDisplayLength": 100, "bDestroy":true,"bInfo":false,"bProcessing":true,"bStateSave":true,"bAutoWidth":true});		
 	$('.combobox').combobox();	
 	$(document).pjax('a[data-pjax]', '#pjax-container');
+	$('.best_in_place').best_in_place()
 });  
 
 
-$('#pjax-container').on('pjax:popstate', function(event){
-	$('.combobox').combobox();
-	$(document).pjax('a[data-pjax]', '#pjax-container')	;
+$('#pjax-container').on('pjax:popstate', function(event){	
+	$('.best_in_place').best_in_place();
 });
   
 
 	  
-$('#pjax-container').on('pjax:success', function(){
-	$('.combobox').combobox();	
-	$(document).pjax('a[data-pjax]', '#pjax-container')	;
+$('#pjax-container').on('pjax:success', function(){	
+	$('.best_in_place').best_in_place();
 });

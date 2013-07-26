@@ -1,21 +1,38 @@
-%h1 Listing thong_bao_lop_hocs
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/", :'data-pjax' => '#pjax_container' } HPU
+        .container.nav-collapse
+          %ul.nav.pull-left#urls
+            %li= link_to "Home", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'            
+            %li= link_to "Diem chuyen can", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'            
+            %li= link_to "Diem chi tiet", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'          
+            %li.active= link_to "Thong Bao", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'           
+            %li= link_to "Nhom", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
+            %li= link_to "Calendar", lop_mon_hoc_path(@lop_mon_hoc.id)+'/calendar',  :'data-pjax' => '#pjax_container'
 
-%table{:class => "table"}
-  %tr    
-    %th Noi dung    
-    %th Thoi gian
-    %th
-    %th
-    %th
+          %ul.nav.pull-right
+            %li= link_to 'New', new_lop_mon_hoc_thong_bao_lop_hoc_path(@lop_mon_hoc),  :'data-pjax' => '#pjax_container'
 
-  - @thong_bao_lop_hocs.each do |thong_bao_lop_hoc|
-    %tr      
-      %td= thong_bao_lop_hoc.noi_dung      
-      %td= thong_bao_lop_hoc.thoi_gian
-      %td= link_to 'Show', [@lop_mon_hoc,thong_bao_lop_hoc]
-      %td= link_to 'Edit', edit_lop_mon_hoc_thong_bao_lop_hoc_path(@lop_mon_hoc,thong_bao_lop_hoc)
-      %td= link_to 'Destroy', [@lop_mon_hoc,thong_bao_lop_hoc], :method => :delete, :data => { :confirm => 'Are you sure?' }
+.container-fluid{:style=>"margin-top: 100px;"}    
+  
+  %table{:class => "table table-condensed datatable"}
+    %thead      
+      %td Thoi gian
+      %td Noi dung        
+      %td Sua
+      %td Xoa
+    %tbody
+      - @thong_bao_lop_hocs.each do |thong_bao_lop_hoc|
+        %tr                                  
+          %td= link_to thong_bao_lop_hoc.created_at, [@lop_mon_hoc,thong_bao_lop_hoc], :'data-pjax' => '#pjax_container'  
+          %td= best_in_place thong_bao_lop_hoc ,:noi_dung, :path => [@lop_mon_hoc, thong_bao_lop_hoc]
+          %td= link_to 'Edit', edit_lop_mon_hoc_thong_bao_lop_hoc_path(@lop_mon_hoc,thong_bao_lop_hoc), :'data-pjax' => '#pjax_container'
+          %td= link_to 'Destroy', [@lop_mon_hoc,thong_bao_lop_hoc], :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-%br
 
-= link_to 'New Thong bao lop hoc', new_lop_mon_hoc_thong_bao_lop_hoc_path
