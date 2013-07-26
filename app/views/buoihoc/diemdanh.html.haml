@@ -1,4 +1,4 @@
- 
+
 = form_tag diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do 
     
   .container-fluid
@@ -12,12 +12,12 @@
           %a.brand{:href => "/", :'data-pjax' => '#pjax_container' } HPU
           .container.nav-collapse
             %ul.nav#urls
-              %li= link_to "Home", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
-              %li.active= link_to "DiemDanh", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
-              %li= link_to "LopMon", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'
+              %li= link_to "Sổ đầu bài", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
+              %li.active= link_to "Điểm danh chi tiết", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
+              %li= link_to "Thông tin lớp", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'
             %ul.nav.pull-right
-              %li= submit_tag "Update", :class => "btn btn-success" 
-              %li= link_to "Log out", destroy_user_session_path
+              %li= submit_tag "Cập nhật", :class => "btn btn-success" 
+              %li= link_to "Đăng xuất", destroy_user_session_path
 
   .container-fluid{:style => "margin-top:100px;"}   
     %ul.nav.pull-right
@@ -26,13 +26,13 @@
           %strong= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
     %h4 Thong tin lop mon: 
     .well.sidebar-nav{:style => "font-size: 12px;"}
-      %strong Mon hoc: 
+      %strong Môn học:  
       %span= @buoihoc["ten_mon_hoc"]
-      %strong.offset1 Giao Vien:
+      %strong.offset1 Giảng viên: 
       %span= @lop_mon_hoc.ten_giang_vien    
-      %strong.offset1 Lop:
+      %strong.offset1 Lớp: 
       %span= @buoihoc["ma_lop"]
-      %strong.offset1 So tiet:
+      %strong.offset1 Số tiết: 
       %span= @lop_mon_hoc.so_tiet 
     %table{:class => "table datatable"}
       %colgroup
@@ -44,13 +44,13 @@
         %col{:style => "width: 10%"}
         %col{:style => "width: 20%"}
       %thead
-        %td Ma Sinh Vien
-        %td Ho dem
-        %td Ten
-        %td Vang
-        %td So tiet vang    
-        %td Phep
-        %td Note
+        %td Mã sinh viên
+        %td Họ đệm
+        %td Tên
+        %td Vắng
+        %td Số tiết vắng
+        %td Phép
+        %td Ghi chú
       %tbody
         - @svs.each do |sv|
           %tr

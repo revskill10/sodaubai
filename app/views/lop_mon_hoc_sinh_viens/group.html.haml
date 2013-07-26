@@ -11,39 +11,34 @@
           %a.brand{:href => "/", :'data-pjax' => '#pjax_container' } HPU
           .container.nav-collapse
             %ul.nav.pull-left#urls
-              %li= link_to "Trang chủ", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'            
-              %li= link_to "Điểm chuyên cần", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'            
+              %li= link_to "Home", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'            
+              %li= link_to "DCC", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'            
               %li= link_to "Điểm chi tiết", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'          
               %li= link_to "Thông báo", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'           
               %li.active= link_to "Quản lý", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
               %li= link_to "Thời khóa biểu", lop_mon_hoc_path(@lop_mon_hoc.id)+'/calendar',  :'data-pjax' => '#pjax_container'
-              %li= link_to "Group", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id)+'/group',  :'data-pjax' => '#pjax_container'
+              %li= link_to "Group", lop_mon_hoc_path(@lop_mon_hoc.id)+'/group',  :'data-pjax' => '#pjax_container'
             %ul.nav.pull-right
               %li= submit_tag "Cập nhật", :class => "btn btn-success" 
               %li= link_to 'Đăng xuất', destroy_user_session_path
               
 
   .container-fluid{:style=>"margin-top: 100px;"}    
+    .span4
+      %table.table
+        - @lop_mon_hoc_sinh_viens.each do |lop_mon_hoc_sinh_vien|        
+          %tr.draggable
+            %td= lop_mon_hoc_sinh_vien.ma_sinh_vien                    
+            %td= lop_mon_hoc_sinh_vien.ho_dem + lop_mon_hoc_sinh_vien.ten
 
+    .span4.offset2
+      - @groups_arrays.each_with_index do |a, i|
+        %p= "Group#{i+1}"
+        %table{:class => "table group", :id => "group#{i+1}"}
+          %tr
+            %td{:placeholder => "Test"}
 
-    %table{:class => "table datatable"}    
-      %thead
-        %td Ma sinh vien        
-        %td Ho Dem
-        %td Ten
-        %td Nhom
-        %td Delete
-      - @lop_mon_hoc_sinh_viens.each do |lop_mon_hoc_sinh_vien|
-        %tr
-          %td= lop_mon_hoc_sinh_vien.ma_sinh_vien                    
-          %td= lop_mon_hoc_sinh_vien.ho_dem
-          %td= lop_mon_hoc_sinh_vien.ten
-          %td= collection_select("nhom",lop_mon_hoc_sinh_vien.ma_sinh_vien,  @groups_arrays, :first, :last, {:selected => selected(lop_mon_hoc_sinh_vien)},{:class => "combobox"})
-          %td= link_to 'Destroy', [@lop_mon_hoc, lop_mon_hoc_sinh_vien], :method => :delete, :remote => true, :data => { :confirm => 'Are you sure?' }
-
-    %br
-
-    = link_to 'New Lop mon hoc sinh vien', new_lop_mon_hoc_lop_mon_hoc_sinh_vien_path(@lop_mon_hoc), :'data-pjax' => '#pjax_container'
+    
     
 
   

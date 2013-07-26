@@ -43,6 +43,22 @@ class LopMonHocSinhViensController < ApplicationController
     
   end
 
+  def group
+    #@lop_mon_hoc_sinh_viens = LopMonHocSinhVien.all
+    @lop_mon_hoc_sinh_viens = @lop_mon_hoc.get_sinh_viens
+    @group = @lop_mon_hoc.group || 1
+    @groups_arrays = {}
+    @group.times do |g|
+      @groups_arrays[(g+1).to_s] = "Group #{g+1}"
+    end
+    #@groups_arrays = @groups.map {|gr| ["Group #{gr.id}", gr.id] }
+    respond_to do |format|
+      format.html { render :layout => false if request.headers['X-PJAX']}
+      format.json { render json: @lop_mon_hoc_sinh_viens }
+    end
+    
+  end
+
   # GET /lop_mon_hoc_sinh_viens/1
   # GET /lop_mon_hoc_sinh_viens/1.json
   def show

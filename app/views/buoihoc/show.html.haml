@@ -10,46 +10,46 @@
           %a.brand{:href => "/", :'data-pjax' => '#pjax_container' } HPU
           .container.nav-collapse
             %ul.nav.pull-left#urls
-              %li.active= link_to "Home", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
-              %li= link_to "DiemDanh", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => 'pjax_container'         
-              %li= link_to "LopMon", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'     
+              %li.active= link_to "Sổ đầu bài", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
+              %li= link_to "Điểm danh chi tiết", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => 'pjax_container'         
+              %li= link_to "Thông tin lớp", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'     
             %ul.nav.pull-right  
-              %li= submit_tag "Update", :class =>"btn btn-success"     
-              %li= link_to "Log out", destroy_user_session_path
+              %li= submit_tag "Cập nhật", :class =>"btn btn-success"     
+              %li= link_to "Đăng xuất", destroy_user_session_path
   .container-fluid{:style=>"margin-top: 10%;"} 
     %ul.nav.pull-right
       %li
         %i
           %strong= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
-    %h4 Thong tin lop mon: 
+    %h4 Thông tin lớp môn: 
     .well.sidebar-nav{:style => "font-size: 12px;"}
-      %strong Mon hoc: 
+      %strong Môn học: 
       %span= @buoihoc["ten_mon_hoc"]
-      %strong.offset1 Giao Vien:
+      %strong.offset1 Giảng viên: 
       %span= @lop_mon_hoc.ten_giang_vien    
-      %strong.offset1 Lop:
+      %strong.offset1 Lớp:
       %span= @buoihoc["ma_lop"]
-      %strong.offset1 So tiet:
+      %strong.offset1 Số tiết: 
       %span= @lop_mon_hoc.so_tiet
                           
-    %h4 Noi dung giang day: 
+    %h4 Nội dung giảng dạy: 
     .well.sidebar-nav{:style => "font-size: 12px;"}
       %div        
         = text_area_tag "buoihoc[noidung]", (@lich.noi_dung_day if @lich), :value => "#{(@lich.noi_dung_day if @lich)}", :style => "width: 100%;", :rows => 4
-      %strong.offset1 Phong: 
+      %strong.offset1 Phòng:  
       %span= text_field_tag "buoihoc[phong]", nil, :value => "#{(@lich.phong if @lich) || @buoihoc["phong"]}", :style => "width: 8%"
-      %strong.offset1 Si so: 
+      %strong.offset1 Sĩ số: 
       %span= @svs.count
-      %strong.offset1 So sv vang mat: 
+      %strong.offset1 Số sinh viên vắng mặt:  
       %span#sovang= @vang.count
-      %strong.offset1 So tiet: 
-      %span= text_field_tag "buoihoc[sotiet]", nil, :value => "#{(@lich.so_tiet_day if @lich) || @buoihoc["sotiet"]}", :style => "width: 5%"
+      %strong.offset1 Số tiết: 
+      %span= text_field_tag "buoihoc[sotiet]", nil, :value => "#{(@lich.so_tiet_day if @lich) || @tkb.so_tiet}", :style => "width: 5%"
       %h6 Sinh vien vang mat:
       %ul#vang
         - if @vang
           - @vang.each do |v|
             %li= v.ma_sinh_vien
-    %h4 Diem danh:
+    %h4 Điểm danh: 
     .well.sidebar-nav
       %table{:class => "table table-bordered table-condensed"}  
         %tbody    

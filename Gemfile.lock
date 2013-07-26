@@ -372,6 +372,7 @@ DEPENDENCIES
   ice_cube
   jquery-datatables-rails!
   jquery-rails
+  jquery-ui-rails
   kaminari
   launchy
   mmailer

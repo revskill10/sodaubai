@@ -12,12 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.all
 //= require twitter/bootstrap
 //= require jquery.pjax
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require dashboard
 //= require lop_mon_hocs
+//= require lop_mon_hoc_sinh_viens
 //= require bootstrap-combobox
 //= require best_in_place
 
@@ -25,7 +27,7 @@ $(document).ready(function(){
 	oTable = $('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bRetrieve": true,"iDisplayLength": 100, "bDestroy":true,"bInfo":false,"bProcessing":true,"bStateSave":true,"bAutoWidth":true});		
 	$('.combobox').combobox();	
 	$(document).pjax('a[data-pjax]', '#pjax-container');
-	$('.best_in_place').best_in_place()
+	$('.best_in_place').best_in_place();	
 });  
 
 

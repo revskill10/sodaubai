@@ -45,6 +45,7 @@ class LopMonHocsController < ApplicationController
 
     end
   end
+ 
   protected
   def load_lop
     @lop_mon_hoc ||= LopMonHoc.find(params[:id])

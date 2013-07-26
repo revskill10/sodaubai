@@ -10,8 +10,10 @@
         %a.brand{:href => "/", :'data-pjax' => '#pjax_container' } HPU
         .container.nav-collapse
           %ul.nav.pull-left#urls
-            %li.active= link_to "Home", "/", :'data-pjax' => '#pjax_container'
-            %li= link_to "Calendar", "/calendar", :'data-pjax' => '#pjax_container'            
+            %li.active= link_to "Trang chủ", "/", :'data-pjax' => '#pjax_container'
+            %li= link_to "Thời khóa biểu", "/calendar", :'data-pjax' => '#pjax_container'
+          %ul.nav.pull-right
+            %li= link_to 'Đăng xuất', destroy_user_session_path     
 .container-fluid{:style=>"margin-top: 100px;"}
   %table{:class => "table table-bordered datatable"}
     %thead          

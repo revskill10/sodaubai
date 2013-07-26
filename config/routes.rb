@@ -17,7 +17,7 @@ Trytest::Application.routes.draw do
     resources :sinh_viens, :only => :index  
     resources :lop_mon_hocs do       
       member do 
-        get '/calendar' => 'lop_mon_hocs#calendar'
+        get '/calendar' => 'lop_mon_hocs#calendar'        
       end
       resources :diem_chi_tiets      do  
         collection do        
@@ -29,6 +29,7 @@ Trytest::Application.routes.draw do
       resources :lop_mon_hoc_sinh_viens  do 
         collection do 
           post '/groupupdate' => 'lop_mon_hoc_sinh_viens#groupupdate'
+          get '/group' => 'lop_mon_hoc_sinh_viens#group'
         end
       end    
       resources :can_bo_lops
