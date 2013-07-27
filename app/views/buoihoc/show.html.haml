@@ -16,12 +16,13 @@
             %ul.nav.pull-right  
               %li= submit_tag "Cập nhật", :class =>"btn btn-success"     
               %li= link_to "Đăng xuất", destroy_user_session_path
-  .container-fluid{:style=>"margin-top: 10%;"} 
-    %ul.nav.pull-right
-      %li
-        %i
-          %strong= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
-    %h4 Thông tin lớp môn: 
+  .container-fluid{:style=>"margin-top: 5%;"} 
+    .row-fluid
+      %ul.nav.pull-right
+        %li
+          %i
+            %strong{:style => "font-size: 10px;"}= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
+    
     .well.sidebar-nav{:style => "font-size: 12px;"}
       %strong Môn học: 
       %span= @buoihoc["ten_mon_hoc"]
@@ -32,33 +33,60 @@
       %strong.offset1 Số tiết: 
       %span= @lop_mon_hoc.so_tiet
                           
-    %h4 Nội dung giảng dạy: 
-    .well.sidebar-nav{:style => "font-size: 12px;"}
-      %div        
-        = text_area_tag "buoihoc[noidung]", (@lich.noi_dung_day if @lich), :value => "#{(@lich.noi_dung_day if @lich)}", :style => "width: 100%;", :rows => 4
-      %strong.offset1 Phòng:  
-      %span= text_field_tag "buoihoc[phong]", nil, :value => "#{(@lich.phong if @lich) || @buoihoc["phong"]}", :style => "width: 8%"
-      %strong.offset1 Sĩ số: 
-      %span= @svs.count
-      %strong.offset1 Số sinh viên vắng mặt:  
-      %span#sovang= @vang.count
-      %strong.offset1 Số tiết: 
-      %span= text_field_tag "buoihoc[sotiet]", nil, :value => "#{(@lich.so_tiet_day if @lich) || @tkb.so_tiet}", :style => "width: 5%"
-      %h6 Sinh vien vang mat:
-      %ul#vang
-        - if @vang
-          - @vang.each do |v|
-            %li= v.ma_sinh_vien
-    %h4 Điểm danh: 
-    .well.sidebar-nav
-      %table{:class => "table table-bordered table-condensed"}  
-        %tbody    
-          - @svs2.each_with_index do |svs, index|    
-            %tr
-            - svs.each do |sv, i|      
-              %td
-                %div             
-                  %p= sv[:ho_dem] + " " + sv[:ten]               
-                  %span= sv[:ma_sinh_vien]              
-                  %span= check_box_tag "msv[#{sv[:ma_sinh_vien]}]", nil, get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay)
-  
+    .tabbable
+      %ul.nav.nav-tabs
+        %li.active
+          %a{:href => "#tab2", :"data-toggle" => "tab"} Điểm danh:
+        %li
+          %a{:href => "#tab1", :"data-toggle" => "tab"} Nội dung giảng dạy: 
+        
+      .tab-content
+        .tab-pane#tab1          
+          .well.sidebar-nav{:style => "font-size: 12px;"}
+            %div        
+              = text_area_tag "buoihoc[noidung]", (@lich.noi_dung_day if @lich), :value => "#{(@lich.noi_dung_day if @lich)}", :style => "width: 100%;", :rows => 4
+            %strong.offset1 Phòng:  
+            %span= text_field_tag "buoihoc[phong]", nil, :value => "#{(@lich.phong if @lich) || @buoihoc["phong"]}", :style => "width: 8%"
+            %strong.offset1 Sĩ số: 
+            %span= @svs.count
+            %strong.offset1 Số sinh viên vắng mặt:  
+            %span#sovang= @vang.count
+            %strong.offset1 Số tiết: 
+            %span= text_field_tag "buoihoc[sotiet]", nil, :value => "#{(@lich.so_tiet_day if @lich) || @tkb.so_tiet}", :style => "width: 5%"
+            %h6 Sinh vien vang mat:
+            %table{:class => "table table-bordered table-condensed"}  
+              - if @vang
+                %colgroup
+                  %col{:style => "width: 15%"}
+                  %col{:style => "width: 20%"}
+                  %col{:style => "width: 15%"}            
+                  %col{:style => "width: 15%"}
+                  %col{:style => "width: 10%"}            
+                %thead
+                  %td Mã sinh viên
+                  %td Họ đệm
+                  %td Tên            
+                  %td Số tiết vắng
+                  %td Phép            
+                %tbody
+                  - @svvang.each do |sv|
+                    %tr
+                      %td= sv[:ma_sinh_vien]
+                      %td= sv[:ho_dem]
+                      %td= sv[:ten]                
+                      %td= text_field_tag "msv[#{sv[:ma_sinh_vien]}][sotiet]", nil, :value => DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay).first.try(:so_tiet_vang) || 0,  :style => "width: 15%"
+                      %td= check_box_tag "msv[#{sv[:ma_sinh_vien]}][phep]",nil, get_phep(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay)
+
+        .tab-pane.active#tab2                  
+          .well.sidebar-nav
+            %table{:class => "table table-bordered table-condensed"}  
+              %tbody    
+                - @svs2.each_with_index do |svs, index|    
+                  %tr
+                  - svs.each do |sv, i|      
+                    %td
+                      %div             
+                        %p= sv[:ho_dem] + " " + sv[:ten]               
+                        %span= sv[:ma_sinh_vien]              
+                        %span= check_box_tag "msv[#{sv[:ma_sinh_vien]}]", nil, get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay)
+        

@@ -12,7 +12,9 @@ class BuoihocController < ApplicationController
     @ids = @svs.map{|sv| sv.ma_sinh_vien}
     @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc, ngay_day: get_ngay(@ngay)).first
     @dds = DiemDanh.thongtin(@malop,@mamonhoc,@ids, @ngay)
-    @vang = @dds.select {|t| t.so_tiet_vang > 0}
+    @vang = @dds.select {|t| t and t.so_tiet_vang > 0}
+    @idvang = @vang.map {|t| t.ma_sinh_vien}
+    @svvang = @svs.select {|v| @idvang.include?(v.ma_sinh_vien)}
     @svs.each do |sv|
       b2 = @dds.select {|bi| bi.ma_sinh_vien. == sv.ma_sinh_vien}.first
       sv = sv.as_json.merge!(b2.as_json) if b2
@@ -95,6 +97,8 @@ class BuoihocController < ApplicationController
       @ids = @svs.map{|sv| sv.ma_sinh_vien}    
       @dds = DiemDanh.thongtin(@malop,@mamonhoc,@ids, @ngay)
       @vang = @dds.select {|t| t and t.so_tiet_vang > 0}
+      @idvang = @vang.map {|t| t.ma_sinh_vien}
+      @svvang = @svs.select {|v| @idvang.include?(v.ma_sinh_vien)}
       @kovang = @dds.select {|t| t.nil? or t.so_tiet_vang == 0}
       respond_to do |format|     
         format.js      
