@@ -26,17 +26,19 @@
   .container-fluid{:style=>"margin-top: 100px;"}    
     .span4
       %table.table
-        - @lop_mon_hoc_sinh_viens.each do |lop_mon_hoc_sinh_vien|        
-          %tr.draggable
-            %td= lop_mon_hoc_sinh_vien.ma_sinh_vien                    
-            %td= lop_mon_hoc_sinh_vien.ho_dem + lop_mon_hoc_sinh_vien.ten
+        %tbody.group
+          - @lop_mon_hoc_sinh_viens.each do |lop_mon_hoc_sinh_vien|
+            %tr.draggable
+              %td= lop_mon_hoc_sinh_vien.ma_sinh_vien                    
+              %td= lop_mon_hoc_sinh_vien.ho_dem + lop_mon_hoc_sinh_vien.ten
 
     .span4.offset2
       - @groups_arrays.each_with_index do |a, i|
         %p= "Group#{i+1}"
-        %table{:class => "table group", :id => "group#{i+1}"}
-          %tr
-            %td{:placeholder => "Test"}
+        %table{:class => "table", :id => "group#{i+1}"}
+          %tbody.group
+            %tr.draggable
+              %td{:placeholder => "Test"}
 
     
     

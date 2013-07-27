@@ -41,13 +41,15 @@ class BuoihocController < ApplicationController
 
     if params["msv"] then 
       @vang = params["msv"].keys    
+      @v = params["msv2"]
       @kovang = @svs.map{|sv| sv.ma_sinh_vien}.select{|k| !@vang.include?(k)}
       
       #@kovang = @ids - @msvs 
 
       @vang.each do |msv|
         dd = DiemDanh.where(ma_sinh_vien: msv, ma_lop: @malop, ma_mon_hoc: @mamonhoc, ngay_vang: get_ngay(@ngay)).first_or_create!
-        dd.so_tiet_vang = @tkb.so_tiet if @tkb
+        dd.so_tiet_vang = (@v[msv][:sotiet] if @v[msv]) || (@tkb.so_tiet if @tkb)
+        dd.phep = (@v[msv][:phep] if @v[msv]) || false
         dd.save! rescue "Error save"
       end
 
@@ -59,11 +61,14 @@ class BuoihocController < ApplicationController
         end
       end
     end
+    
     rescue
       
     end
     @dds = DiemDanh.thongtin(@malop,@mamonhoc,@ids, @ngay)
-    @vang = @dds.select {|t| t.so_tiet_vang > 0}
+    @vang = @dds.select {|t| t and t.so_tiet_vang > 0}
+    @idvang = @vang.map {|t| t.ma_sinh_vien}
+    @svvang = @svs.select {|v| @idvang.include?(v.ma_sinh_vien)}
     @lichtrinh = params[:buoihoc]
     @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc, ngay_day: get_ngay(@ngay)).first_or_create!
     @lich.so_tiet_day = @lichtrinh[:sotiet].to_i if @lichtrinh["sotiet"].to_i <= @tkb.so_tiet and @lichtrinh["sotiet"].to_i > 0
@@ -96,9 +101,7 @@ class BuoihocController < ApplicationController
       @svs = @lop_mon_hoc.get_sinh_viens
       @ids = @svs.map{|sv| sv.ma_sinh_vien}    
       @dds = DiemDanh.thongtin(@malop,@mamonhoc,@ids, @ngay)
-      @vang = @dds.select {|t| t and t.so_tiet_vang > 0}
-      @idvang = @vang.map {|t| t.ma_sinh_vien}
-      @svvang = @svs.select {|v| @idvang.include?(v.ma_sinh_vien)}
+      @vang = @dds.select {|t| t and t.so_tiet_vang > 0}      
       @kovang = @dds.select {|t| t.nil? or t.so_tiet_vang == 0}
       respond_to do |format|     
         format.js      
