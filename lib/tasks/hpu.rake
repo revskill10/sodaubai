@@ -181,13 +181,11 @@ namespace :hpu do
     end
   end
   task :create_tenant => :environment do 
-    begin
+   
       
-      t = Tenant.create!(:nam_hoc => '2012-2013', :hoc_ky => 2, :scheme => dbname)
+      t = Tenant.where(:nam_hoc => '2012-2013', :hoc_ky => 2, :scheme => 't1').first_or_create!
       
-    rescue
-      puts ""
-    end
+   
   end
 end
 def titleize(str)

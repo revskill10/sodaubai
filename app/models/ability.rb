@@ -1,8 +1,14 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)    
-    if user and user.imageable.is_a?(GiangVien)
+  def initialize(user) 
+    user ||= User.new   
+    if user.is_admin?
+        can :manage, :all
+        can :read, ActiveAdmin::Page, :name => "Dashboard"
+    end
+    
+    if user and user.role == 'giangvien'
         can :read, LopMonHoc do |lop|
             user.imageable.lop_mon_hocs.include?(lop)
         end        

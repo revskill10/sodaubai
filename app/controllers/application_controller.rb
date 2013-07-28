@@ -25,4 +25,5 @@ class ApplicationController < ActionController::Base
       PgTools.restore_default_search_path
     end
   end
+  
 end

@@ -12,5 +12,6 @@ namespace :tenants do
         ActiveRecord::Migrator.migrate("db/migrate/", version)
       end
     end
+    
   end
 end

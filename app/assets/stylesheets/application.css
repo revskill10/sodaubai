@@ -13,7 +13,6 @@
  *= require dataTables/jquery.dataTables.bootstrap
  *= require_tree .
  *= require bootstrap-wysihtml5
- *= require bootstrap-responsive
  *= require jquery.gridster.min
  *= require bootstrap-wysihtml5
  *= require bootstrap-combobox

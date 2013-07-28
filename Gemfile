@@ -67,9 +67,6 @@ gem "split_datetime"
 gem 'factory_girl_rails'
 gem "devise_cas_authenticatable"
 gem "cancan"
-gem "rails_admin"
-gem "rails_admin-i18n"
-gem "rolify"
 gem "ice_cube"
 gem "twitter-bootstrap-rails"
 gem 'kaminari'
@@ -88,3 +85,4 @@ gem 'to_spreadsheet'
 gem 'destroyed_at'
 gem 'mmailer'
 gem 'best_in_place'
+gem 'activeadmin'

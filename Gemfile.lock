@@ -39,6 +39,18 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    activeadmin (0.6.0)
+      arbre (>= 1.0.1)
+      bourbon (>= 1.0.0)
+      devise (>= 1.1.2)
+      fastercsv
+      formtastic (>= 2.0.0)
+      inherited_resources (>= 1.3.1)
+      jquery-rails (>= 1.0.0)
+      kaminari (>= 0.13.0)
+      meta_search (>= 0.9.2)
+      rails (>= 3.0.0)
+      sass (>= 3.1.0)
     activemodel (3.2.13)
       activesupport (= 3.2.13)
       builder (~> 3.0.0)
@@ -57,6 +69,8 @@ GEM
     akami (1.2.0)
       gyoku (>= 0.4.0)
       nokogiri (>= 1.4.0)
+    arbre (1.0.1)
+      activesupport (>= 3.0.0)
     arel (3.0.2)
     axlsx (1.3.6)
       htmlentities (~> 4.3.1)
@@ -71,8 +85,9 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (2.3.2.0)
-      sass (~> 3.2)
+    bourbon (3.1.8)
+      sass (>= 3.2.0)
+      thor
     builder (3.0.4)
     cancan (1.6.10)
     childprocess (0.3.9)
@@ -118,10 +133,11 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    fastercsv (1.5.5)
     ffi (1.9.0-x86-mingw32)
-    font-awesome-rails (3.2.1.1)
-      railties (>= 3.2, < 5.0)
     formatador (0.2.4)
+    formtastic (2.2.1)
+      actionpack (>= 3.0)
     growl (1.0.3)
     guard (1.8.1)
       formatador (>= 0.2.4)
@@ -148,12 +164,16 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
+    has_scope (0.5.1)
     hike (1.2.3)
     htmlentities (4.3.1)
     httpi (2.0.2)
       rack
     i18n (0.6.1)
     ice_cube (0.11.0)
+    inherited_resources (1.4.0)
+      has_scope (~> 0.5.0)
+      responders (~> 0.9)
     journey (1.0.4)
     jquery-rails (3.0.1)
       railties (>= 3.0, < 5.0)
@@ -175,6 +195,11 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    meta_search (1.1.3)
+      actionpack (~> 3.1)
+      activerecord (~> 3.1)
+      activesupport (~> 3.1)
+      polyamorous (~> 0.5.0)
     method_source (0.8.1)
     micromachine (1.0.4)
     mime-types (1.23)
@@ -184,7 +209,6 @@ GEM
       micromachine
       thor
     multi_json (1.7.7)
-    nested_form (0.3.2)
     nokogiri (1.6.0-x86-mingw32)
       mini_portile (~> 0.5.0)
     nori (2.1.0)
@@ -198,6 +222,8 @@ GEM
     pg (0.15.1-x86-mingw32)
     pjax_rails (0.3.4)
       jquery-rails
+    polyamorous (0.5.0)
+      activerecord (~> 3.0)
     polyglot (0.3.3)
     pry (0.9.12.2-x86-mingw32)
       coderay (~> 1.0.5)
@@ -207,9 +233,6 @@ GEM
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-pjax (0.7.0)
-      nokogiri (~> 1.5)
-      rack (~> 1.3)
     rack-ssl (1.3.3)
       rack
     rack-test (0.6.2)
@@ -222,22 +245,6 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
-    rails_admin (0.4.9)
-      bootstrap-sass (~> 2.2)
-      builder (~> 3.0)
-      coffee-rails (>= 3.1, < 5)
-      font-awesome-rails (~> 3.0)
-      haml (~> 4.0)
-      jquery-rails (>= 2.1, < 4)
-      jquery-ui-rails (~> 3.0)
-      kaminari (~> 0.14)
-      nested_form (~> 0.3)
-      rack-pjax (~> 0.6)
-      rails (~> 3.1)
-      remotipart (~> 1.0)
-      safe_yaml (~> 0.6)
-      sass-rails (~> 3.1)
-    rails_admin-i18n (0.0.9)
     railties (3.2.13)
       actionpack (= 3.2.13)
       activesupport (= 3.2.13)
@@ -254,8 +261,8 @@ GEM
     rb-notifu (0.0.4)
     rdoc (3.12.2)
       json (~> 1.4)
-    remotipart (1.0.5)
-    rolify (3.2.0)
+    responders (0.9.3)
+      railties (~> 3.1)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
@@ -274,7 +281,6 @@ GEM
     rubycas-client (2.3.9)
       activesupport
     rubyzip (0.9.9)
-    safe_yaml (0.9.3)
     sass (3.2.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -350,6 +356,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  activeadmin
   best_in_place
   better_errors
   binding_of_caller
@@ -380,10 +387,7 @@ DEPENDENCIES
   pg (= 0.15.1)
   pjax_rails
   rails (= 3.2.13)
-  rails_admin
-  rails_admin-i18n
   rb-notifu
-  rolify
   rspec-rails
   sass-rails (~> 3.2.3)
   savon

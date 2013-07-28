@@ -1,6 +1,6 @@
 class DeviseCreateUsers < ActiveRecord::Migration
-  def change  
-    return if PgTools.private_search_path?  
+  def change    
+    return if PgTools.private_search_path?
     create_table(:users) do |t|
       ## Database authenticatable
       t.string :username,              :null => false, :default => ""

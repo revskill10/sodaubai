@@ -1,5 +1,7 @@
 Trytest::Application.routes.draw do
   
+  
+
   get "dashboard/index"
   match '/calendar' => 'dashboard#calendar', :as => "calendar"
   match 'tuan/:id' => 'dashboard#show', :as => "tuan"
@@ -8,7 +10,7 @@ Trytest::Application.routes.draw do
   devise_for :users do
    get '/users/sign_out' => 'devise/cas_sessions#destroy'
   end
-  
+  ActiveAdmin.routes(self)
   
     resources :tkb_giang_viens
 

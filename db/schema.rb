@@ -11,13 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130629071348) do
+ActiveRecord::Schema.define(:version => 20130728020100) do
 
-  create_table "articles", :force => true do |t|
-    t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+  create_table "active_admin_comments", :force => true do |t|
+    t.string   "resource_id",   :null => false
+    t.string   "resource_type", :null => false
+    t.integer  "author_id"
+    t.string   "author_type"
+    t.text     "body"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "namespace"
   end
+
+  add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
+  add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
+  add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "can_bo_lops", :force => true do |t|
     t.string   "ma_sinh_vien"
@@ -78,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20130629071348) do
     t.integer  "diem"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "tong_vang_co_phep"
   end
 
   create_table "diem_danhs", :force => true do |t|
@@ -88,8 +98,11 @@ ActiveRecord::Schema.define(:version => 20130629071348) do
     t.integer  "hoc_ky"
     t.datetime "ngay_vang"
     t.integer  "so_tiet_vang"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "diem_thuong_xuyen"
+    t.text     "note"
+    t.boolean  "phep"
   end
 
   create_table "giang_viens", :force => true do |t|
@@ -130,6 +143,9 @@ ActiveRecord::Schema.define(:version => 20130629071348) do
     t.boolean  "xac_nhan_sv"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "so_vang"
+    t.integer  "siso"
+    t.text     "sv"
   end
 
   create_table "lop_gheps", :force => true do |t|
@@ -153,6 +169,9 @@ ActiveRecord::Schema.define(:version => 20130629071348) do
     t.string   "ten_mon_hoc"
     t.string   "ma_lop_hanh_chinh"
     t.string   "loai"
+    t.string   "ho_dem"
+    t.string   "ten"
+    t.integer  "group_id"
   end
 
   create_table "lop_mon_hocs", :force => true do |t|
@@ -171,6 +190,8 @@ ActiveRecord::Schema.define(:version => 20130629071348) do
     t.string   "ten_giang_vien"
     t.string   "ten_mon_hoc"
     t.text     "dssv"
+    t.integer  "group"
+    t.text     "group_diem"
   end
 
   create_table "mon_hocs", :force => true do |t|
@@ -229,6 +250,7 @@ ActiveRecord::Schema.define(:version => 20130629071348) do
     t.datetime "updated_at",    :null => false
     t.integer  "trang_thai"
     t.string   "ten_nganh"
+    t.text     "ngay"
   end
 
   create_table "tai_lieu_mon_hocs", :force => true do |t|
@@ -284,6 +306,14 @@ ActiveRecord::Schema.define(:version => 20130629071348) do
     t.string   "loai"
   end
 
+  create_table "tuans", :force => true do |t|
+    t.integer  "stt"
+    t.datetime "tu_ngay"
+    t.datetime "den_ngay"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "username",               :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -300,6 +330,7 @@ ActiveRecord::Schema.define(:version => 20130629071348) do
     t.datetime "updated_at",                             :null => false
     t.integer  "imageable_id"
     t.string   "imageable_type"
+    t.string   "role"
   end
 
   add_index "users", ["code"], :name => "index_users_on_code", :unique => true
