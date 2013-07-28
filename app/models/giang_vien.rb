@@ -15,7 +15,7 @@ class GiangVien < ActiveRecord::Base
   has_many :lich_trinh_giang_days, :through => :lop_mon_hocs
   has_many :nghi_days, :foreign_key => 'ma_giang_vien', :dependent => :destroy, :primary_key => 'ma_giang_vien'  
   has_one :user, :as => :imageable
-  delegate :username, :to => :user
+  
   #validation
   validates :ho_ten, :ma_giang_vien, :presence => true
   validates :ma_giang_vien, :uniqueness => { :case_sensitive => false }

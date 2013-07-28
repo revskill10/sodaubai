@@ -17,7 +17,7 @@ Trytest::Application.routes.draw do
     resources :giang_viens
     resources :mon_hocs
     resources :sinh_viens, :only => :index  
-    resources :lop_mon_hocs do       
+    resources :lop_mon_hocs do             
       member do 
         get '/calendar' => 'lop_mon_hocs#calendar'        
       end

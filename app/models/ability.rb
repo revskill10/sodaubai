@@ -8,15 +8,7 @@ class Ability
         can :read, ActiveAdmin::Page, :name => "Dashboard"
     end
     
-    if user and user.role == 'giangvien'
-        can :read, LopMonHoc do |lop|
-            user.imageable.lop_mon_hocs.include?(lop)
-        end        
-        can :read, SinhVien, :lop_mon_hocs => {:ma_giang_vien => user.imageable.ma_giang_vien}
-        can :manage, LichTrinhGiangDay do |lich|
-            user.imageable.lop_mon_hocs.include?(lich.lop_mon_hoc)
-        end
-    end
+    
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

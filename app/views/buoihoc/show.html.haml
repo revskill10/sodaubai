@@ -43,8 +43,10 @@
       .tab-content
         .tab-pane#tab1          
           .well.sidebar-nav{:style => "font-size: 12px;"}
-            %div        
-              = text_area_tag "buoihoc[noidung]", (@lich.noi_dung_day if @lich), :value => "#{(@lich.noi_dung_day if @lich)}", :style => "width: 100%;", :rows => 4
+            
+
+            = text_area_tag "buoihoc[noidung]", (@lich.noi_dung_day if @lich), :value => "#{(@lich.noi_dung_day if @lich)}", :class => 'redactor', :style => "width: 100%;", :rows => 4
+              
             %strong.offset1 Phòng:  
             %span= text_field_tag "buoihoc[phong]", nil, :value => "#{(@lich.phong if @lich) || @buoihoc["phong"]}", :style => "width: 8%"
             %strong.offset1 Sĩ số: 
@@ -83,10 +85,12 @@
               %tbody    
                 - @svs2.each_with_index do |svs, index|    
                   %tr
-                  - svs.each do |sv, i|      
-                    %td
-                      %div             
-                        %p= sv[:ho_dem] + " " + sv[:ten]               
-                        %span= sv[:ma_sinh_vien]              
-                        %span= check_box_tag "msv[#{sv[:ma_sinh_vien]}]", nil, get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay)
+                    - svs.each do |sv, i|      
+                      %td
+                        %div             
+                          %p= sv[:ho_dem] + " " + sv[:ten]               
+                          %span= sv[:ma_sinh_vien]              
+                          %span= check_box_tag "msv[#{sv[:ma_sinh_vien]}]", nil, get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay)
         
+
+
