@@ -31,3 +31,12 @@ select {
        -moz-box-sizing: border-box;
             box-sizing: border-box;
 }
+.drag {
+  border: 1px solid #89B;
+  background: #BCE;
+  cursor: move;
+}
+.selected {
+  background-color: #ECB;
+  border-color: #B98;
+}

@@ -90,7 +90,7 @@
                         %div             
                           %p= sv[:ho_dem] + " " + sv[:ten]               
                           %span= sv[:ma_sinh_vien]              
-                          %span= check_box_tag "msv[#{sv[:ma_sinh_vien]}]", nil, get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay)
+                          %span= check_box_tag "msv[#{sv[:ma_sinh_vien]}]", nil, get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay), :class => "drag"
         
 
 
