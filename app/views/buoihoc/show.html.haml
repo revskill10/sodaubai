@@ -22,7 +22,7 @@
         %li
           %i
             %strong{:style => "font-size: 10px;"}= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
-    
+        
     .well.sidebar-nav{:style => "font-size: 12px;"}
       %strong Môn học: 
       %span= @buoihoc["ten_mon_hoc"]
@@ -32,7 +32,7 @@
       %span= @buoihoc["ma_lop"]
       %strong.offset1 Số tiết: 
       %span= @lop_mon_hoc.so_tiet
-                          
+      %span= params[:msv].inspect                          
     .tabbable
       %ul.nav.nav-tabs
         %li.active
@@ -93,4 +93,4 @@
                           %span= check_box_tag "msv[#{sv[:ma_sinh_vien]}]", nil, get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay), :class => "drag"
         
 
-
+= @vang.inspect

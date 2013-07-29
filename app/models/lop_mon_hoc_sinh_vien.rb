@@ -3,13 +3,15 @@ class LopMonHocSinhVien < ActiveRecord::Base
   belongs_to :lop_mon_hoc, :foreign_key => 'ma_lop', :primary_key => 'ma_lop' , :conditions => proc {"lop_mon_hocs.ma_mon_hoc = '#{ma_mon_hoc}'"}
   belongs_to :lop_ghep, :foreign_key => 'ma_lop', :primary_key => 'ma_lop' , :conditions => proc {"lop_gheps.ma_mon_hoc = '#{ma_mon_hoc}'"}
   belongs_to :sinh_vien, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien'
-  belongs_to :group
 
-  validates :ma_lop, :ma_sinh_vien, :ma_mon_hoc, :ten_mon_hoc, :presence => true  
+
+  validates :ma_lop, :ma_sinh_vien, :ma_mon_hoc, :ten_mon_hoc, :presence => true    
+  validate :ma_sinh_vien, :scope => [:ma_lop, :ma_mon_hoc], :unique => true
   
   
-  
-  
+  def diemqt
+    (diem_chuyen_can || 0) + (diem_tbkt || 0) + (diem_thuc_hanh || 0)
+  end
   def conflict?
   	tkbs = sinh_vien.get_tkbs
   	mtkbs = lop_mon_hoc.get_tkbs
@@ -25,5 +27,6 @@ class LopMonHocSinhVien < ActiveRecord::Base
   	end
   	return res  	
   end
+
   
 end

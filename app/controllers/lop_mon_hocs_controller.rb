@@ -3,6 +3,8 @@ class LopMonHocsController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :load_lop, :except => :index
+
+
   # GET /lop_mon_hocs/1
   # GET /lop_mon_hocs/1.json
   def index
@@ -24,6 +26,7 @@ class LopMonHocsController < ApplicationController
     end  
         
   end
+  
   def show
     authorize! :read, @lop_mon_hoc
     @svs = @lop_mon_hoc.get_sinh_viens

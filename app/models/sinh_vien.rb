@@ -10,10 +10,19 @@ class SinhVien < ActiveRecord::Base
   has_many :lop_mon_hoc_sinh_viens, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien', :dependent => :destroy
       
   has_many :diem_chuyen_cans, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien', :dependent => :destroy do 
-  	def with_lop(ma_lop)
-  		where("diem_chuyen_cans.ma_lop" => ma_lop)
+  	def with_lop(ma_lop, ma_mon)
+  		where("diem_chuyen_cans.ma_lop" => ma_lop, "diem_chuyen_cans.ma_mon_hoc" => ma_mon).first
   	end
   end
+  has_many :diem_chi_tiets, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien', :dependent => :destroy do 
+    def diemkiemtra(ma_lop, ma_mon, lan)
+      where("diem_chi_tiets.ma_lop" => ma_lop, "diem_chi_tiets.ma_mon_hoc" => ma_mon, "lan" => lan, "loai_diem" => "1")
+    end
+    def diemthuchanh(ma_lop, ma_mon)
+      where("diem_chi_tiets.ma_lop" => ma_lop, "diem_chi_tiets.ma_mon_hoc" => ma_mon, "loai_diem" => "2")
+    end
+  end
+
   has_many :diem_danhs, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien', :dependent => :destroy do 
   	def with_lop(ma_lop)
   		where("diem_danhs.ma_lop" => ma_lop)
@@ -31,7 +40,18 @@ class SinhVien < ActiveRecord::Base
       self.ten
     end
   end 
-
+  def tbkt(ma_lop, ma_mon)
+    diem_chi_tiets.with_lop(ma_lop, ma_mon, [1,2,3],"1").average('diem')
+  end
+  def diemthuchanh(ma_lop, ma_mon)
+    diem_chi_tiets(ma_lop, ma_mon, [1,2,3],"2").average('diem')
+  end
+  def diem_chuyen_can(ma_lop, ma_mon)
+    diem_chuyen_cans.with_lop(ma_lop, ma_mon).try(:diem) || 0
+  end
+  def diem_qua_trinh(ma_lop, ma_mon)
+        
+  end
   def lop_mon_hocs
     l1 = self.lop_mon_hoc_sinh_viens.map {|t| t and t.lop_mon_hoc }
     l2 = self.lop_mon_hoc_sinh_viens.map {|t| t and t.lop_ghep and t.lop_ghep.lop_mon_hoc }

@@ -39,17 +39,15 @@ class BuoihocController < ApplicationController
 
 
 
-    if params["msv"] then 
-      @vang = params["msv"].keys    
-      @v = params["msv2"]
+    if params[:msv] then 
+      @vang = params[:msv].keys          
       @kovang = @svs.map{|sv| sv.ma_sinh_vien}.select{|k| !@vang.include?(k)}
       
       #@kovang = @ids - @msvs 
 
       @vang.each do |msv|
         dd = DiemDanh.where(ma_sinh_vien: msv, ma_lop: @malop, ma_mon_hoc: @mamonhoc, ngay_vang: get_ngay(@ngay)).first_or_create!
-        dd.so_tiet_vang = (@v[msv][:sotiet] if @v[msv]) || (@tkb.so_tiet if @tkb)
-        dd.phep = (@v[msv][:phep] if @v[msv]) || false
+        dd.so_tiet_vang =  (@tkb.so_tiet if @tkb)        
         dd.save! rescue "Error save"
       end
 
@@ -61,7 +59,17 @@ class BuoihocController < ApplicationController
         end
       end
     end
-    
+    if params[:msv2] then 
+      @v = params[:msv2]
+      @v.each do |msv, tt|
+        dd = DiemDanh.where(ma_sinh_vien: msv, ma_lop: @malop, ma_mon_hoc: @mamonhoc, ngay_vang: get_ngay(@ngay)).first
+        if dd 
+          dd.so_tiet_vang = (tt[:sotiet] if tt[:sotiet]) || dd.so_tiet_vang
+          dd.phep = (tt[:phep] if tt[:phep]) || dd.phep
+          dd.save! rescue "Error save"
+        end
+      end
+    end
     rescue
       
     end

@@ -27,17 +27,23 @@
     %thead
       %td Mã sinh viên
       %td Họ đệm
-      %td Tên        
-      %td Nhóm
+      %td Tên              
       %td Tình hình vắng
+      %td DiemCC
+      %td DiemTH
+      %td DiemKT
+      %td DiemQT
     %tbody
       - @svs.each do |sv|
         %tr
           %td= sv.ma_sinh_vien
           %td= sv.ho_dem
-          %td= sv.ten
-          %td= sv.group_id || 1
+          %td= sv.ten          
           %td.progress  
             .bar.bar-danger{:style => "width: #{(@dccs[sv.ma_sinh_vien] || 0)*100/(@dccs2[sv.ma_sinh_vien] || 1)}%"}                                        
-            .bar.bar-success{:style => "width: #{100-(@dccs[sv.ma_sinh_vien] || 0)*100/(@dccs2[sv.ma_sinh_vien] || 1)}%"}= (100-(@dccs[sv.ma_sinh_vien] || 0)).to_s + "%"                                          
+            .bar.bar-success{:style => "width: #{100-(@dccs[sv.ma_sinh_vien] || 0)*100/(@dccs2[sv.ma_sinh_vien] || 1)}%"}= (100-(@dccs[sv.ma_sinh_vien] || 0)).to_s + "%"
+          %td= sv.diem_chuyen_can
+          %td= sv.diem_thuc_hanh
+          %td= sv.diem_tbkt
+          %td= sv.diem_qua_trinh
               
