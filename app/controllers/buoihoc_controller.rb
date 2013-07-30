@@ -39,17 +39,17 @@ class BuoihocController < ApplicationController
 
 
 
-    if params["msv"] then 
-      @vang = params["msv"].keys    
-      @v = params["msv2"]
+    if params[:msv] then 
+      @vang = params[:msv].keys    
+          
       @kovang = @svs.map{|sv| sv.ma_sinh_vien}.select{|k| !@vang.include?(k)}
       
       #@kovang = @ids - @msvs 
 
       @vang.each do |msv|
         dd = DiemDanh.where(ma_sinh_vien: msv, ma_lop: @malop, ma_mon_hoc: @mamonhoc, ngay_vang: get_ngay(@ngay)).first_or_create!
-        dd.so_tiet_vang = (@v[msv][:sotiet] if @v[msv]) || (@tkb.so_tiet if @tkb)
-        dd.phep = (@v[msv][:phep] if @v[msv]) || false
+        dd.so_tiet_vang = (@tkb.so_tiet if @tkb)
+        dd.phep =  false
         dd.save! rescue "Error save"
       end
 
@@ -62,22 +62,22 @@ class BuoihocController < ApplicationController
       end
     end
     
-    rescue
-      
-    end
+    
     @dds = DiemDanh.thongtin(@malop,@mamonhoc,@ids, @ngay)
-    @vang = @dds.select {|t| t and t.so_tiet_vang > 0}
-    @idvang = @vang.map {|t| t.ma_sinh_vien}
-    @svvang = @svs.select {|v| @idvang.include?(v.ma_sinh_vien)}
+    @vang = @dds.select {|t| t and t.so_tiet_vang > 0}.map {|t| t.ma_sinh_vien}    
+    @svvang = @svs.select {|v| @vang.include?(v.ma_sinh_vien)}
     @lichtrinh = params[:buoihoc]
     @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc, ngay_day: get_ngay(@ngay)).first_or_create!
-    @lich.so_tiet_day = @lichtrinh[:sotiet].to_i if @lichtrinh["sotiet"].to_i <= @tkb.so_tiet and @lichtrinh["sotiet"].to_i > 0
+    @lich.so_tiet_day = @lichtrinh[:sotiet].to_i if @lichtrinh[:sotiet].to_i <= @tkb.so_tiet and @lichtrinh[:sotiet].to_i > 0
     @lich.noi_dung_day = @lichtrinh[:noidung]
     @lich.phong = @lichtrinh[:phong]
     @lich.so_vang = @vang.count
     @lich.siso = @svs.count
     @lich.sv = {:vang => @vang}.to_json
     @lich.save! rescue "error save lich trinh"
+    rescue
+      
+    end
     respond_to do |format|     
       format.js      
     end

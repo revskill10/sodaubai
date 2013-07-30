@@ -76,8 +76,8 @@
                       %td= sv[:ma_sinh_vien]
                       %td= sv[:ho_dem]
                       %td= sv[:ten]                
-                      %td= text_field_tag "msv2[#{sv[:ma_sinh_vien]}][sotiet]", nil, :value => DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay).first.try(:so_tiet_vang) || 0,  :style => "width: 15%"
-                      %td= check_box_tag "msv2[#{sv[:ma_sinh_vien]}][phep]",nil, get_phep(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay)
+                      %td= DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv.ma_sinh_vien, @ngay).first.try(:so_tiet_vang) || 0
+                      %td= check_box_tag "msv2[#{sv.ma_sinh_vien}][phep]",nil, get_phep(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv.ma_sinh_vien, @ngay), :disabled => "disabled"
 
         .tab-pane.active#tab2                  
           .well.sidebar-nav
