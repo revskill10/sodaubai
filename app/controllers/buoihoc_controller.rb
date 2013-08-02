@@ -8,17 +8,15 @@ class BuoihocController < ApplicationController
   def show
   	authorize! :read, @lop_mon_hoc
   	
-    @svs = @lop_mon_hoc.get_sinh_viens.sort_by {|h| h.ten}
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.includes(:diem_danhs).order('ten asc')
     @ids = @svs.map{|sv| sv.ma_sinh_vien}
-    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc, ngay_day: get_ngay(@ngay)).first
-    @dds = DiemDanh.thongtin(@malop,@mamonhoc,@ids, @ngay)
-    @vang = @dds.select {|t| t and t.so_tiet_vang > 0}
-    @idvang = @vang.map {|t| t.ma_sinh_vien}
-    @svvang = @svs.select {|v| @idvang.include?(v.ma_sinh_vien)}
-    @svs.each do |sv|
-      b2 = @dds.select {|bi| bi.ma_sinh_vien. == sv.ma_sinh_vien}.first
-      sv = sv.as_json.merge!(b2.as_json) if b2
+    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!
+    #@dds = DiemDanh.thongtin(@malop,@mamonhoc,@ids, @ngay)
+    #@dds = @lop_mon_hoc.diem_danhs.where(id: @ids,ngay_vang: @ngay)
+    @dds = @svs.select do |k| 
+      tmp = k.diem_danhs.where(ngay_vang: @ngay).first
     end
+    @vang = @dds.select {|t| t and t.so_tiet_vang > 0}.map {|k| k.lop_mon_hoc_sinh_vien}    
     @svs2 = @svs.each_slice(4)
 
     
@@ -33,7 +31,7 @@ class BuoihocController < ApplicationController
   end
   def update    
     begin
-    @svs = @lop_mon_hoc.get_sinh_viens
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.includes(:diem_danhs)
     @ids = @svs.map{|sv| sv.ma_sinh_vien}    
     
 
@@ -47,14 +45,17 @@ class BuoihocController < ApplicationController
       #@kovang = @ids - @msvs 
 
       @vang.each do |msv|
-        dd = DiemDanh.where(ma_sinh_vien: msv, ma_lop: @malop, ma_mon_hoc: @mamonhoc, ngay_vang: get_ngay(@ngay)).first_or_create!
-        dd.so_tiet_vang = (@tkb.so_tiet if @tkb)
-        dd.phep =  false
-        dd.save! rescue "Error save"
+        sv = @svs.where(ma_sinh_vien: msv).first
+        if sv 
+          dd = sv.diem_danhs.where(ngay_vang: get_ngay(@ngay)).first_or_create!
+          dd.so_tiet_vang = (@tkb.so_tiet if @tkb)
+          dd.phep =  false
+          dd.save! rescue "Error save"
+        end
       end
 
       @kovang.each do |msv|
-        dd = DiemDanh.where(ma_sinh_vien: msv, ma_lop: @malop, ma_mon_hoc: @mamonhoc, ngay_vang: get_ngay(@ngay)).first
+        dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: msv, ngay_vang: get_ngay(@ngay)).first
         if @tkb and dd
           dd.so_tiet_vang = 0
           dd.save! rescue "Error save"
@@ -63,11 +64,11 @@ class BuoihocController < ApplicationController
     end
     
     
-    @dds = DiemDanh.thongtin(@malop,@mamonhoc,@ids, @ngay)
+    @dds = @lop_mon_hoc.diem_danhs.where(id: @ids,ngay_vang: @ngay)
     @vang = @dds.select {|t| t and t.so_tiet_vang > 0}.map {|t| t.ma_sinh_vien}    
     @svvang = @svs.select {|v| @vang.include?(v.ma_sinh_vien)}
     @lichtrinh = params[:buoihoc]
-    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc, ngay_day: get_ngay(@ngay)).first_or_create!
+    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!
     @lich.so_tiet_day = @lichtrinh[:sotiet].to_i if @lichtrinh[:sotiet].to_i <= @tkb.so_tiet and @lichtrinh[:sotiet].to_i > 0
     @lich.noi_dung_day = @lichtrinh[:noidung]
     @lich.phong = @lichtrinh[:phong]
@@ -98,9 +99,9 @@ class BuoihocController < ApplicationController
       end      
     
     
-      @svs = @lop_mon_hoc.get_sinh_viens
+      @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
       @ids = @svs.map{|sv| sv.ma_sinh_vien}    
-      @dds = DiemDanh.thongtin(@malop,@mamonhoc,@ids, @ngay)
+      @dds = @lop_mon_hoc.diem_danhs.where(id: @ids, ngay_vang: @ngay)
       @vang = @dds.select {|t| t and t.so_tiet_vang > 0}      
       @kovang = @dds.select {|t| t.nil? or t.so_tiet_vang == 0}
       respond_to do |format|     

@@ -1,10 +1,10 @@
 module BuoihocHelper
-	def get_status(malop, mamon, msv, ngay)
-		stv = DiemDanh.thongtin(malop, mamon, msv, ngay).first.try(:so_tiet_vang) || 0
+	def get_status(sv, ngay)
+		stv = sv.diem_danhs.where(ngay_vang: ngay).first.try(:so_tiet_vang) || 0		
 		return (stv and stv > 0) ? true : false
 	end
-	def get_phep(malop, mamon, msv, ngay)
-		stv = DiemDanh.thongtin(malop, mamon, msv, ngay).first.try(:phep) || false
+	def get_phep(sv, ngay)
+		stv = sv.diem_danhs.where(ngay_vang: ngay).first.try(:phep) || 0
 		return stv
 	end
 	def get_ngay(ngay)

@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   belongs_to :imageable, :polymorphic => true
   delegate :lop_mon_hocs, :to => :imageable
   ROLES = %w[admin quansinh daotao giangvien sinhvien]
-
+  
 
   def cas_extra_attributes=(extra_attributes)
     if extra_attributes["status"] != 0    	    

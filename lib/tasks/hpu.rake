@@ -49,6 +49,21 @@ namespace :hpu do
     end
     
   end
+  task :update_lopghep => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    tts = {}
+    LopGhep.all.each do |lg|
+      tts[[lg.ma_lop, lg.ma_mon_hoc]] = lg.ma_lop_ghep
+    end
+    LopMonHocSinhVien.all.each do |lmh|      
+      lmh.ma_lop_ghep = lmh.ma_lop
+      if tts[[lmh.ma_lop, lmh.ma_mon_hoc]] then         
+        lmh.ma_lop_ghep = tts[[lmh.ma_lop, lmh.ma_mon_hoc]]        
+      end
+      lmh.save rescue puts "error"
+    end
+  end
   # cap nhat tkb set days
   task :update_tkb2 => :environment do 
     

@@ -1,15 +1,15 @@
 class DiemDanh < ActiveRecord::Base
-  attr_accessible :hoc_ky, :ma_lop, :ma_mon_hoc, :ma_sinh_vien, :nam_hoc, :ngay_vang, :so_tiet_vang, :loai, :diem_thuong_xuyen
+  attr_accessible :ma_sinh_vien, :nam_hoc, :ngay_vang, :so_tiet_vang, :loai, :diem_thuong_xuyen
 
-  belongs_to :lop_mon_hoc, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}
+  belongs_to :lop_mon_hoc_sinh_vien
   belongs_to :sinh_vien, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien'
-  
+  delegate :lop_mon_hoc, :to => :lop_mon_hoc_sinh_vien  
 
-  validates :ma_lop, :ma_sinh_vien, :ma_mon_hoc, :presence => true  
+  validates :ngay_vang, :presence => true  
   
   after_save :set_default
   
-  after_initialize :default_values
+  
   scope :thongtin, lambda {|ma_lop, ma_mon_hoc,ma_sinh_vien, ngay_vang| 
     where(:ma_lop=>ma_lop).where(:ma_mon_hoc => ma_mon_hoc)
     .where(:ma_sinh_vien=>ma_sinh_vien).where(:ngay_vang => Time.zone.parse(ngay_vang.to_s))
@@ -20,36 +20,32 @@ class DiemDanh < ActiveRecord::Base
   }
   
   private
-  def default_values
-  	self.so_tiet_vang ||= 0
-    self.diem_thuong_xuyen ||= 0
-  end  
+  
   def set_default
     tong_vang_co_phep
-    tong_vang
+    
+    
   end
-
-  def tong_vang_co_phep  
-    dcc = DiemChuyenCan.where(ma_mon_hoc: ma_mon_hoc, ma_lop: ma_lop, ma_sinh_vien: ma_sinh_vien).first_or_create!
-    dds = DiemDanh.where(ma_mon_hoc: ma_mon_hoc, ma_lop: ma_lop, ma_sinh_vien: ma_sinh_vien)
-    if dds.count > 0 then
-      dcc.tong_vang_co_phep = 0
-      dds.each do |dd|        
-        dcc.tong_vang_co_phep = dcc.tong_vang_co_phep + dd.so_tiet_vang if dd.phep == true and dd.so_tiet_vang > 0
-      end
+  def self.convert_dcc(diem)
+    case diem
+    when 100
+      4
+    when 90..99
+      3
+    when 80..89
+      2
+    when 70..79
+      1
+    else
+      0
     end
-    dcc.save! rescue "tong vang co phep error"
   end
-  
-  def tong_vang
-    dcc = DiemChuyenCan.where(ma_mon_hoc: ma_mon_hoc, ma_lop: ma_lop, ma_sinh_vien: ma_sinh_vien).first_or_create!
-    dds = DiemDanh.where(ma_mon_hoc: ma_mon_hoc, ma_lop: ma_lop, ma_sinh_vien: ma_sinh_vien)
-    if dds.count > 0 then
-      dcc.tong_so_tiet_vang = 0
-      dds.each do |dd|        
-        dcc.tong_so_tiet_vang = dcc.tong_so_tiet_vang + dd.so_tiet_vang
-      end
+  def tong_vang_co_phep      
+    if lop_mon_hoc_sinh_vien
+      lop_mon_hoc_sinh_vien.so_vang_co_phep = lop_mon_hoc_sinh_vien.diem_danhs.sum(:so_tiet_vang, :conditions => {:phep => true})
+      lop_mon_hoc_sinh_vien.so_tiet_vang = lop_mon_hoc_sinh_vien.diem_danhs.sum(:so_tiet_vang)      
+      lop_mon_hoc_sinh_vien.save! rescue "tong vang co phep error"
     end
-    dcc.save! rescue "tong vang error"
   end
+ 
 end

@@ -1,21 +1,20 @@
-- if @svvang
-  %colgroup
-    %col{:style => "width: 15%"}
-    %col{:style => "width: 20%"}
-    %col{:style => "width: 15%"}            
-    %col{:style => "width: 15%"}
-    %col{:style => "width: 10%"}            
-  %thead
-    %td Mã sinh viên
-    %td Họ đệm
-    %td Tên            
-    %td Số tiết vắng
-    %td Phép            
-  %tbody
-    - @svvang.each do |sv|
-      %tr
-        %td= sv.ma_sinh_vien
-        %td= sv.ho_dem
-        %td= sv.ten
-        %td= DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv.ma_sinh_vien, @ngay).first.try(:so_tiet_vang) || 0
-        %td= check_box_tag "msv2[#{sv.ma_sinh_vien}][phep]",nil, get_phep(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv.ma_sinh_vien, @ngay), :disabled => "disabled"
+%colgroup
+%col{:style => "width: 15%"}
+%col{:style => "width: 20%"}
+%col{:style => "width: 15%"}            
+%col{:style => "width: 15%"}
+%col{:style => "width: 10%"}            
+%thead
+%td Mã sinh viên
+%td Họ đệm
+%td Tên            
+%td Số tiết vắng
+%td Phép            
+%tbody
+- @vang.each do |sv|
+  %tr
+    %td= sv.ma_sinh_vien
+    %td= sv.ho_dem
+    %td= sv.ten
+    %td= sv.diem_danhs.where(ngay_vang: @ngay).first.try(:so_tiet_vang) || 0
+    %td= check_box_tag "msv2[#{sv.ma_sinh_vien}][phep]",nil, get_phep(sv, @ngay), :disabled => "disabled"

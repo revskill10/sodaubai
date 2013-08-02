@@ -57,27 +57,7 @@
             %span= text_field_tag "buoihoc[sotiet]", nil, :value => "#{(@lich.so_tiet_day if @lich) || @tkb.so_tiet}", :style => "width: 5%"
             %h6 Sinh vien vang mat:
             %table#svvang{:class => "table table-bordered table-condensed"}  
-              - if @vang
-                %colgroup
-                  %col{:style => "width: 15%"}
-                  %col{:style => "width: 20%"}
-                  %col{:style => "width: 15%"}            
-                  %col{:style => "width: 15%"}
-                  %col{:style => "width: 10%"}            
-                %thead
-                  %td Mã sinh viên
-                  %td Họ đệm
-                  %td Tên            
-                  %td Số tiết vắng
-                  %td Phép            
-                %tbody
-                  - @svvang.each do |sv|
-                    %tr
-                      %td= sv[:ma_sinh_vien]
-                      %td= sv[:ho_dem]
-                      %td= sv[:ten]                
-                      %td= DiemDanh.thongtin(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv.ma_sinh_vien, @ngay).first.try(:so_tiet_vang) || 0
-                      %td= check_box_tag "msv2[#{sv.ma_sinh_vien}][phep]",nil, get_phep(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv.ma_sinh_vien, @ngay), :disabled => "disabled"
+              = render :partial => 'table1'
 
         .tab-pane.active#tab2                  
           .well.sidebar-nav
@@ -88,9 +68,9 @@
                     - svs.each do |sv, i|      
                       %td
                         %div             
-                          %p= sv[:ho_dem] + " " + sv[:ten]               
-                          %span= sv[:ma_sinh_vien]              
-                          %span= check_box_tag "msv[#{sv[:ma_sinh_vien]}]", nil, get_status(@lop_mon_hoc.ma_lop, @lop_mon_hoc.ma_mon_hoc, sv[:ma_sinh_vien], @ngay), :class => "drag"
+                          %p= sv.ho_dem + " " + sv.ten
+                          %span= sv.ma_sinh_vien
+                          %span= check_box_tag "msv[#{sv.ma_sinh_vien}]", nil, get_status(sv, @ngay), :class => "drag"
         
 
 
