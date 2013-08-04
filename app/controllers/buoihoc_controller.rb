@@ -10,13 +10,12 @@ class BuoihocController < ApplicationController
   	
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.includes(:diem_danhs).order('ten asc')
     @ids = @svs.map{|sv| sv.ma_sinh_vien}
-    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!
-    #@dds = DiemDanh.thongtin(@malop,@mamonhoc,@ids, @ngay)
-    #@dds = @lop_mon_hoc.diem_danhs.where(id: @ids,ngay_vang: @ngay)
-    @dds = @svs.select do |k| 
+    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!    
+    @vang = @svs.select do |k| 
       tmp = k.diem_danhs.where(ngay_vang: @ngay).first
+      tmp and tmp.so_tiet_vang > 0
     end
-    @vang = @dds.select {|t| t and t.so_tiet_vang > 0}.map {|k| k.lop_mon_hoc_sinh_vien}    
+       
     @svs2 = @svs.each_slice(4)
 
     
@@ -31,7 +30,7 @@ class BuoihocController < ApplicationController
   end
   def update    
     begin
-    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.includes(:diem_danhs)
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     @ids = @svs.map{|sv| sv.ma_sinh_vien}    
     
 
@@ -64,9 +63,11 @@ class BuoihocController < ApplicationController
     end
     
     
-    @dds = @lop_mon_hoc.diem_danhs.where(id: @ids,ngay_vang: @ngay)
-    @vang = @dds.select {|t| t and t.so_tiet_vang > 0}.map {|t| t.ma_sinh_vien}    
-    @svvang = @svs.select {|v| @vang.include?(v.ma_sinh_vien)}
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.includes(:diem_danhs).order('ten asc')    
+    @vang = @svs.select do |k| 
+      tmp = k.diem_danhs.where(ngay_vang: @ngay).first
+      tmp and tmp.so_tiet_vang > 0
+    end
     @lichtrinh = params[:buoihoc]
     @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!
     @lich.so_tiet_day = @lichtrinh[:sotiet].to_i if @lichtrinh[:sotiet].to_i <= @tkb.so_tiet and @lichtrinh[:sotiet].to_i > 0
@@ -99,11 +100,13 @@ class BuoihocController < ApplicationController
       end      
     
     
-      @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
-      @ids = @svs.map{|sv| sv.ma_sinh_vien}    
-      @dds = @lop_mon_hoc.diem_danhs.where(id: @ids, ngay_vang: @ngay)
-      @vang = @dds.select {|t| t and t.so_tiet_vang > 0}      
-      @kovang = @dds.select {|t| t.nil? or t.so_tiet_vang == 0}
+      @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.includes(:diem_danhs).order('ten asc')
+      @ids = @svs.map{|sv| sv.ma_sinh_vien}   
+       @vang = @svs.select do |k| 
+        tmp = k.diem_danhs.where(ngay_vang: @ngay).first
+        tmp and tmp.so_tiet_vang > 0
+      end     
+      @kovang = @svs - @vang
       respond_to do |format|     
         format.js      
       end
@@ -114,7 +117,7 @@ class BuoihocController < ApplicationController
   
   def get_diemdanh
     
-    @svs = @lop_mon_hoc.get_sinh_viens
+   @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.includes(:diem_danhs).order('ten asc')
 
     respond_to do |format|
       if request.headers['X-PJAX']
@@ -145,4 +148,5 @@ class BuoihocController < ApplicationController
     end
     #@tuan = @tkb
   end
+
 end

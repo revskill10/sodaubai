@@ -19,11 +19,14 @@ class ApplicationController < ActionController::Base
     @current_week = 24
   end
   def load_tenant
+
     if @current_tenant ||= Tenant.last     
       PgTools.set_search_path @current_tenant.scheme    
+     
     else
       PgTools.restore_default_search_path
+     
     end
   end
-  
+ 
 end

@@ -30,6 +30,7 @@
       %td Tên              
       %td Tình hình vắng
       %td DiemCC      
+      %td DiemTBKT
       %td DiemQT
     %tbody
       - @svs.each do |sv|
@@ -38,8 +39,9 @@
           %td= sv.ho_dem
           %td= sv.ten          
           %td.progress  
-            .bar.bar-danger{:style => "width: #{((sv.so_tiet_vang if sv) || 0)*100/(@lop_mon_hoc.tong_so_tiet || 1)}%"}                                        
-            .bar.bar-success{:style => "width: #{100-((sv.so_tiet_vang if sv) || 0)*100/(@lop_mon_hoc.tong_so_tiet || 1)}%"}= (100-(sv.so_tiet_vang || 0)).to_s + "%"
-          %td= sv.diem_chuyen_can 
-          %td= sv.diem_qua_trinh
+            .bar.bar-danger{:style => "width: #{((sv.so_tiet_vang if sv) || 0)*100/(@lop_mon_hoc.so_tiet || 1)}%"}                                        
+            .bar.bar-success{:style => "width: #{100-((sv.so_tiet_vang if sv) || 0)*100/(@lop_mon_hoc.so_tiet || 1)}%"}= (100-(sv.so_tiet_vang || 0)).to_s + "%"
+          %td= sv.diemcc 
+          %td= sv.diemtbkt
+          %td= sv.diemqt
               

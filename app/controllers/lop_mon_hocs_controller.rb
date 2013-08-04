@@ -26,14 +26,9 @@ class LopMonHocsController < ApplicationController
   end
   def show
     authorize! :read, @lop_mon_hoc
-    @svs = @lop_mon_hoc.get_sinh_viens
-    @diem_chuyen_cans = @lop_mon_hoc.diem_chuyen_cans
-    @dccs = {}
-    @dccs2 = {}
-    @diem_chuyen_cans.each do |dcc|
-     @dccs[dcc.ma_sinh_vien] = dcc.tong_so_tiet_vang || 0
-     @dccs2[dcc.ma_sinh_vien] = dcc.so_tiet || 1
-    end
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
+    
+    
     respond_to do |format|
       if request.headers['X-PJAX']
         format.html {render :layout => false}        

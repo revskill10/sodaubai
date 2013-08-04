@@ -26,6 +26,8 @@ class DashboardController < ApplicationController
   
   protected
   def load_lops    
+    
+    
     @type = current_user.imageable    
   	@current_lops = [] unless @type
   	@current_lops = @type.lop_mon_hocs if @type	    
@@ -42,4 +44,5 @@ class DashboardController < ApplicationController
       @color_map["#{l.ma_lop}-#{l.ma_mon_hoc}"] = @color[i]
     end           
   end
+
 end
