@@ -11,6 +11,10 @@ class BuoihocController < ApplicationController
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
     @ids = @svs.map{|sv| sv.ma_sinh_vien}
     @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!        
+    if @lich.voters
+      voters = JSON.parse(@lich.voters) 
+      @theme = voters[@type.ma_sinh_vien] if @type.is_a?(SinhVien)
+    end
     @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).map { |k| k.ma_sinh_vien}
     @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
        
@@ -93,6 +97,24 @@ class BuoihocController < ApplicationController
     end
     
   end
+  def rate
+    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first
+    if @lich             
+      voters = (JSON.parse(@lich.voters) if @lich.voters) || {}
+      voters[@type.ma_sinh_vien] = params[:theme].to_i
+      @lich.voters = voters.to_json
+      @lich.rating_score = 0 
+      @lich.ratings = 0 
+      @lich.ratings = voters.keys.count
+      voters.each do |k,v|
+        @lich.rating_score += v 
+      end
+      @lich.save! rescue puts "error"
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
   def diemdanh            
     begin
       
@@ -146,7 +168,6 @@ class BuoihocController < ApplicationController
     end
   end
 
-  
 
   protected
   def to_zdate(str)

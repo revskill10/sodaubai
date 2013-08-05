@@ -47,6 +47,7 @@ Trytest::Application.routes.draw do
       resources :nghi_days
       resources :buoihoc do 
         member do
+          post 'rate' => 'buoihoc#rate'
           post 'update', :as => 'update'          
           post 'diemdanh'
           get 'diemdanh' => 'buoihoc#get_diemdanh'

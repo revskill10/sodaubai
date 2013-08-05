@@ -7,5 +7,7 @@ class LichTrinhGiangDay < ActiveRecord::Base
 
   validates :ngay_day, :presence => true
   
-
+  def score
+  	return "#{rating_score} / #{ratings}"
+  end
 end

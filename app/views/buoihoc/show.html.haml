@@ -43,6 +43,9 @@
       .tab-content
         .tab-pane#tab1          
           .well.sidebar-nav{:style => "font-size: 12px;"}
+            = @lich.score if @lich
+
+          .well.sidebar-nav{:style => "font-size: 12px;"}
             
 
             = text_area_tag "buoihoc[noidung]", (@lich.noi_dung_day if @lich), :value => "#{(@lich.noi_dung_day if @lich)}", :class => 'redactor', :style => "width: 100%;", :rows => 4

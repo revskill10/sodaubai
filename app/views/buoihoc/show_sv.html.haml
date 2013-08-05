@@ -42,8 +42,8 @@
     .tab-content
       .tab-pane#tab1          
         .well.sidebar-nav{:style => "font-size: 12px;"}
-          
-
+          = render :partial => 'rating'
+        .well.sidebar-nav{:style => "font-size: 12px;"}          
           = raw(@lich.noi_dung_day) if @lich
             
           %strong.offset1 Phòng:  

@@ -41,7 +41,7 @@ class DashboardController < ApplicationController
     end
     @color_map = {}
     @current_lops.each_with_index do |l,i|
-      @color_map["#{l.ma_lop}-#{l.ma_mon_hoc}"] = @color[i]
+      @color_map["#{l.ma_lop}-#{l.ma_mon_hoc}"] = @color[i] if l 
     end           
   end
 

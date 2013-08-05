@@ -1,4 +1,7 @@
 module BuoihocHelper
+	def get_rate(lich)
+		return "#{lich.rating_score}" + "/" + "#{lich.ratings}"
+	end
 	def get_status(lop, sv, ngay)
 		stv = get_vang(lop, sv, ngay)	
 		return (stv and stv > 0) ? true : false
