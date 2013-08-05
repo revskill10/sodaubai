@@ -28,22 +28,20 @@ class DiemChiTietsController < ApplicationController
   
   def create
     # @diem_chi_tiet = DiemChiTiet.new(params[:diem_chi_tiet])
-    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     @msvs = params[:msv]
     @svs.each do   |sv|      
-      sv.diem_thuc_hanh = @msvs[sv.ma_sinh_vien][:thuchanh]
-      sv.lan1 = @msvs[sv.ma_sinh_vien][:lan1]
-      sv.lan2 = @msvs[sv.ma_sinh_vien][:lan2]
-      sv.lan3 = @msvs[sv.ma_sinh_vien][:lan3]
-      sv.save! rescue puts "error"
+      if @msvs[sv.ma_sinh_vien]
+        sv.diem_thuc_hanh = @msvs[sv.ma_sinh_vien][:thuchanh] 
+        sv.lan1 = @msvs[sv.ma_sinh_vien][:lan1]
+        sv.lan2 = @msvs[sv.ma_sinh_vien][:lan2]
+        sv.lan3 = @msvs[sv.ma_sinh_vien][:lan3]
+        sv.save! rescue puts "error"
+      end
     end
 
-    respond_to do |format|
-      if @lop_mon_hoc.save 
-        format.js
-      else
-        render :index
-      end
+    respond_to do |format|      
+        format.js      
     end
   end
 

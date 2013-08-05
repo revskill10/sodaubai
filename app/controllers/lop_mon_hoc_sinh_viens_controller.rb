@@ -29,7 +29,7 @@ class LopMonHocSinhViensController < ApplicationController
   end
   def index
     #@lop_mon_hoc_sinh_viens = LopMonHocSinhVien.all
-    @lop_mon_hoc_sinh_viens = @lop_mon_hoc.get_sinh_viens
+    @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
     @group = @lop_mon_hoc.group || 1
     @groups_arrays = {}
     @group.times do |g|
@@ -45,7 +45,7 @@ class LopMonHocSinhViensController < ApplicationController
 
   def group
     #@lop_mon_hoc_sinh_viens = LopMonHocSinhVien.all
-    @lop_mon_hoc_sinh_viens = @lop_mon_hoc.get_sinh_viens
+    @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
     @group = @lop_mon_hoc.group || 1
     @groups_arrays = {}
     @group.times do |g|
@@ -85,18 +85,32 @@ class LopMonHocSinhViensController < ApplicationController
   def edit
     @lop_mon_hoc_sinh_vien = @lop_mon_hoc.get_sinh_viens.find(params[:id])
   end
-
+  
   # POST /lop_mon_hoc_sinh_viens
   # POST /lop_mon_hoc_sinh_viens.json
-  def create
+  def create    
+    msv = params[:lop_mon_hoc_sinh_vien][:ma_sinh_vien]
+    @sv = SinhVien.where(ma_sinh_vien: msv).first
     @lop_mon_hoc_sinh_vien = @lop_mon_hoc.lop_mon_hoc_sinh_viens.build(params[:lop_mon_hoc_sinh_vien])
-
     respond_to do |format|
-      if @lop_mon_hoc_sinh_vien.save
-        format.html { flash[:success] = "Created OK";
-          render :index, :layout => (request.headers['X-PJAX'] ? false : true)  }
-        format.json { render json: @lop_mon_hoc_sinh_vien, status: :created, location: @lop_mon_hoc_sinh_vien }
+      if @sv 
+        @tt = @sv.check_conflict(@lop_mon_hoc) 
+        if @tt
+          format.js {render :conflict}
+        else 
+          if params[:checksv]
+            format.js {render :checksv}
+          else
+            if  @lop_mon_hoc_sinh_vien.save
+              format.js
+              format.html { flash[:success] = "Created OK";
+                render :index, :layout => (request.headers['X-PJAX'] ? false : true)  }
+              format.json { render json: @lop_mon_hoc_sinh_vien, status: :created, location: @lop_mon_hoc_sinh_vien }
+            end
+          end
+        end
       else
+        format.js
         format.html { render action: "new" }
         format.json { render json: @lop_mon_hoc_sinh_vien.errors, status: :unprocessable_entity }
       end
@@ -106,13 +120,15 @@ class LopMonHocSinhViensController < ApplicationController
   # PUT /lop_mon_hoc_sinh_viens/1
   # PUT /lop_mon_hoc_sinh_viens/1.json
   def update
-    @lop_mon_hoc_sinh_vien = @lop_mon_hoc.get_sinh_viens.find(params[:id])
+    @lop_mon_hoc_sinh_vien = @lop_mon_hoc.lop_mon_hoc_sinh_viens.find(params[:id])
 
     respond_to do |format|
       if @lop_mon_hoc_sinh_vien.update_attributes(params[:lop_mon_hoc_sinh_vien])
+        format.js
         format.html { redirect_to [@lop_mon_hoc,@lop_mon_hoc_sinh_vien], notice: 'Lop mon hoc sinh vien was successfully updated.' }
         format.json { head :no_content }
       else
+        format.js
         format.html { render action: "edit" }
         format.json { render json: @lop_mon_hoc_sinh_vien.errors, status: :unprocessable_entity }
       end
@@ -122,10 +138,12 @@ class LopMonHocSinhViensController < ApplicationController
   # DELETE /lop_mon_hoc_sinh_viens/1
   # DELETE /lop_mon_hoc_sinh_viens/1.json
   def destroy
-    @lop_mon_hoc_sinh_vien = @lop_mon_hoc.get_sinh_viens.find(params[:id])
-    @lop_mon_hoc_sinh_vien.destroy
+    @lop_mon_hoc_sinh_vien = @lop_mon_hoc.lop_mon_hoc_sinh_viens.find(params[:id])
+    @lop_mon_hoc_sinh_vien.status = true
+    @lop_mon_hoc_sinh_vien.save! rescue puts "error"
 
     respond_to do |format|
+      format.js 
       format.html { redirect_to lop_mon_hoc_lop_mon_hoc_sinh_viens_url(@lop_mon_hoc) }
       format.json { head :no_content }
     end

@@ -17,9 +17,19 @@ class TkbGiangVien < ActiveRecord::Base
   	13 => [18, 0], 14 => [18, 50], 15 => [19,40], 16 => [20,30]}
   THU = {2 => :monday, 3 => :tuesday, 4 => :wednesday, 5 => :thursday, 6 => :friday, 7 => :saturday, 8 => :sunday}
   
+  def desc
+    "Lớp: " + ma_lop + ", Môn: " + ten_mon_hoc + ", Thứ: " + thu + ", Tiết bắt đầu: " + tiet_bat_dau
+  end
   
-  
-  
+  def check_conflict?(tkb)
+    t1 = tuan_hoc_bat_dau..tuan_hoc_bat_dau+so_tuan
+    t2 = tkb.tuan_hoc_bat_dau..tkb.tuan_hoc_bat_dau+tkb.so_tuan
+    ti1 = tiet_bat_dau..tiet_bat_dau+so_tiet
+    ti2 = tkb.tiet_bat_dau..tkb.tiet_bat_dau+tkb.so_tiet
+    return false if (t1.to_a & t2.to_a).empty?
+    return false if thu != tkb.thu
+    return false if (ti1.to_a & ti2.to_a).empty?
+  end
   def schedule
     new_schedule = Schedule.new(ngay_bat_dau)
     new_schedule.add_recurrence_rule(Rule.daily.day(THU[thu]).hour_of_day(TIET[tiet_bat_dau][0]).minute_of_hour(TIET[tiet_bat_dau][1]).second_of_minute(0).until(ngay_ket_thuc))    

@@ -1,8 +1,8 @@
 - @vang.each do  |v|    
   :plain
-    $("#msv_#{v.ma_sinh_vien}_status").prop('checked', #{get_vang(v, @ngay) > 0});
-    $("#msv_#{v.ma_sinh_vien}_sotiet").val("#{get_vang(v, @ngay)}");
-    $("#msv_#{v.ma_sinh_vien}_phep").prop('checked', "#{get_phep(v, @ngay)}");
+    $("#msv_#{v.ma_sinh_vien}_status").prop('checked', #{get_vang(@lop_mon_hoc,v, @ngay) > 0});
+    $("#msv_#{v.ma_sinh_vien}_sotiet").val("#{get_vang(@lop_mon_hoc, v, @ngay)}");
+    $("#msv_#{v.ma_sinh_vien}_phep").prop('checked', "#{get_phep(@lop_mon_hoc,v, @ngay)}");
     $("#msv_#{v.ma_sinh_vien}_phep").prop('disabled', false);
 
 - @kovang.each do |v|

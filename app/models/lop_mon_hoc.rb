@@ -16,7 +16,7 @@ class LopMonHoc < ActiveRecord::Base
   has_many :thong_bao_lop_hocs, :dependent => :nullify
 
   has_many :lich_trinh_giang_days, :dependent => :nullify
-  has_many :diem_danhs, :foreign_key => 'ma_lop', :primary_key => 'ma_lop',  :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}
+  has_many :diem_danhs, :dependent => :nullify
   
   has_many :lop_mon_hoc_sinh_viens, :foreign_key => 'ma_lop_ghep', :primary_key => 'ma_lop', :dependent => :nullify, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}
   #has_many :sinh_viens, :through => :lop_mon_hoc_sinh_viens
@@ -25,17 +25,7 @@ class LopMonHoc < ActiveRecord::Base
 
   validates :ma_giang_vien, :ma_lop, :ma_mon_hoc, :presence => true
   validates_uniqueness_of :ma_lop, :scope => [:ma_giang_vien, :ma_mon_hoc]
-  def get_sinh_viens
-    gheps = lop_mon_hoc_sinh_viens
-    if lop_gheps.empty? then 
-      return gheps    
-    else
-      lop_gheps.each do |lg|
-        gheps = gheps + lg.lop_mon_hoc_sinh_viens
-      end      
-    end
-    return gheps
-  end
+  
   def get_tkbs
     results = []
     tkb_giang_viens.each do |l|

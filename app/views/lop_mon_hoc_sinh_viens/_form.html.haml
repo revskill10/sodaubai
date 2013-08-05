@@ -8,8 +8,16 @@
 
   .field
     = f.label :ma_sinh_vien
-    = f.text_field :ma_sinh_vien
+    = f.text_field :ma_sinh_vien    
+    = f.submit "Kiểm tra sinh viên", :name => "checksv", :class => 'btn btn-primary'
+    %span#info.label.label-info
+  .field
+    = f.label :ho_dem
+    = f.text_field :ho_dem, :readonly => true, :id => :ho_dem
+  .field
+    = f.label :ten
+    = f.text_field :ten, :readonly => true, :id => :ten
   %input{:type=>"hidden", :value=>@lop_mon_hoc.ma_lop, :name=>"lop_mon_hoc_sinh_vien[ma_lop]"}
   %input{:type=>"hidden", :value=>@lop_mon_hoc.ma_mon_hoc, :name=>"lop_mon_hoc_sinh_vien[ma_mon_hoc]"}
   .actions
-    = f.submit 'Lưu', :class => 'btn'
+    = f.submit 'Đồng ý cho vào lớp', :class => 'btn'

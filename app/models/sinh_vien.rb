@@ -33,17 +33,21 @@ class SinhVien < ActiveRecord::Base
   end 
 
   def lop_mon_hocs
-    l1 = self.lop_mon_hoc_sinh_viens.map {|t| t and t.lop_mon_hoc }
-    l2 = self.lop_mon_hoc_sinh_viens.map {|t| t and t.lop_ghep and t.lop_ghep.lop_mon_hoc }
-    return (l1 + l2).select {|t| t != nil}
+   lop_mon_hoc_sinh_viens.map {|t| t and t.lop_mon_hoc }   
   end
-
-  def get_tkbs
-    l1 = self.lop_mon_hoc_sinh_viens.map {|t| t and t.lop_mon_hoc }
-    l2 = self.lop_mon_hoc_sinh_viens.map {|t| t and t.lop_ghep and t.lop_ghep.lop_mon_hoc }
-    lops = (l1 + l2).select {|t| t != nil}
+  def check_conflict(lop)    
+    tkbs = lop.tkb_giang_viens
+    tkb1 = get_tkbs
+    tkbs.each do |tkb|
+      tkb1.each do |t|
+        return t if tkb.check_conflict?(t) 
+      end
+    end
+    return nil
+  end
+  def get_tkbs    
     tkbs = []
-    lops.each do |l|
+    lop_mon_hocs.each do |l|
       tkbs = tkbs + l.tkb_giang_viens
     end
     return tkbs

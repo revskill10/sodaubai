@@ -26,24 +26,12 @@
   .container-fluid{:style=>"margin-top: 100px;"}    
 
 
-    %table{:class => "table datatable"}    
-      %thead
-        %td Ma sinh vien        
-        %td Ho Dem
-        %td Ten
-        %td Nhom
-        %td Delete
-      - @lop_mon_hoc_sinh_viens.each do |lop_mon_hoc_sinh_vien|
-        %tr
-          %td= lop_mon_hoc_sinh_vien.ma_sinh_vien                    
-          %td= lop_mon_hoc_sinh_vien.ho_dem
-          %td= lop_mon_hoc_sinh_vien.ten
-          %td= collection_select("nhom",lop_mon_hoc_sinh_vien.ma_sinh_vien,  @groups_arrays, :first, :last, {:selected => selected(lop_mon_hoc_sinh_vien)},{:class => "combobox"})
-          %td= link_to 'Destroy', [@lop_mon_hoc, lop_mon_hoc_sinh_vien], :method => :delete, :remote => true, :data => { :confirm => 'Are you sure?' }
+    %table#dssv{:class => "table datatable"}    
+      = render 'table1'
 
     %br
 
-    = link_to 'New Lop mon hoc sinh vien', new_lop_mon_hoc_lop_mon_hoc_sinh_vien_path(@lop_mon_hoc), :'data-pjax' => '#pjax_container'
+    = link_to 'Thêm sinh viên vào lớp', new_lop_mon_hoc_lop_mon_hoc_sinh_vien_path(@lop_mon_hoc), :'data-pjax' => '#pjax_container'
     
 
   

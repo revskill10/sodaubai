@@ -29,8 +29,9 @@
       %td Họ đệm
       %td Tên              
       %td Tình hình vắng
-      %td DiemCC      
-      %td DiemTBKT
+      %td DiemCC   
+      %td DiemTH   
+      %td DiemKTTX
       %td DiemQT
     %tbody
       - @svs.each do |sv|
@@ -41,7 +42,8 @@
           %td.progress  
             .bar.bar-danger{:style => "width: #{((sv.so_tiet_vang if sv) || 0)*100/(@lop_mon_hoc.so_tiet || 1)}%"}                                        
             .bar.bar-success{:style => "width: #{100-((sv.so_tiet_vang if sv) || 0)*100/(@lop_mon_hoc.so_tiet || 1)}%"}= (100-(sv.so_tiet_vang || 0)).to_s + "%"
-          %td= sv.diemcc 
-          %td= sv.diemtbkt
+          %td= sv.diemcc
+          %td= sv.convert_grade(sv.diem_thuc_hanh)
+          %td= sv.convert_grade(sv.diemtbkt)
           %td= sv.diemqt
               

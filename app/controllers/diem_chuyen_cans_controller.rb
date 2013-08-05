@@ -23,8 +23,10 @@ class DiemChuyenCansController < ApplicationController
     @msvs = params[:msv]
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
     @svs.each do |sv|
-      sv.diem_chuyen_can = @msvs[sv.ma_sinh_vien]
-      sv.save! rescue puts "error"
+      if @msvs[sv.ma_sinh_vien]
+        sv.diem_chuyen_can = @msvs[sv.ma_sinh_vien]
+        sv.save! rescue puts "error"
+      end
     end
 
     respond_to do |format|
