@@ -1,9 +1,9 @@
 class DiemDanh < ActiveRecord::Base
   attr_accessible :ma_sinh_vien, :nam_hoc, :ngay_vang, :so_tiet_vang, :loai, :diem_thuong_xuyen
 
-  belongs_to :lop_mon_hoc_sinh_vien
+  belongs_to :lop_mon_hoc
   belongs_to :sinh_vien, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien'
-  delegate :lop_mon_hoc, :to => :lop_mon_hoc_sinh_vien  
+  
 
   validates :ngay_vang, :presence => true  
   
@@ -40,11 +40,12 @@ class DiemDanh < ActiveRecord::Base
       0
     end
   end
-  def tong_vang_co_phep      
-    if lop_mon_hoc_sinh_vien
-      lop_mon_hoc_sinh_vien.so_vang_co_phep = lop_mon_hoc_sinh_vien.diem_danhs.sum(:so_tiet_vang, :conditions => {:phep => true})
-      lop_mon_hoc_sinh_vien.so_tiet_vang = lop_mon_hoc_sinh_vien.diem_danhs.sum(:so_tiet_vang)      
-      lop_mon_hoc_sinh_vien.save! rescue "tong vang co phep error"
+  def tong_vang_co_phep  
+    l = lop_mon_hoc.lop_mon_hoc_sinh_viens.where(ma_sinh_vien: ma_sinh_vien).first    
+    if l
+      l.so_vang_co_phep = lop_mon_hoc_sinh_vien.diem_danhs.sum(:so_tiet_vang, :conditions => {:phep => true})
+      l.so_tiet_vang = l.diem_danhs.where(ma_sinh_vien: ma_sinh_vien).sum(:so_tiet_vang)      
+      l.save! rescue "tong vang co phep error"
     end
   end
  

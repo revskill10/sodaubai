@@ -52,7 +52,7 @@
             %strong.offset1 Sĩ số: 
             %span= @svs.count
             %strong.offset1 Số sinh viên vắng mặt:  
-            %span#sovang= @vang.count
+            %span#sovang= @svvang.count
             %strong.offset1 Số tiết: 
             %span= text_field_tag "buoihoc[sotiet]", nil, :value => "#{(@lich.so_tiet_day if @lich) || @tkb.so_tiet}", :style => "width: 5%"
             %h6 Sinh vien vang mat:
@@ -70,7 +70,7 @@
                         %div             
                           %p= sv.ho_dem + " " + sv.ten
                           %span= sv.ma_sinh_vien
-                          %span= check_box_tag "msv[#{sv.ma_sinh_vien}]", nil, get_status(sv, @ngay), :class => "drag"
+                          %span= check_box_tag "msv[#{sv.ma_sinh_vien}]", nil, get_status(@lop_mon_hoc, sv, @ngay), :class => "drag"
         
 
 

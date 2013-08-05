@@ -57,8 +57,8 @@
             %td= sv.ma_sinh_vien
             %td= sv.ho_dem
             %td= sv.ten
-            %td= check_box_tag "msv[#{sv.ma_sinh_vien}][status]",nil, get_status(sv, @ngay), :disabled => "disabled"
-            %td= text_field_tag "msv[#{sv.ma_sinh_vien}][sotiet]", nil, :value => get_vang(sv, @ngay),  :style => "width: 15%"
-            %td= check_box_tag "msv[#{sv.ma_sinh_vien}][phep]",nil, get_phep(sv, @ngay), :disabled =>  (get_vang(sv, @ngay) == 0) 
-            %td= text_field_tag "msv[#{sv.ma_sinh_vien}][note]", nil, :value => get_note(sv, @ngay)
+            %td= check_box_tag "msv[#{sv.ma_sinh_vien}][status]",nil, get_status(@lop_mon_hoc, sv, @ngay), :disabled => "disabled"
+            %td= text_field_tag "msv[#{sv.ma_sinh_vien}][sotiet]", nil, :value => get_vang(@lop_mon_hoc,sv, @ngay),  :style => "width: 15%"
+            %td= check_box_tag "msv[#{sv.ma_sinh_vien}][phep]",nil, get_phep(@lop_mon_hoc,sv, @ngay), :disabled =>  (get_vang(@lop_mon_hoc,sv, @ngay) == 0) 
+            %td= text_field_tag "msv[#{sv.ma_sinh_vien}][note]", nil, :value => get_note(@lop_mon_hoc,sv, @ngay)
     %li= link_to "Download", diemdanh_lop_mon_hoc_buoihoc_url(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"), format: :xlsx)

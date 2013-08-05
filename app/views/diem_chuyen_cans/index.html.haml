@@ -28,6 +28,7 @@
         %td Ho dem
         %td Ten     
         %td Diem   
+        %td Diem CC
         %td Vang co phep
         %td Tong vang
       %tbody
@@ -36,6 +37,7 @@
             %td= sv.ma_sinh_vien
             %td= sv.ho_dem
             %td= sv.ten                     
-            %td= text_field_tag "msv[#{sv[:ma_sinh_vien]}", nil, :value => @diem_chuyen_cans.where(ma_sinh_vien: sv.ma_sinh_vien).first.try(:diem) || ""
-            %td= @diem_chuyen_cans.where(ma_sinh_vien: sv.ma_sinh_vien).first.try(:tong_vang_co_phep)
-            %td= @diem_chuyen_cans.where(ma_sinh_vien: sv.ma_sinh_vien).first.try(:tong_so_tiet_vang)
+            %td= text_field_tag "msv[#{sv.ma_sinh_vien}", nil, :value => sv.diem_chuyen_can || ""
+            %td= sv.diemcc
+            %td= sv.so_vang_co_phep || 0
+            %td= sv.so_tiet_vang ||0

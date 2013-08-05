@@ -35,6 +35,17 @@ class LopMonHocsController < ApplicationController
       else
         format.html {render :show}
        # format.xlsx {render xlsx: :dslop, filename: "dslop_doc"}
+        format.xlsx {
+        p = Axlsx::Package.new        
+        wb = p.workbook
+        wb.add_worksheet(:name => "Reporting") do |sheet|
+          sheet.add_row ["REPORTING"]
+          @svs.each do |sv| 
+            sheet.add_row [sv.ma_sinh_vien, sv.ho_dem, sv.ten, sv.diemcc, sv.diemtbkt, sv.diem_thuc_hanh, sv.diemqt] 
+          end          
+        end
+        send_data p.to_stream.read, :filename => 'lops.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"     
+      }
       end
     end
   end

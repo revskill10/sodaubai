@@ -2,7 +2,7 @@ class DiemChiTietsController < ApplicationController
   before_filter :load_lop
   def index    
     
-    @svs = @lop_mon_hoc.get_sinh_viens
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
     @group_diem = JSON.parse(@lop_mon_hoc.group_diem || {}.to_json) 
     respond_to do |format|
       
@@ -28,42 +28,14 @@ class DiemChiTietsController < ApplicationController
   
   def create
     # @diem_chi_tiet = DiemChiTiet.new(params[:diem_chi_tiet])
-    @svs = @lop_mon_hoc.get_sinh_viens
-    if params[:loai] and params[:loai] == "2" then 
-      @lop_mon_hoc.group_diem = params[:group].to_json
-      params[:group].each do |k,v|
-        sn = @svs.select{|s| s.group_id == k.to_i}
-        sn.each do |s|
-          dc = @dct.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc,ma_sinh_vien: s.ma_sinh_vien, loai_diem: "2").first_or_create!
-          dc.diem = v.to_i
-          dc.save rescue "Save grade error"
-        end
-      end
-    else      
-      diem_thuc_hanh = params[:thuchanh].select {|k,v| v != ""}
-      diem_lan_1 = params[:lan1].select {|k,v| v != ""}
-      diem_lan_2 = params[:lan2].select {|k,v| v != ""}
-      diem_lan_3 = params[:lan3].select {|k,v| v != ""}
-      diem_thuc_hanh.each do |k,v|
-        dc = @dct.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc,ma_sinh_vien: k, loai_diem: "2").first_or_create!
-        dc.diem = v.to_i
-        dc.save rescue "Save grade error"
-      end
-      diem_lan_1.each do |k,v|
-        dc = @dct.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc,ma_sinh_vien: k, loai_diem: "1", lan: 1).first_or_create!
-        dc.diem = v.to_i
-        dc.save rescue "Save grade error"
-      end
-      diem_lan_2.each do |k,v|
-        dc = @dct.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc,ma_sinh_vien: k, loai_diem: "1", lan: 2).first_or_create!
-        dc.diem = v.to_i
-        dc.save rescue "Save grade error"
-      end
-      diem_lan_3.each do |k,v|
-        dc = @dct.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc,ma_sinh_vien: k, loai_diem: "1", lan: 3).first_or_create!
-        dc.diem = v.to_i
-        dc.save rescue "Save grade error"
-      end
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
+    @msvs = params[:msv]
+    @svs.each do   |sv|      
+      sv.diem_thuc_hanh = @msvs[sv.ma_sinh_vien][:thuchanh]
+      sv.lan1 = @msvs[sv.ma_sinh_vien][:lan1]
+      sv.lan2 = @msvs[sv.ma_sinh_vien][:lan2]
+      sv.lan3 = @msvs[sv.ma_sinh_vien][:lan3]
+      sv.save! rescue puts "error"
     end
 
     respond_to do |format|
@@ -80,7 +52,7 @@ class DiemChiTietsController < ApplicationController
     @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])      
     @malop = @lop_mon_hoc.ma_lop
     @mamonhoc = @lop_mon_hoc.ma_mon_hoc    
-    @dct = @lop_mon_hoc.diem_chi_tiets
+    
     @loai = params[:loai]
   end
 end
