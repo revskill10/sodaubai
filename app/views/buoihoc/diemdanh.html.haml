@@ -24,7 +24,7 @@
       %li
         %i
           %strong= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
-    %h4 Thong tin lop mon: 
+    %h4 Thông tin lớp môn: 
     .well.sidebar-nav{:style => "font-size: 12px;"}
       %strong Môn học:  
       %span= @buoihoc["ten_mon_hoc"]

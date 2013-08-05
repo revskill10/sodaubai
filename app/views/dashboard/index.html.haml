@@ -12,13 +12,14 @@
           %ul.nav.pull-left#urls
             %li.active= link_to "Trang chủ", "/", :'data-pjax' => '#pjax_container'
             %li= link_to "Thời khóa biểu", "/calendar", :'data-pjax' => '#pjax_container'
+            %li= link_to "Thăm dò", "http://thamdo.hpu.edu.vn"
           %ul.nav.pull-right
             %li= link_to 'Đăng xuất', destroy_user_session_path     
 .container-fluid{:style=>"margin-top: 100px;"}
   %table{:class => "table table-bordered datatable"}
     %thead          
-      %td Thời gian 
-      %td So Tiet      
+      %td Thời gian
+      %td Số tiết     
       %td Phòng    
       %td Môn
       %td Mã lớp

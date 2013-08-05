@@ -11,8 +11,13 @@ class LopMonHocSinhVien < ActiveRecord::Base
   has_many :lich_trinh_giang_days, :dependent => :nullify
   has_many :thong_bao_lop_hocs, :dependent => :nullify
 
-  validates :ma_lop, :ma_sinh_vien, :ma_mon_hoc, :ten_mon_hoc, :presence => true  
-  
+  validates :ma_sinh_vien, :presence => true  
+  after_create :set_ma_lop_ghep
+
+  def set_ma_lop_ghep
+    ma_lop = ma_lop_ghep
+    save! rescue puts "Error lop ghep"
+  end
   def convert_grade(diem)
     case diem
     when 9..10

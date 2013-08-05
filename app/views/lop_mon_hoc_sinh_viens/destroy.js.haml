@@ -1,4 +1,2 @@
-s = $("table#dssv");
-s.empty();
-s.html("#{escape_javascript(render :partial => 'table1')}")
-alert("OK");
+$("tr##{@lop_mon_hoc_sinh_vien.ma_sinh_vien}").remove();
+alert("Destroy OK");

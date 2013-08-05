@@ -1,5 +1,9 @@
 - if @sv
-  $("#ho_dem").html("#{@sv.ho_dem}");
-  $("#ten").html("#{@sv.ten}");
+  $("#info").html("");
+  $("#ho_dem").val("#{@sv.ho_dem}");
+  $("#ten").val("#{@sv.ten}");
 - else
+  $("#info").html("");
+  $("#ho_dem").val("");
+  $("#ten").val("");
   $("#info").html("Không tồn tại mã sinh viên");

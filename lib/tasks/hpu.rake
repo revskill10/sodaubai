@@ -77,6 +77,8 @@ namespace :hpu do
   
   
   task :load_sv => :environment do     
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
     SinhVien.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('sinh_viens')
     # attr_accessible :gioi_tinh, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ngay_sinh, :ten, :trang_thai, :ten_nganh

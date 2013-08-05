@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'active_support/time'
 class TkbGiangVien < ActiveRecord::Base
   include IceCube

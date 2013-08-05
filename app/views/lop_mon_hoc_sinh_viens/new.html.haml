@@ -20,7 +20,7 @@
               
               
 .container-fluid{:style=>"margin-top: 100px;"}    
+  .row-fluid.span10.offset2
+    = render 'form'
 
-  = render 'form'
-
-  = link_to 'Back', lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc),  :'data-pjax' => '#pjax_container'
+    = link_to 'Quay lại danh sách lớp', lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc),  :'data-pjax' => '#pjax_container'

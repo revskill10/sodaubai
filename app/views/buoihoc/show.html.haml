@@ -64,7 +64,7 @@
             %table{:class => "table table-bordered table-condensed"}  
               %tbody    
                 - @svs2.each_with_index do |svs, index|    
-                  %tr
+                  %tr{:class => (index%2==1 ? :warning: :success)}
                     - svs.each do |sv, i|      
                       %td
                         %div             

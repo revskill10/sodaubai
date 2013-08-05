@@ -36,8 +36,9 @@ class SinhVien < ActiveRecord::Base
    lop_mon_hoc_sinh_viens.map {|t| t and t.lop_mon_hoc }   
   end
   def check_conflict(lop)    
-    tkbs = lop.tkb_giang_viens
+    tkbs = lop.tkb_giang_viens if lop
     tkb1 = get_tkbs
+    return nil if tkbs.empty?
     tkbs.each do |tkb|
       tkb1.each do |t|
         return t if tkb.check_conflict?(t) 
@@ -47,8 +48,10 @@ class SinhVien < ActiveRecord::Base
   end
   def get_tkbs    
     tkbs = []
-    lop_mon_hocs.each do |l|
-      tkbs = tkbs + l.tkb_giang_viens
+    if lop_mon_hocs
+      lop_mon_hocs.each do |l|
+        tkbs = tkbs + l.tkb_giang_viens if l 
+      end
     end
     return tkbs
   end

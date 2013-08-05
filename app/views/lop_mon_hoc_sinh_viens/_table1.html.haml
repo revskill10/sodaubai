@@ -5,8 +5,8 @@
   %td Nhom
   %td Delete
 - @lop_mon_hoc_sinh_viens.each do |lop_mon_hoc_sinh_vien|
-  %tr
-    %td= lop_mon_hoc_sinh_vien.ma_sinh_vien                    
+  %tr{:id => lop_mon_hoc_sinh_vien.ma_sinh_vien}
+    %td= lop_mon_hoc_sinh_vien.ma_sinh_vien
     %td= lop_mon_hoc_sinh_vien.ho_dem
     %td= lop_mon_hoc_sinh_vien.ten
     %td= collection_select("nhom",lop_mon_hoc_sinh_vien.ma_sinh_vien,  @groups_arrays, :first, :last, {:selected => selected(lop_mon_hoc_sinh_vien)},{:class => "combobox"})

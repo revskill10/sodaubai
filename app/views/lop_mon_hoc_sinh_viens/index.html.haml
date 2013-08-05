@@ -23,15 +23,18 @@
               %li= link_to 'Đăng xuất', destroy_user_session_path
               
 
-  .container-fluid{:style=>"margin-top: 100px;"}    
-
+  .container-fluid{:style=>"margin-top: 100px;"}   
+    %ul.nav.pull-right
+      %li= link_to 'Thêm sinh viên vào lớp', new_lop_mon_hoc_lop_mon_hoc_sinh_vien_path(@lop_mon_hoc), :'data-pjax' => '#pjax_container', :class => 'btn'
+      
+    
 
     %table#dssv{:class => "table datatable"}    
       = render 'table1'
 
     %br
 
-    = link_to 'Thêm sinh viên vào lớp', new_lop_mon_hoc_lop_mon_hoc_sinh_vien_path(@lop_mon_hoc), :'data-pjax' => '#pjax_container'
+    
     
 
   

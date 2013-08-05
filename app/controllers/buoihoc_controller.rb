@@ -19,9 +19,17 @@ class BuoihocController < ApplicationController
     
     respond_to do |format|
       if request.headers['X-PJAX']
-        format.html {render :show, :layout => false}        
+        if @type.is_a?(SinhVien)
+          format.html {render :show_sv, :layout => false}        
+        elsif @type.is_a?(GiangVien)
+          format.html {render :show, :layout => false}   
+        end
       else
-        format.html {render :show}        
+        if @type.is_a?(SinhVien)
+          format.html {render :show_sv}        
+        elsif @type.is_a?(GiangVien)          
+          format.html {render :show}        
+        end
       end
     end
     
@@ -65,7 +73,7 @@ class BuoihocController < ApplicationController
     
     
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')    
-    @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).map { |k| k.ma_sinh_vien}
+    @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
     @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
     @kovang = @svs.select {|k| !@idv.include?(k.ma_sinh_vien)}
     @lichtrinh = params[:buoihoc]
@@ -95,8 +103,7 @@ class BuoihocController < ApplicationController
         if dd 
           dd.ma_giang_vien = @type.ma_giang_vien
           dd.so_tiet_vang = v[:sotiet].to_i          
-          dd.phep = true if v[:phep] and dd.so_tiet_vang > 0
-          dd.phep = false if v[:phep] and dd.so_tiet_vang == 0        
+          dd.phep = v[:phep] ? true : false          
           dd.note = v[:note] unless v[:note].blank?
           dd.save! rescue "Error save"                                              
         end
@@ -105,7 +112,7 @@ class BuoihocController < ApplicationController
     
       @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
       
-      @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).map { |k| k.ma_sinh_vien}
+      @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
       @vang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
       @kovang = @svs.select {|k| !@idv.include?(k.ma_sinh_vien)}
       respond_to do |format|     
@@ -122,10 +129,19 @@ class BuoihocController < ApplicationController
 
     respond_to do |format|
       if request.headers['X-PJAX']
-        format.html {render :diemdanh, :layout => false}        
+        if @type.is_a?(GiangVien)
+          format.html {render :diemdanh, :layout => false}        
+        elsif @type.is_a?(SinhVien)
+          format.html {render :diemdanh_sv, :layout => false}        
+        end
       else
-        format.html {render :diemdanh}
-        format.xlsx {render xlsx: :diemdanh_doc, filename: "diemdanh_doc"}
+        if @type.is_a?(GiangVien)
+          format.html {render :diemdanh}
+          format.xlsx {render xlsx: :diemdanh_doc, filename: "diemdanh_doc"}
+        elsif @type.is_a?(SinhVien)
+          format.html {render :diemdanh_sv}
+        end
+                  
       end
     end
   end
@@ -145,6 +161,10 @@ class BuoihocController < ApplicationController
     if @type.is_a?(GiangVien) then 
       @lich = @type.get_days[:ngay]
       @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc).first
+      @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0]
+    elsif @type.is_a?(SinhVien)
+      @lich = @type.get_days[:ngay]
+      @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
       @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0]
     end
     #@tuan = @tkb

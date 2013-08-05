@@ -3,7 +3,7 @@ class ThongBaoLopHoc < ActiveRecord::Base
 
   
   belongs_to :giang_vien, :foreign_key => 'ma_giang_vien', :primary_key => 'ma_giang_vien'
-  validates :ma_giang_vien, :noi_dung, :presence => true
+  validates :noi_dung, :presence => true
   belongs_to :lop_mon_hoc
   
   

@@ -100,7 +100,7 @@ class LopMonHocSinhViensController < ApplicationController
         else 
           if params[:checksv]
             format.js {render :checksv}
-          else
+          elsif params[:submit]
             if  @lop_mon_hoc_sinh_vien.save
               format.js
               format.html { flash[:success] = "Created OK";

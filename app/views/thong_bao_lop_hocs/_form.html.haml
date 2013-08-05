@@ -10,9 +10,7 @@
     = f.label :noi_dung
     = f.text_area :noi_dung, :class => 'ckeditor' 
   
-  %input{:type=>"hidden", :value=>@lop_mon_hoc.ma_lop, :name=>"thong_bao_lop_hoc[ma_lop]"}
-  %input{:type=>"hidden", :value=>@lop_mon_hoc.ma_mon_hoc, :name=>"thong_bao_lop_hoc[ma_mon_hoc]"}
-  %input{:type=>"hidden", :value=>@lop_mon_hoc.ma_giang_vien, :name=>"thong_bao_lop_hoc[ma_giang_vien]"}
+  
 
   .actions
     = f.submit 'Save', :class => "btn primary"
