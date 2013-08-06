@@ -2,6 +2,12 @@ class LopMonHoc < ActiveRecord::Base
   
   attr_accessible :hoc_ky, :ma_giang_vien, :ma_lop, :ma_mon_hoc, :nam_hoc, :ngay_bat_dau, :ngay_ket_thuc, :phong_hoc, :so_tiet, :so_tuan_hoc, :ten_giang_vien, :ten_mon_hoc, :dssv, :group
 
+
+  # Associations
+  has_many :topics, :dependent => :destroy
+  has_many :posts, :through => :topics
+
+
   belongs_to :giang_vien, :foreign_key => 'ma_giang_vien', :primary_key => 'ma_giang_vien'
 
   belongs_to :mon_hoc, :foreign_key => 'ma_mon_hoc', :primary_key => 'ma_mon_hoc'
@@ -13,7 +19,7 @@ class LopMonHoc < ActiveRecord::Base
   belongs_to :user
   
 
-  has_many :thong_bao_lop_hocs, :dependent => :nullify
+  has_many :thong_bao_lop_hocs, :dependent => :destroy
 
   has_many :lich_trinh_giang_days, :dependent => :nullify
   has_many :diem_danhs, :dependent => :nullify

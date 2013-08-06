@@ -35,7 +35,10 @@ Trytest::Application.routes.draw do
           post '/groupupdate' => 'lop_mon_hoc_sinh_viens#groupupdate'
           get '/group' => 'lop_mon_hoc_sinh_viens#group'
         end
-      end    
+      end  
+      resources :topics do 
+        resources :posts
+      end  
       resources :can_bo_lops
       resources :tai_lieu_mon_hocs
       resources :thong_bao_lop_hocs

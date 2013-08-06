@@ -1,0 +1,18 @@
+= form_for [@lop_mon_hoc,@topic], :html => { :multipart => true } do |f|
+  - if @topic.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@topic.errors.count, "error")} prohibited this thong_bao_lop_hoc from being saved:"
+      %ul
+        - @topic.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label "Tiêu đề"
+    = f.text_field :title
+  .field
+    = f.label "Nội dung"
+    = f.text_area :body, :class => 'ckeditor' 
+  
+  
+
+  .actions
+    = f.submit 'Save', :class => "btn primary"

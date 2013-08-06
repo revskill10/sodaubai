@@ -1,0 +1,43 @@
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/", :'data-pjax' => '#pjax_container' } HPU
+        .container.nav-collapse
+          %ul.nav.pull-left#urls
+            %li= link_to "Home", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'            
+            %li= link_to "Diem chuyen can", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'            
+            %li= link_to "Diem chi tiet", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'          
+            %li= link_to "Thong Bao", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'    
+            %li.active= link_to "Diễn đàn", lop_mon_hoc_topics_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'           
+            %li= link_to "Nhom", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
+            %li= link_to "Calendar", lop_mon_hoc_path(@lop_mon_hoc.id)+'/calendar',  :'data-pjax' => '#pjax_container'
+
+          %ul.nav.pull-right
+            %li= link_to 'Chủ đề mới', new_lop_mon_hoc_topic_path(@lop_mon_hoc),  :'data-pjax' => '#pjax_container'
+
+.container-fluid{:style=>"margin-top: 100px;"}    
+  
+  %table{:class => "table table-condensed datatable"}
+    %colgroup
+      %col{:style => "width: 20%"}
+      %col{:style => "width: 20%"}
+      %col{:style => "width: 60%"}        
+    %thead      
+      %td Ngày tạo
+      %td Người tạo
+      %td Tiêu đề        
+      
+    %tbody
+      - @topics.each do |topic|
+        %tr                                  
+          %td= link_to topic.created_at, [@lop_mon_hoc,topic], :'data-pjax' => '#pjax_container'  
+          %td= current_user.username
+          %td= link_to topic.title, [@lop_mon_hoc, topic], :'data-pjax' => '#pjax_container'  
+                 
+
+

@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
 //= require twitter/bootstrap
 //= require jquery.pjax
 //= require dataTables/jquery.dataTables
@@ -22,6 +21,7 @@
 //= require lop_mon_hocs
 //= require lop_mon_hoc_sinh_viens
 //= require buoihoc
+//= require topics
 //= require bootstrap-combobox
 //= require best_in_place
 $(document).ready(function(){
@@ -29,7 +29,7 @@ $(document).ready(function(){
 	$('.combobox').combobox();	
 	$(document).pjax('a[data-pjax]', '#pjax-container');
 	$('.best_in_place').best_in_place();	
-	
+	$('.redactor').redactor({wym: true});
 });  
 
 
