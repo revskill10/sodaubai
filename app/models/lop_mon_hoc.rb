@@ -10,7 +10,7 @@ class LopMonHoc < ActiveRecord::Base
       where("tkb_giang_viens.tuan_hoc_bat_dau = ?",tuan)
     end
   end
-  
+  belongs_to :user
   
 
   has_many :thong_bao_lop_hocs, :dependent => :nullify

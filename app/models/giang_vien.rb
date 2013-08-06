@@ -19,7 +19,9 @@ class GiangVien < ActiveRecord::Base
   #validation
   validates :ho_ten, :ma_giang_vien, :presence => true
   validates :ma_giang_vien, :uniqueness => { :case_sensitive => false }
-
+  def to_s
+    "#{ho_ten} #{ma_giang_vien}"
+  end
   def get_days
     ngays = []
     tkb_giang_viens.all.each do |tkb|

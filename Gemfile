@@ -20,8 +20,8 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
+#gem 'jquery-rails'
+gem "jquery-rails", "2.3.0"
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -85,7 +85,7 @@ gem 'to_spreadsheet'
 gem 'destroyed_at'
 gem 'mmailer'
 gem 'best_in_place'
-gem 'activeadmin'
+gem "activeadmin"
 gem 'letsrate'
 gem 'activeadmin-axlsx'
 gem 'axlsx_rails'
