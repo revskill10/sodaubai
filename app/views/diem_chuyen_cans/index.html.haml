@@ -28,8 +28,8 @@
                   %li= link_to "Quản lý sinh viên", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
                   %li= link_to "Thời khóa biểu", lop_mon_hoc_path(@lop_mon_hoc.id)+'/calendar',  :'data-pjax' => '#pjax_container'
             %ul.nav.pull-right
-              %li= submit_tag "Update", :class => "btn btn-success"               
-              %li= link_to 'Đăng xuất', destroy_user_session_path                          
+              %li= submit_tag "Update", :class => "btn btn-success"
+              %li= link_to 'Đăng xuất',destroy_user_session_path                          
               
   .container-fluid{:style=>"margin-top: 100px;"}  
       
@@ -37,18 +37,16 @@
       %thead
         %td Mã sinh viên
         %td Họ đệm
-        %td Tên     
-        %td Điểm   
-        %td Điểm gợi ý
+        %td Tên                     
         %td Số vắng có phép
-        %td Tổng vắng
+        %td Tổng vắng        
+        %td Điểm chuyên cần 
       %tbody
         - @svs.each do |sv|
           %tr
             %td= sv.ma_sinh_vien
             %td= sv.ho_dem
-            %td= sv.ten                     
-            %td= text_field_tag "msv[#{sv.ma_sinh_vien}", nil, :value => sv.diem_chuyen_can || ""
-            %td= sv.diemcc
+            %td= sv.ten                                 
             %td= sv.so_vang_co_phep || 0
-            %td= sv.so_tiet_vang ||0
+            %td= sv.so_tiet_vang ||0            
+            %td= text_field_tag "msv[#{sv.ma_sinh_vien}", nil, :value => sv.diem_chuyen_can || sv.diemcc || "", :style => "width: 20px;"

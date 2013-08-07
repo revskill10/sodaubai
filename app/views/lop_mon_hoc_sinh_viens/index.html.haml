@@ -42,16 +42,18 @@
       %h4 Thiết lập thông số lớp môn học
       
       = text_field_tag :so_nhom, @lop_mon_hoc.group, :placeholder => 'Số nhóm thực hành'
-      %span  nhóm thực hành
+      %span  nhóm thực hành, bài tập lớn, đồ án môn học
       %br
       
-      = text_field_tag :so_lan_kt, @lop_mon_hoc.so_lan_kt, :placeholder => 'Số lần kiểm tra thường xuyên'      
+      = text_field_tag :so_lan_kt, @lop_mon_hoc.so_lan_kt, :placeholder => 'Số lần kiểm tra thường xuyên'     
 
       %span lần kiểm tra thường xuyên
       %br
-      = check_box_tag :thuc_hanh, nil, @lop_mon_hoc.get_thuc_hanh
-      %br
 
+      = check_box_tag :thuc_hanh, nil, @lop_mon_hoc.get_thuc_hanh
+      %span Có đầu điểm thực hành? 
+      %br
+      %br
       = submit_tag "Thiết lập", :class => "btn" 
       %ul.nav.pull-right
         %li
@@ -59,7 +61,7 @@
 
   = form_tag groupupdate_lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id), :method => :post, :remote => true do         
     %ul.nav.pull-right
-      %li= submit_tag "Cập nhật", :class => "btn btn-success" 
+      %li= submit_tag "Cập nhật danh sách nhóm thực hành", :class => "btn btn-primary" 
     %table#dssv{:class => "table datatable"}    
       = render 'table1'
 
