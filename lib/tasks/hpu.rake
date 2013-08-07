@@ -21,23 +21,11 @@ namespace :hpu do
   		tkb = TkbGiangVien.create!(hoc_ky: l[:hoc_ky].strip, ma_giang_vien: l[:ma_giao_vien].strip.upcase, ma_lop: l[:ma_lop].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), nam_hoc: l[:nam_hoc].strip, ngay_bat_dau: l[:tu_ngay].new_offset(Rational(7, 24)), ngay_ket_thuc: l[:ngay_ket_thuc].new_offset(Rational(7, 24)), phong: (l[:ma_phong_hoc].strip if l.has_key?(:ma_phong_hoc) and l[:ma_phong_hoc].is_a?(String)), so_tiet: l[:so_tiet], so_tuan: l[:so_tuan_hoc], thu: l[:thu], tiet_bat_dau: l[:tiet_bat_dau], tuan_hoc_bat_dau: l[:tuan_hoc_bat_dau], ten_giang_vien: titleize(l[:ten_giao_vien].strip.downcase))		
   		  		  		  				
   	end
-    Rake::Task["hpu:update_tkb1"].invoke 
+  
     Rake::Task["hpu:create_lopmonhoc"].invoke 
     Rake::Task["hpu:update_tkb2"].invoke         
   end
-  # cap nhat ma lop tkb
-  task :update_tkb1 => :environment do 
-    tenant = Tenant.last
-    PgTools.set_search_path tenant.scheme, false
-    TkbGiangVien.all.each do |tkb|
-      ml = tkb.ma_lop
-      if ml.include?("BT") then
-        tkb.loai = ml[-3..-1]
-        tkb.update_attributes(:ma_lop => ml[0..-5])
-      end
-      tkb.save rescue puts "Error #{tkb.ma_lop}"
-    end
-  end
+  
   task :create_lopmonhoc => :environment do 
     
     LopMonHoc.delete_all
@@ -50,8 +38,8 @@ namespace :hpu do
     
   end
   task :update_lopghep => :environment do 
-    tenant = Tenant.last
-    PgTools.set_search_path tenant.scheme, false
+#    tenant = Tenant.last
+#    PgTools.set_search_path tenant.scheme, false
     tts = {}
     LopGhep.all.each do |lg|
       tts[[lg.ma_lop, lg.ma_mon_hoc]] = lg.ma_lop_ghep
@@ -77,8 +65,8 @@ namespace :hpu do
   
   
   task :load_sv => :environment do     
-    tenant = Tenant.last
-    PgTools.set_search_path tenant.scheme, false
+ #   tenant = Tenant.last
+  #  PgTools.set_search_path tenant.scheme, false
     SinhVien.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('sinh_viens')
     # attr_accessible :gioi_tinh, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ngay_sinh, :ten, :trang_thai, :ten_nganh
@@ -103,18 +91,9 @@ namespace :hpu do
         ten_nganh: ( titleize(l[:ten_nganh].strip.downcase) if l[:ten_nganh] and l[:ten_nganh].is_a?(String))
       )
     end
-  end
-  task :update_svdays => :environment do 
-    tenant = Tenant.last
-    PgTools.set_search_path tenant.scheme, false
-    SinhVien.all.each do |sv|
-      sv.update_attributes(ngay: sv.get_days)
-      sv.save rescue puts "Error saving #{sv.id}"
-    end
-  end
+  end  
   task :load_lopsv => :environment do  
-    tenant = Tenant.last
-    PgTools.set_search_path tenant.scheme, false
+    
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
   	response = @client.call(:lop_mon_hoc_sinh_vien_hk)
   	res_hash = response.body.to_hash
@@ -128,19 +107,9 @@ namespace :hpu do
   	ls.each do |l|  		
   		lop = LopMonHocSinhVien.create!(ma_lop: l[:malop].strip, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), ho_dem: titleize(l[:hodem].strip.downcase), ten: titleize(l[:ten].strip.downcase) ) 	
   	end	
-    Rake::Task["hpu:update_lopsv"].invoke         
+        
   end
-  task :update_lopsv => :environment do 
-    
-    LopMonHocSinhVien.all.each do |lop|
-      ml = lop.ma_lop
-      if ml.include?("BT") then
-          lop.loai = ml[-3..-1]
-          lop.update_attributes(:ma_lop => ml[0..-5])       
-          lop.save rescue puts "error #{lop.ma_lop}"
-      end
-    end
-  end  
+ 
 
   
   task :load_tuans => :environment do
@@ -179,12 +148,13 @@ namespace :hpu do
   	Rake::Task["hpu:load_tuans"].invoke # load tuans
     Rake::Task["hpu:load_lopghep"].invoke 
   	Rake::Task["hpu:load_tkbgiangvien"].invoke  	# load tkb_giang_vien, giang_vien, lop_mon_hoc
-  	Rake::Task["hpu:load_lopsv"].invoke # load lop_mon_hoc_sinh_vien, sinh_vien  
-    Rake::Task["hpu:update_gv"].invoke	
+  	Rake::Task["hpu:load_lopsv"].invoke # load lop_mon_hoc_sinh_vien, sinh_vien    
+    Rake::Task["hpu:update_lopghep"].invoke
+    Rake::Task["hpu:update_tong_so_tiet"].invoke  
   end
   task :update_tong_so_tiet => :environment do 
-    tenant = Tenant.last
-    PgTools.set_search_path tenant.scheme, false
+#    tenant = Tenant.last
+#    PgTools.set_search_path tenant.scheme, false
     LopMonHoc.all.each do |lop|
       lop.so_tiet = lop.tong_so_tiet
       lop.save! rescue "Save error #{lop.id}"
@@ -193,14 +163,14 @@ namespace :hpu do
  
   task :test_gv => :environment do 
     
-    GiangVien.all.each do |gv|
+    GiangVien.all.each do |gupatev|
       puts gv.ma_giang_vien if gv.days = nil
     end
   end
   task :create_tenant => :environment do 
    
       
-      t = Tenant.where(:nam_hoc => '2012-2013', :hoc_ky => 2, :scheme => 't1').first_or_create!
+      t = Tenant.where(:nam_hoc => '2013-2014', :hoc_ky => 1, :scheme => 't2').first_or_create!
       
    
   end

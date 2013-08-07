@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
   protected
   def load_tuan
-    @current_week = 24
+    @current_week = 1
   end
   def load_tenant
 

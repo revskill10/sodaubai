@@ -204,6 +204,8 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.integer  "diem_thuc_hanh"
     t.integer  "diem_chuyen_can"
     t.boolean  "status"
+    t.integer  "lan4"
+    t.integer  "lan5"
   end
 
   create_table "lop_mon_hocs", :force => true do |t|
@@ -229,6 +231,7 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.integer  "topics_count"
     t.integer  "posts_count"
     t.integer  "so_lan_kt"
+    t.boolean  "thuc_hanh"
   end
 
   create_table "mon_hocs", :force => true do |t|
