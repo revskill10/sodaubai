@@ -19,7 +19,11 @@ class PostsController < ApplicationController
 
   end
   def destroy
-
+    @post = @topic.posts.find(params[:id])
+    @post.destroy
+    respond_to do |format|
+      format.js
+    end
   end
 	private
   def load_lop_and_topic

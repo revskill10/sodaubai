@@ -82,6 +82,7 @@ class TopicsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to lop_mon_hoc_topics_url(@lop_mon_hoc) }
       format.json { head :no_content }
+      format.js
     end
   end
 
