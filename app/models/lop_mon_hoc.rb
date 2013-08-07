@@ -1,6 +1,6 @@
 class LopMonHoc < ActiveRecord::Base
   
-  attr_accessible :hoc_ky, :ma_giang_vien, :ma_lop, :ma_mon_hoc, :nam_hoc, :ngay_bat_dau, :ngay_ket_thuc, :phong_hoc, :so_tiet, :so_tuan_hoc, :ten_giang_vien, :ten_mon_hoc, :dssv, :group, :user_id
+  attr_accessible :hoc_ky, :ma_giang_vien, :ma_lop, :ma_mon_hoc, :nam_hoc, :ngay_bat_dau, :ngay_ket_thuc, :phong_hoc, :so_tiet, :so_tuan_hoc, :ten_giang_vien, :ten_mon_hoc, :dssv, :group, :user_id, :so_lan_kt, :thuc_hanh
 
 
   # Associations
@@ -32,6 +32,11 @@ class LopMonHoc < ActiveRecord::Base
   validates :ma_giang_vien, :ma_lop, :ma_mon_hoc, :presence => true
   validates_uniqueness_of :ma_lop, :scope => [:ma_giang_vien, :ma_mon_hoc]
   
+  def get_thuc_hanh
+    # false la khong co thuc hanh
+    return false if thuc_hanh == false
+    return true    
+  end
   def get_tkbs
     results = []
     tkb_giang_viens.each do |l|

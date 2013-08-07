@@ -40,7 +40,17 @@ class LopMonHocSinhVien < ActiveRecord::Base
     return 4 unless so_tiet_vang
   end
   def diemtbkt
-    ((lan1 || 0) + (lan2 || 0) + (lan3 || 0))/3
+    if lop_mon_hoc.so_lan_kt.nil? or lop_mon_hoc.so_lan_kt == 0 then return nil
+    elsif lop_mon_hoc.so_lan_kt > 0 and lop_mon_hoc.so_lan_kt <=5
+      sum = 0
+      lop_mon_hoc.so_lan_kt.times do |t|
+        sum = sum + (send("lan#{t+1}".to_sym) || 0)
+      end
+      #((lan1 || 0) + (lan2 || 0) + (lan3 || 0) + (lan4 || 0) + (lan5 || 0))/ (sl)
+      return sum / lop_mon_hoc.so_lan_kt if lop_mon_hoc.get_thuc_hanh == true
+      return 2 * sum / lop_mon_hoc.so_lan_kt if lop_mon_hoc.get_thuc_hanh == false
+    end
+    return nil
   end
   def conflict?
   	tkbs = sinh_vien.get_tkbs

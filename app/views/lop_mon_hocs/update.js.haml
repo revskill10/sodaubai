@@ -1,1 +1,5 @@
-$('#info').html("OK");
+s = $("table#dssv");
+s.empty();
+s.html("#{escape_javascript(render 'lop_mon_hoc_sinh_viens/table1')}");
+$('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bRetrieve": true,"iDisplayLength": 25, "bDestroy":true,"bInfo":false,"bProcessing":true,"bStateSave":true,"bAutoWidth":true,"sScrollY": "300px"});  
+alert("Thông số lớp học đã được cập nhật thành công");

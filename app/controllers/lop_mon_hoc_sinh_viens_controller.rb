@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class LopMonHocSinhViensController < ApplicationController
   # GET /lop_mon_hoc_sinh_viens
   # GET /lop_mon_hoc_sinh_viens.json
@@ -6,14 +7,12 @@ class LopMonHocSinhViensController < ApplicationController
   def groupupdate
     @msvs = params[:nhom].keys
     #puts msvs.inspect
-    @svs = @lop_mon_hoc.get_sinh_viens.select {|k| @msvs.include?(k.ma_sinh_vien)}
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.select {|k| @msvs.include?(k.ma_sinh_vien)}
     @svs.each do |sv|
       sv.group_id = params[:nhom][sv.ma_sinh_vien].to_i
-      diem_nhom = JSON.parse(@lop_mon_hoc.group_diem)[sv.group_id.to_s]
-      dct = DiemChiTiet.where(ma_lop: @malop, ma_mon_hoc: @mamonhoc, ma_sinh_vien: sv.ma_sinh_vien, loai_diem:"2").first_or_create!
-      dct.diem = diem_nhom
-      dct.save
-      sv.save
+      diem_nhom = JSON.parse(@lop_mon_hoc.group_diem)[sv.group_id.to_s]      
+      sv.diem_thuc_hanh = diem_nhom
+      sv.save! rescue "error update nhom"
     end
     #params["nhom"].each do |k,v|
      # sv = @svs.select {|s| s.ma_sinh_vien == k}.first
@@ -49,7 +48,7 @@ class LopMonHocSinhViensController < ApplicationController
     @group = @lop_mon_hoc.group || 1
     @groups_arrays = {}
     @group.times do |g|
-      @groups_arrays[(g+1).to_s] = "Group #{g+1}"
+      @groups_arrays[(g+1).to_s] = "Nhóm #{g+1}"
     end
     #@groups_arrays = @groups.map {|gr| ["Group #{gr.id}", gr.id] }
     respond_to do |format|

@@ -34,22 +34,26 @@
   .container-fluid{:style=>"margin-top: 100px;"}         
     %table{:class => "table datatable"}
       %thead
-        %td Ma Sinh Vien
-        %td Ho dem
-        %td Ten     
-        %td Nhom
-        %td Diem Thuc Hanh
-        %td Diem Lan 1
-        %td Diem Lan 2
-        %td Diem Lan 3  
+        %td Mã sinh viên
+        %td Họ đệm
+        %td Tên     
+        %td Nhóm
+        - if @lop_mon_hoc.get_thuc_hanh     
+          %td Điểm thực hành
+        - if @lop_mon_hoc.so_lan_kt and @lop_mon_hoc.so_lan_kt > 0
+          - @lop_mon_hoc.so_lan_kt.times do |t|
+            %td= "Điểm lần #{t+1}"
+        
       %tbody
         - @svs.each do |sv|
           %tr
             %td= sv.ma_sinh_vien
             %td= sv.ho_dem
             %td= sv.ten
-            %td= sv.group_id || 1              
-            %td= text_field_tag "msv[#{sv.ma_sinh_vien}][thuchanh]", nil, :value => sv.diem_thuc_hanh || "", :style => "width: 15%"
-            %td= text_field_tag "msv[#{sv.ma_sinh_vien}][lan1]", nil, :value => sv.lan1 || "", :style => "width: 15%"
-            %td= text_field_tag "msv[#{sv.ma_sinh_vien}][lan2]", nil, :value => sv.lan2 || "", :style => "width: 15%"
-            %td= text_field_tag "msv[#{sv.ma_sinh_vien}][lan3]", nil, :value => sv.lan3 || "", :style => "width: 15%"
+            %td= sv.group_id || 1         
+            - if @lop_mon_hoc.get_thuc_hanh     
+              %td= text_field_tag "msv[#{sv.ma_sinh_vien}][thuchanh]", nil, :value => sv.diem_thuc_hanh || "", :style => "width: 15%"
+            - if @lop_mon_hoc.so_lan_kt and @lop_mon_hoc.so_lan_kt > 0
+              - @lop_mon_hoc.so_lan_kt.times do |t|
+                %td= text_field_tag "msv[#{sv.ma_sinh_vien}][lan#{t+1}]", nil, :value => sv.send("lan#{t+1}".to_sym) || "", :style => "width: 15%"
+            

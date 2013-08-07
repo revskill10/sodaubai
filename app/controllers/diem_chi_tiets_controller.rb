@@ -4,8 +4,7 @@ class DiemChiTietsController < ApplicationController
     
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
     @group_diem = JSON.parse(@lop_mon_hoc.group_diem || {}.to_json) 
-    respond_to do |format|
-      
+    respond_to do |format|      
       format.html do 
         if params[:loai] and params[:loai] == "2" then 
           if request.headers['X-PJAX']
@@ -36,6 +35,8 @@ class DiemChiTietsController < ApplicationController
         sv.lan1 = @msvs[sv.ma_sinh_vien][:lan1]
         sv.lan2 = @msvs[sv.ma_sinh_vien][:lan2]
         sv.lan3 = @msvs[sv.ma_sinh_vien][:lan3]
+        sv.lan4 = @msvs[sv.ma_sinh_vien][:lan4]
+        sv.lan5 = @msvs[sv.ma_sinh_vien][:lan5]
         sv.save! rescue puts "error"
       end
     end

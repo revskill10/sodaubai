@@ -155,6 +155,8 @@ class BuoihocController < ApplicationController
           format.html {render :diemdanh, :layout => false}        
         elsif @type.is_a?(SinhVien)
           format.html {render :diemdanh_sv, :layout => false}        
+        elsif @type
+          format.html {render :diemdanh, :layout => false}
         end
       else
         if @type.is_a?(GiangVien)
@@ -162,6 +164,8 @@ class BuoihocController < ApplicationController
           format.xlsx {render xlsx: :diemdanh_doc, filename: "diemdanh_doc"}
         elsif @type.is_a?(SinhVien)
           format.html {render :diemdanh_sv}
+        elsif @type
+          format.html {render :diemdanh}
         end
                   
       end

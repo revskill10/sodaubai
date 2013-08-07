@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class LopMonHocsController < ApplicationController
   include DashboardHelper
   
@@ -50,15 +51,31 @@ class LopMonHocsController < ApplicationController
     end
   end
   def update
-    sn = params[:so_nhom].blank? ? 1 : params[:so_nhom]
-    @lop_mon_hoc.update_attributes(group: sn)
+    sn = params[:so_nhom].blank? ? 1 : params[:so_nhom].to_i
+    sl = params[:so_lan_kt].blank? ? 0 : params[:so_lan_kt].to_i
+    th = params[:thuc_hanh]
+    
+    @lop_mon_hoc.update_attributes(group: sn, so_lan_kt: sl) if sl >= 0 and sl <= 5 and sn >= 1 
+    @lop_mon_hoc.thuc_hanh = true if th
+    @lop_mon_hoc.thuc_hanh = false unless th
+    
 
     if @lop_mon_hoc.save! then 
+      @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten ASC')
+
+      @group = @lop_mon_hoc.group || 1
+      @groups_arrays = {}
+      @group.times do |g|
+        @groups_arrays[(g+1).to_s] = "Nhóm #{g+1}"
+      end
       respond_to do |format|
         format.js
       end
     end
   end
+
+
+
   def calendar
     @lich = @lop_mon_hoc.get_days
     respond_to do |format|
@@ -74,6 +91,6 @@ class LopMonHocsController < ApplicationController
   protected
   def load_lop
     @lop_mon_hoc ||= LopMonHoc.find(params[:id])
-
   end
+
 end
