@@ -1,6 +1,6 @@
-- if @lop_mon_hoc_sinh_vien
+- if @sv and @lop_mon_hoc_sinh_vien
   $("#info").html("Đã thêm thành công");
-  $("#ho_dem").html("#{@sv.ho_dem}");
-  $("#ten").html("#{@sv.ten}")
+  $("#ho_dem").html("#{@sv.ho_dem if @sv}");
+  $("#ten").html("#{@sv.ten if @sv}")
 - else
   $("#info").html("Không tìm thấy sinh viên")

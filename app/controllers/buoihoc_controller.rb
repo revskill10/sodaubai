@@ -25,13 +25,13 @@ class BuoihocController < ApplicationController
       if request.headers['X-PJAX']
         if @type.is_a?(SinhVien)
           format.html {render :show_sv, :layout => false}        
-        elsif @type.is_a?(GiangVien)
+        elsif @type
           format.html {render :show, :layout => false}   
         end
       else
         if @type.is_a?(SinhVien)
           format.html {render :show_sv}        
-        elsif @type.is_a?(GiangVien)          
+        elsif @type
           format.html {render :show}        
         end
       end
@@ -178,15 +178,21 @@ class BuoihocController < ApplicationController
     @ngay = str_to_ngay(params[:id])
     @malop = @lop_mon_hoc.ma_lop
     @mamonhoc = @lop_mon_hoc.ma_mon_hoc
-    @type = current_user.imageable    
-    if @type.is_a?(GiangVien) then 
-      @lich = @type.get_days[:ngay]
-      @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc).first
-      @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0]
-    elsif @type.is_a?(SinhVien)
-      @lich = @type.get_days[:ngay]
-      @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
-      @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0]
+    @type = current_user.imageable || current_user
+    if @type
+      if @type.is_a?(GiangVien) then 
+        @lich = @type.get_days[:ngay]
+        @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc).first
+        @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0]
+      elsif @type.is_a?(SinhVien)
+        @lich = @type.get_days[:ngay]
+        @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
+        @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0]
+      else
+        @lich = @type.get_days[:ngay] if @type.get_days
+        @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
+        @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @lich
+      end
     end
     #@tuan = @tkb
   end

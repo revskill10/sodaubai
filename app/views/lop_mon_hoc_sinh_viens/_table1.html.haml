@@ -1,13 +1,13 @@
 %thead
-  %td Ma sinh vien        
-  %td Ho Dem
-  %td Ten
-  %td Nhom
-  %td Delete
+  %td Mã sinh viên        
+  %td Họ đệm
+  %td Tên
+  %td Nhóm
+  %td Xóa
 - @lop_mon_hoc_sinh_viens.each do |lop_mon_hoc_sinh_vien|
   %tr{:id => lop_mon_hoc_sinh_vien.ma_sinh_vien}
     %td= lop_mon_hoc_sinh_vien.ma_sinh_vien
     %td= lop_mon_hoc_sinh_vien.ho_dem
     %td= lop_mon_hoc_sinh_vien.ten
-    %td= collection_select("nhom",lop_mon_hoc_sinh_vien.ma_sinh_vien,  @groups_arrays, :first, :last, {:selected => selected(lop_mon_hoc_sinh_vien)},{:class => "combobox"})
+    %td.col= collection_select("nhom",lop_mon_hoc_sinh_vien.ma_sinh_vien,  @groups_arrays, :first, :last, {:selected => selected(lop_mon_hoc_sinh_vien)},{:class => "combobox"})
     %td= link_to 'Xóa', [@lop_mon_hoc, lop_mon_hoc_sinh_vien], :method => :delete, :remote => true, :data => { :confirm => 'Are you sure?' }

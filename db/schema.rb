@@ -123,6 +123,8 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.text     "days"
+    t.integer  "topics_count"
+    t.integer  "posts_count"
   end
 
   create_table "groups", :force => true do |t|
@@ -223,6 +225,10 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.integer  "group"
     t.text     "group_diem"
     t.string   "ma_tro_giang"
+    t.integer  "user_id"
+    t.integer  "topics_count"
+    t.integer  "posts_count"
+    t.integer  "so_lan_kt"
   end
 
   create_table "mon_hocs", :force => true do |t|
@@ -251,6 +257,15 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.datetime "thoi_gian"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "posts", :force => true do |t|
+    t.text     "body"
+    t.integer  "lop_mon_hoc_id"
+    t.integer  "topic_id"
+    t.integer  "user_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "ra_som_vao_muons", :force => true do |t|
@@ -307,6 +322,8 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.integer  "trang_thai"
     t.string   "ten_nganh"
     t.text     "ngay"
+    t.integer  "topics_count"
+    t.integer  "posts_count"
   end
 
   create_table "tai_lieu_mon_hocs", :force => true do |t|
@@ -363,6 +380,16 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.string   "loai"
   end
 
+  create_table "topics", :force => true do |t|
+    t.string   "title"
+    t.integer  "posts_count"
+    t.integer  "lop_mon_hoc_id"
+    t.integer  "user_id"
+    t.boolean  "locked"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "tuans", :force => true do |t|
     t.integer  "stt"
     t.datetime "tu_ngay"
@@ -388,6 +415,8 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.integer  "imageable_id"
     t.string   "imageable_type"
     t.string   "role"
+    t.string   "ho_dem"
+    t.string   "ten"
   end
 
   add_index "users", ["code"], :name => "index_users_on_code", :unique => true

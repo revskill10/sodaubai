@@ -1,7 +1,7 @@
 - if @sv
   $("#info").html("");
-  $("#ho_dem").val("#{@sv.ho_dem}");
-  $("#ten").val("#{@sv.ten}");
+  $("#ho_dem").val("#{@sv.ho_dem if @sv}");
+  $("#ten").val("#{@sv.ten if @sv}");
 - else
   $("#info").html("");
   $("#ho_dem").val("");

@@ -35,7 +35,10 @@ $(document).ready(function(){
 
 $('#pjax-container').on('pjax:popstate', function(event){	
 	$('.best_in_place').best_in_place();
-	
+	var oTable = $('.datatable').dataTable();
+    var oSettings = oTable.fnSettings();
+    oSettings.iDisplayStart = 50;
+    oSettings.xScrollY = "300px";
 });
   
 
@@ -43,4 +46,8 @@ $('#pjax-container').on('pjax:popstate', function(event){
 $('#pjax-container').on('pjax:success', function(){	
 	$('.best_in_place').best_in_place();
 	//$('.redactor').redactor({wym: true});
+	var oTable = $('.datatable').dataTable();
+    var oSettings = oTable.fnSettings();
+    oSettings.iDisplayStart = 50;
+    oSettings.xScrollY = "300px";
 });

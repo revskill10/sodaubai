@@ -101,7 +101,7 @@ class LopMonHocSinhViensController < ApplicationController
           if params[:checksv]
             format.js {render :checksv}
           elsif params[:submit]
-            if  @lop_mon_hoc_sinh_vien.save
+            if  @lop_mon_hoc_sinh_vien.save!
               format.js
               format.html { flash[:success] = "Created OK";
                 render :index, :layout => (request.headers['X-PJAX'] ? false : true)  }
