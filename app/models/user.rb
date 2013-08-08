@@ -17,13 +17,11 @@ class User < ActiveRecord::Base
         if extra_attributes["hovaten"]
           zten = extra_attributes["hovaten"].split(" ").to_a
           self.ten = zten[-1] if zten[-1]
-          self.ho_dem = zten[0..-2] if zten[0..-2]
+          self.ho_dem = zten[0..-2].join(" ") if zten[0..-2]
         end
         if extra_attributes["masinhvien"]
-          zcode = extra_attributes["masinhvien"].split(",")
-          zcode = zcode.first if zcode
-        
-          self.code = zcode if zcode
+          
+          self.code = extra_attributes["masinhvien"]
           svs = SinhVien.where(:ma_sinh_vien => self.code.strip.downcase)
           sv = svs.first unless svs.empty?
           gvs = GiangVien.where(:ma_giang_vien => self.code)

@@ -54,7 +54,8 @@ namespace :hpu do
   end
   # cap nhat tkb set days
   task :update_tkb2 => :environment do 
-    
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
     TkbGiangVien.all.each do |tkb|
       tkb.update_attributes(days: tkb.get_days)
       tkb.save rescue puts "Error #{tkb.ma_lop}"
@@ -151,6 +152,7 @@ namespace :hpu do
   	Rake::Task["hpu:load_lopsv"].invoke # load lop_mon_hoc_sinh_vien, sinh_vien    
     Rake::Task["hpu:update_lopghep"].invoke
     Rake::Task["hpu:update_tong_so_tiet"].invoke  
+    Rake::Task["hpu:update_upcase"].invoke  
   end
   task :update_tong_so_tiet => :environment do 
 #    tenant = Tenant.last
@@ -160,7 +162,44 @@ namespace :hpu do
       lop.save! rescue "Save error #{lop.id}"
     end
   end
- 
+  task :update_upcase => :environment do 
+   # tenant = Tenant.last
+   # PgTools.set_search_path tenant.scheme, false
+    LopMonHoc.all.each do |lop|
+      lop.ma_giang_vien = lop.ma_giang_vien.strip.upcase
+      lop.ma_lop = lop.ma_lop.strip.upcase
+      lop.ma_mon_hoc = lop.ma_mon_hoc.strip.upcase
+      lop.save! rescue "Save error #{lop.id}"
+    end
+    LopMonHocSinhVien.all.each do |lmh|
+      lmh.ma_lop_ghep = lmh.ma_lop_ghep.strip.upcase
+      lmh.ma_lop = lmh.ma_lop.strip.upcase
+      lmh.ma_mon_hoc = lmh.ma_mon_hoc.strip.upcase
+      lmh.ma_sinh_vien = lmh.ma_sinh_vien.strip.upcase
+      lmh.save!
+    end
+    GiangVien.all.each do |gv|
+      gv.ma_giang_vien = gv.ma_giang_vien.strip.upcase
+      gv.save!
+    end
+    SinhVien.all.each do |sv|
+      sv.ma_sinh_vien = sv.ma_sinh_vien.strip.upcase
+      sv.save!
+    end
+    TkbGiangVien.all.each do |tkb|
+      tkb.ma_lop = tkb.ma_lop.strip.upcase
+      tkb.ma_mon_hoc = tkb.ma_mon_hoc.strip.upcase
+      tkb.ma_giang_vien = tkb.ma_giang_vien.strip.upcase
+      tkb.phong = tkb.phong.strip.upcase if tkb.phong
+      tkb.save!
+    end
+    LopGhep.all.each do |lgh|
+      lgh.ma_lop = lgh.ma_lop.strip.upcase
+      lgh.ma_mon_hoc = lgh.ma_mon_hoc.strip.upcase
+      lgh.ma_lop_ghep = lgh.ma_lop_ghep.strip.upcase
+      lgh.save!
+    end
+  end
   task :test_gv => :environment do 
     
     GiangVien.all.each do |gupatev|
