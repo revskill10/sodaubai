@@ -24,11 +24,12 @@
       %td Môn
       %td Mã lớp
     %tbody
-      - @lich.each_with_index do |lich, index|
-        %tr        
-          %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to "T" + lich["tuan"].to_s, tuan_path(lich["tuan"].to_s), :'data-pjax' => '#pjax_container'
-          %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to "Thứ " + lich["thu"].to_s + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
-          %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["so_tiet"]             
-          %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["phong"]                 
-          %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
-          %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to lich["ma_lop"], lop_mon_hoc_path(lich["lop"]), :'data-pjax' => '#pjax_container'
+      - if @lich
+        - @lich.each_with_index do |lich, index|
+          %tr        
+            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to "T" + lich["tuan"].to_s, tuan_path(lich["tuan"].to_s), :'data-pjax' => '#pjax_container'
+            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to "Thứ " + lich["thu"].to_s + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
+            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["so_tiet"]             
+            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["phong"]                 
+            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
+            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to lich["ma_lop"], lop_mon_hoc_path(lich["lop"]), :'data-pjax' => '#pjax_container'
