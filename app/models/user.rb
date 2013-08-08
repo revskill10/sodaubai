@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
           self.ten = zten[-1] if zten[-1]
           self.ho_dem = zten[0..-2].join(" ") if zten[0..-2]
         end
+		self.role = 'guest'
         if extra_attributes["masinhvien"]
           
           self.code = extra_attributes["masinhvien"]
@@ -27,19 +28,24 @@ class User < ActiveRecord::Base
           gvs = GiangVien.where(:ma_giang_vien => self.code)
           gv = gvs.first unless gvs.empty?
           if sv
-            self.imageable = sv           
+            self.imageable = sv       
+			self.role = 'sinhvien'
           end
           if gv
-            self.imageable = gv           
+            self.imageable = gv   
+			self.role = 'giangvien'
           end
         end
+		if lop_mon_hocs.count > 0 
+			self.role = 'trogiang'
+		end
     end
   end
   def to_s
     username
   end
   def is_admin?
-    id == 1
+    username == 'dungth@hpu.edu.vn'
   end
   def get_tkbs    
     tkbs = []
