@@ -209,7 +209,7 @@ namespace :hpu do
   task :create_tenant => :environment do 
    
       
-      t = Tenant.where(:nam_hoc => '2013-2014', :hoc_ky => 1, :scheme => 't2').first_or_create!
+      t = Tenant.where(:nam_hoc => '2013-2014', :hoc_ky => 1, :scheme => 't1').first_or_create!
       
    
   end

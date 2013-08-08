@@ -10,11 +10,12 @@
  *
  *= require_self
  *= require dataTables/jquery.dataTables
- *= require dataTables/jquery.dataTables.bootstrap
- *= require_tree .
+ *= require dataTables/jquery.dataTables.bootstrap 
  *= require bootstrap-wysihtml5
  *= require jquery.gridster.min
  *= require bootstrap-wysihtml5
  *= require bootstrap-combobox
  *= require redactor
+
+ *= require_tree .
  */

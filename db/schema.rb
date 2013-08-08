@@ -49,8 +49,6 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.string   "phong"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
-    t.string   "phong_dang_ky"
-    t.datetime "ngay_day"
   end
 
   create_table "day_thays", :force => true do |t|
@@ -61,11 +59,8 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.integer  "hoc_ky"
     t.datetime "ngay_day"
     t.string   "phong"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-    t.string   "ma_giang_vien_thay"
-    t.string   "ten_giang_vien_thay"
-    t.string   "status"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "diem_chi_tiets", :force => true do |t|

@@ -17,13 +17,9 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require redactor.min
-//= require dashboard
-//= require lop_mon_hocs
-//= require lop_mon_hoc_sinh_viens
-//= require buoihoc
-//= require topics
 //= require bootstrap-combobox
 //= require best_in_place
+//= require_tree .
 $(document).ready(function(){
 	oTable = $('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bRetrieve": true,"iDisplayLength": 100, "bDestroy":true,"bInfo":false,"bProcessing":true,"bStateSave":true,"bAutoWidth":true,"sScrollY": "300px"});		
 	$('.combobox').combobox();	

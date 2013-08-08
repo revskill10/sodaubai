@@ -14,3 +14,5 @@
 /log/*.log
 /tmp
 /public/system
+/public/assets
+start.bat
