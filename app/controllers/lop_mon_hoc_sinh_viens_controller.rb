@@ -8,12 +8,17 @@ class LopMonHocSinhViensController < ApplicationController
     @msvs = params[:nhom].keys
     #puts msvs.inspect
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.select {|k| @msvs.include?(k.ma_sinh_vien)}
+    @temp = JSON.parse(@lop_mon_hoc.group_diem) if @lop_mon_hoc.group_diem
+    
     @svs.each do |sv|
       sv.group_id = params[:nhom][sv.ma_sinh_vien].to_i
-      diem_nhom = JSON.parse(@lop_mon_hoc.group_diem)[sv.group_id.to_s]      
-      sv.diem_thuc_hanh = diem_nhom
+      if @temp
+        diem_nhom = @temp[sv.group_id.to_s]      
+        sv.diem_thuc_hanh = diem_nhom
+      end
       sv.save! rescue "error update nhom"
     end
+    
     #params["nhom"].each do |k,v|
      # sv = @svs.select {|s| s.ma_sinh_vien == k}.first
       #if sv then 
