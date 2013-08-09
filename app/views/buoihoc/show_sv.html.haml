@@ -11,7 +11,7 @@
         .container.nav-collapse
           %ul.nav.pull-left#urls
             %li.active= link_to "Sổ đầu bài", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
-            %li= link_to "Điểm danh chi tiết", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => 'pjax_container'         
+            %li= link_to "Điểm danh chi tiết", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
             %li= link_to "Thông tin lớp", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'     
           %ul.nav.pull-right              
             %li= link_to "Đăng xuất", destroy_user_session_path
