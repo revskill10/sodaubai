@@ -14,17 +14,20 @@
             %li= link_to "Thời khóa biểu", "/calendar", :'data-pjax' => '#pjax_container'
             %li= link_to "Thăm dò", "http://thamdo.hpu.edu.vn"
           %ul.nav.pull-right
-            %li= link_to 'Đăng xuất', destroy_user_session_path     
+            %li= link_to 'Đăng xuất', destroy_user_session_path  
+               
 .container-fluid{:style=>"margin-top: 100px;"}
   .row-fluid
     %ul.nav.pull-right
       %li
         %i
-          %span= "Bây giờ là tuần #{@current_week}"     
+          %span= current_user.fullname
 
-  .well.sidebar-nav{:style => "font-size: 12px;"}    
-    %strong.offset1= "Tên người dùng: #{current_user.fullname}"
-    %strong.offset1= "Mã người dùng: #{current_user.code}"  
+      %li
+        %i
+          %span= "Bây giờ đang là tuần #{@current_week}: Từ ngày #{@week.tu_ngay.mday}/#{@week.tu_ngay.mon}, đến ngày #{@week.den_ngay.mday}/#{@week.den_ngay.mon}"     
+
+  
 
   - if @current_lich
     %h4 Các lớp chính
