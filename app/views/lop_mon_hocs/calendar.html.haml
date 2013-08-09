@@ -7,28 +7,28 @@
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
-        %a.brand{:href => "/", :'data-pjax' => '#pjax_container' } HPU
+        %a.brand{:href => "/"} HPU
         .container.nav-collapse
           %ul.nav.pull-left#urls            
-            %li= link_to "Thông tin chung", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'            
+            %li= link_to "Thông tin chung", lop_mon_hoc_path(@lop_mon_hoc.id)      
             %li.dropdown
               %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
                 Điểm
                 %b.caret
               %ul.dropdown-menu
                 - if @lop_mon_hoc.get_thuc_hanh
-                  %li.active= link_to "Điểm nhóm thực hành", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id) + "/2",  :'data-pjax' => '#pjax_container'
-                %li= link_to "Điểm chuyên cần", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'            
-                %li= link_to "Điểm kiểm tra thực hành", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
+                  %li.active= link_to "Điểm nhóm thực hành", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id) + "/2"
+                %li= link_to "Điểm chuyên cần", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id)            
+                %li= link_to "Điểm kiểm tra thực hành", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id)
             %li.dropdown.active
               %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
                 Quản lý
                 %b.caret
               %ul.dropdown-menu
-                %li= link_to "Thông báo", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'    
-                %li= link_to "Diễn đàn", lop_mon_hoc_topics_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'
-                %li= link_to "Quản lý lớp học", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id),  :'data-pjax' => '#pjax_container'
-                %li.active= link_to "Thời khóa biểu", lop_mon_hoc_path(@lop_mon_hoc.id)+'/calendar',  :'data-pjax' => '#pjax_container'
+                %li= link_to "Thông báo", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id)
+                %li= link_to "Diễn đàn", lop_mon_hoc_topics_path(@lop_mon_hoc.id)
+                %li= link_to "Quản lý lớp học", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id)
+                %li.active= link_to "Thời khóa biểu", lop_mon_hoc_path(@lop_mon_hoc.id)+'/calendar'
                         
 .container-fluid{:style=>"margin-top: 4%;"}
   %table{:class => "table table-bordered datatable"}
