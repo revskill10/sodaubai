@@ -49,8 +49,7 @@ group :development, :test do
   gem 'rb-notifu'
   gem 'win32console'
   gem 'wdm'
-  gem 'watchr'
-  gem 'xray-rails'
+  gem 'watchr'  
   gem 'thin'
   gem "shoulda-matchers"
   gem "database_cleaner"

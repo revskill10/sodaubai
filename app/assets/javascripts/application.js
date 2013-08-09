@@ -19,7 +19,7 @@
 //= require redactor.min
 //= require bootstrap-combobox
 //= require best_in_place
-//= require_tree .
+
 $(document).ready(function(){
 	oTable = $('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bRetrieve": true,"iDisplayLength": 100, "bDestroy":true,"bInfo":false,"bProcessing":true,"bStateSave":true,"bAutoWidth":true,"sScrollY": "300px"});		
 	$('.combobox').combobox();	
@@ -31,19 +31,10 @@ $(document).ready(function(){
 
 $('#pjax-container').on('pjax:popstate', function(event){	
 	$('.best_in_place').best_in_place();
-	var oTable = $('.datatable').dataTable();
-    var oSettings = oTable.fnSettings();
-    oSettings.iDisplayStart = 50;
-    oSettings.xScrollY = "300px";
 });
   
 
 	  
 $('#pjax-container').on('pjax:success', function(){	
-	$('.best_in_place').best_in_place();
-	//$('.redactor').redactor({wym: true});
-	var oTable = $('.datatable').dataTable();
-    var oSettings = oTable.fnSettings();
-    oSettings.iDisplayStart = 50;
-    oSettings.xScrollY = "300px";
+	$('.best_in_place').best_in_place();	
 });
