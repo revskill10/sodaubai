@@ -5,6 +5,7 @@ class DashboardController < ApplicationController
   def index    
 
     @current_lich = @lich.select {|l| l["tuan"] == @current_week} if @lich
+    @current_lich2 = @lich2.select {|l| l["tuan"] == @current_week} if @lich2
     if request.headers['X-PJAX']
       render :layout => false
     end
@@ -12,6 +13,7 @@ class DashboardController < ApplicationController
   def show
     
     @current_lich = @lich.select {|l| l["tuan"] == params[:id].to_i} if @lich 
+    @current_lich2 = @lich2.select {|l| l["tuan"] == @current_week} if @lich2
     if request.headers['X-PJAX']      
       render :layout => false
     end
@@ -28,7 +30,7 @@ class DashboardController < ApplicationController
   def load_lops    
     
     
-    @type = current_user.imageable || current_user
+    @type = current_user.imageable
     if @type        	
     	@current_lops = @type.lop_mon_hocs
       
@@ -48,6 +50,25 @@ class DashboardController < ApplicationController
     else
       @current_lops = []
     end
+
+
+    
+    @current_lops2 = current_user.lop_mon_hocs
+    
+    @lich2 = current_user.get_days[:ngay] if current_user.get_days
+    
+    generator = ColorGenerator.new saturation: 0.2, lightness: 0.8
+    @color2 = [] 
+    20.times do |i|
+      @color2 << generator.create_hex
+    end
+    @color_map2 = {}
+    unless @current_lops2.empty?
+      @current_lops2.each_with_index do |l,i|
+        @color_map2["#{l.ma_lop}-#{l.ma_mon_hoc}"] = @color2[i] if l 
+      end           
+    end
+    
   end
 
 end

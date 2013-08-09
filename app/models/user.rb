@@ -47,6 +47,9 @@ class User < ActiveRecord::Base
   def is_admin?
     username == 'dungth@hpu.edu.vn'
   end
+  def fullname
+    "#{ho_dem} #{ten}"
+  end
   def get_tkbs    
     tkbs = []
     if lop_mon_hocs

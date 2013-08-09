@@ -12,7 +12,9 @@
           %ul.nav.pull-left#urls
             %li= link_to "Home", "/", :'data-pjax' => '#pjax_container'
             %li.active= link_to "Calendar", "/calendar", :'data-pjax' => '#pjax_container'
-
+          %ul.nav.pull-right
+            %li= current_user.username
+            %li= link_to 'Đăng xuất', destroy_user_session_path  
 .container-fluid{:style=>"margin-top: 100px;"}
   %table{:class => "table table-bordered datatable"}
     %div#loading
