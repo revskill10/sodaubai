@@ -17,7 +17,17 @@
           %ul.nav.pull-right             
             %li= link_to "Đăng xuất", destroy_user_session_path
 
-.container-fluid{:style => "margin-top:100px;"}   
+.container-fluid{:style => "margin-top:4%;"}   
+  .row-fluid
+    %ul.nav.pull-right
+      %li
+        %i
+          %strong
+            %span= current_user.fullname
+
+      %li
+        %i
+          %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.mday}/#{@week.tu_ngay.mon}, đến ngày #{@week.den_ngay.mday}/#{@week.den_ngay.mon}"  
   %ul.nav.pull-right
     %li
       %i

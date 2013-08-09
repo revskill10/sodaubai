@@ -16,7 +16,17 @@
             %ul.nav.pull-right  
               %li= submit_tag "Cập nhật", :class =>"btn btn-success"     
               %li= link_to "Đăng xuất", destroy_user_session_path
-  .container-fluid{:style=>"margin-top: 5%;"} 
+  .container-fluid{:style=>"margin-top: 4%;"} 
+    .row-fluid
+      %ul.nav.pull-right
+        %li
+          %i
+            %strong
+              %span= current_user.fullname
+
+        %li
+          %i
+            %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.mday}/#{@week.tu_ngay.mon}, đến ngày #{@week.den_ngay.mday}/#{@week.den_ngay.mon}"  
     .row-fluid
       %ul.nav.pull-right
         %li
