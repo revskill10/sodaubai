@@ -7,7 +7,7 @@ class LopMonHocsController < ApplicationController
   # GET /lop_mon_hocs/1
   # GET /lop_mon_hocs/1.json
   def index
-
+    
     @lops = LopMonHoc.find(:all, :order => "id desc", :limit => 3)
     respond_to do |format|    
       format.xlsx {

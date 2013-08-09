@@ -1,3 +1,4 @@
+#encoding: utf-8
 require 'date'
 require 'json'
 
@@ -15,7 +16,7 @@ class BuoihocController < ApplicationController
       voters = JSON.parse(@lich.voters) 
       @theme = voters[@type.ma_sinh_vien] if @type.is_a?(SinhVien)
     end
-    @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).map { |k| k.ma_sinh_vien}
+    @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
     @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
        
     @svs2 = @svs.each_slice(4)
@@ -124,10 +125,16 @@ class BuoihocController < ApplicationController
         dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: k, ngay_vang: get_ngay(@ngay)).create if !dd and (v[:sotiet].to_i > 0 or !v[:note].blank?)
         if dd 
           dd.ma_giang_vien = @type.ma_giang_vien
-          dd.so_tiet_vang = v[:sotiet].to_i          
-          dd.phep = v[:phep] ? true : false          
-          dd.note = v[:note] unless v[:note].blank?
-          dd.save! rescue "Error save"                                              
+          st = v[:sotiet].to_i 
+          if st >=0 and @tkb and @tkb.so_tiet.is_a?(Fixnum) and st <= @tkb.so_tiet  
+            dd.so_tiet_vang = st
+            dd.phep = (v[:phep] and st > 0) ? true : false          
+            dd.note = v[:note] unless v[:note].blank?
+            dd.save! rescue "Error save"                                              
+          else
+            @error = true
+            @msg = "Số tiết vắng không hợp lệ"
+          end
         end
       end      
 

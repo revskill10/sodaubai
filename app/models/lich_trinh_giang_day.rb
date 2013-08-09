@@ -8,6 +8,7 @@ class LichTrinhGiangDay < ActiveRecord::Base
   validates :ngay_day, :presence => true
   
   def score
-  	return "#{rating_score} / #{ratings}"
+  	return "#{rating_score} / #{ratings}" if ratings and ratings > 0
+  	return "" unless  ratings or ratings == 0  		  	
   end
 end

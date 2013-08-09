@@ -32,7 +32,16 @@
           %ul.nav.pull-right
             %li= link_to 'Đăng xuất', destroy_user_session_path
 .container-fluid{:style=>"margin-top: 4%;"}    
-  
+  .well.sidebar-nav{:style => "font-size: 12px;"}
+    - if @lop_mon_hoc
+      %strong Môn học: 
+      %span= @lop_mon_hoc.ten_mon_hoc 
+      %strong.offset1 Giảng viên: 
+      %span= @lop_mon_hoc.ten_giang_vien    
+      %strong.offset1 Lớp:
+      %span= @lop_mon_hoc.ma_lop  
+      %strong.offset1 Số tiết: 
+      %span= @lop_mon_hoc.so_tiet
   %div#info
   %table{:class => "table table-condensed datatable"}
     %thead

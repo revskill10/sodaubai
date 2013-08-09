@@ -29,11 +29,11 @@ class User < ActiveRecord::Base
           gv = gvs.first unless gvs.empty?
           if sv
             self.imageable = sv       
-			self.role = 'sinhvien'
+			      self.role = 'sinhvien'    
           end
           if gv
             self.imageable = gv   
-			self.role = 'giangvien'
+			      self.role = 'giangvien'
           end
         end
 		if lop_mon_hocs.count > 0 
