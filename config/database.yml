@@ -7,9 +7,9 @@ development:
   adapter: postgresql
   host: localhost
   port: 5432
-  username: hpu
-  password: 123456
-  database: sodaubai2
+  username: dungth
+  password: dungth123654
+  database: sodaubai
   pool: 5
   timeout: 5000
 
@@ -27,8 +27,8 @@ production:
   adapter: postgresql
   host: localhost
   port: 5432
-  username: hpu
-  password: 123456
-  database: sodaubai2
+  username: dungth
+  password: dungth123654
+  database: sodaubai
   pool: 5
   timeout: 5000
