@@ -89,3 +89,6 @@ gem "activeadmin"
 gem 'letsrate'
 gem 'activeadmin-axlsx'
 gem 'axlsx_rails'
+gem "redis-store"
+gem 'redis-rails'
+gem "redis-rack-cache"
