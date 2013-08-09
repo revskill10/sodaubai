@@ -6,7 +6,7 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'puma', '1.6.3'
+
 gem 'pg', '0.15.1' 
 gem 'activerecord-postgresql-adapter'
 # Gems used only for assets and not required

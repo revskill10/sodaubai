@@ -24,11 +24,13 @@ class GiangVien < ActiveRecord::Base
   end
   def get_days
     ngays = []
-    tkb_giang_viens.all.each do |tkb|
-      ngay = JSON.parse(tkb.days)["ngay"]
-      ngays = ngays + ngay
+    if tkb_giang_viens.count > 0 
+      tkb_giang_viens.all.each do |tkb|
+        ngay = JSON.parse(tkb.days)["ngay"]
+        ngays = ngays + ngay
+      end
+      ngays = ngays.sort_by {|h| [h["tuan"], h["time"]]}
     end
-    ngays = ngays.sort_by {|h| [h["tuan"], h["time"]]}
     return {:ngay => ngays}
   end
 end
