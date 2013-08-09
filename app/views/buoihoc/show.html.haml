@@ -29,17 +29,18 @@
             %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.mday}/#{@week.tu_ngay.mon}, đến ngày #{@week.den_ngay.mday}/#{@week.den_ngay.mon}"  
     .row-fluid
       %ul.nav.pull-right
-        %li
-          %i
-            %strong{:style => "font-size: 10px;"}= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
+        - if @buoihoc
+          %li
+            %i
+              %strong{:style => "font-size: 10px;"}= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
     
     .well.sidebar-nav{:style => "font-size: 12px;"}
       %strong Môn học: 
-      %span= @buoihoc["ten_mon_hoc"]
+      %span= @buoihoc["ten_mon_hoc"] if @buoihoc
       %strong.offset1 Giảng viên: 
       %span= @lop_mon_hoc.ten_giang_vien    
       %strong.offset1 Lớp:
-      %span= @buoihoc["ma_lop"]
+      %span= @buoihoc["ma_lop"] if @buoihoc
       %strong.offset1 Số tiết: 
       %span= @lop_mon_hoc.so_tiet
                           
@@ -68,7 +69,7 @@
             %span#sovang= @svvang.count
             %strong.offset1 Số tiết: 
             %span= text_field_tag "buoihoc[sotiet]", nil, :value => "#{(@lich.so_tiet_day if @lich) || @tkb.so_tiet}", :style => "width: 5%"
-            %h6 Sinh vien vang mat:
+            %h6 Các sinh viên vắng mặt:
             %table#svvang{:class => "table table-bordered table-condensed"}  
               = render :partial => 'table1'
 
