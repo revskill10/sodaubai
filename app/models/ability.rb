@@ -8,7 +8,7 @@ class Ability
         can :manage, :all
         can :read, ActiveAdmin::Page, :name => "Dashboard"
     end
-    if user.role == 'giangvien'
+    if user.role == 'giangvien' or user.role == 'trogiang'
         can :read, LopMonHoc, :ma_giang_vien => user.code
         can :manage, ThongBaoLopHoc, ["order by created_at"] do |tb|
             user.imageable.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id)
