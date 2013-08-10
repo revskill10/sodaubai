@@ -32,6 +32,7 @@ class LopMonHoc < ActiveRecord::Base
   validates :ma_giang_vien, :ma_lop, :ma_mon_hoc, :presence => true
   validates_uniqueness_of :ma_lop, :scope => [:ma_giang_vien, :ma_mon_hoc]
   
+  after_save :update_trogiang
   def to_s
     "#{ma_lop} #{ten_mon_hoc} #{ma_giang_vien}"
   end
@@ -60,5 +61,12 @@ class LopMonHoc < ActiveRecord::Base
       sum = sum + k["so_tiet"]
     end
     return sum
+  end
+  protected
+  def update_trogiang
+    if user 
+      user.role = 'trogiang'
+      user.save! rescue puts "Error"
+    end
   end
 end
