@@ -134,6 +134,7 @@ class BuoihocController < ApplicationController
           else
             @error = true
             @msg = "Số tiết vắng không hợp lệ"
+            break
           end
         end
       end      
