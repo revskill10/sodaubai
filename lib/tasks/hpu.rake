@@ -66,8 +66,8 @@ namespace :hpu do
   
   
   task :load_sv => :environment do     
-    tenant = Tenant.last
-    PgTools.set_search_path tenant.scheme, false
+    #tenant = Tenant.last
+    #PgTools.set_search_path tenant.scheme, false
     SinhVien.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('sinh_viens')
     # attr_accessible :gioi_tinh, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ngay_sinh, :ten, :trang_thai, :ten_nganh
@@ -107,7 +107,7 @@ namespace :hpu do
     LopMonHocSinhVien.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hoc_sinh_viens') 
   	ls.each do |l|  		
-  		lop = LopMonHocSinhVien.create!(ma_lop: l[:malop].strip, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), ho_dem: titleize(l[:hodem].strip.downcase), ten: titleize(l[:ten].strip.downcase) ) 	
+  		lop = LopMonHocSinhVien.create!(ma_lop: l[:malop].strip.upcase, ma_lop_hanh_chinh: l[:ma_lop_hanh_chinh].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), ho_dem: titleize(l[:hodem].strip.downcase), ten: titleize(l[:ten].strip.downcase) ) 	
   	end	
         
   end
@@ -147,6 +147,7 @@ namespace :hpu do
   task :load_all => :environment do 
     tenant = Tenant.last
     PgTools.set_search_path tenant.scheme, false
+
   	Rake::Task["hpu:load_tuans"].invoke # load tuans
     Rake::Task["hpu:load_lopghep"].invoke 
   	Rake::Task["hpu:load_tkbgiangvien"].invoke  	# load tkb_giang_vien, giang_vien, lop_mon_hoc
@@ -154,6 +155,7 @@ namespace :hpu do
     Rake::Task["hpu:update_lopghep"].invoke
     Rake::Task["hpu:update_tong_so_tiet"].invoke  
     Rake::Task["hpu:update_upcase"].invoke      
+    Rake::Task["hpu:load_sv"].invoke
   end
   task :update_tong_so_tiet => :environment do 
 #    tenant = Tenant.last

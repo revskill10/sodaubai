@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.boolean  "status"
     t.integer  "lan4"
     t.integer  "lan5"
+    t.string   "ma_lop_hc"
   end
 
   create_table "lop_mon_hocs", :force => true do |t|

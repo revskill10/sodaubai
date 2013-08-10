@@ -1,6 +1,5 @@
 class CreateSinhViens < ActiveRecord::Migration
   def change    
-    return if PgTools.private_search_path?
     create_table :sinh_viens do |t|
       t.string :ma_sinh_vien
       t.string :ho_dem
