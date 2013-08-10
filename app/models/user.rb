@@ -11,34 +11,30 @@ class User < ActiveRecord::Base
   has_many :lop_mon_hocs
   def cas_extra_attributes=(extra_attributes)
     if extra_attributes["status"] != 0    	    
-
-
-
-        if extra_attributes["hovaten"]
-          zten = extra_attributes["hovaten"].split(" ").to_a
-          self.ten = zten[-1] if zten[-1]
-          self.ho_dem = zten[0..-2].join(" ") if zten[0..-2]
+      if extra_attributes["hovaten"]
+        zten = extra_attributes["hovaten"].split(" ").to_a
+        self.ten = zten[-1] if zten[-1]
+        self.ho_dem = zten[0..-2].join(" ") if zten[0..-2]
+      end
+	    self.role = 'guest'
+      if extra_attributes["masinhvien"]
+        self.code = extra_attributes["masinhvien"]
+        svs = SinhVien.where(:ma_sinh_vien => self.code.strip.downcase)
+        sv = svs.first unless svs.empty?
+        gvs = GiangVien.where(:ma_giang_vien => self.code)
+        gv = gvs.first unless gvs.empty?
+        if sv
+          self.imageable = sv       
+		      self.role = 'sinhvien'    
         end
-		self.role = 'guest'
-        if extra_attributes["masinhvien"]
-          
-          self.code = extra_attributes["masinhvien"]
-          svs = SinhVien.where(:ma_sinh_vien => self.code.strip.downcase)
-          sv = svs.first unless svs.empty?
-          gvs = GiangVien.where(:ma_giang_vien => self.code)
-          gv = gvs.first unless gvs.empty?
-          if sv
-            self.imageable = sv       
-			      self.role = 'sinhvien'    
-          end
-          if gv
-            self.imageable = gv   
-			      self.role = 'giangvien'
-          end
+        if gv
+          self.imageable = gv   
+		      self.role = 'giangvien'
         end
-		if lop_mon_hocs.count > 0 
-			self.role = 'trogiang'
-		end
+      end
+  		if lop_mon_hocs.count > 0 
+  			self.role = 'trogiang'
+  		end
     end
   end
   def to_s
