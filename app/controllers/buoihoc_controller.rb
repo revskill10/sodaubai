@@ -208,7 +208,7 @@ class BuoihocController < ApplicationController
       end
     end
     days2 = current_user.get_days[:ngay] if current_user.get_days
-    @lich = @lich + (days2 || [])
+    @lich = (@lich || []) + (days2 || [])
     @tkb = current_user.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first unless @tkb
     @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @lich
     #end
