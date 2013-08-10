@@ -66,17 +66,17 @@ namespace :hpu do
   
   
   task :load_sv => :environment do     
- #   tenant = Tenant.last
-  #  PgTools.set_search_path tenant.scheme, false
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
     SinhVien.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('sinh_viens')
     # attr_accessible :gioi_tinh, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ngay_sinh, :ten, :trang_thai, :ten_nganh
 
     @client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
-    response = @client.call(:sinh_vien)
+    response = @client.call(:sinh_vien_dang_hoc)
     res_hash = response.body.to_hash
-    ls = res_hash[:sinh_vien_response][:sinh_vien_result][:diffgram][:document_element]
-    ls = ls[:sinh_vien]  
+    ls = res_hash[:sinh_vien_dang_hoc_response][:sinh_vien_dang_hoc_result][:diffgram][:document_element]
+    ls = ls[:sinh_vien_dang_hoc]  
     puts "loading ... sinh viens"
     ls.each do |l|
       SinhVien.create!(
