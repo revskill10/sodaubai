@@ -5,7 +5,7 @@ sosv = $("span#sovang");
   :plain  
     sosv.html("#{escape_javascript(@vang.count.to_s)}")
 
-	s = $("table#svvang");
-	s.empty();
-	s.html("#{escape_javascript(render :partial => 'table1')}")
-	alert("OK"); 
+    s = $("table#svvang");
+    s.empty();
+    s.html("#{escape_javascript(render :partial => 'table1')}")
+    alert("Cập nhật thành công"); 
