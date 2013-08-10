@@ -14,6 +14,9 @@ class ApplicationController < ActionController::Base
   def routing
    render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
   end
+  def current_ability
+    @current_ability ||= Ability.new(current_user)
+  end
   protected
   def load_tuan
     @current_week = 1

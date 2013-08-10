@@ -32,6 +32,9 @@ class LopMonHoc < ActiveRecord::Base
   validates :ma_giang_vien, :ma_lop, :ma_mon_hoc, :presence => true
   validates_uniqueness_of :ma_lop, :scope => [:ma_giang_vien, :ma_mon_hoc]
   
+  def to_s
+    "#{ma_lop} #{ten_mon_hoc} #{ma_giang_vien}"
+  end
   def get_thuc_hanh
     # false la khong co thuc hanh
     return false if thuc_hanh == false
