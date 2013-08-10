@@ -211,6 +211,17 @@ namespace :hpu do
       puts gv.ma_giang_vien if gv.days = nil
     end
   end
+  task :get_null_lmh => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    res = []
+    LopMonHoc.all.each do |l|
+      if l.lop_mon_hoc_sinh_viens.count == 0 then 
+        res << l.id
+      end
+    end
+    File.open("D:/resultnull.txt","w") {|f| f.write(res)}
+  end
   task :create_tenant => :environment do 
    
       
