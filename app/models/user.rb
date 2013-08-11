@@ -31,6 +31,9 @@ class User < ActiveRecord::Base
           self.imageable = gv   
 		      self.role = 'giangvien'
         end
+        if lop_mon_hocs.count > 0 
+          self.role = 'trogiang'
+        end
       end
   		if lop_mon_hocs.count > 0 
   			self.role = 'trogiang'

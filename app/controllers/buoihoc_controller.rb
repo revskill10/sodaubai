@@ -40,62 +40,45 @@ class BuoihocController < ApplicationController
     
   end
   def update    
-    begin
-    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
-    @ids = @svs.map{|sv| sv.ma_sinh_vien}    
-    
-    @params2 = params[:msv].keys
-
-
-    if params[:msv] then 
-      @vang = params[:msv].keys    
-          
-      @kovang = @svs.map{|sv| sv.ma_sinh_vien}.select{|k| !@vang.include?(k)}
-      
-      #@kovang = @ids - @msvs 
-
-      @vang.each do |msv|
-        sv = @svs.where(ma_sinh_vien: msv).first
-        if sv 
-          dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: msv, ngay_vang: get_ngay(@ngay)).first_or_create!
-
-          dd.ma_giang_vien = (@type.ma_giang_vien if @type.ma_giang_vien) || (@type .code if @type.code)
-          dd.so_tiet_vang = (@tkb.so_tiet if @tkb) || (params[:sotiet].to_i if params[:sotiet])          
-          dd.phep =  false
-          dd.save! rescue "Error save"
-          
-        end
-      end
-      @dd = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).first 
-      
-      @kovang.each do |msv|
-        dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: msv, ngay_vang: get_ngay(@ngay)).first
-        if @tkb and dd
-          dd.so_tiet_vang = 0
-          dd.ma_giang_vien = (@type.ma_giang_vien if @type.ma_giang_vien) || (@type .code if @type.code)
+    begin    
+      @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')    
+      @ids = @svs.map {|k| k.ma_sinh_vien}
+      params[:msv].each do |k, v|
+        dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: k, ngay_vang: get_ngay(@ngay)).first_or_create!            
+        if dd.so_tiet_vang.nil? or (dd.so_tiet_vang and dd.so_tiet_vang == 0)
+          dd.so_tiet_vang = @tkb.so_tiet
           dd.phep = false
-          dd.save! rescue "Error save"
+          dd.save! 
         end
       end
-    end
-    
-    
-    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')    
-    @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
-    @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
-    @kovang = @svs.select {|k| !@idv.include?(k.ma_sinh_vien)}
-    @lichtrinh = params[:buoihoc]
-    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!
-    @lich.so_tiet_day = @lichtrinh[:sotiet].to_i if @lichtrinh[:sotiet].to_i <= @tkb.so_tiet and @lichtrinh[:sotiet].to_i > 0
-    @lich.noi_dung_day = @lichtrinh[:noidung]
-    @lich.phong = @lichtrinh[:phong]
-    @lich.so_vang = @vang.count
-    @lich.siso = @svs.count
-    @lich.sv = {:vang => @vang}.to_json
-    @lich.save! rescue "error save lich trinh"
+      @kovang = @ids - params[:msv].keys
+      dds = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: @kovang, ngay_vang: get_ngay(@ngay))
+      if dds.count > 0
+        dds.each do |dd|
+          dd.so_tiet_vang = 0
+          dd.phep = false
+          dd.save!
+        end
+      end
+
+      @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')    
+
+      @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
+      @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
+      @kovang = @svs.select {|k| !@idv.include?(k.ma_sinh_vien)}
+      @lichtrinh = params[:buoihoc]
+      @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!
+      @lich.so_tiet_day = @lichtrinh[:sotiet].to_i if @lichtrinh[:sotiet].to_i <= @tkb.so_tiet and @lichtrinh[:sotiet].to_i > 0
+      @lich.noi_dung_day = @lichtrinh[:noidung]
+      @lich.phong = @lichtrinh[:phong]
+      @lich.so_vang = @vang.count
+      @lich.siso = @svs.count
+      @lich.sv = {:vang => @vang}.to_json
+      @lich.save! rescue "error save lich trinh"
     rescue
       
     end
+  
     respond_to do |format|     
       format.js      
     end

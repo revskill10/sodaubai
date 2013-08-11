@@ -5,7 +5,7 @@ class DiemDanh < ActiveRecord::Base
   belongs_to :sinh_vien, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien'
   
 
-  validates :ngay_vang, :presence => true  
+  validates :ma_sinh_vien, :ngay_vang, :presence => true  
   
   after_save :set_default
   
