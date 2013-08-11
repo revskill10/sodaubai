@@ -75,7 +75,7 @@
 
         .tab-pane.active#tab2                  
           .well.sidebar-nav
-            %table{:class => "table table-bordered table-condensed"}  
+            %table{:class => "table table-bordered table-condensed datatable"}  
               %tbody    
                 - @svs2.each_with_index do |svs, index|    
                   %tr{:class => (index%2==1 ? :warning: :success)}
