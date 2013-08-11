@@ -26,6 +26,7 @@
         %i
           %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.mday}/#{@week.tu_ngay.mon}, đến ngày #{@week.den_ngay.mday}/#{@week.den_ngay.mon}"  
   - if @current_lich          
+    %h5 Lớp chính
     %table{:class => "table table-bordered datatable"}
       %thead           
         %td Thời gian 
@@ -42,3 +43,26 @@
             %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
             %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to lich["ma_lop"], lop_mon_hoc_path(lich["lop"])
 
+  - if @current_lich2 and @current_lich2.count > 0
+    %h4 Các lớp trợ giảng
+    %table{:class => "table table-bordered datatable"}
+      %colgroup
+        %col{:style => "width: 40%"}
+        %col{:style => "width: 10%"}
+        %col{:style => "width: 10%"} 
+        %col{:style => "width: 25%"} 
+        %col{:style => "width: 15%"} 
+      %thead          
+        %td Thời gian
+        %td Số tiết     
+        %td Phòng    
+        %td Môn
+        %td Mã lớp
+      %tbody      
+        - @current_lich2.each_with_index do |lich2, index|
+          %tr                 
+            %td{:style => "background: ##{@color_map2["#{lich2["ma_lop"]}-#{lich2["ma_mon_hoc"]}"]}" }= link_to "Thứ " + lich2["thu"].to_s + ", ngày " + DateTime.parse(lich2["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich2["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich2["lop"], DateTime.parse(lich2["time"][0]).strftime("%Y-%m-%d-%H-%M"))
+            %td{:style => "background: ##{@color_map2["#{lich2["ma_lop"]}-#{lich2["ma_mon_hoc"]}"]}" }= lich2["so_tiet"]             
+            %td{:style => "background: ##{@color_map2["#{lich2["ma_lop"]}-#{lich2["ma_mon_hoc"]}"]}" }= lich2["phong"]                 
+            %td{:style => "background: ##{@color_map2["#{lich2["ma_lop"]}-#{lich2["ma_mon_hoc"]}"]}" }= lich2["ten_mon_hoc"]
+            %td{:style => "background: ##{@color_map2["#{lich2["ma_lop"]}-#{lich2["ma_mon_hoc"]}"]}" }= link_to lich2["ma_lop"], lop_mon_hoc_path(lich2["lop"]) 

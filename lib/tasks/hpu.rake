@@ -38,8 +38,8 @@ namespace :hpu do
     
   end
   task :update_lopghep => :environment do 
-    #tenant = Tenant.last
-    #PgTools.set_search_path tenant.scheme, false
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
     tts = {}
     LopGhep.all.each do |lg|
       tts[[lg.ma_lop, lg.ma_mon_hoc]] = lg.ma_lop_ghep

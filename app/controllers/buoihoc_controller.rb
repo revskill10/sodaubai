@@ -16,7 +16,7 @@ class BuoihocController < ApplicationController
       voters = JSON.parse(@lich.voters) 
       @theme = voters[@type.ma_sinh_vien] if @type.is_a?(SinhVien)
     end
-    @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
+    @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
     @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
        
     @svs2 = @svs.each_slice(4)
@@ -44,7 +44,7 @@ class BuoihocController < ApplicationController
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     @ids = @svs.map{|sv| sv.ma_sinh_vien}    
     
-
+    @params2 = params[:msv].keys
 
 
     if params[:msv] then 
@@ -58,18 +58,21 @@ class BuoihocController < ApplicationController
         sv = @svs.where(ma_sinh_vien: msv).first
         if sv 
           dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: msv, ngay_vang: get_ngay(@ngay)).first_or_create!
-          dd.ma_giang_vien = @type.ma_giang_vien
-          dd.so_tiet_vang = (@tkb.so_tiet if @tkb)
+
+          dd.ma_giang_vien = (@type.ma_giang_vien if @type.ma_giang_vien) || (@type .code if @type.code)
+          dd.so_tiet_vang = (@tkb.so_tiet if @tkb) || (params[:sotiet].to_i if params[:sotiet])          
           dd.phep =  false
           dd.save! rescue "Error save"
+          
         end
       end
-
+      @dd = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).first 
+      
       @kovang.each do |msv|
         dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: msv, ngay_vang: get_ngay(@ngay)).first
         if @tkb and dd
           dd.so_tiet_vang = 0
-          dd.ma_giang_vien = @type.ma_giang_vien
+          dd.ma_giang_vien = (@type.ma_giang_vien if @type.ma_giang_vien) || (@type .code if @type.code)
           dd.phep = false
           dd.save! rescue "Error save"
         end
@@ -78,7 +81,7 @@ class BuoihocController < ApplicationController
     
     
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')    
-    @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
+    @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
     @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
     @kovang = @svs.select {|k| !@idv.include?(k.ma_sinh_vien)}
     @lichtrinh = params[:buoihoc]
@@ -101,16 +104,20 @@ class BuoihocController < ApplicationController
   def rate
     @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first
     if @lich             
-      voters = (JSON.parse(@lich.voters) if @lich.voters) || {}
-      voters[@type.ma_sinh_vien] = params[:theme].to_i
-      @lich.voters = voters.to_json
-      @lich.rating_score = 0 
-      @lich.ratings = 0 
-      @lich.ratings = voters.keys.count
-      voters.each do |k,v|
-        @lich.rating_score += v 
+      if params[:theme].to_i >= 0 and params[:theme].to_i <= 5 then 
+        voters = (JSON.parse(@lich.voters) if @lich.voters) || {}
+        voters[@type.ma_sinh_vien] = params[:theme].to_i
+        @lich.voters = voters.to_json
+        @lich.rating_score = 0 
+        @lich.ratings = 0 
+        @lich.ratings = voters.keys.count
+        voters.each do |k,v|
+          @lich.rating_score += v 
+        end
+        @lich.save! rescue puts "error"
+      else
+        @error = "Đã có lỗi xảy ra"
       end
-      @lich.save! rescue puts "error"
     end
     respond_to do |format|
       format.js
@@ -190,29 +197,22 @@ class BuoihocController < ApplicationController
     @ngay = str_to_ngay(params[:id])
     @malop = @lop_mon_hoc.ma_lop
     @mamonhoc = @lop_mon_hoc.ma_mon_hoc
+    @role = current_user.role
     @type = current_user.imageable
-    if @type
-      if @type.is_a?(GiangVien) then 
-        @lich = @type.get_days[:ngay]
-        @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc).first
-        @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0]
-      elsif @type.is_a?(SinhVien)
-        @lich = @type.get_days[:ngay]
-        @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
-        @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0]
-      else
-        @type = current_user
-        @lich = @type.get_days[:ngay] if @type.get_days
-        @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
-        @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @lich
-      end
-    else
-      @type = current_user
-    end
-    days2 = current_user.get_days[:ngay] if current_user.get_days
-    @lich = (@lich || []) + (days2 || [])
-    @tkb = current_user.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first unless @tkb
-    @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @lich
+    if @role == 'giangvien' then 
+      @lich = @type.get_days[:ngay]
+      @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc).first
+      @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0]
+    elsif @role == 'sinhvien'
+      @lich = @type.get_days[:ngay]
+      @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
+      @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0]
+    elsif @role == 'trogiang'  
+      @type = current_user    
+      @lich = @type.get_days[:ngay] if @type.get_days
+      @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
+      @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @lich
+    end    
     #end
     #@tuan = @tkb
   end

@@ -1,11 +1,14 @@
 
 
 sosv = $("span#sovang");
-- if @vang
+- if @svvang
   :plain  
-    sosv.html("#{escape_javascript(@vang.count.to_s)}")
+    sosv.html("#{escape_javascript(@svvang.count.to_s)}")
 
     s = $("table#svvang");
     s.empty();
     s.html("#{escape_javascript(render :partial => 'table1')}")
     alert("Cập nhật thành công"); 
+- else
+  alert("#{@tkb.so_tiet}");    
+  alert("#{@dd.so_tiet_vang}");
