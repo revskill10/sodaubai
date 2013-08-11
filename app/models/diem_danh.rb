@@ -43,6 +43,7 @@ class DiemDanh < ActiveRecord::Base
   def tong_vang_co_phep  
     l = lop_mon_hoc.lop_mon_hoc_sinh_viens.where(ma_sinh_vien: ma_sinh_vien).first    
     if l
+      l.tong_so_tiet = lop_mon_hoc.so_tiet
       l.so_vang_co_phep = lop_mon_hoc.diem_danhs.where(ma_sinh_vien: ma_sinh_vien).sum(:so_tiet_vang, :conditions => {:phep => true})
       l.so_tiet_vang = lop_mon_hoc.diem_danhs.where(ma_sinh_vien: ma_sinh_vien).sum(:so_tiet_vang)      
       l.save! rescue "tong vang co phep error"
