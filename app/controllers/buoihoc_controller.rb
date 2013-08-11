@@ -43,24 +43,35 @@ class BuoihocController < ApplicationController
     begin    
       @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')    
       @ids = @svs.map {|k| k.ma_sinh_vien}
-      params[:msv].each do |k, v|
-        dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: k, ngay_vang: get_ngay(@ngay)).first_or_create!            
-        if dd.so_tiet_vang.nil? or (dd.so_tiet_vang and dd.so_tiet_vang == 0)
-          dd.so_tiet_vang = @tkb.so_tiet
-          dd.phep = false
-          dd.save! 
-        end
-      end
-      @kovang = @ids - params[:msv].keys
-      dds = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: @kovang, ngay_vang: get_ngay(@ngay))
-      if dds.count > 0
-        dds.each do |dd|
-          dd.so_tiet_vang = 0
-          dd.phep = false
-          dd.save!
-        end
-      end
 
+      if params[:msv]
+        params[:msv].each do |k, v|
+          dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: k, ngay_vang: get_ngay(@ngay)).first_or_create!            
+          if dd.so_tiet_vang.nil? or (dd.so_tiet_vang and dd.so_tiet_vang == 0)
+            dd.so_tiet_vang = @tkb.so_tiet
+            dd.phep = false
+            dd.save! 
+          end
+        end
+        @kovang = @ids - params[:msv].keys
+        dds = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: @kovang, ngay_vang: get_ngay(@ngay))
+        if dds.count > 0
+          dds.each do |dd|
+            dd.so_tiet_vang = 0
+            dd.phep = false
+            dd.save!
+          end
+        end
+      else
+        dds = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: @ids, ngay_vang: get_ngay(@ngay))
+        if dds.count > 0
+          dds.each do |dd|
+            dd.so_tiet_vang = 0
+            dd.phep = false
+            dd.save!
+          end
+        end
+      end
       @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')    
 
       @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
