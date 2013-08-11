@@ -114,9 +114,9 @@ class BuoihocController < ApplicationController
         dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: k, ngay_vang: get_ngay(@ngay)).first        
         dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: k, ngay_vang: get_ngay(@ngay)).create if !dd and (v[:sotiet].to_i > 0 or !v[:note].blank?)
         if dd 
-          dd.ma_giang_vien = @type.ma_giang_vien
+          #dd.ma_giang_vien = @type.try(:ma_giang_vien) || @type.try(:code)
           st = v[:sotiet].to_i 
-          if st >=0 and @tkb and @tkb.so_tiet.is_a?(Fixnum) and st <= @tkb.so_tiet  
+          if st and st >=0 and @tkb and st <= @tkb.so_tiet  
             dd.so_tiet_vang = st
             dd.phep = (v[:phep] and st > 0) ? true : false          
             dd.note = v[:note] unless v[:note].blank?
@@ -132,14 +132,14 @@ class BuoihocController < ApplicationController
     
       @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
       
-      @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
+      @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
       @vang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
       @kovang = @svs.select {|k| !@idv.include?(k.ma_sinh_vien)}
       respond_to do |format|     
         format.js      
       end
-    rescue
-      puts "error"
+    rescue Exception => e
+      puts e
     end
   end
   
