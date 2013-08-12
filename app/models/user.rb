@@ -19,19 +19,21 @@ class User < ActiveRecord::Base
 	    self.role = 'guest'
       if extra_attributes["masinhvien"]
         self.code = extra_attributes["masinhvien"]
-        svs = SinhVien.where(:ma_sinh_vien => self.code.strip.downcase)
+        svs = SinhVien.where(:ma_sinh_vien => self.code)
         sv = svs.first unless svs.empty?
         gvs = GiangVien.where(:ma_giang_vien => self.code)
         gv = gvs.first unless gvs.empty?
         if sv
-          self.imageable = sv       
+          sv.user = self     
 		      self.role = 'sinhvien'    
+          sv.save!
         else
           self.imageable = nil
         end
         if gv
-          self.imageable = gv   
+          gv.user = self
 		      self.role = 'giangvien'
+          gv.save!
         else
           self.imageable = nil
         end
