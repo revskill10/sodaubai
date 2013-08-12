@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class LichTrinhGiangDay < ActiveRecord::Base
-  attr_accessible :ngay_day, :nhan_xet_buoi_hoc, :noi_dung_day, :phong, :so_tiet_day
+  attr_accessible :ngay_day, :nhan_xet_buoi_hoc, :noi_dung_day, :phong, :so_tiet_day, :so_vang, :siso, :sv
 
   belongs_to :lop_mon_hoc
   
