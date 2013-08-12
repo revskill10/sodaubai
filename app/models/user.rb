@@ -40,6 +40,9 @@ class User < ActiveRecord::Base
         if lop_mon_hocs.count > 0 
           self.role = 'trogiang'        
         end
+      else
+        self.code = self.username
+        self.role = 'guest'
       end
   		if lop_mon_hocs.count > 0 
   			self.role = 'trogiang'
