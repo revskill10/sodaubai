@@ -77,17 +77,13 @@ class BuoihocController < ApplicationController
       @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
       @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
       @kovang = @svs.select {|k| !@idv.include?(k.ma_sinh_vien)}
-      @lichtrinh = params[:buoihoc]
-      @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!
-      @lich.so_tiet_day = @lichtrinh[:sotiet].to_i if @lichtrinh[:sotiet].to_i <= @tkb.so_tiet and @lichtrinh[:sotiet].to_i > 0
-      @lich.noi_dung_day = @lichtrinh[:noidung]
-      @lich.phong = @lichtrinh[:phong]
-      @lich.so_vang = @vang.count
-      @lich.siso = @svs.count
-      @lich.sv = {:vang => @vang}.to_json
-      @lich.save! rescue "error save lich trinh"
-    rescue
-      
+      if params[:buoihoc]
+        @lichtrinh = params[:buoihoc]      
+        @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay), so_tiet_day: @lichtrinh[:sotiet], noi_dung_day: @lichtrinh[:noidung], phong: @lichtrinh[:phong], so_vang: @svvang.count, siso: @svs.count, sv: {:vang => @vang}.to_json).first_or_create!        
+        @lich.save! rescue "error save lich trinh"
+      end
+    rescue Exception => e
+      logger.debug "ERROR #{e}"
     end
   
     respond_to do |format|     
