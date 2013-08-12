@@ -7,12 +7,12 @@
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
-        %a.brand{:href => "/", :'data-pjax' => '#pjax_container' } HPU
+        %a.brand{:href => "/" } HPU
         .container.nav-collapse
           %ul.nav.pull-left#urls
-            %li.active= link_to "Sổ đầu bài", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
+            %li.active= link_to "Sổ đầu bài", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
             %li= link_to "Điểm danh chi tiết", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
-            %li= link_to "Thông tin lớp", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'     
+            %li= link_to "Thông tin lớp", lop_mon_hoc_path(@lop_mon_hoc.id)
           %ul.nav.pull-right              
             %li= link_to "Đăng xuất", destroy_user_session_path
 .container-fluid{:style=>"margin-top: 4%;"} 
