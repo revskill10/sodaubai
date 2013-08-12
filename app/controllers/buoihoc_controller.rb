@@ -41,6 +41,7 @@ class BuoihocController < ApplicationController
   end
   def update    
     begin    
+      authorize! :manage, @lop_mon_hoc
       @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')    
       @ids = @svs.map {|k| k.ma_sinh_vien}
 
@@ -93,6 +94,7 @@ class BuoihocController < ApplicationController
     
   end
   def rate
+    authorize! :rate, @lop_mon_hoc
     @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first
     if @lich             
       if params[:theme].to_i >= 0 and params[:theme].to_i <= 5 then 
@@ -115,9 +117,8 @@ class BuoihocController < ApplicationController
     end
   end
   def diemdanh            
-    begin
-      
-
+    begin      
+      authorize! :manage, @lop_mon_hoc
       params[:msv].each do |k,v|
         dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: k, ngay_vang: get_ngay(@ngay)).first        
         dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: k, ngay_vang: get_ngay(@ngay)).create if !dd and (v[:sotiet].to_i > 0 or !v[:note].blank?)
@@ -192,11 +193,11 @@ class BuoihocController < ApplicationController
     @mamonhoc = @lop_mon_hoc.ma_mon_hoc
     @role = current_user.role
     @type = current_user.imageable
-    if @role == 'giangvien' then 
+    if @type.is_a?(GiangVien) then 
       @lich = @type.get_days[:ngay]
       @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc).first
       @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0]
-    elsif @role == 'sinhvien'
+    elsif @type.is_a?(SinhVien)
       @lich = @type.get_days[:ngay]
       @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
       @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0]
