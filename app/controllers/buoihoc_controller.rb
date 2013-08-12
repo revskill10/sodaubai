@@ -79,7 +79,8 @@ class BuoihocController < ApplicationController
       @kovang = @svs.select {|k| !@idv.include?(k.ma_sinh_vien)}
       if params[:buoihoc]
         @lichtrinh = params[:buoihoc]      
-        @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay), so_tiet_day: @lichtrinh[:sotiet], noi_dung_day: @lichtrinh[:noidung], phong: @lichtrinh[:phong], so_vang: @svvang.count, siso: @svs.count, sv: {:vang => @vang}.to_json).first_or_create!        
+        @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!
+        @lich.update_attributes(so_tiet_day: @lichtrinh[:sotiet], noi_dung_day: @lichtrinh[:noidung], phong: @lichtrinh[:phong], so_vang: @svvang.count, siso: @svs.count, sv: {:vang => @vang}.to_json) if @lich   
         @lich.save! rescue "error save lich trinh"
       end
     rescue Exception => e
