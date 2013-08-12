@@ -26,13 +26,17 @@ class User < ActiveRecord::Base
         if sv
           self.imageable = sv       
 		      self.role = 'sinhvien'    
+        else
+          self.imageable = nil
         end
         if gv
           self.imageable = gv   
 		      self.role = 'giangvien'
+        else
+          self.imageable = nil
         end
         if lop_mon_hocs.count > 0 
-          self.role = 'trogiang'
+          self.role = 'trogiang'        
         end
       end
   		if lop_mon_hocs.count > 0 
