@@ -9,7 +9,9 @@ class Ability
         can :read, ActiveAdmin::Page, :name => "Dashboard"
     end
     if user.imageable.is_a?(GiangVien) or user.role == 'trogiang'
-        can :read, LopMonHoc, :ma_giang_vien => user.code
+        can :read, LopMonHoc,["order by created_at"] do |lop|
+          user.code == lop.ma_giang_vien or user.code == lop.user_id
+        end
         can :manage, ThongBaoLopHoc, ["order by created_at"] do |tb|
             user.imageable.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.imageable.is_a?(GiangVien)
             user.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.role == 'trogiang'
