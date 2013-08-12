@@ -10,7 +10,7 @@ class Ability
     end
     if user.imageable.is_a?(GiangVien) or user.role == 'trogiang'
         can :read, LopMonHoc,["order by created_at"] do |lop|
-          user.code == lop.ma_giang_vien or user.code == lop.user_id
+          user.code == lop.ma_giang_vien or user.id == lop.user_id
         end
         can :manage, ThongBaoLopHoc, ["order by created_at"] do |tb|
             user.imageable.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.imageable.is_a?(GiangVien)
