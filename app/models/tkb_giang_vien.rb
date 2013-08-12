@@ -10,7 +10,7 @@ class TkbGiangVien < ActiveRecord::Base
   belongs_to :lop_mon_hoc, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}' and ma_giang_vien = '#{self.ma_giang_vien}'"]}
   belongs_to :mon_hoc, :foreign_key => 'ma_mon_hoc', :primary_key => 'ma_mon_hoc'
   
-  validates :hoc_ky, :ten_giang_vien, :ten_mon_hoc, :ma_giang_vien, :ma_lop, :ma_mon_hoc, :nam_hoc, :ngay_bat_dau, :ngay_ket_thuc, :so_tiet, :so_tuan, :thu, :tiet_bat_dau, :tuan_hoc_bat_dau, :presence => true
+  validates :hoc_ky, :ten_giang_vien, :ten_mon_hoc, :ma_giang_vien, :ma_lop, :nam_hoc, :ngay_bat_dau, :ngay_ket_thuc, :so_tiet, :so_tuan, :thu, :tiet_bat_dau, :tuan_hoc_bat_dau, :presence => true
   TIET = {1 => [6,30], 2 => [7,20], 3 => [8,10],
   	4 => [9,5], 5 => [9,55], 6 => [10, 45],
   	7 => [12,30], 8 => [13,20], 9 => [14,10],

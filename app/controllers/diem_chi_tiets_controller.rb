@@ -33,7 +33,7 @@ class DiemChiTietsController < ApplicationController
       @msvs = params[:msv]
       @svs.each do   |sv|      
         if @msvs[sv.ma_sinh_vien]
-          sv.diem_thuc_hanh = @msvs[sv.ma_sinh_vien][:thuchanh] 
+          sv.diem_thuc_hanh = @msvs[sv.ma_sinh_vien][:thuchanh]
           sv.lan1 = @msvs[sv.ma_sinh_vien][:lan1]
           sv.lan2 = @msvs[sv.ma_sinh_vien][:lan2]
           sv.lan3 = @msvs[sv.ma_sinh_vien][:lan3]
