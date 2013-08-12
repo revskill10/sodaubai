@@ -8,17 +8,22 @@ class Ability
         can :manage, :all
         can :read, ActiveAdmin::Page, :name => "Dashboard"
     end
-    if user.role == 'giangvien' or user.role == 'trogiang'
+    if user.imageable.is_a?(GiangVien) or user.role == 'trogiang'
         can :read, LopMonHoc, :ma_giang_vien => user.code
         can :manage, ThongBaoLopHoc, ["order by created_at"] do |tb|
-            user.imageable.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.role == 'giangvien'
+            user.imageable.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.imageable.is_a?(GiangVien)
             user.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.role == 'trogiang'
         end
         can :manage, DiemDanh, ["order by created_at"] do |dd|
-            user.imageable.lop_mon_hocs.map(&:id).include?(dd.lop_mon_hoc.id) if user.role == 'giangvien'
+            user.imageable.lop_mon_hocs.map(&:id).include?(dd.lop_mon_hoc.id) if user.imageable.is_a?(GiangVien)
             user.lop_mon_hocs.map(&:id).include?(dd.lop_mon_hoc.id) if user.role == 'trogiang'
         end
-    end    
+    end
+    if user.imageable.is_a?(SinhVien)
+        can :read, LopMonHoc, ["order by created_at"] do |lop|
+            user.imageable.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.imageable.is_a?(SinhVien)
+        end
+    end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
