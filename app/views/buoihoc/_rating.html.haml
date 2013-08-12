@@ -1,8 +1,8 @@
 = form_tag rate_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do 
   - [1, 2, 3, 4, 5 ].each do |theme|  
     = radio_button_tag 'theme', theme, @theme == theme
-    = theme.to_s
-  = submit_tag "Bình chọn", :class =>"btn btn-success"     
+    = theme.to_s + "   "
+  = submit_tag "Đánh giá buổi học", :class =>"btn btn-success"     
 
 
     

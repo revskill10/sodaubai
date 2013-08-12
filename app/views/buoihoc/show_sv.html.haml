@@ -7,12 +7,12 @@
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
-        %a.brand{:href => "/" } HPU
+        %a.brand{:href => "/", :'data-pjax' => '#pjax_container' } HPU
         .container.nav-collapse
           %ul.nav.pull-left#urls
-            %li.active= link_to "Sổ đầu bài", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
+            %li.active= link_to "Sổ đầu bài", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
             %li= link_to "Điểm danh chi tiết", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
-            %li= link_to "Thông tin lớp", lop_mon_hoc_path(@lop_mon_hoc.id)
+            %li= link_to "Thông tin lớp", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'     
           %ul.nav.pull-right              
             %li= link_to "Đăng xuất", destroy_user_session_path
 .container-fluid{:style=>"margin-top: 4%;"} 
@@ -29,58 +29,53 @@
   .row-fluid
     %ul.nav.pull-right
       - if @buoihoc
-      %li
-        %i
-          %strong{:style => "font-size: 10px;"}= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
-  
-  .well.sidebar-nav{:style => "font-size: 12px;"}
-    %strong Môn học: 
-    %span= @buoihoc["ten_mon_hoc"] if @buoihoc
-    %strong.offset1 Giảng viên: 
-    %span= @lop_mon_hoc.ten_giang_vien    
-    %strong.offset1 Lớp:
-    %span= @buoihoc["ma_lop"] if @buoihoc
-    %strong.offset1 Số tiết: 
-    %span= @lop_mon_hoc.so_tiet
-                        
+        %li
+          %i
+            %strong{:style => "font-size: 10px;"}= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M") 
+    .well.sidebar-nav{:style => "font-size: 12px;"}
+      %strong Môn học:
+      %span= @buoihoc["ten_mon_hoc"] if @buoihoc
+      %strong.offset1 Giảng viên:
+      %span= @lop_mon_hoc.ten_giang_vien
+      %strong.offset1 Lớp:
+      %span= @buoihoc["ma_lop"] if @buoihoc
+      %strong.offset1 Số tiết:
+      %span= @lop_mon_hoc.so_tiet
+    .well.sidebar-nav{:style => "font-size: 12px;"}              
+      %strong.offset1 Phòng:
+      %span= (@lich.phong if @lich) || @buoihoc["phong"]
+      %strong.offset1 Sĩ số:
+      %span= @svs.count
+      %strong.offset1 Số sinh viên vắng mặt:
+      %span#sovang= @svvang.count      
+      %h6 Sinh viên vắng mặt:
+      %table#svvang{:class => "table table-bordered table-condensed"}
+        = render :partial => 'table1'                    
   .tabbable
     %ul.nav.nav-tabs
       %li.active
         %a{:href => "#tab2", :"data-toggle" => "tab"} Điểm danh:
       %li
-        %a{:href => "#tab1", :"data-toggle" => "tab"} Nội dung giảng dạy: 
+        %a{:href => "#tab1", :"data-toggle" => "tab"} Nội dung giảng dạy:
       
     .tab-content
-      .tab-pane#tab1          
+      .tab-pane#tab1
         .well.sidebar-nav{:style => "font-size: 12px;"}
           = render :partial => 'rating'
-        .well.sidebar-nav{:style => "font-size: 12px;"}          
-          = raw(@lich.noi_dung_day) if @lich
-            
-          %strong.offset1 Phòng:  
-          %span= (@lich.phong if @lich) || @buoihoc["phong"]
-          %strong.offset1 Sĩ số: 
-          %span= @svs.count
-          %strong.offset1 Số sinh viên vắng mặt:  
-          %span#sovang= @svvang.count
-          %strong.offset1 Số tiết: 
-          %span= (@lich.so_tiet_day if @lich) || @tkb.so_tiet
-          %h6 Sinh vien vang mat:
-          %table#svvang{:class => "table table-bordered table-condensed"}  
-            = render :partial => 'table1'
 
-      .tab-pane.active#tab2                  
+        .well.sidebar-nav{:style => "font-size: 12px;"}
+          = raw(@lich.noi_dung_day) if @lich
+
+      .tab-pane.active#tab2
         .well.sidebar-nav
-          %table{:class => "table table-bordered table-condensed"}  
-            %tbody    
-              - @svs2.each_with_index do |svs, index|    
+          %table{:class => "table table-bordered table-condensed"}
+            %tbody
+              - @svs2.each_with_index do |svs, index|
                 %tr
-                  - svs.each do |sv, i|      
+                  - svs.each do |sv, i|
                     %td
-                      %div             
+                      %div
                         %p= sv.ho_dem + " " + sv.ten
                         %span= sv.ma_sinh_vien
                         %span= check_box_tag "msv[#{sv.ma_sinh_vien}]", nil, get_status(@lop_mon_hoc, sv, @ngay), :class => "drag", :disabled => true
       
-
-

@@ -28,10 +28,12 @@
                 %ul.dropdown-menu
                   %li= link_to "Thông báo", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'    
                   %li= link_to "Diễn đàn", lop_mon_hoc_topics_path(@lop_mon_hoc.id)
-                  %li= link_to "Quản lý lớp học", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id)
+                  - if can? :manage, @lop_mon_hoc
+                    %li= link_to "Quản lý lớp học", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id)
                   %li= link_to "Thời khóa biểu", lop_mon_hoc_path(@lop_mon_hoc.id)+'/calendar'
             %ul.nav.pull-right
-              %li= submit_tag "Cập nhật", :class => "btn btn-success" 
+              - if can? :manage, @lop_mon_hoc
+                %li= submit_tag "Cập nhật", :class => "btn btn-success" 
               %li= link_to 'Đăng xuất',destroy_user_session_path                          
               
   .container-fluid{:style=>"margin-top: 100px;"}         
@@ -55,8 +57,15 @@
             %td= sv.ten
             %td= sv.group_id || 1         
             - if @lop_mon_hoc.get_thuc_hanh     
-              %td= text_field_tag "msv[#{sv.ma_sinh_vien}][thuchanh]", nil, :value => sv.diem_thuc_hanh || "", :style => "width: 15%"
+              - if can? :manage, @lop_mon_hoc
+                %td= text_field_tag "msv[#{sv.ma_sinh_vien}][thuchanh]", nil, :value => sv.diem_thuc_hanh || "", :style => "width: 15%"
+              - elsif can? :read, @lop_mon_hoc
+                %td= sv.diem_thuc_hanh
+
             - if @lop_mon_hoc.so_lan_kt and @lop_mon_hoc.so_lan_kt > 0
               - @lop_mon_hoc.so_lan_kt.times do |t|
-                %td= text_field_tag "msv[#{sv.ma_sinh_vien}][lan#{t+1}]", nil, :value => sv.send("lan#{t+1}".to_sym) || "", :style => "width: 15%"
+                - if can? :manage, @lop_mon_hoc
+                  %td= text_field_tag "msv[#{sv.ma_sinh_vien}][lan#{t+1}]", nil, :value => sv.send("lan#{t+1}".to_sym) || ""
+                - elsif can? :read, @lop_mon_hoc
+                  %td= sv.send("lan#{t+1}".to_sym) || ""
             

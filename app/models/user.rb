@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  attr_accessible :username, :code, :ho_dem, :ten
+  attr_accessible :username, :code, :ho_dem, :ten, :imageable_id, :imageable_type
   devise :cas_authenticatable
   belongs_to :imageable, :polymorphic => true
   
@@ -18,28 +18,15 @@ class User < ActiveRecord::Base
       end
 	    self.role = 'guest'
       if extra_attributes["masinhvien"]
+        logger.debug "msv: #{extra_attributes["masinhvien"]}"
         self.code = extra_attributes["masinhvien"]
-        svs = SinhVien.where(:ma_sinh_vien => self.code)
-        sv = svs.first unless svs.empty?
-        gvs = GiangVien.where(:ma_giang_vien => self.code)
-        gv = gvs.first unless gvs.empty?
-        if sv
-          sv.user = self     
-		      self.role = 'sinhvien'    
-          sv.save!
-        else
-          self.imageable = nil
-        end
-        if gv
-          gv.user = self
-		      self.role = 'giangvien'
-          gv.save!
-        else
-          self.imageable = nil
-        end
-        if lop_mon_hocs.count > 0 
-          self.role = 'trogiang'        
-        end
+        sv = SinhVien.where(:ma_sinh_vien => self.code).first        
+        self.imageable = sv if sv
+        self.role = 'sinhvien'
+
+        gv = GiangVien.where(:ma_giang_vien => self.code).first        
+        self.imageable = gv if gv                
+        self.role = 'giangvien'
       else
         self.code = self.username
         self.role = 'guest'

@@ -9,7 +9,7 @@ class Ability
         can :read, ActiveAdmin::Page, :name => "Dashboard"
     end
     if user.imageable.is_a?(GiangVien) or user.role == 'trogiang'
-        can :read, LopMonHoc,["order by created_at"] do |lop|
+        can :manage, LopMonHoc,["order by created_at"] do |lop|
           user.code == lop.ma_giang_vien or user.id == lop.user_id
         end
         can :manage, ThongBaoLopHoc, ["order by created_at"] do |tb|
@@ -22,8 +22,8 @@ class Ability
         end
     end
     if user.imageable.is_a?(SinhVien)
-        can :read, LopMonHoc, ["order by created_at"] do |lop|
-            user.imageable.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.imageable.is_a?(SinhVien)
+        can [:read, :rate], LopMonHoc, ["order by created_at"] do |lop|
+            user.imageable.lop_mon_hocs.map(&:id).include?(lop.id) if user.imageable.is_a?(SinhVien)
         end
     end
     # Define abilities for the passed in user here. For example:
