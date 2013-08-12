@@ -156,8 +156,10 @@ class BuoihocController < ApplicationController
   
   def get_diemdanh
     
-   @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
-
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
+    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!        
+    @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
+    @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
     respond_to do |format|
       if request.headers['X-PJAX']
         if @type.is_a?(GiangVien)

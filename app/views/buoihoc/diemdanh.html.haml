@@ -43,8 +43,19 @@
       %span= @lop_mon_hoc.ten_giang_vien    
       %strong.offset1 Lớp: 
       %span= @buoihoc["ma_lop"]
+      
+    .well.sidebar-nav{:style => "font-size: 12px;"}
+      %strong.offset1 Phòng:  
+      %span= text_field_tag "buoihoc[phong]", nil, :value => "#{(@lich.phong if @lich) || @buoihoc["phong"]}", :style => "width: 8%"
+      %strong.offset1 Sĩ số: 
+      %span= @svs.count
+      %strong.offset1 Số sinh viên vắng mặt:  
+      %span#sovang= @svvang.count
       %strong.offset1 Số tiết: 
-      %span= @lop_mon_hoc.so_tiet 
+      %span= text_field_tag "buoihoc[sotiet]", nil, :value => "#{(@lich.so_tiet_day if @lich) || @tkb.so_tiet}", :style => "width: 5%"
+      %h6 Các sinh viên vắng mặt:
+      %table#svvang{:class => "table table-bordered table-condensed"}  
+        = render :partial => 'table1'
     - if @svs.count > 0
       = render :partial => 'table2'
     

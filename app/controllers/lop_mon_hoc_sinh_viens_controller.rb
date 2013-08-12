@@ -34,10 +34,15 @@ class LopMonHocSinhViensController < ApplicationController
   def index
     #@lop_mon_hoc_sinh_viens = LopMonHocSinhVien.all
     @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
-    @group = @lop_mon_hoc.group || 1
+
+    if @lop_mon_hoc.group.nil? then 
+      @lop_mon_hoc.group = 1
+      @lop_mon_hoc.save!
+    end 
+    @group = @lop_mon_hoc.group
     @groups_arrays = {}
     @group.times do |g|
-      @groups_arrays[(g+1).to_s] = "Group #{g+1}"
+      @groups_arrays[(g+1).to_s] = "Nhóm #{g+1}"
     end
     #@groups_arrays = @groups.map {|gr| ["Group #{gr.id}", gr.id] }
     respond_to do |format|
