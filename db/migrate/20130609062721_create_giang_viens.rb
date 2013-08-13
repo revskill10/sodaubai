@@ -10,5 +10,6 @@ class CreateGiangViens < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :giang_viens, :ma_giang_vien    
   end
 end

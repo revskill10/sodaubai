@@ -1,5 +1,5 @@
 class DiemDanh < ActiveRecord::Base
-  attr_accessible :ma_sinh_vien, :nam_hoc, :ngay_vang, :so_tiet_vang, :loai, :diem_thuong_xuyen
+  attr_accessible :ma_sinh_vien, :nam_hoc, :ngay_vang, :so_tiet_vang, :loai, :diem_thuong_xuyen, :ma_giang_vien, :ma_lop, :ma_mon_hoc
 
   belongs_to :lop_mon_hoc
   belongs_to :sinh_vien, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien'
@@ -47,7 +47,7 @@ class DiemDanh < ActiveRecord::Base
       l.so_vang_co_phep = lop_mon_hoc.diem_danhs.where(ma_sinh_vien: ma_sinh_vien).sum(:so_tiet_vang, :conditions => {:phep => true})
       l.so_tiet_vang = lop_mon_hoc.diem_danhs.where(ma_sinh_vien: ma_sinh_vien).sum(:so_tiet_vang)      
       l.save! rescue "tong vang co phep error"
-    end
+    end    
   end
  
 end

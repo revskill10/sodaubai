@@ -11,7 +11,7 @@ class LopMonHoc < ActiveRecord::Base
   belongs_to :giang_vien, :foreign_key => 'ma_giang_vien', :primary_key => 'ma_giang_vien'
 
   belongs_to :mon_hoc, :foreign_key => 'ma_mon_hoc', :primary_key => 'ma_mon_hoc'
-  has_many :tkb_giang_viens, :foreign_key => 'ma_lop', :primary_key => 'ma_lop', :dependent => :destroy, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}' and ma_giang_vien = '#{self.ma_giang_vien}'"]} do 
+  has_many :tkb_giang_viens, :dependent => :destroy do 
     def with_tuan(tuan)
       where("tkb_giang_viens.tuan_hoc_bat_dau = ?",tuan)
     end

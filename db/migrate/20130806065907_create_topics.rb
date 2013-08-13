@@ -9,5 +9,6 @@ class CreateTopics < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :topics, :lop_mon_hoc_id      
   end
 end

@@ -13,5 +13,7 @@ class CreateSinhViens < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :sinh_viens, :ma_sinh_vien
+    add_index :sinh_viens, :lop_hc
   end
 end

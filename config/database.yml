@@ -9,7 +9,7 @@ development:
   port: 5432
   username: dungth
   password: dungth123654
-  database: sodaubai
+  database: sodaubai3
   pool: 5
   timeout: 5000
 

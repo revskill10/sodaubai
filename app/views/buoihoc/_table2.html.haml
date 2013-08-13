@@ -21,9 +21,9 @@
     - @svs.each do |sv|
       %tr
         %td= sv.ma_sinh_vien
-        %td= sv.ho_dem
+        %td= sv.ho + " " + sv.ho_dem
         %td= sv.ten
-        %td= sv.ma_lop_hc
+        %td= sv.ma_lop_hanh_chinh
         %td.progress  
           .bar.bar-danger{:style => "width: #{((sv.so_tiet_vang if sv) || 0)*100/(@lop_mon_hoc.so_tiet || 1)}%"}                                        
           .bar.bar-success{:style => "width: #{100-((sv.so_tiet_vang if sv) || 0)*100/(@lop_mon_hoc.so_tiet || 1)}%"}= (100-(sv.so_tiet_vang || 0)).to_s + "%"

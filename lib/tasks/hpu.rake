@@ -33,13 +33,14 @@ namespace :hpu do
     TkbGiangVien.all.each do |tkb|
       l = LopMonHoc.where(:ma_giang_vien => tkb.ma_giang_vien, :ma_lop => tkb.ma_lop, :ma_mon_hoc => tkb.ma_mon_hoc).first_or_create!
       l.update_attributes(ten_giang_vien: tkb.ten_giang_vien, ten_mon_hoc: tkb.ten_mon_hoc, phong_hoc: tkb.phong, ngay_bat_dau: tkb.ngay_bat_dau, ngay_ket_thuc: tkb.ngay_ket_thuc, so_tuan_hoc: tkb.so_tuan)
+      l.tkb_giang_viens << tkb
       l.save rescue puts "error #{l.id}"
     end
     
   end
   task :update_lopghep => :environment do 
-    tenant = Tenant.last
-    PgTools.set_search_path tenant.scheme, false
+    #tenant = Tenant.last
+    #PgTools.set_search_path tenant.scheme, false
     tts = {}
     LopGhep.all.each do |lg|
       tts[[lg.ma_lop, lg.ma_mon_hoc]] = lg.ma_lop_ghep
@@ -106,8 +107,11 @@ namespace :hpu do
   	puts "loading... lopsv"
     LopMonHocSinhVien.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hoc_sinh_viens') 
-  	ls.each do |l|  		
-  		lop = LopMonHocSinhVien.create!(ma_lop: l[:malop].strip.upcase, ma_lop_hanh_chinh: l[:ma_lop_hanh_chinh].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), ho_dem: titleize(l[:hodem].strip.downcase), ten: titleize(l[:ten].strip.downcase) ) 	
+  	ls.each do |l|  	
+      hodem = titleize(l[:hodem].strip.downcase).split(" ").to_a
+      ho = hodem[0] if hodem[0]
+      ho_dem = hodem[1] if hodem[1]
+  		lop = LopMonHocSinhVien.create!(ma_lop: l[:malop].strip.upcase, ma_lop_hanh_chinh: l[:ma_lop_hanh_chinh].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), ho: ho,  ho_dem: ho_dem, ten: titleize(l[:ten].strip.downcase) ) 	
   	end	
         
   end
@@ -225,11 +229,25 @@ namespace :hpu do
     File.open("D:/resultnull.txt","w") {|f| f.write(res)}
   end
   task :create_tenant => :environment do 
-   
-      
-      t = Tenant.where(:nam_hoc => '2013-2014', :hoc_ky => 1, :scheme => 't1').first_or_create!
-      
-   
+    t = Tenant.where(:nam_hoc => '2013-2014', :hoc_ky => 1, :scheme => 't1').first_or_create!         
+  end
+  task :update_data => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    DiemDanh.all.each do |dd|
+      l = LopMonHoc.where(ma_lop: dd.ma_lop, ma_mon_hoc: dd.ma_mon_hoc, ma_giang_vien: dd.ma_giang_vien).first
+      if l 
+        dd.lop_mon_hoc = l
+        dd.save!
+      end
+    end
+    LichTrinhGiangDay.all.each do |dd|
+      l = LopMonHoc.where(ma_lop: dd.ma_lop, ma_mon_hoc: dd.ma_mon_hoc, ma_giang_vien: dd.ma_giang_vien).first
+      if l 
+        dd.lop_mon_hoc = l
+        dd.save!
+      end
+    end    
   end
 end
 def titleize(str)
