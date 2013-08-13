@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130730093435046) do
+ActiveRecord::Schema.define(:version => 20130813025900) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -72,9 +72,8 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.integer  "diem"
     t.string   "loai_diem"
     t.integer  "lan"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
-    t.integer  "lop_mon_hoc_sinh_vien_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "diem_chuyen_cans", :force => true do |t|
@@ -108,6 +107,8 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.integer  "lop_mon_hoc_id"
   end
 
+  add_index "diem_danhs", ["lop_mon_hoc_id"], :name => "index_diem_danhs_on_lop_mon_hoc_id"
+
   create_table "giang_viens", :force => true do |t|
     t.string   "ho_ten"
     t.string   "hoc_vi"
@@ -121,6 +122,8 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.integer  "topics_count"
     t.integer  "posts_count"
   end
+
+  add_index "giang_viens", ["ma_giang_vien"], :name => "index_giang_viens_on_ma_giang_vien"
 
   create_table "groups", :force => true do |t|
     t.string   "name"
@@ -165,6 +168,8 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.text     "voters"
   end
 
+  add_index "lich_trinh_giang_days", ["lop_mon_hoc_id"], :name => "index_lich_trinh_giang_days_on_lop_mon_hoc_id"
+
   create_table "lop_gheps", :force => true do |t|
     t.string   "ma_lop_ghep"
     t.string   "nam_hoc"
@@ -202,7 +207,11 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.integer  "lan4"
     t.integer  "lan5"
     t.string   "ma_lop_hc"
+    t.string   "ho"
   end
+
+  add_index "lop_mon_hoc_sinh_viens", ["group_id"], :name => "index_lop_mon_hoc_sinh_viens_on_group_id"
+  add_index "lop_mon_hoc_sinh_viens", ["ma_lop_ghep", "ma_mon_hoc"], :name => "index_lop_mon_hoc_sinh_viens_on_ma_lop_ghep_and_ma_mon_hoc"
 
   create_table "lop_mon_hocs", :force => true do |t|
     t.string   "ma_lop"
@@ -229,6 +238,8 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.integer  "so_lan_kt"
     t.boolean  "thuc_hanh"
   end
+
+  add_index "lop_mon_hocs", ["user_id"], :name => "index_lop_mon_hocs_on_user_id"
 
   create_table "mon_hocs", :force => true do |t|
     t.string   "ma_mon_hoc"
@@ -265,7 +276,12 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.integer  "user_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "ma_lop"
+    t.string   "ma_mon_hoc"
+    t.string   "ma_giang_vien"
   end
+
+  add_index "posts", ["lop_mon_hoc_id", "topic_id"], :name => "index_posts_on_lop_mon_hoc_id_and_topic_id"
 
   create_table "ra_som_vao_muons", :force => true do |t|
     t.string   "ma_giang_vien"
@@ -280,31 +296,6 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
-
-  create_table "rates", :force => true do |t|
-    t.integer  "rater_id"
-    t.integer  "rateable_id"
-    t.string   "rateable_type"
-    t.float    "stars",         :null => false
-    t.string   "dimension"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  add_index "rates", ["rateable_id", "rateable_type"], :name => "index_rates_on_rateable_id_and_rateable_type"
-  add_index "rates", ["rater_id"], :name => "index_rates_on_rater_id"
-
-  create_table "rating_caches", :force => true do |t|
-    t.integer  "cacheable_id"
-    t.string   "cacheable_type"
-    t.float    "avg",            :null => false
-    t.integer  "qty",            :null => false
-    t.string   "dimension"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
-
-  add_index "rating_caches", ["cacheable_id", "cacheable_type"], :name => "index_rating_caches_on_cacheable_id_and_cacheable_type"
 
   create_table "sinh_viens", :force => true do |t|
     t.string   "ma_sinh_vien"
@@ -324,6 +315,9 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.integer  "topics_count"
     t.integer  "posts_count"
   end
+
+  add_index "sinh_viens", ["lop_hc"], :name => "index_sinh_viens_on_lop_hc"
+  add_index "sinh_viens", ["ma_sinh_vien"], :name => "index_sinh_viens_on_ma_sinh_vien"
 
   create_table "tai_lieu_mon_hocs", :force => true do |t|
     t.string   "ma_giang_vien"
@@ -357,6 +351,8 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.integer  "lop_mon_hoc_id"
   end
 
+  add_index "thong_bao_lop_hocs", ["lop_mon_hoc_id"], :name => "index_thong_bao_lop_hocs_on_lop_mon_hoc_id"
+
   create_table "tkb_giang_viens", :force => true do |t|
     t.string   "ma_giang_vien"
     t.string   "ma_lop"
@@ -377,7 +373,10 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.string   "ten_mon_hoc"
     t.string   "ten_giang_vien"
     t.string   "loai"
+    t.integer  "lop_mon_hoc_id"
   end
+
+  add_index "tkb_giang_viens", ["lop_mon_hoc_id"], :name => "index_tkb_giang_viens_on_lop_mon_hoc_id"
 
   create_table "topics", :force => true do |t|
     t.string   "title"
@@ -387,7 +386,12 @@ ActiveRecord::Schema.define(:version => 20130730093435046) do
     t.boolean  "locked"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "ma_lop"
+    t.string   "ma_mon_hoc"
+    t.string   "ma_giang_vien"
   end
+
+  add_index "topics", ["lop_mon_hoc_id"], :name => "index_topics_on_lop_mon_hoc_id"
 
   create_table "tuans", :force => true do |t|
     t.integer  "stt"

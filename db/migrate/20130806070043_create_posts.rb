@@ -8,5 +8,6 @@ class CreatePosts < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :posts, [:lop_mon_hoc_id, :topic_id]
   end
 end

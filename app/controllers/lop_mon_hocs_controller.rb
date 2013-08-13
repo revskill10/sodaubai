@@ -7,7 +7,7 @@ class LopMonHocsController < ApplicationController
   # GET /lop_mon_hocs/1
   # GET /lop_mon_hocs/1.json
   def index
-    
+    authorize! :read, @lop_mon_hoc
     @lops = LopMonHoc.find(:all, :order => "id desc", :limit => 3)
     respond_to do |format|    
       format.xlsx {
@@ -51,6 +51,7 @@ class LopMonHocsController < ApplicationController
     end
   end
   def update
+    authorize! :manage, @lop_mon_hoc
     @sn = params[:so_nhom].blank? ? 1 : params[:so_nhom].to_i
     @sl = params[:so_lan_kt].blank? ? 0 : params[:so_lan_kt].to_i
     th = params[:thuc_hanh]
@@ -77,6 +78,7 @@ class LopMonHocsController < ApplicationController
 
 
   def calendar
+    authorize! :read, @lop_mon_hoc
     @lich = @lop_mon_hoc.get_days
     respond_to do |format|
       if request.headers['X-PJAX']

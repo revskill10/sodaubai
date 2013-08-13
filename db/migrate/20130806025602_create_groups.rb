@@ -1,6 +1,5 @@
 class CreateGroups < ActiveRecord::Migration
-  def change
-  	return if PgTools.private_search_path?
+  def change   
     create_table :groups do |t|
       t.string :name
 

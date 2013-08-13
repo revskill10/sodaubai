@@ -74,16 +74,17 @@
 
         .tab-pane.active#tab2                  
           .well.sidebar-nav
-            %table{:class => "table table-bordered table-condensed datatable"}  
+            %table{:class => "table table-bordered table-condensed datatable"}                              
               %tbody    
                 - @svs2.each_with_index do |svs, index|    
                   %tr{:class => (index%2==1 ? :warning: :success)}
-                    - svs.each do |sv, i|      
+                    - svs.each_with_index do |sv, i|
                       %td
                         %div             
-                          %p= sv.ho_dem + " " + sv.ten
-                          %span= sv.ma_sinh_vien
+                          %p= "#{index*4 + i + 1}" + ". " +sv.ho + " " + sv.ho_dem + " " + sv.ten
+                          %span= sv.ma_lop_hanh_chinh
                           %span= check_box_tag "msv[#{sv.ma_sinh_vien}]", nil, get_status(@lop_mon_hoc, sv, @ngay), :class => "drag"
+
         
 
 
