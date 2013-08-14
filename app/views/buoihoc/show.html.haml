@@ -84,7 +84,7 @@
                           %p= "#{index*4 + i + 1}" + ". " + (sv.ho || "") + " " + (sv.ho_dem || "") + " " + (sv.ten || "")
                           %span= sv.ma_sinh_vien
                           %br
-                          %span= sv.ma_lop_hanh_chinh
+                          %span= (sv.ma_lop_hanh_chinh || "")
                           %span= check_box_tag "msv[#{sv.ma_sinh_vien}]", nil, get_status(@lop_mon_hoc, sv, @ngay), :class => "drag"
 
         

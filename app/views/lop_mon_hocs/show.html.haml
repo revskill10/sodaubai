@@ -22,11 +22,14 @@
                 %li= link_to "Điểm kiểm tra thực hành", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id)
             %li.dropdown
               %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
-                Quản lý
+                - if can? :manage, @lop_mon_hoc
+                  Quản lý
+                - else
+                  Tiện ích
                 %b.caret
               %ul.dropdown-menu
                 %li= link_to "Thông báo", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id)   
-                %li= link_to "Diễn đàn", lop_mon_hoc_topics_path(@lop_mon_hoc.id)
+                %li= link_to "Diễn đàn", lop_mon_hoc_topics_path(@lop_mon_hoc.id)                
                 %li= link_to "Quản lý lớp học", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id)
                 %li= link_to "Thời khóa biểu", lop_mon_hoc_path(@lop_mon_hoc.id)+'/calendar'
           %ul.nav.pull-right

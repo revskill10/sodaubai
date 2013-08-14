@@ -1,0 +1,12 @@
+%thead
+  %td Mã sinh viên        
+  %td Họ đệm
+  %td Tên
+  %td Nhóm
+  
+- @lop_mon_hoc_sinh_viens.each do |lop_mon_hoc_sinh_vien|
+  %tr{:id => lop_mon_hoc_sinh_vien.ma_sinh_vien}
+    %td= lop_mon_hoc_sinh_vien.ma_sinh_vien
+    %td= lop_mon_hoc_sinh_vien.ho_dem
+    %td= lop_mon_hoc_sinh_vien.ten
+    %td= lop_mon_hoc_sinh_vien.group_id
