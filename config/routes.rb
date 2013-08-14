@@ -14,54 +14,57 @@ Trytest::Application.routes.draw do
   end
   ActiveAdmin.routes(self)
   
-    resources :tkb_giang_viens
+  resources :tkb_giang_viens
 
-    resources :giang_viens
-    resources :mon_hocs
-    resources :sinh_viens, :only => :index  
-    resources :lop_mon_hocs do             
-      member do 
-        get '/calendar' => 'lop_mon_hocs#calendar'        
-      end
-      resources :diem_chi_tiets      do  
-        collection do        
-          get '/:loai' => 'diem_chi_tiets#index'
-          post '/:loai'  => 'diem_chi_tiets#create'
-        end
-      end
-      resources :diem_chuyen_cans
-      resources :lop_mon_hoc_sinh_viens  do 
-        collection do 
-          post '/groupupdate' => 'lop_mon_hoc_sinh_viens#groupupdate'
-          get '/group' => 'lop_mon_hoc_sinh_viens#group'
-        end
-      end  
-      resources :topics do 
-        resources :posts
-      end  
-      resources :can_bo_lops
-      resources :tai_lieu_mon_hocs
-      resources :thong_bao_lop_hocs
-      resources :dang_ky_day_bus
-      resources :kien_nghis
-      resources :nhat_kies
-      resources :ra_som_vao_muons
-      resources :day_thays
-      resources :nghi_days
-      resources :buoihoc do 
-        member do
-          post 'rate' => 'buoihoc#rate'
-          post 'update', :as => 'update'          
-          post 'diemdanh'
-          get 'diemdanh' => 'buoihoc#get_diemdanh'
-          get 'lichtrinh'
-          get 'lichtrinh_edit' => 'buoihoc#lichtrinh_edit'
-          post 'lichtrinh' => 'buoihoc#syllabus'
-        end        
+  resources :giang_viens
+  resources :mon_hocs
+  resources :sinh_viens    
+  resources :lop_mon_hocs do             
+    member do 
+      get '/calendar' => 'lop_mon_hocs#calendar'        
+    end
+    resources :diem_chi_tiets      do  
+      collection do        
+        get '/:loai' => 'diem_chi_tiets#index'
+        post '/:loai'  => 'diem_chi_tiets#create'
       end
     end
-  
-    match '*a', :to => 'application#routing'
+    resources :diem_chuyen_cans
+    resources :lop_mon_hoc_sinh_viens  do 
+      collection do 
+        post '/groupupdate' => 'lop_mon_hoc_sinh_viens#groupupdate'
+        get '/group' => 'lop_mon_hoc_sinh_viens#group'
+      end
+    end  
+    resources :topics do 
+      resources :posts
+    end  
+    resources :can_bo_lops
+    resources :tai_lieu_mon_hocs
+    resources :thong_bao_lop_hocs
+    resources :dang_ky_day_bus
+    resources :kien_nghis
+    resources :nhat_kies
+    resources :ra_som_vao_muons
+    resources :day_thays
+    resources :nghi_days
+    resources :buoihoc do 
+      member do
+        post 'rate' => 'buoihoc#rate'
+        post 'update', :as => 'update'          
+        post 'diemdanh'
+        get 'diemdanh' => 'buoihoc#get_diemdanh'
+        get 'lichtrinh'
+        get 'lichtrinh_edit' => 'buoihoc#lichtrinh_edit'
+        post 'lichtrinh' => 'buoihoc#syllabus'
+      end        
+    end
+  end
+  get "quanly" => 'quanly#index', :as => 'quanly'
+  match '/quanly/loptach' => 'quanly#loptach', :as => 'quanlyloptach'
+  post 'sinh_viens/filter' => 'sinh_viens#filter', :as => 'filtersinhvien'
+  match '/quanly/update_loptach' => 'quanly#update_loptach', :as => 'updateloptach'
+  match '*a', :to => 'application#routing'
   
   
 

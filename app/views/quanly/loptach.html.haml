@@ -1,0 +1,46 @@
+
+
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/" } HPU
+        .container.nav-collapse
+          %ul.nav.pull-left#urls            
+            %li= link_to "Quản lý", quanly_path          
+            %li.active= link_to "Lớp tách", quanlyloptach_path           
+            
+            
+          %ul.nav.pull-right            
+            %li= link_to 'Đăng xuất', destroy_user_session_path
+              
+
+.container-fluid{:style=>"margin-top: 4%;"}   
+  .row-fluid  
+    .span5
+      %h6 Chọn lớp hành chính      
+      = submit_tag "Lấy danh sách sinh viên", :class => "btn btn-primary"
+      %br
+      %br
+      = form_tag filtersinhvien_path, :method => :post, :remote => true do         
+        = collection_select(nil, "lophanhchinh",  @lophcsv, :id, :lop_hc, {:class => "combobox"})
+       
+    = form_tag updateloptach_path, :method => :put, :remote => true do               
+      .span2
+        %br
+        %br
+        %br
+        = submit_tag "-->", :class => "btn btn-primary", :name => :putsv
+      .span5
+        %h6 Chọn lớp tín chỉ
+        = submit_tag "Lấy danh sách sinh viên", :class => "btn btn-primary", :name => :getsv
+        %br
+        %br
+        
+          = collection_select(nil, "loptinchi",  @loptinchi, :id, :ma_lop, {:class => "combobox"})
+          
+        

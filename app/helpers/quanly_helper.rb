@@ -1,0 +1,2 @@
+module QuanlyHelper
+end
