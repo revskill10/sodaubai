@@ -44,5 +44,8 @@
           - if @lop_mon_hoc.group 
             - @lop_mon_hoc.group.times do |g|
               %tr
-                %td= "Nhóm #{(g+1).to_s}"                                  
-                %td= text_field_tag "group[#{(g+1).to_s}]", nil, :value => diemgroup(@group_diem, (g+1).to_s), :style => "width: 15%"            
+                %td= "Nhóm #{(g+1).to_s}"       
+                - if can? :manage, @lop_mon_hoc                           
+                  %td= text_field_tag "group[#{(g+1).to_s}]", nil, :value => diemgroup(@group_diem, (g+1).to_s), :style => "width: 15%"
+                - else
+                  %td= diemgroup(@group_diem, (g+1).to_s)            

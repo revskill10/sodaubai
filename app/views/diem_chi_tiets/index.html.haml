@@ -53,9 +53,9 @@
         - @svs.each do |sv|
           %tr
             %td= sv.ma_sinh_vien
-            %td= sv.ho_dem
+            %td= (sv.ho || "") + " " + (sv.ho_dem || "")
             %td= sv.ten
-            %td= sv.group_id || 1         
+            %td= sv.group_id       
             - if @lop_mon_hoc.get_thuc_hanh     
               - if can? :manage, @lop_mon_hoc
                 %td= text_field_tag "msv[#{sv.ma_sinh_vien}][thuchanh]", nil, :value => sv.diem_thuc_hanh || "", :style => "width: 15%"

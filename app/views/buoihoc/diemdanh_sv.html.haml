@@ -8,12 +8,12 @@
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
-        %a.brand{:href => "/", :'data-pjax' => '#pjax_container' } HPU
+        %a.brand{:href => "/" } HPU
         .container.nav-collapse
           %ul.nav#urls
-            %li= link_to "Sổ đầu bài", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
-            %li.active= link_to "Điểm danh chi tiết", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :'data-pjax' => '#pjax_container'
-            %li= link_to "Thông tin lớp", lop_mon_hoc_path(@lop_mon_hoc.id), :'data-pjax' => '#pjax_container'
+            %li= link_to "Sổ đầu bài", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
+            %li.active= link_to "Điểm danh chi tiết", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
+            %li= link_to "Thông tin lớp", lop_mon_hoc_path(@lop_mon_hoc.id)
           %ul.nav.pull-right             
             %li= link_to "Đăng xuất", destroy_user_session_path
 
@@ -30,9 +30,9 @@
           %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.mday}/#{@week.tu_ngay.mon}, đến ngày #{@week.den_ngay.mday}/#{@week.den_ngay.mon}"  
   %ul.nav.pull-right
     - if @buoihoc
-    %li
-      %i
-        %strong= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
+      %li
+        %i
+          %strong= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
   %h4 Thông tin lớp môn: 
   .well.sidebar-nav{:style => "font-size: 12px;"}
     %strong Môn học:  
@@ -69,5 +69,4 @@
           %td= check_box_tag "msv[#{sv.ma_sinh_vien}][status]",nil, get_status(@lop_mon_hoc, sv, @ngay), :disabled => "disabled"
           %td= get_vang(@lop_mon_hoc,sv, @ngay)
           %td= check_box_tag "msv[#{sv.ma_sinh_vien}][phep]",nil, get_phep(@lop_mon_hoc,sv, @ngay), :disabled =>  "disabled" 
-          %td=  get_note(@lop_mon_hoc,sv, @ngay)
-  %li= link_to "Download", diemdanh_lop_mon_hoc_buoihoc_url(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"), format: :xlsx)
+          %td=  get_note(@lop_mon_hoc,sv, @ngay)  
