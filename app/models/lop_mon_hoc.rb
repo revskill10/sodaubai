@@ -43,14 +43,16 @@ class LopMonHoc < ActiveRecord::Base
   end
   def get_tkbs
     results = []
-    tkb_giang_viens.each do |l|
+    tkbs = tkb_giang_viens.uniq {|tk| "#{tk.thu}-#{tk.tiet_bat_dau}-#{tk.tuan_hoc_bat_dau}-#{tk.tiet_bat_dau}-#{tk.phong}-#{tk.ma_lop}-#{tk.ma_mon_hoc}"}
+    tkbs.each do |l|
       results = results + l
     end
     return results
   end
   def get_days
     results = []
-    tkb_giang_viens.each do |l|
+    tkbs = tkb_giang_viens.uniq {|tk| "#{tk.thu}-#{tk.tiet_bat_dau}-#{tk.tuan_hoc_bat_dau}-#{tk.tiet_bat_dau}-#{tk.phong}-#{tk.ma_lop}-#{tk.ma_mon_hoc}"}
+    tkbs.each do |l|
       results = results + JSON.parse(l.get_days)['ngay']
     end
     return results
