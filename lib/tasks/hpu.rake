@@ -218,6 +218,21 @@ namespace :hpu do
       puts gv.ma_giang_vien if gv.days = nil
     end
   end
+  task :update_ho_ten => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    LopMonHocSinhVien.all.each do |lmh|
+      sv = lmh.sinh_vien if lmh
+      if sv 
+        hodem = sv.ho_dem.split(" ").to_a
+        ho = hodem[0]
+        dem = hodem[1..-2] || ""
+        lmh.ho = ho 
+        lmh.ho_dem = dem
+        lmh.ten = hodem[-1] || ""
+      end
+    end
+  end
   task :get_null_lmh => :environment do 
     tenant = Tenant.last
     PgTools.set_search_path tenant.scheme, false
