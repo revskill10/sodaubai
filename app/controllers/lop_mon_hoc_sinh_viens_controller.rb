@@ -103,9 +103,12 @@ class LopMonHocSinhViensController < ApplicationController
     authorize! :manage, @lop_mon_hoc
     msv = params[:lop_mon_hoc_sinh_vien][:ma_sinh_vien]
     @sv = SinhVien.where(ma_sinh_vien: msv).first
-    @lop_mon_hoc_sinh_vien = @lop_mon_hoc.lop_mon_hoc_sinh_viens.build(params[:lop_mon_hoc_sinh_vien])
+    @lop_mon_hoc_sinh_vien = @lop_mon_hoc.lop_mon_hoc_sinh_viens.build(ma_sinh_vien: params[:lop_mon_hoc_sinh_vien][:ma_sinh_vien])
+    @lop_mon_hoc_sinh_vien.ma_mon_hoc = @lop_mon_hoc.ma_mon_hoc
     @lop_mon_hoc_sinh_vien.ten_mon_hoc = @lop_mon_hoc.ten_mon_hoc
     @lop_mon_hoc_sinh_vien.ma_lop_hanh_chinh = @sv.lop_hc
+    @lop_mon_hoc_sinh_vien.ma_lop = @lop_mon_hoc.ma_lop
+    @lop_mon_hoc_sinh_vien.ma_lop_ghep = @lop_mon_hoc.ma_lop
     hodem = @sv.ho_dem.split(" ").to_a
     dem = hodem.last
     ho = hodem.first

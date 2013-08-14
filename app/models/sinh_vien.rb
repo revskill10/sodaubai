@@ -4,8 +4,7 @@ class SinhVien < ActiveRecord::Base
   validates :ma_sinh_vien, :uniqueness => { :case_sensitive => false }
   validates :ma_sinh_vien, :trang_thai, :presence => true
 
-  has_one :user, :as => :imageable
-  delegate :username, :to => :user
+  has_one :user, :as => :imageable  
   has_one :can_bo_lop, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien'
   has_many :lop_mon_hoc_sinh_viens, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien', :dependent => :destroy
       
@@ -31,7 +30,9 @@ class SinhVien < ActiveRecord::Base
       self.ten
     end
   end 
-
+  def to_s
+    fullname + ": " + ma_sinh_vien
+  end
   def lop_mon_hocs
    lop_mon_hoc_sinh_viens.map {|t| t and t.lop_mon_hoc }   
   end

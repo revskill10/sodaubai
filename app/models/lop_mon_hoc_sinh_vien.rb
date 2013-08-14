@@ -12,11 +12,18 @@ class LopMonHocSinhVien < ActiveRecord::Base
   has_many :lich_trinh_giang_days, :dependent => :nullify
   has_many :thong_bao_lop_hocs, :dependent => :nullify
 
-  validates :ma_sinh_vien, :presence => true  
+  validates :ma_sinh_vien, :ma_lop, :ma_mon_hoc, :ma_lop_ghep,  :presence => true  
   after_create :set_ma_lop_ghep
 
-  def set_ma_lop_ghep
-    ma_lop = ma_lop_ghep
+  def set_ma_lop_ghep    
+    ten_mon_hoc = lop_mon_hoc.ten_mon_hoc if lop_mon_hoc
+    if sinh_vien
+      hodem = sinh_vien.ho_dem.split(" ").to_a 
+      ho_dem = hodem[1]
+      ho = hodem[0]      
+      ten = sinh_vien.ten
+      ma_lop_hanh_chinh = sinh_vien.lop_hc
+    end
     save! rescue puts "Error lop ghep"
   end
   def convert_grade(diem)

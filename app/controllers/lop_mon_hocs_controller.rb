@@ -27,7 +27,7 @@ class LopMonHocsController < ApplicationController
   end
   def show
     authorize! :read, @lop_mon_hoc
-    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     
     
     respond_to do |format|
@@ -62,7 +62,7 @@ class LopMonHocsController < ApplicationController
     
 
     if @lop_mon_hoc.save! then 
-      @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten ASC')      
+      @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens
       @lop_mon_hoc_sinh_viens.update_all(:group_id => 1) if @sn == 1 
       @group = @lop_mon_hoc.group || 1
       @groups_arrays = {}

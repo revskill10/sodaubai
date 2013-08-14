@@ -23,7 +23,7 @@ class Ability
     end
     if user.imageable.is_a?(SinhVien)
         can [:read, :rate], LopMonHoc, ["order by created_at"] do |lop|
-            user.imageable.lop_mon_hocs.map(&:id).include?(lop.id) if user.imageable.is_a?(SinhVien)
+            user.imageable.lop_mon_hocs.map(&:id).include?(lop.id) if user.imageable.is_a?(SinhVien) if lop
         end
     end
     # Define abilities for the passed in user here. For example:

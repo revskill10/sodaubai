@@ -6,9 +6,8 @@ ActiveAdmin.register LopMonHoc do
   menu :label => "Lớp môn học"
   index do 
     column :ma_lop
-    column :ma_mon_hoc
-    column :ten_mon_hoc
-    column :ma_giang_vien
+    column :ma_mon_hoc    
+    column :giang_vien
     column :user
     default_actions
   end
@@ -18,8 +17,7 @@ ActiveAdmin.register LopMonHoc do
       
       f.input :ma_lop, :as => :string, :label => "Mã lớp"
       f.input :ma_mon_hoc, :label => "Mã môn học"
-      f.input :ma_giang_vien, :label => "Mã giảng viên"
-      f.input :ten_mon_hoc, :disabled => true, :label => "Tên môn học"
+      f.input :giang_vien, :label => "Mã giảng viên"      
       f.input :user, :label => "Trợ giảng"
     end
 
