@@ -161,15 +161,7 @@ namespace :hpu do
     Rake::Task["hpu:update_upcase"].invoke      
     Rake::Task["hpu:load_sv"].invoke
   end
-  task :remove_duplicate_tkb => :environment do 
-
-    tenant = Tenant.last
-    PgTools.set_search_path tenant.scheme, false
-    TkbGiangVien.all.each do |tkb|
-      tkb.update_attributes(days: tkb.get_days)
-      tkb.save rescue puts "Error #{tkb.ma_lop}"
-    end
-  end
+  
   task :update_tong_so_tiet => :environment do 
 #    tenant = Tenant.last
 #    PgTools.set_search_path tenant.scheme, false

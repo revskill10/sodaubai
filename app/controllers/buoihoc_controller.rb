@@ -208,7 +208,7 @@ class BuoihocController < ApplicationController
     @type = current_user.imageable
     if @type.is_a?(GiangVien) then 
       @lich = @type.get_days[:ngay]
-      @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
+      @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc).first
       @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0]
     elsif @type.is_a?(SinhVien)
       @lich = @type.get_days[:ngay]

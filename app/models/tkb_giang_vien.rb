@@ -42,7 +42,7 @@ class TkbGiangVien < ActiveRecord::Base
     new_schedule
   end
   def get_days
-    x = schedule.all_occurrences.uniq
+    x = schedule.all_occurrences
     y = x.each_slice(x.count/so_tuan).to_a
     z = y.each_with_index.map {|m,t| {:tuan => tuan_hoc_bat_dau + t, :time => m, :lop => lop_mon_hoc.id, :ma_lop => ma_lop, :ma_mon_hoc => ma_mon_hoc , :thu => thu, :so_tiet => so_tiet, :tiet_bat_dau => tiet_bat_dau,
     :ten_mon_hoc => ten_mon_hoc, :phong => phong } }
