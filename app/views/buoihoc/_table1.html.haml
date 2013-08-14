@@ -14,7 +14,7 @@
 - @svvang.each do |sv|
   %tr
     %td= sv.ma_sinh_vien
-    %td= sv.ho + " " + sv.ho_dem
+    %td= (sv.ho || "") + " " + (sv.ho_dem || "")
     %td= sv.ten
     %td= get_vang(@lop_mon_hoc, sv, @ngay)
     %td= check_box_tag "msv2[#{sv.ma_sinh_vien}][phep]",nil, get_phep(@lop_mon_hoc, sv, @ngay), :disabled => "disabled"

@@ -81,7 +81,7 @@
                     - svs.each_with_index do |sv, i|
                       %td
                         %div             
-                          %p= "#{index*4 + i + 1}" + ". " +sv.ho + " " + sv.ho_dem + " " + sv.ten
+                          %p= "#{index*4 + i + 1}" + ". " + (sv.ho || "") + " " + (sv.ho_dem || "") + " " + (sv.ten || "")
                           %span= sv.ma_sinh_vien
                           %br
                           %span= sv.ma_lop_hanh_chinh
