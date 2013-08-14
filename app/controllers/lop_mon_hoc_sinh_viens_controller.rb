@@ -104,6 +104,13 @@ class LopMonHocSinhViensController < ApplicationController
     msv = params[:lop_mon_hoc_sinh_vien][:ma_sinh_vien]
     @sv = SinhVien.where(ma_sinh_vien: msv).first
     @lop_mon_hoc_sinh_vien = @lop_mon_hoc.lop_mon_hoc_sinh_viens.build(params[:lop_mon_hoc_sinh_vien])
+    @lop_mon_hoc_sinh_vien.ten_mon_hoc = @lop_mon_hoc.ten_mon_hoc
+    @lop_mon_hoc_sinh_vien.ma_lop_hanh_chinh = @sv.lop_hc
+    hodem = @sv.ho_dem.split(" ").to_a
+    dem = hodem.last
+    ho = hodem.first
+    @lop_mon_hoc_sinh_vien.ho = ho 
+    @lop_mon_hoc_sinh_vien.ho_dem = dem
     respond_to do |format|
       if @sv 
         @tt = @sv.check_conflict(@lop_mon_hoc) 

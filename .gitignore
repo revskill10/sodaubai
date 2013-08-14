@@ -16,4 +16,4 @@
 /public/system
 /public/assets
 start.bat
-/config/*.yml
+database.yml
