@@ -1,3 +1,4 @@
+$("input#loptc").val("#{@loptc.id}");
 s = $("table#loptc");
 s.empty();
 s.html("#{escape_javascript(render :partial => 'table2')}");

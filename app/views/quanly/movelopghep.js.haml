@@ -1,0 +1,8 @@
+s = $("table#loptc");
+s.empty();
+s.html("#{escape_javascript(render :partial => 'table2')}");
+
+- @svs.each do |sv|
+  $("table#info2 tr##{sv.ma_sinh_vien}").remove();
+
+alert("Đã thêm thành công");

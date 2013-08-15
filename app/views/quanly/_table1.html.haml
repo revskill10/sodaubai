@@ -1,11 +1,14 @@
-%table#lophc.span5.table.table-bordered.table-condensed.table-hover.table-striped
+%input#loptc{:type => "hidden", :value => @loptc, :name => :loptc} 
+
+%table#lophc.table.table-bordered.table-condensed.table-hover.table-striped
   %colgroup
-    %col{:style => "width: 5%"}
-    %col{:style => "width: 25%"}
-    %col{:style => "width: 40%"}            
-    %col{:style => "width: 30%"}  
+    %col{:style => "width: 30%"}
+    %col{:style => "width: 30%"}
+    %col{:style => "width: 20%"}            
+    %col{:style => "width: 20%"}  
   %thead
-    %td Chọn
+    %td
+      %input{:type=> "checkbox",:id=>"selectall"} Chọn hết
     %td Mã sinh viên
     %td Họ đệm
     %td Tên                         
@@ -13,7 +16,32 @@
     - if @svs and @svs.count > 0
       - @svs.each do |sv|
         %tr
-          %td= check_box_tag "msv2[#{sv.ma_sinh_vien}]",nil, false
+          %td= check_box_tag "msv[#{sv.ma_sinh_vien}]",nil, false, :class => "selectedId"
           %td= sv.ma_sinh_vien
           %td= sv.ho_dem || ""
           %td= sv.ten
+:javascript
+  $(document).ready(function () {
+    $('#selectall').click(function () {
+        $('.selectedId').prop('checked', isChecked('selectall'));
+    });
+  });
+  function isChecked(checkboxId) {
+      var id = '#' + checkboxId;
+      return $(id).is(":checked");
+  }
+  function resetSelectAll() {
+      // if all checkbox are selected, check the selectall checkbox
+      // and viceversa
+      if ($(".selectedId").length == $(".selectedId:checked").length) {
+          $("#selectall").attr("checked", "checked");
+      } else {
+          $("#selectall").removeAttr("checked");
+      }
+
+      if ($(".selectedId:checked").length > 0) {
+          $('#edit').attr("disabled", false);
+      } else {
+          $('#edit').attr("disabled", true);
+      }
+  }

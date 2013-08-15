@@ -33,7 +33,7 @@ class LopMonHocSinhViensController < ApplicationController
   end
   def index
     #@lop_mon_hoc_sinh_viens = LopMonHocSinhVien.all
-    @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
+    @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens
 
     if @lop_mon_hoc.group.nil? then 
       @lop_mon_hoc.group = 1
@@ -54,7 +54,7 @@ class LopMonHocSinhViensController < ApplicationController
 
   def group
     #@lop_mon_hoc_sinh_viens = LopMonHocSinhVien.all
-    @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
+    @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     @group = @lop_mon_hoc.group || 1
     @groups_arrays = {}
     @group.times do |g|

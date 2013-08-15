@@ -19,6 +19,7 @@
 //= require redactor.min
 //= require bootstrap-combobox
 //= require best_in_place
+//= require quanly
 
 $(document).ready(function(){
 	$('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bStateSave":true,"bAutoWidth":true,"bSort": false,"sScrollY": "300px"});		

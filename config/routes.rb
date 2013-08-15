@@ -61,10 +61,12 @@ Trytest::Application.routes.draw do
     end
   end
   get "quanly" => 'quanly#index', :as => 'quanly'
-  match '/quanly/lopghep' => 'quanly#lopghep', :as => 'quanlylopghep'
+  match 'quanly/lopghep' => 'quanly#lopghep', :as => 'quanlylopghep'
   post 'quanly/filterlophc' => 'quanly#filterlophc', :as => 'filterlophc'
   post 'quanly/filterloptc' => 'quanly#filterloptc', :as => 'filterloptc'
-  match '/quanly/updatelopghep' => 'quanly#updatelopghep', :as => 'updatelopghep'
+  post 'quanly/checklopghep' => 'quanly#checklopghep', :as => 'checklopghep'
+  post 'quanly/updatelopghep' => 'quanly#updatelopghep', :as => 'updatelopghep'
+  post 'quanly/movelopghep' => 'quanly#movelopghep', :as => 'movelopghep'
   match '*a', :to => 'application#routing'
   
   

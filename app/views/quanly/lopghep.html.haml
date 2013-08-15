@@ -1,5 +1,3 @@
-
-
 .container-fluid
   .navbar.navbar-fixed-top
     .navbar-inner
@@ -37,18 +35,25 @@
           = submit_tag "Lấy danh sách sinh viên", :class => "btn btn-primary"
         .row-fluid
           %br
-          = collection_select(:sv, "loptinchi",  @loptinchi, :ma_lop, :ma_lop, {:selected => false}, {:class => "combobox"})
-  .row-fluid
-    .well.sidebar-nav{:style => "font-size: 12px;"}
-      %div#info
-              
-  = form_tag updatelopghep_path, :method => :put, :remote => true do     
-    .row-fluid     
-      .span1.offset5= submit_tag "-->", :class => "btn btn-primary", :name => :putsv
+          = collection_select(:sv, "loptinchi",  @loptinchi, :id, :to_s, {:selected => false}, {:class => "combobox"})
+  = form_tag movelopghep_path, :method => :post, :remote => true do           
     .row-fluid
+      .well.sidebar-nav{:style => "font-size: 12px;"}
+        %input#loptc{:type => "hidden", :value => @loptc, :name => :loptc} 
+        %div#info            
+
+  .span5
+    = form_tag checklopghep_path, :method => :post, :remote => true do              
+      .row-fluid
+        .span1.offset2= submit_tag "Kiểm tra", :class => "btn btn-primary", :name => :checksv, :id => :checksv               
+        
       = render 'table1'    
+  .span5
+    = form_tag updatelopghep_path, :method => :post, :remote => true do     
+      .row-fluid
+        .span1.offset5= submit_tag "Xóa sinh viên khỏi lớp", :class => "btn btn-primary", :name => :putsv, :id => :putsv         
       = render 'table2'
-        
           
+            
+            
           
-        

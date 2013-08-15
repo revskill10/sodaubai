@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   belongs_to :imageable, :polymorphic => true
   
   
-  has_and_belongs_to_many :groups
+  has_and_belongs_to_many :groups,  :join_table => "users_groups"
   has_many :lop_mon_hocs
   def cas_extra_attributes=(extra_attributes)
     if extra_attributes["status"] != 0    	    
