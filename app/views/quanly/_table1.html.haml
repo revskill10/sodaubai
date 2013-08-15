@@ -1,0 +1,19 @@
+%table#lophc.span5.table.table-bordered.table-condensed.table-hover.table-striped
+  %colgroup
+    %col{:style => "width: 5%"}
+    %col{:style => "width: 25%"}
+    %col{:style => "width: 40%"}            
+    %col{:style => "width: 30%"}  
+  %thead
+    %td Chọn
+    %td Mã sinh viên
+    %td Họ đệm
+    %td Tên                         
+  %tbody
+    - if @svs and @svs.count > 0
+      - @svs.each do |sv|
+        %tr
+          %td= check_box_tag "msv2[#{sv.ma_sinh_vien}]",nil, false
+          %td= sv.ma_sinh_vien
+          %td= sv.ho_dem || ""
+          %td= sv.ten

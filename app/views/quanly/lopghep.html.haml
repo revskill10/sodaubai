@@ -1,0 +1,54 @@
+
+
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/" } HPU
+        .container.nav-collapse
+          %ul.nav.pull-left#urls            
+            %li= link_to "Quản lý", quanly_path          
+            %li.active= link_to "Lớp tách", quanlylopghep_path           
+            
+            
+          %ul.nav.pull-right            
+            %li= link_to 'Đăng xuất', destroy_user_session_path
+              
+
+.container-fluid{:style=>"margin-top: 4%;"}   
+  .row-fluid  
+    .span5
+      = form_tag filterlophc_path, :method => :post, :remote => true do         
+        %h6 Chọn lớp hành chính              
+        .row-fluid                    
+          = submit_tag "Lấy danh sách sinh viên", :class => "btn btn-primary"
+        .row-fluid
+          %br
+          = collection_select(:sv, "lophanhchinh",  @lophcsv, :lop_hc, :lop_hc, {:selected => false}, {:class => "combobox"})
+        
+    .span5.offset2
+      = form_tag filterloptc_path, :method => :post, :remote => true do         
+        %h6 Chọn lớp tín chỉ                              
+        .row-fluid
+          = submit_tag "Lấy danh sách sinh viên", :class => "btn btn-primary"
+        .row-fluid
+          %br
+          = collection_select(:sv, "loptinchi",  @loptinchi, :ma_lop, :ma_lop, {:selected => false}, {:class => "combobox"})
+  .row-fluid
+    .well.sidebar-nav{:style => "font-size: 12px;"}
+      %div#info
+              
+  = form_tag updatelopghep_path, :method => :put, :remote => true do     
+    .row-fluid     
+      .span1.offset5= submit_tag "-->", :class => "btn btn-primary", :name => :putsv
+    .row-fluid
+      = render 'table1'    
+      = render 'table2'
+        
+          
+          
+        
