@@ -83,7 +83,7 @@ class LopMonHocSinhViensController < ApplicationController
   # GET /lop_mon_hoc_sinh_viens/new
   # GET /lop_mon_hoc_sinh_viens/new.json
   def new
-    authorize! :manage, @lop_mon_hoc
+    authorize! :manage, LopMonHocSinhVien
     @lop_mon_hoc_sinh_vien = @lop_mon_hoc.lop_mon_hoc_sinh_viens.build
 
     respond_to do |format|
@@ -100,7 +100,7 @@ class LopMonHocSinhViensController < ApplicationController
   # POST /lop_mon_hoc_sinh_viens
   # POST /lop_mon_hoc_sinh_viens.json
   def create    
-    authorize! :manage, @lop_mon_hoc
+    authorize! :manage, LopMonHocSinhVien
     msv = params[:lop_mon_hoc_sinh_vien][:ma_sinh_vien]
     @sv = SinhVien.where(ma_sinh_vien: msv).first
     @lop_mon_hoc_sinh_vien = @lop_mon_hoc.lop_mon_hoc_sinh_viens.build(ma_sinh_vien: params[:lop_mon_hoc_sinh_vien][:ma_sinh_vien])
@@ -161,7 +161,7 @@ class LopMonHocSinhViensController < ApplicationController
   # DELETE /lop_mon_hoc_sinh_viens/1
   # DELETE /lop_mon_hoc_sinh_viens/1.json
   def destroy
-    authorize! :manage, @lop_mon_hoc
+    authorize! :manage, LopMonHocSinhVien
     @lop_mon_hoc_sinh_vien = @lop_mon_hoc.lop_mon_hoc_sinh_viens.find(params[:id])
     @lop_mon_hoc_sinh_vien.status = true
     @lop_mon_hoc_sinh_vien.save! rescue puts "error"

@@ -60,9 +60,11 @@
         %br
         %br
         = submit_tag "Thiết lập", :class => "btn" 
-        %ul.nav.pull-right
-          %li
-            = link_to 'Thêm sinh viên vào lớp', new_lop_mon_hoc_lop_mon_hoc_sinh_vien_path(@lop_mon_hoc), :class => 'btn'
+
+        - if can? :manage, LopMonHocSinhVien
+          %ul.nav.pull-right
+            %li
+              = link_to 'Thêm sinh viên vào lớp', new_lop_mon_hoc_lop_mon_hoc_sinh_vien_path(@lop_mon_hoc), :class => 'btn'
 
     = form_tag groupupdate_lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id), :method => :post, :remote => true do         
       %ul.nav.pull-right
