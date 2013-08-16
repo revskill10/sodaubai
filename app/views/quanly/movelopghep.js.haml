@@ -1,7 +1,7 @@
 s = $("table#loptc");
 s.empty();
 s.html("#{escape_javascript(render :partial => 'table2')}");
-$("input#loptc").val("#{@loptc.id}");
+$("input#loptc").val("#{(@lop.id if @lop)}");
 - @svs.each do |sv|
   $("table#info2 tr##{sv.ma_sinh_vien}").remove();
 
