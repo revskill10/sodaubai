@@ -14,10 +14,7 @@ ActiveAdmin.register LopMonHoc do
   form do |f|
 
     f.inputs "Details" do 
-      
-      f.input :ma_lop, :as => :string, :label => "Mã lớp"
-      f.input :ma_mon_hoc, :label => "Mã môn học"
-      f.input :giang_vien, :label => "Mã giảng viên"      
+            
       f.input :user, :label => "Trợ giảng"
     end
 
