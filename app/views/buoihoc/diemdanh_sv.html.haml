@@ -64,7 +64,7 @@
       - @svs.each do |sv|
         %tr
           %td= sv.ma_sinh_vien
-          %td= sv.ho_dem
+          %td= (sv.ho || "") + " " + (sv.ho_dem || "")
           %td= sv.ten
           %td= check_box_tag "msv[#{sv.ma_sinh_vien}][status]",nil, get_status(@lop_mon_hoc, sv, @ngay), :disabled => "disabled"
           %td= get_vang(@lop_mon_hoc,sv, @ngay)

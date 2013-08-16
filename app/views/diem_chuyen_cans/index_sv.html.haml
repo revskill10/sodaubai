@@ -56,7 +56,7 @@
       - @svs.each do |sv|
         %tr
           %td= sv.ma_sinh_vien
-          %td= sv.ho_dem
+          %td= (sv.ho || "") + " " + (sv.ho_dem || "")
           %td= sv.ten  
           %td= sv.ma_lop_hc
           %td.progress  

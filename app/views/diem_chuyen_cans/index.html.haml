@@ -61,8 +61,8 @@
       %tbody
         - @svs.each do |sv|
           %tr
-            %td= sv.ma_sinh_vien
-            %td= sv.ho_dem
+            %td= sv.ma_sinh_vien            
+            %td= (sv.ho || "") + " " + (sv.ho_dem || "")
             %td= sv.ten  
             %td Mã lớp
             %td.progress  
