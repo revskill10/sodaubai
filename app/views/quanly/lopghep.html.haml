@@ -51,7 +51,8 @@
   .span5
     = form_tag updatelopghep_path, :method => :post, :remote => true do     
       .row-fluid
-        .span1.offset5= submit_tag "Xóa sinh viên khỏi lớp", :class => "btn btn-primary", :name => :putsv, :id => :putsv         
+        .span1.offset5= submit_tag "Xóa sinh viên khỏi lớp", :class => "btn btn-primary", :name => :putsv, :id => :putsv      
+      %input#loptc{:type => "hidden", :value => @loptc, :name => :loptc}    
       = render 'table2'
           
             

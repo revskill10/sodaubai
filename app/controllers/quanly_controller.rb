@@ -58,7 +58,19 @@ class QuanlyController < ApplicationController
 	end
 	def updatelopghep
 		authorize! :manage, LopMonHocSinhVien
-		
+		begin
+			if params[:msv]
+				@msvs = params[:msv].keys
+				@lop = LopMonHoc.find(params[:loptc])
+				if @lop
+					@lop.lop_mon_hoc_sinh_viens.update_all({:status => true}, {:ma_sinh_vien => @msvs})
+					@svs = @lop.lop_mon_hoc_sinh_viens
+					@loptc = @lop.id
+				end
+			end
+		rescue Exception => e 
+			@error = e
+		end
 		respond_to do |format|
 			format.js
 		end

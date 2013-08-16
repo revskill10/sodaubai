@@ -1,0 +1,7 @@
+- if @error
+  alert("Đã có lỗi xảy ra #{@error}");
+- else
+  s = $("table#loptc");
+  s.empty();
+  s.html("#{escape_javascript(render :partial => 'table2')}");
+  alert("Xóa thành công");
