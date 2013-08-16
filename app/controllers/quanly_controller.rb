@@ -58,6 +58,7 @@ class QuanlyController < ApplicationController
 	end
 	def updatelopghep
 		authorize! :manage, LopMonHocSinhVien
+		
 		respond_to do |format|
 			format.js
 		end
