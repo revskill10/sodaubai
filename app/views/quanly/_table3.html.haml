@@ -1,4 +1,4 @@
-- if @dup and @dup.count > 0
+- if @dupsv and @dupsv.count > 0
   %h6 Các sinh viên đã có trong danh sách lớp
   %table#info.table.table-bordered.table-condensed.table-hover.table-striped
     %colgroup
@@ -12,9 +12,9 @@
       %td Họ đệm
       %td Tên                         
     %tbody
-      - @dup.each do |sv|
+      - @dupsv.each do |sv|
         %tr
-          %td= check_box_tag "msv[#{sv.ma_sinh_vien}]",nil, false
+          %td= check_box_tag "msv[#{sv.ma_sinh_vien}]",nil, false, :disabled => true
           %td= sv.ma_sinh_vien
           %td= sv.ho_dem || ""
           %td= sv.ten

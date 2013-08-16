@@ -62,6 +62,7 @@ Trytest::Application.routes.draw do
   end
   get "quanly" => 'quanly#index', :as => 'quanly'
   match 'quanly/lopghep' => 'quanly#lopghep', :as => 'quanlylopghep'
+  post 'quanly/filtersv' => 'quanly#filtersv', :as => 'filtersv'
   post 'quanly/filterlophc' => 'quanly#filterlophc', :as => 'filterlophc'
   post 'quanly/filterloptc' => 'quanly#filterloptc', :as => 'filterloptc'
   post 'quanly/checklopghep' => 'quanly#checklopghep', :as => 'checklopghep'

@@ -33,7 +33,7 @@ class SinhVien < ActiveRecord::Base
   end
   def fullname
     if self.ho_dem
-      self.ho_dem + self.ten 
+      self.ho_dem + " " + self.ten 
     else
       self.ten
     end

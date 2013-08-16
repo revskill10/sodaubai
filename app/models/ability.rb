@@ -26,7 +26,7 @@ class Ability
             user.imageable.lop_mon_hocs.map(&:id).include?(lop.id) if user.imageable.is_a?(SinhVien) if lop
         end
     end
-    if user.groups.count > 0 and user.groups.map(&:id).include?(5)
+    if user.groups.count > 0 and user.groups.map(&:name).include?("daotao")
         can :manage, LopMonHocSinhVien
     end
     # Define abilities for the passed in user here. For example:

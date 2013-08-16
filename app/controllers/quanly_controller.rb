@@ -7,8 +7,10 @@ class QuanlyController < ApplicationController
 	end
 	def lopghep
 		authorize! :manage, LopMonHocSinhVien
-		@lophcsv = SinhVien.all.uniq {|k| k.lop_hc }
+		@allsv = SinhVien.all
+		@lophcsv = @allsv.uniq {|k| k.lop_hc }
 		@loptinchi = LopMonHoc.all.uniq {|k| k.to_s }
+		@msvs = @allsv.uniq {|k| k.ma_sinh_vien}
 		respond_to do |format|
 			format.html
 		end
@@ -38,6 +40,7 @@ class QuanlyController < ApplicationController
 		if @loptc and @msvs
 			@svs = @loptc.lop_mon_hoc_sinh_viens
 			@dup = @svs.map(&:ma_sinh_vien) & @msvs
+			@dupsv = SinhVien.where(ma_sinh_vien: @dup)
 			@nondup = @msvs - @dup
 			if @msvs.count > 0
 				@sinhviens = SinhVien.where(ma_sinh_vien: @msvs)
@@ -49,7 +52,7 @@ class QuanlyController < ApplicationController
 						end
 					end
 				end
-				@goodsv = @sinhviens - @dupcalendar
+				@goodsv = @sinhviens - @dupcalendar - @dupsv
 			end
 		end
 		respond_to do |format|
@@ -89,6 +92,13 @@ class QuanlyController < ApplicationController
 		if @loptc
 			@svs = @loptc.lop_mon_hoc_sinh_viens
 		end
+		respond_to do |format|
+			format.js
+		end
+	end
+	def filtersv
+		authorize! :manage, LopMonHocSinhVien
+		@svs = SinhVien.where(ma_sinh_vien: params[:sv][:masinhvien])
 		respond_to do |format|
 			format.js
 		end
