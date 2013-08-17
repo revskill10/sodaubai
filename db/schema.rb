@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130813025900) do
+ActiveRecord::Schema.define(:version => 20130816095421) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -198,14 +198,14 @@ ActiveRecord::Schema.define(:version => 20130813025900) do
     t.integer  "tong_so_tiet"
     t.integer  "so_vang_co_phep"
     t.string   "ma_lop_ghep"
-    t.integer  "lan1"
-    t.integer  "lan2"
-    t.integer  "lan3"
-    t.integer  "diem_thuc_hanh"
+    t.decimal  "lan1"
+    t.decimal  "lan2"
+    t.decimal  "lan3"
+    t.decimal  "diem_thuc_hanh"
     t.integer  "diem_chuyen_can"
     t.boolean  "status"
-    t.integer  "lan4"
-    t.integer  "lan5"
+    t.decimal  "lan4"
+    t.decimal  "lan5"
     t.string   "ma_lop_hc"
     t.string   "ho"
   end
