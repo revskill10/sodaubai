@@ -16,7 +16,8 @@ class TkbGiangVien < ActiveRecord::Base
   	7 => [12,30], 8 => [13,20], 9 => [14,10],
   	10 => [15, 5], 11 => [15, 55], 12 => [16, 45],
   	13 => [18, 0], 14 => [18, 50], 15 => [19,40], 16 => [20,30]}
-  THU = {2 => "Thứ 2", 3 => "Thứ 3", 4 => "Thứ 4", 5 => "Thứ 5", 6 => "Thứ 6", 7 => "Thứ 7", 8 => "Chủ nhật"}
+  THU2 = {2 => "Thứ 2", 3 => "Thứ 3", 4 => "Thứ 4", 5 => "Thứ 5", 6 => "Thứ 6", 7 => "Thứ 7", 8 => "Chủ nhật"}
+  THU = {2 => :monday, 3 => :tuesday, 4 => :wednesday, 5 => :thursday, 6 => :friday, 7 => :saturday, 8 => :sunday}
   after_create :refresh_days
 
   def refresh_days

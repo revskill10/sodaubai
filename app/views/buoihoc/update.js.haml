@@ -1,8 +1,14 @@
-sosv = $("span#sovang");
-- if @svvang
+- if @error
   :plain
-    sosv.html("#{escape_javascript(@svvang.count.to_s)}")
-    s = $("table#svvang");
-    s.empty();
-    s.html("#{escape_javascript(render :partial => 'table1')}")
-    alert("Cập nhật thành công"); 
+    alert("Số tiết dạy không hợp lệ");
+- else
+  $("#buoihoc_sotiet").val("#{@lich.so_tiet_day.to_s if @lich.so_tiet_day}");
+  $("#buoihoc_phong").val("#{@lich.phong.to_s if @lich.phong}");
+  - if @svvang
+    :plain
+      sosv = $("span#sovang");
+      sosv.html("#{escape_javascript(@svvang.count.to_s)}");
+      s = $("table#svvang");    
+      s.empty();
+      s.html("#{escape_javascript(render :partial => 'table1')}");
+      alert("Cập nhật thành công"); 

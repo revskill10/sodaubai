@@ -1,7 +1,8 @@
-%table{:class => "table datatable", :id => "svvang"}
+%table{:class => "table datatable"}
   %colgroup
+    %col{:style => "width: 3%"}
     %col{:style => "width: 10%"}
-    %col{:style => "width: 20%"}
+    %col{:style => "width: 17%"}
     %col{:style => "width: 10%"}
     %col{:style => "width: 10%"}
     %col{:style => "width: 15%"}
@@ -9,6 +10,7 @@
     %col{:style => "width: 8%"}
     %col{:style => "width: 15%"}
   %thead
+    %td STT
     %td Mã sinh viên
     %td Họ đệm
     %td Tên
@@ -18,10 +20,11 @@
     %td Phép
     %td Ghi chú
   %tbody      
-    - @svs.each do |sv|
-      %tr
+    - @svs.each_with_index do |sv, index|
+      %tr{:id => sv.ma_sinh_vien}
+        %td= (index+1).to_s
         %td= sv.ma_sinh_vien
-        %td= (sv.ho || "") + " " + (sv.ho_dem || "")
+        %td= sv.hodemdaydu
         %td= sv.ten
         %td= sv.ma_lop_hanh_chinh
         %td.progress  

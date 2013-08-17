@@ -94,6 +94,31 @@ namespace :hpu do
       )
     end
   end  
+  task :load_tinchi => :environment do    
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    @client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
+    response = @client.call(:lop_hanh_chinh)    
+    res_hash = response.body.to_hash    
+
+    ls = res_hash[:lop_hanh_chinh_response][:lop_hanh_chinh_result][:diffgram][:document_element]
+    ls = ls[:lop_hanh_chinh]
+    
+    tcs = {}
+    ls.each do |l|
+      ml = l[:ma_lop].strip.upcase
+      tc = l[:dao_tao_theo_tin_chi]
+      tcs[ml] = tc
+    end
+    SinhVien.all.each do |sv|
+      sv.tin_chi = tcs[sv.lop_hc] || false
+      sv.save!
+    end
+    LopMonHocSinhVien.all.each do |lsv|
+      lsv.tin_chi = tcs[lsv.ma_lop_hanh_chinh] || false
+      lsv.save!
+    end
+  end
   task :load_lopsv => :environment do  
     #tenant = Tenant.last
     #PgTools.set_search_path tenant.scheme, false

@@ -1,20 +1,36 @@
-
 - if @error
-  :plain
-    alert("#{@msg}");
+  alert("Số tiết dạy không hợp lệ");
+  $("#buoihoc_sotiet").val("#{@lich.so_tiet_day.to_s if @lich.so_tiet_day}");
+  $("#buoihoc_phong").val("#{@lich.phong if @lich.phong}");
 - else
-  - if @vang
-    - @vang.each do  |v|    
-      :plain
-        $("#msv_#{v.ma_sinh_vien}_status").prop('checked', #{get_vang(@lop_mon_hoc,v, @ngay) > 0});
-        $("#msv_#{v.ma_sinh_vien}_sotiet").val("#{get_vang(@lop_mon_hoc, v, @ngay)}");    
-        $("#msv_#{v.ma_sinh_vien}_phep").prop('disabled', false);
+  - if @lich
+    $("#buoihoc_sotiet").val("#{@lich.so_tiet_day.to_s if @lich.so_tiet_day}");
+    $("#buoihoc_phong").val("#{@lich.phong if @lich.phong}");
+  - if @svvang
+    - @svvang.each do |v|  
+      sosv = $("span#sovang");
+      sosv.html("#{escape_javascript(@svvang.count.to_s)}")      
+      $("#msv_#{v.ma_sinh_vien}_status").prop('checked', #{get_vang(@lop_mon_hoc,v, @ngay) > 0});
+      $("#msv_#{v.ma_sinh_vien}_sotiet").val("#{get_vang(@lop_mon_hoc, v, @ngay)}");
+      $("#msv_#{v.ma_sinh_vien}_phep").prop('disabled', false);
+      s = $("table#svvang");
+      s.empty();
+      s.html("#{escape_javascript(render :partial => 'table1')}");      
   - if @kovang
     - @kovang.each do |v|
       :plain
         $("#msv_#{v.ma_sinh_vien}_status").prop('checked', false);
-        $("#msv_#{v.ma_sinh_vien}_sotiet").val("0");    
+        $("#msv_#{v.ma_sinh_vien}_sotiet").val("0");
         $("#msv_#{v.ma_sinh_vien}_phep").prop('checked', false);
         $("#msv_#{v.ma_sinh_vien}_phep").prop('disabled', true);
-    alert("Cập nhật thành công");
+  
+  - if @errorsv    
+    - @errorsv.each do |sv|
+      $("tr##{sv}").addClass("error");
+    :plain
+      alert("Số tiết vắng không hợp lệ");
+  - else
+    :plain
+      alert("Cập nhật thành công");
+      $("tr.error").removeClass("error");
     

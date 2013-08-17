@@ -1,20 +1,24 @@
 %colgroup
-  %col{:style => "width: 15%"}
+  %col{:style => "width: 3%"}
+  %col{:style => "width: 12%"}
   %col{:style => "width: 20%"}
   %col{:style => "width: 15%"}            
   %col{:style => "width: 15%"}
   %col{:style => "width: 10%"}            
 %thead
+  %td STT
   %td Mã sinh viên
   %td Họ đệm
   %td Tên            
   %td Số tiết vắng
   %td Phép            
 %tbody
-- @svvang.each do |sv|
-  %tr
-    %td= sv.ma_sinh_vien
-    %td= (sv.ho || "") + " " + (sv.ho_dem || "")
-    %td= sv.ten
-    %td= get_vang(@lop_mon_hoc, sv, @ngay)
-    %td= check_box_tag "msv2[#{sv.ma_sinh_vien}][phep]",nil, get_phep(@lop_mon_hoc, sv, @ngay), :disabled => "disabled"
+  - if @svvang and @svvang.count > 0
+    - @svvang.each_with_index do |sv, index|
+      %tr
+        %td= (index+1).to_s
+        %td= sv.ma_sinh_vien
+        %td= sv.hodemdaydu
+        %td= sv.ten
+        %td= get_vang(@lop_mon_hoc, sv, @ngay)
+        %td= check_box_tag "msv2[#{sv.ma_sinh_vien}][phep]",nil, get_phep(@lop_mon_hoc, sv, @ngay), :disabled => "disabled"

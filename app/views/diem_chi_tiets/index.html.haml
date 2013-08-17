@@ -37,8 +37,9 @@
               %li= link_to 'Đăng xuất',destroy_user_session_path                          
               
   .container-fluid{:style=>"margin-top: 100px;"}         
-    %table{:class => "table datatable"}
+    %table{:class => "table datatable"}      
       %thead
+        %td STT
         %td Mã sinh viên
         %td Họ đệm
         %td Tên     
@@ -50,10 +51,11 @@
             %td= "Điểm lần #{t+1}"
         
       %tbody
-        - @svs.each do |sv|
+        - @svs.each_with_index do |sv, index|
           %tr
+            %td= (index+1).to_s
             %td= sv.ma_sinh_vien
-            %td= (sv.ho || "") + " " + (sv.ho_dem || "")
+            %td= sv.hodemdaydu
             %td= sv.ten
             %td= sv.group_id       
             - if @lop_mon_hoc.get_thuc_hanh     

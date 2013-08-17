@@ -1,14 +1,16 @@
 %thead
+  %td STT
   %td Mã sinh viên        
   %td Họ đệm
   %td Tên
   %td Nhóm
   - if can? :manage, LopMonHocSinhVien
     %td Xóa
-- @lop_mon_hoc_sinh_viens.each do |lop_mon_hoc_sinh_vien|
+- @lop_mon_hoc_sinh_viens.each_with_index do |lop_mon_hoc_sinh_vien, index|
   %tr{:id => lop_mon_hoc_sinh_vien.ma_sinh_vien}
+    %td= (index+1).to_s
     %td= lop_mon_hoc_sinh_vien.ma_sinh_vien
-    %td= lop_mon_hoc_sinh_vien.ho + " " +(lop_mon_hoc_sinh_vien.ho_dem || "")
+    %td= lop_mon_hoc_sinh_vien.hodemdaydu
     %td= lop_mon_hoc_sinh_vien.ten
     %td.col= collection_select("nhom",lop_mon_hoc_sinh_vien.ma_sinh_vien,  @groups_arrays, :first, :last, {:selected => selected(lop_mon_hoc_sinh_vien)},{:class => "combobox"})
     - if can? :manage, LopMonHocSinhVien

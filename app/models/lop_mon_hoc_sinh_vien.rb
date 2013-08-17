@@ -27,8 +27,12 @@ class LopMonHocSinhVien < ActiveRecord::Base
     end
   end
   
+  def hodemdaydu
+    (ho || "") + " " + (ho_dem || "")
+  end
+
   def diemqt
-    (diemcc || 0) + convert_grade(diemtbkt || 0) + convert_grade(diem_thuc_hanh || 0)
+    (diemcc || 0) + diemtbkt + convert_grade(diem_thuc_hanh || 0)
   end
   def diemcc
     return DiemDanh.convert_dcc(100-(so_tiet_vang * 100 / lop_mon_hoc.so_tiet)) if so_tiet_vang and lop_mon_hoc.so_tiet
@@ -36,17 +40,20 @@ class LopMonHocSinhVien < ActiveRecord::Base
     return 4 unless so_tiet_vang
   end
   def diemtbkt
-    if lop_mon_hoc.so_lan_kt.nil? or lop_mon_hoc.so_lan_kt == 0 then return nil
+    return convert_grade(diemtbkt1)  if lop_mon_hoc.get_thuc_hanh == true     
+    return 2 * convert_grade(diemtbkt1)  if lop_mon_hoc.get_thuc_hanh == false     
+  end
+  def diemtbkt1
+    if lop_mon_hoc.so_lan_kt.nil? or lop_mon_hoc.so_lan_kt == 0 then return 0
     elsif lop_mon_hoc.so_lan_kt > 0 and lop_mon_hoc.so_lan_kt <=5
       sum = 0
       lop_mon_hoc.so_lan_kt.times do |t|
         sum = sum + (send("lan#{t+1}".to_sym) || 0)
       end
       #((lan1 || 0) + (lan2 || 0) + (lan3 || 0) + (lan4 || 0) + (lan5 || 0))/ (sl)
-      return sum / lop_mon_hoc.so_lan_kt if lop_mon_hoc.get_thuc_hanh == true
-      return 2 * sum / lop_mon_hoc.so_lan_kt if lop_mon_hoc.get_thuc_hanh == false
+      return sum / lop_mon_hoc.so_lan_kt
     end
-    return nil
+    return 0
   end
   def conflict?
   	tkbs = sinh_vien.get_tkbs

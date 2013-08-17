@@ -8,7 +8,8 @@ class Ability
     if user.is_admin?
         can :manage, :all       
     end
-    if user.imageable.is_a?(GiangVien) or user.role == 'trogiang'        
+    if user.imageable.is_a?(GiangVien) or user.role == 'trogiang'     
+        can :read, SinhVien   
         can :manage, LopMonHoc,["id > 0"] do |lop|
           user.code == lop.ma_giang_vien or user.id == lop.user_id
         end
@@ -21,7 +22,8 @@ class Ability
             user.lop_mon_hocs.map(&:id).include?(dd.lop_mon_hoc.id) if user.role == 'trogiang'
         end
     end
-    if user.imageable.is_a?(SinhVien)        
+    if user.imageable.is_a?(SinhVien)      
+        can :read, SinhVien  
         can [:read, :rate], LopMonHoc, ["id > 0"] do |lop|
             user.imageable.lop_mon_hocs.map(&:id).include?(lop.id) if user.imageable.is_a?(SinhVien) if lop
         end

@@ -41,8 +41,9 @@
       
     %table{:class => "table datatable"}
       %colgroup
+        %col{:style => "width: 3%"}
         %col{:style => "width: 10%"}
-        %col{:style => "width: 20%"}
+        %col{:style => "width: 17%"}
         %col{:style => "width: 10%"}
         %col{:style => "width: 10%"}
         %col{:style => "width: 15%"}
@@ -50,6 +51,7 @@
         %col{:style => "width: 8%"}
         %col{:style => "width: 15%"}
       %thead
+        %td STT
         %td Mã sinh viên
         %td Họ đệm
         %td Tên   
@@ -59,12 +61,13 @@
         %td Tổng số vắng        
         %td Điểm chuyên cần 
       %tbody
-        - @svs.each do |sv|
+        - @svs.each_with_index do |sv, index|
           %tr
+            %td= (index+1).to_s
             %td= sv.ma_sinh_vien            
-            %td= (sv.ho || "") + " " + (sv.ho_dem || "")
+            %td= sv.hodemdaydu
             %td= sv.ten  
-            %td Mã lớp
+            %td= sv.ma_lop_hanh_chinh
             %td.progress  
               .bar.bar-danger{:style => "width: #{((sv.so_tiet_vang if sv) || 0)*100/(@lop_mon_hoc.so_tiet || 1)}%"}                                        
               .bar.bar-success{:style => "width: #{100-((sv.so_tiet_vang if sv) || 0)*100/(@lop_mon_hoc.so_tiet || 1)}%"}= (100-(sv.so_tiet_vang || 0)).to_s + "%"                               
