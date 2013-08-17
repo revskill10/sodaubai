@@ -5,13 +5,15 @@
     %col{:style => "width: 30%"}
     %col{:style => "width: 30%"}
     %col{:style => "width: 20%"}            
-    %col{:style => "width: 20%"}  
+    %col{:style => "width: 15%"}  
+    %col{:style => "width: 5%"}  
   %thead
     %td
       %input{:type=> "checkbox",:id=>"selectall"} Chọn hết
     %td Mã sinh viên
     %td Họ đệm
-    %td Tên                         
+    %td Tên  
+    %td Tín chỉ                       
   %tbody
     - if @svs and @svs.count > 0
       - @svs.each do |sv|
@@ -20,4 +22,5 @@
           %td= sv.ma_sinh_vien
           %td= sv.ho_dem || ""
           %td= sv.ten
+          %td= (sv.tin_chi ? true : false)
   

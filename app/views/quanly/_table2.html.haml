@@ -3,12 +3,14 @@
     %col{:style => "width: 5%"}
     %col{:style => "width: 25%"}
     %col{:style => "width: 40%"}            
-    %col{:style => "width: 30%"}  
+    %col{:style => "width: 25%"}  
+    %col{:style => "width: 5%"}  
   %thead
     %td Chọn
     %td Mã sinh viên
     %td Họ đệm
-    %td Tên                         
+    %td Tên      
+    %td Tín chỉ                  
   %tbody
     - if @svs and @svs.count > 0
       - @svs.each do |sv|
@@ -17,3 +19,4 @@
           %td= sv.ma_sinh_vien
           %td= (sv.ho || "") + " " + (sv.ho_dem || "")
           %td= sv.ten
+          %td= (sv.tin_chi ? true: false)

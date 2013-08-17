@@ -22,7 +22,7 @@
 //= require quanly
 
 $(document).ready(function(){
-	$('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bStateSave":true,"bAutoWidth":true,"sScrollY": "300px"});		
+	$('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bStateSave":true,"bAutoWidth":true,"sScrollY": "300px","sScrollX": "100%", "sScrollXInner": "100%","bScrollCollapse": true,});		
 	$('.combobox').combobox();	
 	$(document).pjax('a[data-pjax]', '#pjax-container');
 	$('.best_in_place').best_in_place();	
