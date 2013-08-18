@@ -30,15 +30,21 @@ ActiveRecord::Schema.define(:version => 20130818180816) do
 
   create_table "diem_danhs", :force => true do |t|
     t.string   "ma_sinh_vien"
+    t.string   "ma_lop"
+    t.string   "ma_mon_hoc"
+    t.datetime "ngay_vang"
     t.integer  "so_tiet_vang"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
     t.text     "note"
     t.boolean  "phep"
+    t.string   "ma_giang_vien"
+    t.integer  "lop_mon_hoc_id"
     t.integer  "lich_trinh_giang_day_id"
   end
 
   add_index "diem_danhs", ["lich_trinh_giang_day_id"], :name => "index_diem_danhs_on_lich_trinh_giang_day_id"
+  add_index "diem_danhs", ["lop_mon_hoc_id"], :name => "index_diem_danhs_on_lop_mon_hoc_id"
 
   create_table "giang_viens", :force => true do |t|
     t.string   "ho_ten"
@@ -63,16 +69,21 @@ ActiveRecord::Schema.define(:version => 20130818180816) do
   end
 
   create_table "lich_trinh_giang_days", :force => true do |t|
+    t.string   "ma_lop"
+    t.string   "ma_mon_hoc"
     t.datetime "ngay_day"
     t.text     "noi_dung_day"
+    t.integer  "so_tiet_day"
+    t.string   "phong"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.integer  "so_vang"
+    t.string   "ma_giang_vien"
     t.integer  "lop_mon_hoc_id"
     t.integer  "ratings"
     t.integer  "rating_score"
     t.text     "voters"
-    t.integer  "type"
+    t.integer  "loai"
     t.integer  "status"
     t.datetime "ngay_day_moi"
     t.string   "ma_giang_vien_moi"
@@ -82,8 +93,6 @@ ActiveRecord::Schema.define(:version => 20130818180816) do
     t.integer  "so_tiet_day_moi"
     t.integer  "lop_mon_hoc_moi_id"
     t.integer  "tuan_moi"
-    t.string   "ma_lop"
-    t.string   "ma_mon_hoc"
   end
 
   add_index "lich_trinh_giang_days", ["lop_mon_hoc_id"], :name => "index_lich_trinh_giang_days_on_lop_mon_hoc_id"

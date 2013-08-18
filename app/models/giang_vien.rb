@@ -13,7 +13,8 @@ class GiangVien < ActiveRecord::Base
   end
 
   has_many :lich_trinh_giang_days, :through => :lop_mon_hocs
-  has_many :nghi_days, :foreign_key => 'ma_giang_vien', :dependent => :destroy, :primary_key => 'ma_giang_vien'  
+  has_many :lich_bo_sungs, :class_name => "LichTrinhGiangDay", :foreign_key => :ma_giang_vien_moi, :primary_key => :ma_giang_vien
+  
   has_one :user, :as => :imageable
   
   #validation

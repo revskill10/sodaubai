@@ -1,10 +1,11 @@
 # encoding: UTF-8
 class LichTrinhGiangDay < ActiveRecord::Base
   has_paper_trail
-  attr_accessible :ngay_day, :nhan_xet_buoi_hoc, :noi_dung_day, :so_tiet_day, :so_vang, :ngay_day_moi, :ma_giang_vien_moi, :ma_mon_hoc_moi, :ten_mon_hoc_moi, :type, :status
+  attr_accessible :ngay_day, :nhan_xet_buoi_hoc, :noi_dung_day, :so_tiet_day, :so_vang, :ngay_day_moi, :ma_giang_vien_moi, :ma_mon_hoc_moi, :ten_mon_hoc_moi, :loai, :status, :tuan_moi, :so_tiet_day_moi
 
-
+  belongs_to :lop_bo_sung, :class_name => "LopMonHoc", :foreign_key => :lop_mon_hoc_moi_id
   belongs_to :lop_mon_hoc
+  belongs_to :giang_vien_moi, :class_name => "GiangVien", :foreign_key => :ma_giang_vien_moi, :primary_key => :ma_giang_vien
   has_many :diem_danhs do 
     def vang
       where("so_tiet_vang > 0")      
@@ -12,16 +13,16 @@ class LichTrinhGiangDay < ActiveRecord::Base
   end
 
   def doigio?
-  	type == 4
+  	loai == 4
   end
   def nghiday?
-  	type == 1
+  	loai == 1
   end
   def daybu?
-  	type == 2
+  	loai == 2
   end
   def daythay?
-  	type == 3
+  	loai == 3
   end  
   def gvpending?
   	status == 1

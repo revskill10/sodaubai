@@ -13,23 +13,23 @@ class Ability
         can :manage, LopMonHoc do |lop|
           user.code == lop.ma_giang_vien or user.id == lop.user_id
         end
+        can :manage, LichTrinhGiangDay do |lich|
+            can? :manage, lich.lop_mon_hoc or (user.code == lich.ma_giang_vien_moi and lich.status == 3)
+        end        
         can :manage, ThongBaoLopHoc do |tb|
             user.imageable.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.imageable.is_a?(GiangVien)
             user.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.role == 'trogiang'
         end
         can :manage, DiemDanh do |dd|
-            user.imageable.lop_mon_hocs.map(&:id).include?(dd.lop_mon_hoc.id) if user.imageable.is_a?(GiangVien) and dd.lop_mon_hoc
-            user.lop_mon_hocs.map(&:id).include?(dd.lop_mon_hoc.id) if user.role == 'trogiang'
+            can? :manage, dd.lich_trinh_giang_day
         end        
-        can :manage, LichTrinhGiangDay do |dd|
-            user.imageable.lop_mon_hocs.map(&:id).include?(dd.lop_mon_hoc.id) if user.imageable.is_a?(GiangVien) and dd.lop_mon_hoc and dd
-            user.lop_mon_hocs.map(&:id).include?(dd.lop_mon_hoc.id) if user.role == 'trogiang' and dd
-        end        
+        
     end
     if user.imageable.is_a?(SinhVien)      
         can :read, SinhVien  
         can [:read, :rate], LichTrinhGiangDay do |lich|
-            user.imageable.lop_mon_hocs.map(&:id).include?(lich.lop_mon_hoc.id) if user.imageable.is_a?(SinhVien) and lich.lop_mon_hoc and lich.ngay_day.localtime <= Time.now and lich
+           user.imageable.lop_mon_hocs.map(&:id).include?(lich.lop_mon_hoc.id) if user.imageable.is_a?(SinhVien) and lich.lop_mon_hoc and lich.ngay_day.localtime <= Time.now            
+           user.imageable.lop_mon_hocs.map(&:id).include?(lich.lop_bo_sung.id) if user.imageable.is_a?(SinhVien) and lich.lop_bo_sung and lich.ngay_day_moi.localtime <= Time.now and lich.status == 3
         end
         can :read, LopMonHoc do |lop|
             user.imageable.lop_mon_hocs.map(&:id).include?(lop.id) if user.imageable.is_a?(SinhVien) if lop

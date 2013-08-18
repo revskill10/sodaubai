@@ -212,8 +212,8 @@ class BuoihocController < ApplicationController
   def doigio    
     authorize! :manage, @lich
 
-    ma_giang_vien_moi = params[:doigio][:magiangvien]
-    thoigian = params[:doigio][:thoigian]
+    ma_giang_vien_moi = params[:giohoc][:magiangvien]
+    thoigian = params[:giohoc][:thoigian]
 
     unless thoigian.empty?
       tg = thoigian.split(",").to_a 
@@ -222,7 +222,11 @@ class BuoihocController < ApplicationController
       sotiet = tg[2]
       ma_mon = tg[3]
       ten_mon = tg[4]
-      @lich.update_attributes(type: 4, status: 1, ma_giang_vien_moi: ma_giang_vien_moi, ngay_day_moi: get_ngay(str_to_ngay(ngay)), tuan_moi: tuan, so_tiet_day_moi: sotiet, ma_mon_hoc_moi: ma_mon, ten_mon_hoc_moi: ten_mon)      
+      ma_lop = tg[5]
+
+      l = LopMonHoc.where(ma_lop: ma_lop, ma_mon_hoc: ma_mon).first
+      @lich.update_attributes(loai: 4, status: 1, ma_giang_vien_moi: ma_giang_vien_moi, ngay_day_moi: get_ngay(str_to_ngay(ngay)), tuan_moi: tuan, so_tiet_day_moi: sotiet, ma_mon_hoc_moi: ma_mon, ten_mon_hoc_moi: ten_mon)      
+      @lich.lop_bo_sung = l if l 
       @lich.save! rescue @error = true
     end
 

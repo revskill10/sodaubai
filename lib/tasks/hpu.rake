@@ -3,7 +3,8 @@ namespace :hpu do
   desc "TODO"
   
   task :load_tkbgiangvien => :environment do
-    
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
   	response = @client.call(:tkb_theo_giai_doan)   	
   	res_hash = response.body.to_hash		
@@ -22,12 +23,13 @@ namespace :hpu do
   		  		  		  				
   	end
   
-    Rake::Task["hpu:create_lopmonhoc"].invoke 
-    Rake::Task["hpu:update_tkb2"].invoke         
+    #Rake::Task["hpu:create_lopmonhoc"].invoke 
+    #Rake::Task["hpu:update_tkb2"].invoke         
   end
   
   task :create_lopmonhoc => :environment do 
-    
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
     LopMonHoc.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hocs') 
     TkbGiangVien.all.each do |tkb|
@@ -39,8 +41,8 @@ namespace :hpu do
     
   end
   task :update_lopghep => :environment do 
-    #tenant = Tenant.last
-    #PgTools.set_search_path tenant.scheme, false
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
     tts = {}
     LopGhep.all.each do |lg|
       tts[[lg.ma_lop, lg.ma_mon_hoc]] = lg.ma_lop_ghep
@@ -55,8 +57,8 @@ namespace :hpu do
   end
   # cap nhat tkb set days
   task :update_tkb2 => :environment do 
-    #tenant = Tenant.last
-    #PgTools.set_search_path tenant.scheme, false
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
     TkbGiangVien.all.each do |tkb|
       tkb.update_attributes(days: tkb.get_days)
       tkb.save rescue puts "Error #{tkb.ma_lop}"
@@ -67,8 +69,8 @@ namespace :hpu do
   
   
   task :load_sv => :environment do     
-    #tenant = Tenant.last
-    #PgTools.set_search_path tenant.scheme, false
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
     SinhVien.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('sinh_viens')
     # attr_accessible :gioi_tinh, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ngay_sinh, :ten, :trang_thai, :ten_nganh
@@ -120,23 +122,25 @@ namespace :hpu do
     end
   end
   task :load_lopsv => :environment do  
-    #tenant = Tenant.last
-    #PgTools.set_search_path tenant.scheme, false
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
   	response = @client.call(:lop_mon_hoc_sinh_vien_hk)
   	res_hash = response.body.to_hash
   	ls = res_hash[:lop_mon_hoc_sinh_vien_hk_response][:lop_mon_hoc_sinh_vien_hk_result][:diffgram][:document_element]
   	ls = ls[:lop_mon_hoc_sinh_vien_hk]  
-  	LopMonHocSinhVien.delete_all
-    ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hoc_sinh_viens')
+  	#LopMonHocSinhVien.delete_all
+    #ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hoc_sinh_viens')
   	puts "loading... lopsv"
-    LopMonHocSinhVien.delete_all
-    ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hoc_sinh_viens') 
+    #LopMonHocSinhVien.delete_all
+    #ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hoc_sinh_viens') 
   	ls.each do |l|  	
       hodem = titleize(l[:hodem].strip.downcase).split(" ").to_a
       ho = hodem[0] if hodem[0]
       ho_dem = hodem[1] if hodem[1]
-  		lop = LopMonHocSinhVien.create!(ma_lop: l[:malop].strip.upcase, ma_lop_hanh_chinh: l[:ma_lop_hanh_chinh].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), ho: ho,  ho_dem: ho_dem, ten: titleize(l[:ten].strip.downcase) ) 	
+      lop=LopMonHocSinhVien.where(ma_lop: l[:malop].strip.upcase, ma_lop_hanh_chinh: l[:ma_lop_hanh_chinh].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_sinh_vien: l[:ma_sinh_vien].strip.upcase).first_or_create!
+  		lop.update_attributes(ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), ho: ho,  ho_dem: ho_dem, ten: titleize(l[:ten].strip.downcase) ) 	
+      lop.save!
   	end	
         
   end
@@ -144,7 +148,8 @@ namespace :hpu do
 
   
   task :load_tuans => :environment do
-    
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
   	@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
   	response = @client.call(:thoi_gian_tuan)   	
   	res_hash = response.body.to_hash		
@@ -158,7 +163,8 @@ namespace :hpu do
   	end
   end
   task :load_lopghep => :environment do 
-    
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
     @client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
     response = @client.call(:lop_ghep_hk)    
     res_hash = response.body.to_hash    

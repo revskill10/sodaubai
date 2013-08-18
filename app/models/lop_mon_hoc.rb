@@ -16,6 +16,7 @@ class LopMonHoc < ActiveRecord::Base
       where("tkb_giang_viens.tuan_hoc_bat_dau = ?",tuan)
     end
   end
+  has_many :lich_day_bo_sungs, :class_name => "LichTrinhGiangDay", :foreign_key => :lop_mon_hoc_moi_id
   belongs_to :user
   
 

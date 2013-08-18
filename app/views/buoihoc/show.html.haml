@@ -12,6 +12,8 @@
             %ul.nav.pull-left#urls
               %li.active= link_to "Sổ đầu bài", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
               %li= link_to "Điểm danh chi tiết", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))     
+              - if can? :manage, @lich
+                %li= link_to "Quản lý giờ học", quanly_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
               %li= link_to "Thông tin lớp", lop_mon_hoc_path(@lop_mon_hoc.id)  
             %ul.nav.pull-right  
               %li= submit_tag "Cập nhật", :class =>"btn btn-success"     
