@@ -11,7 +11,7 @@ class TkbGiangVien < ActiveRecord::Base
   belongs_to :lop_mon_hoc
   belongs_to :mon_hoc, :foreign_key => 'ma_mon_hoc', :primary_key => 'ma_mon_hoc'
   
-  validates :lop_mon_hoc_id , :ngay_bat_dau, :ngay_ket_thuc, :so_tiet, :so_tuan, :thu, :tiet_bat_dau, :tuan_hoc_bat_dau, :presence => true
+  validates :ngay_bat_dau, :ngay_ket_thuc, :so_tiet, :so_tuan, :thu, :tiet_bat_dau, :tuan_hoc_bat_dau, :presence => true
   TIET = {1 => [6,30], 2 => [7,20], 3 => [8,10],
   	4 => [9,5], 5 => [9,55], 6 => [10, 45],
   	7 => [12,30], 8 => [13,20], 9 => [14,10],
