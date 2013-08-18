@@ -1,4 +1,5 @@
 class DiemDanh < ActiveRecord::Base
+  has_paper_trail
   attr_accessible :ma_sinh_vien, :nam_hoc, :ngay_vang, :so_tiet_vang, :loai, :diem_thuong_xuyen, :ma_giang_vien, :ma_lop, :ma_mon_hoc
 
   belongs_to :lop_mon_hoc

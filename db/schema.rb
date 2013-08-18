@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130817015400) do
+ActiveRecord::Schema.define(:version => 20130818011032) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -147,20 +147,15 @@ ActiveRecord::Schema.define(:version => 20130817015400) do
   create_table "lich_trinh_giang_days", :force => true do |t|
     t.string   "ma_lop"
     t.string   "ma_mon_hoc"
-    t.string   "nam_hoc"
-    t.integer  "hoc_ky"
     t.datetime "ngay_day"
     t.text     "noi_dung_day"
     t.integer  "so_tiet_day"
-    t.text     "nhan_xet_buoi_hoc"
     t.string   "phong"
-    t.boolean  "xac_nhan_sv"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.integer  "so_vang"
     t.integer  "siso"
     t.text     "sv"
-    t.integer  "lop_mon_hoc_sinh_vien_id"
     t.string   "ma_giang_vien"
     t.integer  "lop_mon_hoc_id"
     t.integer  "ratings"
@@ -433,5 +428,16 @@ ActiveRecord::Schema.define(:version => 20130817015400) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
 end

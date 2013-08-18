@@ -92,3 +92,4 @@ gem 'axlsx_rails'
 gem "redis-store"
 gem 'redis-rails'
 gem "redis-rack-cache"
+gem 'paper_trail'

@@ -32,5 +32,7 @@ class ApplicationController < ActionController::Base
      
     end
   end
- 
+  def user_for_paper_trail
+    user_signed_in? ? current_user : "Guest"
+  end
 end
