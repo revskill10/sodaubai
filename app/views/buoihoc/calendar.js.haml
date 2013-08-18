@@ -1,0 +1,3 @@
+s = $("table#calendar");    
+s.empty();
+s.html("#{escape_javascript(render :partial => 'calendar')}");

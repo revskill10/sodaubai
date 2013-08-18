@@ -219,6 +219,70 @@ class BuoihocController < ApplicationController
     end
   end
 
+  def nghiday
+    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!    
+    authorize! :manage, @lich
+
+    
+    respond_to do |format|
+      format.js
+    end
+  end
+  def daythay
+    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!    
+    authorize! :manage, @lich
+
+    
+    respond_to do |format|
+      format.js
+    end
+  end
+  def doigio
+    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!    
+    authorize! :manage, @lich
+
+    
+    respond_to do |format|
+      format.js
+    end
+  end
+  def calendar
+    gv = params[:doigio][:magiangvien]
+    @gv = GiangVien.where(ma_giang_vien: gv).first
+    if @gv          
+      @current_lops = @gv.lop_mon_hocs.where(ma_lop: @lop_mon_hoc.ma_lop)
+      
+      @calendar = @gv.get_days[:ngay].uniq if @gv.get_days
+      
+      generator = ColorGenerator.new saturation: 0.3, lightness: 0.75
+      @color = [] 
+      20.times do |i|
+        @color << generator.create_hex
+      end
+      @color_map = {}
+      unless @current_lops.empty?
+        @current_lops.each_with_index do |l,i|
+          @color_map["#{l.ma_mon_hoc}"] = @color[i] if l 
+        end           
+      end
+    else
+      @current_lops = []
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+  def get_quanly
+    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!    
+    authorize! :manage, @lich
+    @lops = LopMonHoc.all
+    @gvs = GiangVien.all.uniq {|gv| gv.ma_giang_vien }
+    @monhocs = @lops.uniq {|lop| lop.ma_mon_hoc }
+    @phongs = @lops.uniq {|lop| lop.phong_hoc }
+    respond_to do |format|
+      format.html {render :quanly}
+    end
+  end
 
   protected
   def to_zdate(str)

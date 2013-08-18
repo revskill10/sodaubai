@@ -17,10 +17,10 @@ class Ability
             user.imageable.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.imageable.is_a?(GiangVien)
             user.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.role == 'trogiang'
         end
-        can :manage, DiemDanh, ["id > 0"] do |dd|
+        can :manage, [DiemDanh, LichTrinhGiangDay], ["id > 0"] do |dd|
             user.imageable.lop_mon_hocs.map(&:id).include?(dd.lop_mon_hoc.id) if user.imageable.is_a?(GiangVien)
             user.lop_mon_hocs.map(&:id).include?(dd.lop_mon_hoc.id) if user.role == 'trogiang'
-        end
+        end        
     end
     if user.imageable.is_a?(SinhVien)      
         can :read, SinhVien  
