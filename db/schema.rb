@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130818011032) do
+ActiveRecord::Schema.define(:version => 20130818021514) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -151,8 +151,8 @@ ActiveRecord::Schema.define(:version => 20130818011032) do
     t.text     "noi_dung_day"
     t.integer  "so_tiet_day"
     t.string   "phong"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "so_vang"
     t.integer  "siso"
     t.text     "sv"
@@ -161,9 +161,17 @@ ActiveRecord::Schema.define(:version => 20130818011032) do
     t.integer  "ratings"
     t.integer  "rating_score"
     t.text     "voters"
+    t.integer  "type"
+    t.integer  "status"
+    t.datetime "ngay_day_moi"
+    t.string   "ma_giang_vien_moi"
+    t.string   "phong_moi"
+    t.string   "ma_mon_hoc_moi"
+    t.string   "ten_mon_hoc_moi"
   end
 
   add_index "lich_trinh_giang_days", ["lop_mon_hoc_id"], :name => "index_lich_trinh_giang_days_on_lop_mon_hoc_id"
+  add_index "lich_trinh_giang_days", ["ma_giang_vien_moi"], :name => "index_lich_trinh_giang_days_on_ma_giang_vien_moi"
 
   create_table "lop_gheps", :force => true do |t|
     t.string   "ma_lop_ghep"
