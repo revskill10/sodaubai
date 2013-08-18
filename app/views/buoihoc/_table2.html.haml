@@ -30,6 +30,6 @@
         %td.progress  
           .bar.bar-danger{:style => "width: #{((sv.so_tiet_vang if sv) || 0)*100/(@lop_mon_hoc.so_tiet || 1)}%"}                                        
           .bar.bar-success{:style => "width: #{100-((sv.so_tiet_vang if sv) || 0)*100/(@lop_mon_hoc.so_tiet || 1)}%"}= (100-(sv.so_tiet_vang || 0)).to_s + "%"
-        %td= text_field_tag "msv[#{sv.ma_sinh_vien}][sotiet]", nil, :value => get_vang(@lop_mon_hoc,sv, @ngay),  :style => "width: 20%"
-        %td= check_box_tag "msv[#{sv.ma_sinh_vien}][phep]",nil, get_phep(@lop_mon_hoc,sv, @ngay), :disabled =>  (get_vang(@lop_mon_hoc,sv, @ngay) == 0) 
-        %td= text_field_tag "msv[#{sv.ma_sinh_vien}][note]", nil, :value => get_note(@lop_mon_hoc,sv, @ngay)
+        %td= text_field_tag "msv[#{sv.ma_sinh_vien}][sotiet]", nil, :value => get_vang(@lich,sv),  :style => "width: 20%"
+        %td= check_box_tag "msv[#{sv.ma_sinh_vien}][phep]",nil, get_phep(@lich,sv), :disabled =>  (get_vang(@lich,sv) == 0) 
+        %td= text_field_tag "msv[#{sv.ma_sinh_vien}][note]", nil, :value => get_note(@lich,sv)

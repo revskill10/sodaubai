@@ -5,59 +5,53 @@ require 'json'
 class BuoihocController < ApplicationController
   include BuoihocHelper
   before_filter :load_lop
-  respond_to :xlsx, :html
+  
   def show
-  	authorize! :read, @lop_mon_hoc
+  	authorize! :read, @lich
   	
-    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
-    @ids = @svs.map{|sv| sv.ma_sinh_vien}
-    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!        
-    if @lich.voters
-      voters = JSON.parse(@lich.voters) 
-      @theme = voters[@type.ma_sinh_vien] if @type.is_a?(SinhVien)
-    end
-    @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
-    @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
-    
-    
-    @svs2 = @svs.each_slice(4)    
-    
-    respond_to do |format|
-      if request.headers['X-PJAX']
-        if @type.is_a?(SinhVien)
-          format.html {render :show_sv, :layout => false}        
-        elsif @type
-          format.html {render :show, :layout => false}   
-        end
-      else
-        if @type.is_a?(SinhVien)
-          format.html {render :show_sv}        
-        elsif @type
-          format.html {render :show}        
-        end
+    if @lich 
+      @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
+      @ids = @svs.map{|sv| sv.ma_sinh_vien}
+      
+      if @lich.voters
+        voters = JSON.parse(@lich.voters) 
+        @theme = voters[@type.ma_sinh_vien] if @type.is_a?(SinhVien)
       end
+
+      #@idv = @lich.diem_danhs.select{|t| t and t.so_tiet_vang and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
+      @idv = @lich.diem_danhs.vang.map {|k| k.ma_sinh_vien}
+      @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
+      
+      
+      @svs2 = @svs.each_slice(4)    
     end
     
+    respond_to do |format|     
+      if can? :read, @lich
+        format.html {render :show}        
+      elsif can? :manage, @lich 
+        format.html {render :show_sv}                  
+      end      
+    end    
   end
   def update    
     begin    
-      authorize! :manage, @lop_mon_hoc
+      authorize! :manage, @lich
 
       if params[:buoihoc]
         @lichtrinh = params[:buoihoc]  
         @sotietday = @lichtrinh[:sotiet].to_i  
       end
       if @sotietday and @sotietday > 0 and @tkb and @sotietday <= @tkb.so_tiet
-
+        @lich.so_tiet_day_moi = @sotietday
+        @lich.phong_moi = @phong
         @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
         @ids = @svs.map {|k| k.ma_sinh_vien}
 
         if params[:msv]
           params[:msv].each do |k, v|
-            dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: k, ngay_vang: get_ngay(@ngay)).first_or_create!     
-            dd.ma_lop = @malop
-            dd.ma_mon_hoc = @mamonhoc
-            dd.ma_giang_vien =  @magiangvien      
+            dd = @lich.diem_danhs.where(ma_sinh_vien: k).first_or_create!     
+               
             if dd.so_tiet_vang.nil? or (dd.so_tiet_vang and dd.so_tiet_vang == 0)
               dd.so_tiet_vang = @sotietday
               dd.phep = false              
@@ -67,42 +61,38 @@ class BuoihocController < ApplicationController
             dd.save! 
           end
           @kovang = @ids - params[:msv].keys
-          dds = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: @kovang, ngay_vang: get_ngay(@ngay))
+          dds = @lich.diem_danhs.where(ma_sinh_vien: @kovang)
           if dds.count > 0
             dds.each do |dd|
-              dd.ma_lop = @malop
-              dd.ma_mon_hoc = @mamonhoc
-              dd.ma_giang_vien =  @magiangvien
+              
               dd.so_tiet_vang = 0
               dd.phep = false
               dd.save!
             end
           end
         else
-          dds = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: @ids, ngay_vang: get_ngay(@ngay))
+          dds = @lich.diem_danhs.where(ma_sinh_vien: @ids)
           if dds.count > 0
             dds.each do |dd|
-              dd.ma_lop = @malop
-              dd.ma_mon_hoc = @mamonhoc
-              dd.ma_giang_vien =  @magiangvien
+              
               dd.so_tiet_vang = 0
               dd.phep = false
               dd.save!
             end
           end
         end
-        @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')    
+        @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
 
-        @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
+        @idv = @lich.diem_danhs.vang.map { |k| k.ma_sinh_vien}
         @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
         @kovang = @svs.select {|k| !@idv.include?(k.ma_sinh_vien)}
         if params[:buoihoc]
-          @lichtrinh = params[:buoihoc]      
-          @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!
-          @lich.update_attributes(so_tiet_day: @lichtrinh[:sotiet], noi_dung_day: @lichtrinh[:noidung], phong: @lichtrinh[:phong], so_vang: @svvang.count, siso: @svs.count, sv: {:vang => @svvang}.to_json, ma_lop: @malop, ma_mon_hoc: @mamonhoc, ma_giang_vien: @magiangvien) if @lich   
+          @lichtrinh = params[:buoihoc]                
+          @lich.noi_dung_day = @lichtrinh[:noidung]
+          @lich.so_vang = @svvang.count
           @lich.save! rescue "error save lich trinh"
         end
-      
+        
       else
         @error = true
         @msg = "Số tiết dạy không hợp lệ"  
@@ -119,8 +109,7 @@ class BuoihocController < ApplicationController
     end
   end
   def rate
-    authorize! :rate, @lop_mon_hoc
-    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first
+    authorize! :rate, @lich    
     if @lich             
       if params[:theme].to_i >= 0 and params[:theme].to_i <= 5 then 
         voters = (JSON.parse(@lich.voters) if @lich.voters) || {}
@@ -143,22 +132,21 @@ class BuoihocController < ApplicationController
   end
   def diemdanh
     begin
-      authorize! :manage, @lop_mon_hoc
+      authorize! :manage, @lich
       @phong = params[:buoihoc][:phong]
-      @sotietday = params[:buoihoc][:sotiet].to_i
-      
+      @sotietday = params[:buoihoc][:sotiet].to_i      
       if @sotietday > 0 and @sotietday <= @tkb.so_tiet
+        @lich.so_tiet_day_moi = @sotietday
+        @lich.phong_moi = @phong
         params[:msv].each do |k,v|
-          dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: k, ngay_vang: get_ngay(@ngay)).first
-          dd = @lop_mon_hoc.diem_danhs.where(ma_sinh_vien: k, ngay_vang: get_ngay(@ngay)).create if !dd and (v[:sotiet].to_i > 0 or !v[:note].blank?)
+          dd = @lich.diem_danhs.where(ma_sinh_vien: k).first
+          dd = @lich.diem_danhs.where(ma_sinh_vien: k).create if !dd and (v[:sotiet].to_i > 0 or !v[:note].blank?)
           if dd            
             st = v[:sotiet].to_i
-            if st and st >=0 and st <= @sotietday
-              dd.ma_lop = @malop
-              dd.ma_mon_hoc = @mamonhoc
-              dd.ma_giang_vien = @magiangvien
-              dd.so_tiet_vang = st if st >= 0 and st <= @sotietday
-              dd.so_tiet_vang = @sotietday if (dd.so_tiet_vang and dd.so_tiet_vang > @sotietday)              
+            if st and st >=0 and st <= @tkb.so_tiet             
+              dd.so_tiet_vang = st if st >= 0 and st <= @sotietday              
+              dd.so_tiet_vang = @sotietday if (dd.so_tiet_vang and dd.so_tiet_vang > @sotietday)
+              
               dd.phep = (v[:phep] and st > 0) ? true : false
               dd.note = v[:note] unless v[:note].blank?
               dd.save! rescue "Error save"
@@ -173,14 +161,13 @@ class BuoihocController < ApplicationController
       end
       @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
       
-      @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
+      @idv = @lich.diem_danhs.vang.map { |k| k.ma_sinh_vien}
       @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
       @kovang = @svs.select {|k| !@idv.include?(k.ma_sinh_vien)}
-      @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!
-      if @sotietday > 0 and @sotietday <= @tkb.so_tiet 
-        @lich.update_attributes(so_tiet_day: @sotietday, phong: @phong, so_vang: @svvang.count, siso: @svs.count, sv: {:vang => @svvang}.to_json, ma_lop: @malop, ma_mon_hoc: @mamonhoc, ma_giang_vien: @magiangvien) if @lich   
-        @lich.save! rescue "error save lich trinh"
-      end
+      
+      
+      @lich.so_vang =  @svvang.count
+      @lich.save!
       
       respond_to do |format|
         format.js
@@ -191,36 +178,30 @@ class BuoihocController < ApplicationController
   end
   
   def get_diemdanh
-    
-    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
-    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!        
-    @idv = @lop_mon_hoc.diem_danhs.where(ngay_vang: get_ngay(@ngay)).select{|t| t and t.so_tiet_vang and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
+    authorize! :read, @lich
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens    
+    @idv = @lich.diem_danhs.vang.map { |k| k.ma_sinh_vien}
     @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
     respond_to do |format|
-      if request.headers['X-PJAX']
-        if @type.is_a?(GiangVien)
-          format.html {render :diemdanh, :layout => false}        
-        elsif @type.is_a?(SinhVien)
-          format.html {render :diemdanh_sv, :layout => false}        
-        elsif @type
-          format.html {render :diemdanh, :layout => false}
-        end
-      else
-        if @type.is_a?(GiangVien)
-          format.html {render :diemdanh}
-          format.xlsx {render xlsx: :diemdanh_doc, filename: "diemdanh_doc"}
-        elsif @type.is_a?(SinhVien)
-          format.html {render :diemdanh_sv}
-        elsif @type
-          format.html {render :diemdanh}
-        end
-                  
+      
+      if can? :manage, @lich
+        format.html {render :diemdanh}        
+      elsif can? :read, @lich
+        format.html {render :diemdanh_sv}                
       end
+              
     end
   end
 
   def nghiday
-    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!    
+    authorize! :manage, @lich
+    
+    
+    respond_to do |format|
+      format.js
+    end
+  end
+  def daythay    
     authorize! :manage, @lich
 
     
@@ -228,25 +209,29 @@ class BuoihocController < ApplicationController
       format.js
     end
   end
-  def daythay
-    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!    
+  def doigio    
     authorize! :manage, @lich
 
-    
-    respond_to do |format|
-      format.js
+    ma_giang_vien_moi = params[:doigio][:magiangvien]
+    thoigian = params[:doigio][:thoigian]
+
+    unless thoigian.empty?
+      tg = thoigian.split(",").to_a 
+      tuan = tg[0]
+      ngay = tg[1]
+      sotiet = tg[2]
+      ma_mon = tg[3]
+      ten_mon = tg[4]
+      @lich.update_attributes(type: 4, status: 1, ma_giang_vien_moi: ma_giang_vien_moi, ngay_day_moi: get_ngay(str_to_ngay(ngay)), tuan_moi: tuan, so_tiet_day_moi: sotiet, ma_mon_hoc_moi: ma_mon, ten_mon_hoc_moi: ten_mon)      
+      @lich.save! rescue @error = true
     end
-  end
-  def doigio
-    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!    
-    authorize! :manage, @lich
 
-    
     respond_to do |format|
       format.js
     end
   end
   def calendar
+    authorize! :manage, @lich
     gv = params[:doigio][:magiangvien]
     @gv = GiangVien.where(ma_giang_vien: gv).first
     if @gv          
@@ -272,22 +257,22 @@ class BuoihocController < ApplicationController
       format.js
     end
   end
-  def get_quanly
-    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!    
+  def get_quanly    
     authorize! :manage, @lich
-    @lops = LopMonHoc.all
-    @gvs = GiangVien.all.uniq {|gv| gv.ma_giang_vien }
-    @monhocs = @lops.uniq {|lop| lop.ma_mon_hoc }
-    @phongs = @lops.uniq {|lop| lop.phong_hoc }
+    @lops = LopMonHoc.where(ma_lop: @lop_mon_hoc.ma_lop).reject {|it| it.id == @lop_mon_hoc.id or it.ma_giang_vien == @lop_mon_hoc.ma_giang_vien}
+    @gvs = GiangVien.all.uniq {|gv| gv.ma_giang_vien }.reject {|it| it.ma_giang_vien == @lop_mon_hoc.ma_giang_vien}
+    
     respond_to do |format|
       format.html {render :quanly}
     end
   end
 
   protected
+
   def to_zdate(str)
     DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
   end
+
   def load_lop
   	@lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])  	
     @ngay = str_to_ngay(params[:id])
@@ -297,21 +282,22 @@ class BuoihocController < ApplicationController
     @role = current_user.role
     @type = current_user.imageable
     if @type.is_a?(GiangVien) then 
-      @lich = @type.get_days[:ngay]
+      @ngayhoc = @type.get_days[:ngay]
       @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc).first
-      @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0]
+      @buoihoc = @ngayhoc.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
+      @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!        
     elsif @type.is_a?(SinhVien)
-      @lich = @type.get_days[:ngay]
+      @ngayhoc = @type.get_days[:ngay]
       @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
-      @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0]
+      @buoihoc = @ngayhoc.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
+      @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first
     elsif @role == 'trogiang'  
       @type = current_user    
-      @lich = @type.get_days[:ngay] if @type.get_days
+      @ngayhoc = @type.get_days[:ngay] if @type.get_days
       @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
-      @buoihoc = @lich.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @lich
+      @buoihoc = @ngayhoc.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
+      @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!        
     end    
-    #end
-    #@tuan = @tkb
   end
 
 end

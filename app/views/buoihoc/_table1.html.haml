@@ -20,5 +20,5 @@
         %td= sv.ma_sinh_vien
         %td= sv.hodemdaydu
         %td= sv.ten
-        %td= get_vang(@lop_mon_hoc, sv, @ngay)
-        %td= check_box_tag "msv2[#{sv.ma_sinh_vien}][phep]",nil, get_phep(@lop_mon_hoc, sv, @ngay), :disabled => "disabled"
+        %td= get_vang(@lich, sv)
+        %td= check_box_tag "msv2[#{sv.ma_sinh_vien}][phep]",nil, get_phep(@lich, sv), :disabled => "disabled"

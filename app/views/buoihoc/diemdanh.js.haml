@@ -1,17 +1,14 @@
+$("#buoihoc_sotiet").val("#{@lich.so_tiet_day_moi.to_s if @lich.so_tiet_day_moi}");
+$("#buoihoc_phong").val("#{@lich.phong_moi if @lich.phong_moi}");
 - if @error
-  alert("Số tiết dạy không hợp lệ");
-  $("#buoihoc_sotiet").val("#{@lich.so_tiet_day.to_s if @lich.so_tiet_day}");
-  $("#buoihoc_phong").val("#{@lich.phong if @lich.phong}");
-- else
-  - if @lich
-    $("#buoihoc_sotiet").val("#{@lich.so_tiet_day.to_s if @lich.so_tiet_day}");
-    $("#buoihoc_phong").val("#{@lich.phong if @lich.phong}");
+  alert("Số tiết dạy không hợp lệ");  
+- else  
   - if @svvang
     - @svvang.each do |v|  
       sosv = $("span#sovang");
       sosv.html("#{escape_javascript(@svvang.count.to_s)}")      
-      $("#msv_#{v.ma_sinh_vien}_status").prop('checked', #{get_vang(@lop_mon_hoc,v, @ngay) > 0});
-      $("#msv_#{v.ma_sinh_vien}_sotiet").val("#{get_vang(@lop_mon_hoc, v, @ngay)}");
+      $("#msv_#{v.ma_sinh_vien}_status").prop('checked', #{get_vang(@lich,v) > 0});
+      $("#msv_#{v.ma_sinh_vien}_sotiet").val("#{get_vang(@lich, v)}");
       $("#msv_#{v.ma_sinh_vien}_phep").prop('disabled', false);
       s = $("table#svvang");
       s.empty();

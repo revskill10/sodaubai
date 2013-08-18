@@ -70,7 +70,7 @@
               = collection_select(:doigio, "magiangvien",  @gvs, :ma_giang_vien, :to_s, {:selected => false}, {:class => "combobox", :placeholder => "Chọn giảng viên"})   
               
 
-        .well.sidebar-nav{:style => "font-size: 12px;"}
-          = form_tag doigio_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do   
-            %table#calendar{:class => "table table-bordered table-condensed datatable"}  
-              = render :partial => 'calendar'
+        .well.sidebar-nav{:style => "font-size: 12px;"}      
+          = form_tag doigio_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do       
+            %input#mgv{:type=>"hidden", :name => "giohoc[magiangvien]"}
+            #calendar              

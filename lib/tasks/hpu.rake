@@ -290,6 +290,68 @@ namespace :hpu do
       end
     end    
   end
+  task :update_lich_giang_day_for_diem_danh => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+
+    DiemDanh.all.each do |dd|
+      lich = LichTrinhGiangDay.where(lop_mon_hoc_id: dd.lop_mon_hoc.id, ngay_day: dd.ngay_vang).first_or_create!
+      if lich 
+        dd.lich_trinh_giang_day = lich
+        dd.save! rescue puts "error #{dd.id}"
+      end
+    end
+  end
+
+  task :update_lop_for_lmhsv => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+
+    LopMonHocSinhVien.all.each do |lmh|
+      lop = LopMonHoc.where(ma_lop: lmh.ma_lop_ghep, ma_mon_hoc: lmh.ma_mon_hoc).first
+      if lop 
+        lmh.lop_mon_hoc = lop
+        lmh.save! rescue puts "error #{lmh.id}"
+      end
+    end
+  end
+
+  task :update_mon_hoc => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    LopMonHoc.all.each do |lop|
+      MonHoc.where(ma_mon_hoc: lop.ma_mon_hoc, ten_mon_hoc: lop.ten_mon_hoc).first_or_create!
+    end
+  end
+
+
+#step 1
+
+  task :update_lop_mon_for_lich_giang_day => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    LichTrinhGiangDay.all.each do |l|
+      l.ma_lop  = l.lop_mon_hoc.ma_lop
+      l.ma_mon_hoc = l.lop_mon_hoc.ma_mon_hoc
+      l.save!
+    end
+  end
+# step 2: run update tkb task
+
+#step 3: update back lich giang day
+  task :update_back_lich_giang_day => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    LichTrinhGiangDay.all.each do |l|
+      lop = LopMonHoc.where(ma_lop: l.ma_lop, ma_mon_hoc: l.ma_mon_hoc).first
+      if lop 
+        l.lop_mon_hoc = lop 
+        l.save!
+      end
+    end
+  end
+
+
 end
 def titleize(str)
   str.split(" ").map(&:capitalize).join(" ").gsub("Ii","II")

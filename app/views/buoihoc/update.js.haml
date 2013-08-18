@@ -2,8 +2,8 @@
   :plain
     alert("Số tiết dạy không hợp lệ");
 - else
-  $("#buoihoc_sotiet").val("#{@lich.so_tiet_day.to_s if @lich.so_tiet_day}");
-  $("#buoihoc_phong").val("#{@lich.phong.to_s if @lich.phong}");
+  $("#buoihoc_sotiet").val("#{@lich.so_tiet_day_moi.to_s if @lich.so_tiet_day_moi}");
+  $("#buoihoc_phong").val("#{@lich.phong_moi.to_s if @lich.phong_moi}");
   - if @svvang
     :plain
       sosv = $("span#sovang");

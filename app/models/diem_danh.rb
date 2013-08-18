@@ -1,54 +1,29 @@
 class DiemDanh < ActiveRecord::Base
   has_paper_trail
-  attr_accessible :ma_sinh_vien, :nam_hoc, :ngay_vang, :so_tiet_vang, :loai, :diem_thuong_xuyen, :ma_giang_vien, :ma_lop, :ma_mon_hoc
+  attr_accessible :ma_sinh_vien, :so_tiet_vang
 
-  belongs_to :lop_mon_hoc
+  delegate :lop_mon_hoc, :to => :lich_trinh_giang_day, :allow_nil => false
   belongs_to :sinh_vien, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien'
+  belongs_to :lich_trinh_giang_day
+
+  validates :ma_sinh_vien, :presence => true  
   
 
-  validates :ma_sinh_vien, :ngay_vang, :presence => true  
-  
   after_save :set_default
   
-  
-  scope :thongtin, lambda {|ma_lop, ma_mon_hoc,ma_sinh_vien, ngay_vang| 
-    where(:ma_lop=>ma_lop).where(:ma_mon_hoc => ma_mon_hoc)
-    .where(:ma_sinh_vien=>ma_sinh_vien).where(:ngay_vang => Time.zone.parse(ngay_vang.to_s))
-  }
-  
-  scope :sotietvang, lambda{|ma_lop, ma_mon_hoc, ma_sinh_vien|
-    where(:ma_lop => ma_lop).where(:ma_mon_hoc => ma_mon_hoc).where(ma_sinh_vien: ma_sinh_vien).sum(:so_tiet_vang)
-  }
+   
   
   private
   
   def set_default
-    tong_vang_co_phep
-    
-    
-  end
-  def self.convert_dcc(diem)
-    case diem
-    when 100
-      4
-    when 90..99
-      3
-    when 80..89
-      2
-    when 70..79
-      1
-    else
-      0
-    end
-  end
-  def tong_vang_co_phep  
-    l = lop_mon_hoc.lop_mon_hoc_sinh_viens.where(ma_sinh_vien: ma_sinh_vien).first    
+   l = lop_mon_hoc.lop_mon_hoc_sinh_viens.where(ma_sinh_vien: ma_sinh_vien).first    
     if l
       l.tong_so_tiet = lop_mon_hoc.so_tiet
-      l.so_vang_co_phep = lop_mon_hoc.diem_danhs.where(ma_sinh_vien: ma_sinh_vien).sum(:so_tiet_vang, :conditions => {:phep => true})
-      l.so_tiet_vang = lop_mon_hoc.diem_danhs.where(ma_sinh_vien: ma_sinh_vien).sum(:so_tiet_vang)      
+      l.so_vang_co_phep = lich_trinh_giang_day.diem_danhs.where(ma_sinh_vien: ma_sinh_vien).sum(:so_tiet_vang, :conditions => {:phep => true})
+      l.so_tiet_vang = lich_trinh_giang_day.diem_danhs.where(ma_sinh_vien: ma_sinh_vien).sum(:so_tiet_vang)      
       l.save! rescue "tong vang co phep error"
-    end    
-  end
+    end
+  
+  end 
  
 end

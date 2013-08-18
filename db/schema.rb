@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130818021514) do
+ActiveRecord::Schema.define(:version => 20130818180816) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -28,86 +28,17 @@ ActiveRecord::Schema.define(:version => 20130818021514) do
   add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
-  create_table "can_bo_lops", :force => true do |t|
-    t.string   "ma_sinh_vien"
-    t.string   "ma_lop"
-    t.string   "ma_mon_hoc"
-    t.string   "nam_hoc"
-    t.integer  "hoc_ky"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  create_table "dang_ky_day_bus", :force => true do |t|
-    t.string   "ma_giang_vien"
-    t.string   "ma_lop"
-    t.string   "ma_mon_hoc"
-    t.string   "nam_hoc"
-    t.integer  "hoc_ky"
-    t.datetime "ngay_day_dang_ky"
-    t.integer  "tiet_bat_dau"
-    t.string   "phong"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
-  create_table "day_thays", :force => true do |t|
-    t.string   "ma_giang_vien"
-    t.string   "ma_lop"
-    t.string   "ma_mon_hoc"
-    t.string   "nam_hoc"
-    t.integer  "hoc_ky"
-    t.datetime "ngay_day"
-    t.string   "phong"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  create_table "diem_chi_tiets", :force => true do |t|
-    t.string   "ma_sinh_vien"
-    t.string   "ma_lop"
-    t.string   "ma_mon_hoc"
-    t.string   "nam_hoc"
-    t.integer  "hoc_ky"
-    t.integer  "diem"
-    t.string   "loai_diem"
-    t.integer  "lan"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  create_table "diem_chuyen_cans", :force => true do |t|
-    t.string   "ma_sinh_vien"
-    t.string   "ma_lop"
-    t.string   "ma_mon_hoc"
-    t.string   "nam_hoc"
-    t.integer  "hoc_ky"
-    t.integer  "tong_so_tiet"
-    t.integer  "tong_so_tiet_vang"
-    t.integer  "diem"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.integer  "tong_vang_co_phep"
-  end
-
   create_table "diem_danhs", :force => true do |t|
     t.string   "ma_sinh_vien"
-    t.string   "ma_lop"
-    t.string   "ma_mon_hoc"
-    t.string   "nam_hoc"
-    t.integer  "hoc_ky"
-    t.datetime "ngay_vang"
     t.integer  "so_tiet_vang"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.integer  "diem_thuong_xuyen"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
     t.text     "note"
     t.boolean  "phep"
-    t.string   "ma_giang_vien"
-    t.integer  "lop_mon_hoc_id"
+    t.integer  "lich_trinh_giang_day_id"
   end
 
-  add_index "diem_danhs", ["lop_mon_hoc_id"], :name => "index_diem_danhs_on_lop_mon_hoc_id"
+  add_index "diem_danhs", ["lich_trinh_giang_day_id"], :name => "index_diem_danhs_on_lich_trinh_giang_day_id"
 
   create_table "giang_viens", :force => true do |t|
     t.string   "ho_ten"
@@ -131,32 +62,12 @@ ActiveRecord::Schema.define(:version => 20130818021514) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "kien_nghis", :force => true do |t|
-    t.string   "ma_sinh_vien"
-    t.string   "ma_lop"
-    t.string   "ma_mon_hoc"
-    t.text     "noi_dung"
-    t.string   "nam_hoc"
-    t.integer  "hoc_ky"
-    t.integer  "nhom_id"
-    t.boolean  "trang_thai"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "lich_trinh_giang_days", :force => true do |t|
-    t.string   "ma_lop"
-    t.string   "ma_mon_hoc"
     t.datetime "ngay_day"
     t.text     "noi_dung_day"
-    t.integer  "so_tiet_day"
-    t.string   "phong"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.integer  "so_vang"
-    t.integer  "siso"
-    t.text     "sv"
-    t.string   "ma_giang_vien"
     t.integer  "lop_mon_hoc_id"
     t.integer  "ratings"
     t.integer  "rating_score"
@@ -168,6 +79,11 @@ ActiveRecord::Schema.define(:version => 20130818021514) do
     t.string   "phong_moi"
     t.string   "ma_mon_hoc_moi"
     t.string   "ten_mon_hoc_moi"
+    t.integer  "so_tiet_day_moi"
+    t.integer  "lop_mon_hoc_moi_id"
+    t.integer  "tuan_moi"
+    t.string   "ma_lop"
+    t.string   "ma_mon_hoc"
   end
 
   add_index "lich_trinh_giang_days", ["lop_mon_hoc_id"], :name => "index_lich_trinh_giang_days_on_lop_mon_hoc_id"
@@ -187,8 +103,6 @@ ActiveRecord::Schema.define(:version => 20130818021514) do
     t.string   "ma_sinh_vien"
     t.string   "ma_lop"
     t.string   "ma_mon_hoc"
-    t.string   "nam_hoc"
-    t.integer  "hoc_ky"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
     t.string   "ten_mon_hoc"
@@ -212,17 +126,17 @@ ActiveRecord::Schema.define(:version => 20130818021514) do
     t.string   "ho"
     t.boolean  "tin_chi"
     t.boolean  "lop_ghep"
+    t.integer  "lop_mon_hoc_id"
   end
 
   add_index "lop_mon_hoc_sinh_viens", ["group_id"], :name => "index_lop_mon_hoc_sinh_viens_on_group_id"
+  add_index "lop_mon_hoc_sinh_viens", ["lop_mon_hoc_id"], :name => "index_lop_mon_hoc_sinh_viens_on_lop_mon_hoc_id"
   add_index "lop_mon_hoc_sinh_viens", ["ma_lop_ghep", "ma_mon_hoc"], :name => "index_lop_mon_hoc_sinh_viens_on_ma_lop_ghep_and_ma_mon_hoc"
 
   create_table "lop_mon_hocs", :force => true do |t|
     t.string   "ma_lop"
     t.string   "ma_giang_vien"
     t.string   "ma_mon_hoc"
-    t.string   "nam_hoc"
-    t.integer  "hoc_ky"
     t.integer  "so_tiet"
     t.integer  "so_tuan_hoc"
     t.datetime "ngay_bat_dau"
@@ -243,34 +157,14 @@ ActiveRecord::Schema.define(:version => 20130818021514) do
     t.boolean  "thuc_hanh"
   end
 
+  add_index "lop_mon_hocs", ["ma_mon_hoc"], :name => "index_lop_mon_hocs_on_ma_mon_hoc"
   add_index "lop_mon_hocs", ["user_id"], :name => "index_lop_mon_hocs_on_user_id"
 
   create_table "mon_hocs", :force => true do |t|
     t.string   "ma_mon_hoc"
-    t.string   "ten_mon"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "nghi_days", :force => true do |t|
-    t.string   "ma_giang_vien"
-    t.string   "ma_lop"
-    t.string   "ma_mon_hoc"
-    t.string   "nam_hoc"
-    t.integer  "hoc_ky"
-    t.datetime "ngay_day"
-    t.string   "phong"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  create_table "nhat_kies", :force => true do |t|
-    t.string   "ma_nguoi_dung"
-    t.string   "ma_lop"
-    t.text     "noi_dung"
-    t.datetime "thoi_gian"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "ten_mon_hoc"
   end
 
   create_table "posts", :force => true do |t|
@@ -286,20 +180,6 @@ ActiveRecord::Schema.define(:version => 20130818021514) do
   end
 
   add_index "posts", ["lop_mon_hoc_id", "topic_id"], :name => "index_posts_on_lop_mon_hoc_id_and_topic_id"
-
-  create_table "ra_som_vao_muons", :force => true do |t|
-    t.string   "ma_giang_vien"
-    t.string   "ma_lop"
-    t.string   "ma_mon_hoc"
-    t.string   "nam_hoc"
-    t.integer  "hoc_ky"
-    t.datetime "ngay_day"
-    t.integer  "loai"
-    t.string   "phong"
-    t.integer  "tiet"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
 
   create_table "sinh_viens", :force => true do |t|
     t.string   "ma_sinh_vien"
@@ -324,17 +204,6 @@ ActiveRecord::Schema.define(:version => 20130818021514) do
   add_index "sinh_viens", ["lop_hc"], :name => "index_sinh_viens_on_lop_hc"
   add_index "sinh_viens", ["ma_sinh_vien"], :name => "index_sinh_viens_on_ma_sinh_vien"
 
-  create_table "tai_lieu_mon_hocs", :force => true do |t|
-    t.string   "ma_giang_vien"
-    t.string   "ma_lop"
-    t.string   "ma_mon_hoc"
-    t.text     "noi_dung"
-    t.string   "nam_hoc"
-    t.integer  "hoc_ky"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
   create_table "tenants", :force => true do |t|
     t.string   "nam_hoc"
     t.integer  "hoc_ky"
@@ -348,8 +217,6 @@ ActiveRecord::Schema.define(:version => 20130818021514) do
     t.string   "ma_lop"
     t.string   "ma_mon_hoc"
     t.text     "noi_dung"
-    t.string   "nam_hoc"
-    t.integer  "hoc_ky"
     t.datetime "thoi_gian"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
@@ -363,8 +230,6 @@ ActiveRecord::Schema.define(:version => 20130818021514) do
     t.string   "ma_lop"
     t.string   "ma_mon_hoc"
     t.string   "phong"
-    t.string   "nam_hoc"
-    t.integer  "hoc_ky"
     t.integer  "tuan_hoc_bat_dau"
     t.integer  "so_tuan"
     t.datetime "ngay_bat_dau"
