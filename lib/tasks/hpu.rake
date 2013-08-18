@@ -30,8 +30,8 @@ namespace :hpu do
   task :create_lopmonhoc => :environment do 
     tenant = Tenant.last
     PgTools.set_search_path tenant.scheme, false
-    LopMonHoc.delete_all
-    ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hocs') 
+    #LopMonHoc.delete_all
+    #ActiveRecord::Base.connection.reset_pk_sequence!('lop_mon_hocs') 
     TkbGiangVien.all.each do |tkb|
       l = LopMonHoc.where(:ma_giang_vien => tkb.ma_giang_vien, :ma_lop => tkb.ma_lop, :ma_mon_hoc => tkb.ma_mon_hoc).first_or_create!
       l.update_attributes(ten_giang_vien: tkb.ten_giang_vien, ten_mon_hoc: tkb.ten_mon_hoc, phong_hoc: tkb.phong, ngay_bat_dau: tkb.ngay_bat_dau, ngay_ket_thuc: tkb.ngay_ket_thuc, so_tuan_hoc: tkb.so_tuan)
