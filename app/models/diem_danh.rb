@@ -1,6 +1,6 @@
 class DiemDanh < ActiveRecord::Base
   has_paper_trail
-  attr_accessible :ma_sinh_vien, :so_tiet_vang
+  attr_accessible :ma_sinh_vien, :so_tiet_vang, :lich_trinh_giang_day_id
 
   delegate :lop_mon_hoc, :to => :lich_trinh_giang_day, :allow_nil => false
   belongs_to :sinh_vien, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien'
