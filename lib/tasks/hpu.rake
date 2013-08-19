@@ -351,6 +351,12 @@ namespace :hpu do
     end
   end
 
+  task :update_versions => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    Version.delete_all
+    ActiveRecord::Base.connection.reset_pk_sequence!('versions')
+  end
 
 end
 def titleize(str)
