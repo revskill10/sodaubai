@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   end
   protected
   def load_tuan
-    @week = Tuan.current.first
+    @week = Tuan.find(2)
     @current_week = @week.stt    
   end
   def load_tenant
