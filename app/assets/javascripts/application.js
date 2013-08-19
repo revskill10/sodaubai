@@ -12,8 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require twitter/bootstrap
-//= require jquery.pjax
+//=require bootstrap-all
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require redactor.min
@@ -23,12 +22,10 @@
 //= require bootstrap-datetimepicker
 
 $(document).ready(function(){
-	$('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bStateSave":true,"bAutoWidth":true,"sScrollY": "300px"});		
-	$('.combobox').combobox();	
-	$(document).pjax('a[data-pjax]', '#pjax-container');
-	$('.best_in_place').best_in_place();	
-	$('.redactor').redactor();
-	
+	$('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bStateSave":true,"bAutoWidth":true,"sScrollY": "300px"});			
+$('.combobox').combobox();	
+$('.best_in_place').best_in_place();	
+$('.redactor').redactor();
+
     $('#datetimepicker1').datetimepicker();
-    
 });  

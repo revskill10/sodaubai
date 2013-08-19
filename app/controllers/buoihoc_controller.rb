@@ -7,6 +7,7 @@ class BuoihocController < ApplicationController
   before_filter :load_lop
   
   def show
+    raise ActiveRecord::RecordNotFound unless @lich
   	authorize! :read, @lich
   	
     if @lich 
@@ -36,6 +37,7 @@ class BuoihocController < ApplicationController
   end
   def update    
     begin    
+      raise ActiveRecord::RecordNotFound unless @lich
       authorize! :manage, @lich
 
       if params[:buoihoc]
@@ -109,6 +111,7 @@ class BuoihocController < ApplicationController
     end
   end
   def rate
+    raise ActiveRecord::RecordNotFound unless @lich
     authorize! :rate, @lich    
     if @lich             
       if params[:theme].to_i >= 0 and params[:theme].to_i <= 5 then 
@@ -132,6 +135,7 @@ class BuoihocController < ApplicationController
   end
   def diemdanh
     begin
+      raise ActiveRecord::RecordNotFound unless @lich
       authorize! :manage, @lich
       @phong = params[:buoihoc][:phong]
       @sotietday = params[:buoihoc][:sotiet].to_i      
@@ -178,6 +182,7 @@ class BuoihocController < ApplicationController
   end
   
   def get_diemdanh
+    raise ActiveRecord::RecordNotFound unless @lich
     authorize! :read, @lich
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens    
     @idv = @lich.diem_danhs.vang.map { |k| k.ma_sinh_vien}
@@ -194,14 +199,34 @@ class BuoihocController < ApplicationController
   end
 
   def nghiday
+    raise ActiveRecord::RecordNotFound unless @lich
     authorize! :manage, @lich
     
-    
+    if params[:buoihoc] and params[:buoihoc][:nghiday]
+      @lich.loai = 1
+      @lich.status = 6
+      @lich.save!
+    end
     respond_to do |format|
       format.js
     end
   end
+
+  def daybu
+    begin
+      raise ActiveRecord::RecordNotFound unless @lich
+      authorize! :manage, @lich
+
+    rescue Exception => e 
+      logger.debug "ERROR #{e}"
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
+
   def daythay    
+    raise ActiveRecord::RecordNotFound unless @lich
     authorize! :manage, @lich
 
     
@@ -210,6 +235,7 @@ class BuoihocController < ApplicationController
     end
   end
   def doigio    
+    raise ActiveRecord::RecordNotFound unless @lich
     authorize! :manage, @lich
 
     ma_giang_vien_moi = params[:giohoc][:magiangvien]
@@ -235,6 +261,7 @@ class BuoihocController < ApplicationController
     end
   end
   def calendar
+    raise ActiveRecord::RecordNotFound unless @lich
     authorize! :manage, @lich
     gv = params[:doigio][:magiangvien]
     @gv = GiangVien.where(ma_giang_vien: gv).first
@@ -262,6 +289,7 @@ class BuoihocController < ApplicationController
     end
   end
   def get_quanly    
+    raise ActiveRecord::RecordNotFound unless @lich
     authorize! :manage, @lich
     @lops = LopMonHoc.where(ma_lop: @lop_mon_hoc.ma_lop).reject {|it| it.id == @lop_mon_hoc.id or it.ma_giang_vien == @lop_mon_hoc.ma_giang_vien}
     @gvs = GiangVien.all.uniq {|gv| gv.ma_giang_vien }.reject {|it| it.ma_giang_vien == @lop_mon_hoc.ma_giang_vien}
@@ -279,6 +307,7 @@ class BuoihocController < ApplicationController
 
   def load_lop
   	@lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])  	
+    @pid = params[:id]
     @ngay = str_to_ngay(params[:id])
     @malop = @lop_mon_hoc.ma_lop
     @mamonhoc = @lop_mon_hoc.ma_mon_hoc

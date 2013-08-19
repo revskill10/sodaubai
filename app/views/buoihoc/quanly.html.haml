@@ -49,7 +49,10 @@
         = form_tag nghiday_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do  
           .well.sidebar-nav{:style => "font-size: 12px;"}
             %span= check_box_tag "buoihoc[nghiday]", nil, (@lich.loai == 2)
-            %span Nghỉ dạy buổi học này ?
+            = submit_tag "Nghỉ dạy buổi này", :class =>"btn btn-primary" 
+          .well.sidebar-nav{:style => "font-size: 12px;"} 
+            = form_tag daybu_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do  
+              #daybu
                   
                         
       .tab-pane#daythay

@@ -12,7 +12,7 @@ Trytest::Application.routes.draw do
   devise_for :users do
    get '/users/sign_out' => 'devise/cas_sessions#destroy'
   end
-  ActiveAdmin.routes(self)
+  
   
   resources :tkb_giang_viens
 
@@ -55,6 +55,7 @@ Trytest::Application.routes.draw do
         post 'diemdanh'
         get 'diemdanh' => 'buoihoc#get_diemdanh'
         post 'calendar'
+        post 'daybu'
         post 'nghiday'
         post 'daythay'
         post 'doigio'

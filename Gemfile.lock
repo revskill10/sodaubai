@@ -1,13 +1,6 @@
 GIT
-  remote: git://github.com/Nerian/bootstrap-wysihtml5-rails.git
-  revision: 75d8c060fcee2b5967603abcad5b02a82f83d093
-  specs:
-    bootstrap-wysihtml5-rails (0.3.1.20)
-      railties (>= 3.0)
-
-GIT
   remote: git://github.com/jnicklas/capybara.git
-  revision: 89ba2c6ecc8666e5a4d6a8b61d69968d04a71bc9
+  revision: 1273f519d5aab54c2cdad9fd1cd01b1dbe541c8b
   specs:
     capybara (2.1.0)
       mime-types (>= 1.16)
@@ -39,21 +32,6 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    activeadmin (0.6.0)
-      arbre (>= 1.0.1)
-      bourbon (>= 1.0.0)
-      devise (>= 1.1.2)
-      fastercsv
-      formtastic (>= 2.0.0)
-      inherited_resources (>= 1.3.1)
-      jquery-rails (>= 1.0.0)
-      kaminari (>= 0.13.0)
-      meta_search (>= 0.9.2)
-      rails (>= 3.0.0)
-      sass (>= 3.1.0)
-    activeadmin-axlsx (2.1.2)
-      activeadmin (~> 0.6.0)
-      axlsx
     activemodel (3.2.13)
       activesupport (= 3.2.13)
       builder (~> 3.0.0)
@@ -70,12 +48,10 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
-    addressable (2.3.4)
+    addressable (2.3.5)
     akami (1.2.0)
       gyoku (>= 0.4.0)
       nokogiri (>= 1.4.0)
-    arbre (1.0.1)
-      activesupport (>= 3.0.0)
     arel (3.0.2)
     axlsx (1.3.6)
       htmlentities (~> 4.3.1)
@@ -84,8 +60,8 @@ GEM
     axlsx_rails (0.1.4)
       axlsx
       rails (>= 3.1)
-    bcrypt-ruby (3.0.1)
-    bcrypt-ruby (3.0.1-x86-mingw32)
+    bcrypt-ruby (3.1.1)
+    bcrypt-ruby (3.1.1-x86-mingw32)
     best_in_place (2.1.0)
       jquery-rails
       rails (~> 3.1)
@@ -95,18 +71,16 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-datetimepicker-rails (0.0.11)
-    bourbon (3.1.8)
-      sass (>= 3.2.0)
-      thor
     builder (3.0.4)
     cancan (1.6.10)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.9.1)
+    chunky_png (1.2.8)
     ckeditor (4.0.4)
       mime-types
       orm_adapter
-    ckeditor_rails (4.1.2)
+    ckeditor_rails (4.2)
       railties (>= 3.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -119,18 +93,26 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.2)
+    coffee-script-source (1.6.3)
     color-generator (0.0.3)
+    compass (0.12.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
+    compass_twitter_bootstrap (2.3.1)
+      compass
     daemons (1.1.9)
-    database_cleaner (1.0.1)
+    database_cleaner (1.1.1)
     debug_inspector (0.0.2)
-    destroyed_at (0.1.1)
-    devise (2.2.4)
+    destroyed_at (0.1.2)
+    devise (3.0.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (~> 3.1)
-      warden (~> 1.2.1)
-    devise_cas_authenticatable (1.3.0)
+      railties (>= 3.2.6, < 5)
+      warden (~> 1.2.3)
+    devise_cas_authenticatable (1.3.2)
       devise (>= 1.2.0)
       rubycas-client (>= 2.2.1)
     diff-lcs (1.2.4)
@@ -144,14 +126,12 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
-    fastercsv (1.5.5)
     ffi (1.9.0)
     ffi (1.9.0-x86-mingw32)
     formatador (0.2.4)
-    formtastic (2.2.1)
-      actionpack (>= 3.0)
+    fssm (0.2.10)
     growl (1.0.3)
-    guard (1.8.1)
+    guard (1.8.2)
       formatador (>= 0.2.4)
       listen (>= 1.0.0)
       lumberjack (>= 1.0.2)
@@ -176,16 +156,12 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
-    has_scope (0.5.1)
     hike (1.2.3)
     htmlentities (4.3.1)
     httpi (2.0.2)
       rack
     i18n (0.6.1)
     ice_cube (0.11.0)
-    inherited_resources (1.4.0)
-      has_scope (~> 0.5.0)
-      responders (~> 0.9)
     journey (1.0.4)
     jquery-rails (2.3.0)
       railties (>= 3.0, < 5.0)
@@ -194,51 +170,43 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    kramdown (1.1.0)
     launchy (2.3.0)
       addressable (~> 2.3)
     letsrate (1.0.8)
-    listen (1.2.2)
+    listen (1.3.0)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
-    lumberjack (1.0.3)
+    lumberjack (1.0.4)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    meta_search (1.1.3)
-      actionpack (~> 3.1)
-      activerecord (~> 3.1)
-      activesupport (~> 3.1)
-      polyamorous (~> 0.5.0)
-    method_source (0.8.1)
-    micromachine (1.0.4)
-    mime-types (1.23)
-    mini_portile (0.5.0)
-    mmailer (0.0.5)
+    method_source (0.8.2)
+    micromachine (1.1.0)
+    mime-types (1.24)
+    mini_portile (0.5.1)
+    mmailer (0.0.6)
+      kramdown
       mail
       micromachine
       thor
-    multi_json (1.7.8)
+    multi_json (1.7.9)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     nokogiri (1.6.0-x86-mingw32)
       mini_portile (~> 0.5.0)
     nori (2.1.0)
     orm_adapter (0.4.0)
-    paper_trail (2.7.1)
+    paper_trail (2.7.2)
       activerecord (~> 3.0)
       railties (~> 3.0)
-    paperclip (3.4.2)
+    paperclip (3.5.1)
       activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
     pg (0.15.1-x86-mingw32)
-    pjax_rails (0.3.4)
-      jquery-rails
-    polyamorous (0.5.0)
-      activerecord (~> 3.0)
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -273,7 +241,7 @@ GEM
       thor (>= 0.14.6, < 2.0)
     rake (10.1.0)
     rb-fsevent (0.9.3)
-    rb-inotify (0.9.0)
+    rb-inotify (0.9.1)
       ffi (>= 0.5.0)
     rb-kqueue (0.2.0)
       ffi (>= 0.5.0)
@@ -300,27 +268,25 @@ GEM
       redis-store (~> 1.1.0)
     redis-store (1.1.3)
       redis (>= 2.2.0)
-    responders (0.9.3)
-      railties (~> 3.1)
-    rspec (2.13.0)
-      rspec-core (~> 2.13.0)
-      rspec-expectations (~> 2.13.0)
-      rspec-mocks (~> 2.13.0)
-    rspec-core (2.13.1)
-    rspec-expectations (2.13.0)
+    rspec (2.14.1)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
+    rspec-core (2.14.5)
+    rspec-expectations (2.14.2)
       diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.13.1)
-    rspec-rails (2.13.2)
+    rspec-mocks (2.14.3)
+    rspec-rails (2.14.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec-core (~> 2.13.0)
-      rspec-expectations (~> 2.13.0)
-      rspec-mocks (~> 2.13.0)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
     rubycas-client (2.3.9)
       activesupport
     rubyzip (0.9.9)
-    sass (3.2.9)
+    sass (3.2.10)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -333,12 +299,12 @@ GEM
       nokogiri (>= 1.4.0)
       nori (~> 2.1.0)
       wasabi (~> 3.1.0)
-    shoulda-matchers (2.2.0)
+    shoulda-matchers (2.3.0)
       activesupport (>= 3.0.0)
     simple_form (2.1.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
-    slop (3.4.5)
+    slop (3.4.6)
     split_datetime (0.0.1)
     spork (0.9.2)
     sprockets (2.2.2)
@@ -346,8 +312,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sqlite3 (1.3.7)
-    sqlite3 (1.3.7-x86-mingw32)
+    sqlite3 (1.3.8-x86-mingw32)
     thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -359,19 +324,14 @@ GEM
       chronic
       nokogiri
       rails
-    treetop (1.4.14)
+    treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    twitter-bootstrap-rails (2.2.7)
-      actionpack (>= 3.1)
-      execjs
-      rails (>= 3.1)
-      railties (>= 3.1)
     tzinfo (0.3.37)
-    uglifier (2.1.1)
+    uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    warden (1.2.1)
+    warden (1.2.3)
       rack (>= 1.0)
     wasabi (3.1.0)
       httpi (~> 2.0)
@@ -383,7 +343,7 @@ GEM
       rack (>= 1.0)
       rack-test (>= 0.5.3)
     will_paginate (3.0.4)
-    will_paginate-bootstrap (0.2.3)
+    will_paginate-bootstrap (0.2.4)
       will_paginate (>= 3.0.3)
     win32console (1.3.2)
     win32console (1.3.2-x86-mingw32)
@@ -394,21 +354,20 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  activeadmin
-  activeadmin-axlsx
   activerecord-postgresql-adapter
   axlsx_rails
   best_in_place
   better_errors
   binding_of_caller
   bootstrap-datetimepicker-rails
-  bootstrap-wysihtml5-rails!
   cancan
   capybara!
   ckeditor
   ckeditor_rails
   coffee-rails (~> 3.2.1)
   color-generator
+  compass-rails
+  compass_twitter_bootstrap
   database_cleaner
   destroyed_at
   devise_cas_authenticatable
@@ -420,7 +379,7 @@ DEPENDENCIES
   haml-rails
   ice_cube
   jquery-datatables-rails!
-  jquery-rails (= 2.3.0)
+  jquery-rails
   kaminari
   launchy
   letsrate
@@ -428,7 +387,6 @@ DEPENDENCIES
   paper_trail
   paperclip (~> 3.0)
   pg (= 0.15.1)
-  pjax_rails
   rails (= 3.2.13)
   rb-notifu
   redis-rack-cache
@@ -444,7 +402,6 @@ DEPENDENCIES
   sqlite3
   thin
   to_spreadsheet
-  twitter-bootstrap-rails
   uglifier (>= 1.0.3)
   watchr
   wdm
