@@ -281,13 +281,7 @@ namespace :hpu do
   task :update_data => :environment do 
     tenant = Tenant.last
     PgTools.set_search_path tenant.scheme, false
-    DiemDanh.all.each do |dd|
-      l = LopMonHoc.where(ma_lop: dd.ma_lop, ma_mon_hoc: dd.ma_mon_hoc, ma_giang_vien: dd.ma_giang_vien).first
-      if l 
-        dd.lop_mon_hoc = l
-        dd.save!
-      end
-    end
+    
     LichTrinhGiangDay.all.each do |dd|
       l = LopMonHoc.where(ma_lop: dd.ma_lop, ma_mon_hoc: dd.ma_mon_hoc, ma_giang_vien: dd.ma_giang_vien).first
       if l 
@@ -301,7 +295,7 @@ namespace :hpu do
     PgTools.set_search_path tenant.scheme, false
 
     DiemDanh.all.each do |dd|
-      lich = LichTrinhGiangDay.where(lop_mon_hoc_id: dd.lop_mon_hoc.id, ngay_day: dd.ngay_vang).first_or_create!
+      lich = LichTrinhGiangDay.where(ma_lop: dd.ma_lop, ma_mon_hoc: dd.ma_mon_hoc, ngay_day: dd.ngay_vang).first_or_create!
       if lich 
         dd.lich_trinh_giang_day = lich
         dd.save! rescue puts "error #{dd.id}"
