@@ -1,5 +1,5 @@
 class LopMonHocSinhVien < ActiveRecord::Base
-  has_paper_trail
+
   default_scope order('ten, ho_dem, ho')
   default_scope :conditions => 'status is null or status = false'
   

@@ -358,6 +358,18 @@ namespace :hpu do
     ActiveRecord::Base.connection.reset_pk_sequence!('versions')
   end
 
+  task :update_ho_sinhvien => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+
+    SinhVien.all.each do |sv|
+      h = sv.ho_dem.split(" ").to_a
+      sv.ho = h[0]
+      sv.ho_dem = h[1..-2].join(" ")
+      sv.save!
+    end
+  end
+
 end
 def titleize(str)
   str.split(" ").map(&:capitalize).join(" ").gsub("Ii","II")
