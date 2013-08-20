@@ -16,7 +16,7 @@
   %tbody
     - if @svs and @svs.count > 0
       - @svs.each_with_index do |sv, index|
-        %tr
+        %tr{:class => ("warning" if sv.lop_ghep == true)}
           %td= (index+1).to_s
           %td= check_box_tag "msv[#{sv.ma_sinh_vien}]",nil, false
           %td= sv.ma_sinh_vien
