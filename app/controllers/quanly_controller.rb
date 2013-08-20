@@ -103,6 +103,7 @@ class QuanlyController < ApplicationController
 	def filtersv
 		authorize! :manage, LopMonHocSinhVien
 		@svs = SinhVien.where(ma_sinh_vien: params[:sv][:masinhvien])
+		
 		respond_to do |format|
 			format.js
 		end
@@ -113,7 +114,7 @@ class QuanlyController < ApplicationController
 		authorize! :manage, LichTrinhGiangDay
 
 		@lichs = LichTrinhGiangDay.nghidaychoduyet
-		
+
 		respond_to do |format|
 			format.html
 		end
