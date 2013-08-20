@@ -216,7 +216,18 @@ class BuoihocController < ApplicationController
     begin
       raise ActiveRecord::RecordNotFound unless @lich
       authorize! :manage, @lich
-
+      
+      if params[:buoihoc][:thoigian]
+        @ngaybu = str_to_ngay(params[:buoihoc][:thoigian]) 
+        @lich.ngay_day_moi = get_ngay(@ngaybu)          
+        @lich.loai = 2
+        @lich.status = 6
+        @lich.save!        
+      end
+      
+      respond_to do |format|
+        format.js
+      end
     rescue Exception => e 
       logger.debug "ERROR #{e}"
       respond_to do |format|

@@ -27,5 +27,9 @@ $(document).ready(function(){
 	$('.best_in_place').best_in_place();	
 	$('.redactor').redactor();
 
-	    $('#datetimepicker1').datetimepicker();
+    $('#datetimepicker1').datetimepicker({
+  	pickSeconds: false,
+  	startDate: new Date(2013, 8, 12),
+    endDate: new Date(2014, 8, 12)
+  });
 });  

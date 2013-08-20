@@ -45,14 +45,15 @@
         %a{:href => "#doigio", :"data-toggle" => "tab"} Đổi giờ
       
     .tab-content
-      .tab-pane.active#nghiday
-        = form_tag nghiday_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do  
-          .well.sidebar-nav{:style => "font-size: 12px;"}
+      .tab-pane.active#nghiday        
+        .well.sidebar-nav{:style => "font-size: 12px;"}
+          = form_tag nghiday_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do  
             %span= check_box_tag "buoihoc[nghiday]", nil, (@lich.loai == 2)
             = submit_tag "Nghỉ dạy buổi này", :class =>"btn btn-primary" 
-          .well.sidebar-nav{:style => "font-size: 12px;"} 
-            = form_tag daybu_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do  
-              #daybu
+        .well.sidebar-nav{:style => "font-size: 12px;"}           
+          = form_tag daybu_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do  
+            %input{:type => "hidden", :name => "buoihoc[nghiday]", :id => "buoihoc_nghiday"}
+            #daybu
                   
                         
       .tab-pane#daythay

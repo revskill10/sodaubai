@@ -1,2 +1,8 @@
 $("#daybu").html("#{escape_javascript(render :partial => 'daybu')}");
-$('#datetimepicker1').datetimepicker();
+$("input#buoihoc_nghiday").val("1");
+:plain
+  $('#datetimepicker1').datetimepicker({
+  	pickSeconds: false,
+  	startDate: new Date(2013, 8, 12),
+    endDate: new Date(2014, 8, 12)
+  });
