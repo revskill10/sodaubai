@@ -308,7 +308,7 @@ namespace :hpu do
     PgTools.set_search_path tenant.scheme, false
 
     LopMonHocSinhVien.all.each do |lmh|
-      lop = LopMonHoc.where(ma_lop: lmh.ma_lop, ma_mon_hoc: lmh.ma_mon_hoc).first
+      lop = LopMonHoc.where(ma_lop: lmh.ma_lop_ghep, ma_mon_hoc: lmh.ma_mon_hoc).first
       if lop 
         lmh.lop_mon_hoc = lop
         lmh.save! rescue puts "error #{lmh.id}"
