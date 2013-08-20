@@ -4,5 +4,6 @@ s.html("#{escape_javascript(render :partial => 'table2')}");
 $("input#loptc").val("#{(@lop.id if @lop)}");
 - @svs.each do |sv|
   $("table#info2 tr##{sv.ma_sinh_vien}").remove();
-
+- if @goodsv
+  $("#addsv").html("Đã thêm #{@goodsv.count} sinh viên")
 alert("Đã thêm thành công");
