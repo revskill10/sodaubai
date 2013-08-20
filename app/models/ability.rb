@@ -37,6 +37,7 @@ class Ability
     end
     if user.groups.count > 0 and user.groups.map(&:name).include?("daotao")        
         can :manage, LopMonHocSinhVien
+        can :manage, LichTrinhGiangDay
     end
     
     # Define abilities for the passed in user here. For example:

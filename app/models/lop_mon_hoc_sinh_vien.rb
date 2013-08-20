@@ -6,7 +6,8 @@ class LopMonHocSinhVien < ActiveRecord::Base
 
   attr_accessible :ma_lop, :ma_lop_ghep, :ma_sinh_vien, :ma_mon_hoc, :ma_lop_hanh_chinh, :ten_mon_hoc, :loai, :ho_dem, :ten, :ho, :lop_ghep, :tin_chi
 
-  belongs_to :lop_mon_hoc  
+  has_many :lop_mon_hocs, :foreign_key => 'ma_lop', :primary_key => 'ma_lop_ghep' , :conditions => proc {"lop_mon_hocs.ma_mon_hoc = '#{self.ma_mon_hoc}'"}
+  
   belongs_to :sinh_vien, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien'
   
   

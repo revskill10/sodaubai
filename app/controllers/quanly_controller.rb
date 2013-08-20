@@ -107,4 +107,15 @@ class QuanlyController < ApplicationController
 			format.js
 		end
 	end
+
+	# quan ly nghi day
+	def nghiday
+		authorize! :manage, LichTrinhGiangDay
+
+		@lichs = LichTrinhGiangDay.nghidaychoduyet
+		
+		respond_to do |format|
+			format.html
+		end
+	end
 end

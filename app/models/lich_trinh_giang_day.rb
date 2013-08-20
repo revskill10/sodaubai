@@ -1,6 +1,17 @@
 # encoding: UTF-8
 class LichTrinhGiangDay < ActiveRecord::Base
   has_paper_trail
+
+  # Danh sach lich dang ky nghi day
+
+
+  scope :nghiday, -> {where(loai: 1)}
+  scope :nghidaychoduyet, -> {nghiday.where(status: 6)}
+  scope :daybu, -> {where(loai: 2)}
+  scope :daybuchoduyet, -> {daybu.where(status: 6)}
+  scope :choduyet, -> {where(status: 6)}
+  
+  
   attr_accessible :ngay_day, :nhan_xet_buoi_hoc, :noi_dung_day, :so_tiet_day, :so_vang, :ngay_day_moi, :ma_giang_vien_moi, :ma_mon_hoc_moi, :ten_mon_hoc_moi, :loai, :status, :tuan_moi, :so_tiet_day_moi, :lop_mon_hoc_moi_id
 
   belongs_to :lop_bo_sung, :class_name => "LopMonHoc", :foreign_key => :lop_mon_hoc_moi_id

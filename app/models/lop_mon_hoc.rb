@@ -25,7 +25,8 @@ class LopMonHoc < ActiveRecord::Base
   has_many :lich_trinh_giang_days, :dependent => :nullify
   has_many :diem_danhs, :through => :lich_trinh_giang_days
   
-  has_many :lop_mon_hoc_sinh_viens, :dependent => :nullify
+  has_many :lop_mon_hoc_sinh_viens, :foreign_key => 'ma_lop_ghep', :primary_key => 'ma_lop', :dependent => :nullify, :conditions => proc {["ma_mon_hoc = '#{self.ma_mon_hoc}'"]}
+  
   has_many :sinh_viens, :through => :lop_mon_hoc_sinh_viens
   
 
