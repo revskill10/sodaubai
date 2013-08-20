@@ -23,7 +23,7 @@
           %td= (index+1).to_s
           %td= check_box_tag "msv[#{sv.ma_sinh_vien}]",nil, false, :class => "selectedId"
           %td= sv.ma_sinh_vien
-          %td= sv.ho_dem || ""
+          %td= sv.dem
           %td= sv.ten
           %td= (sv.tin_chi ? true : false)
   

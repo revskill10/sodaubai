@@ -25,13 +25,9 @@ class SinhVien < ActiveRecord::Base
     if res.empty? then return  0 
     else return res.first.so_tiet_vang end
   end
-  def ho
-    full = (ho_dem + " " + ten).split(" ").to_a
-    return full[0]
-  end
+  
   def dem
-    full = (ho_dem + " " + ten).split(" ").to_a
-    return full[1..-2].join(" ")
+    return (ho || "") + " " + (ho_dem || "")
   end
   def fullname
     if self.ho_dem

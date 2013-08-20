@@ -21,7 +21,7 @@
           %td= (index+1).to_s
           %td= check_box_tag "msv[#{sv.ma_sinh_vien}]",nil, false, :disabled => true
           %td= sv.ma_sinh_vien
-          %td= sv.ho_dem || ""
+          %td= (sv.ho || "") + " " + (sv.ho_dem || "")
           %td= sv.ten
           %td= sv.tin_chi?
 - if @dupcalendar and @dupcalendar.count > 0
