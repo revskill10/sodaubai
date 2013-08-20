@@ -2,12 +2,14 @@
 
 %table#lophc.table.table-bordered.table-condensed.table-hover.table-striped
   %colgroup
-    %col{:style => "width: 30%"}
+    %col{:style => "width: 5%"}
+    %col{:style => "width: 25%"}
     %col{:style => "width: 30%"}
     %col{:style => "width: 20%"}            
     %col{:style => "width: 15%"}  
     %col{:style => "width: 5%"}  
   %thead
+    %td STT
     %td
       %input{:type=> "checkbox",:id=>"selectall"} Chọn hết
     %td Mã sinh viên
@@ -16,8 +18,9 @@
     %td Tín chỉ                       
   %tbody
     - if @svs and @svs.count > 0
-      - @svs.each do |sv|
-        %tr
+      - @svs.each_with_index do |sv, index|
+        %tr{:class => ("warning" if sv.lop_ghep == true)}
+          %td= (index+1).to_s
           %td= check_box_tag "msv[#{sv.ma_sinh_vien}]",nil, false, :class => "selectedId"
           %td= sv.ma_sinh_vien
           %td= sv.ho_dem || ""

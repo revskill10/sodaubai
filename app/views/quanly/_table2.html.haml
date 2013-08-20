@@ -1,11 +1,13 @@
 %table#loptc.table.table-bordered.table-condensed.table-hover.table-striped
   %colgroup
     %col{:style => "width: 5%"}
+    %col{:style => "width: 5%"}
     %col{:style => "width: 25%"}
-    %col{:style => "width: 40%"}            
+    %col{:style => "width: 35%"}            
     %col{:style => "width: 25%"}  
     %col{:style => "width: 5%"}  
   %thead
+    %td STT
     %td Chọn
     %td Mã sinh viên
     %td Họ đệm
@@ -13,8 +15,9 @@
     %td Tín chỉ                  
   %tbody
     - if @svs and @svs.count > 0
-      - @svs.each do |sv|
+      - @svs.each_with_index do |sv, index|
         %tr
+          %td= (index+1).to_s
           %td= check_box_tag "msv[#{sv.ma_sinh_vien}]",nil, false
           %td= sv.ma_sinh_vien
           %td= (sv.ho || "") + " " + (sv.ho_dem || "")
