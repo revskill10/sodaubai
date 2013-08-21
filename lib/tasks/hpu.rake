@@ -407,7 +407,7 @@ namespace :hpu do
         dssvs = []
         n = sosv/sobuoi
 
-        if n >= 0 and n < 3 and sosv > 0
+        if n > 0 and n < 3 and sosv > 0
           k = 3 - n
           k.times do |t|
             dssvs = dssvs + dssv
@@ -415,6 +415,9 @@ namespace :hpu do
           parts = dssvs.each_slice(3).to_a
         elsif n > 3
           parts = dssv.each_slice(n).to_a
+        elsif n == 0
+          temp = (3 * sobuoi)/sosv + 1
+          parts = dssv.each_slice(temp).to_a
         end
         slot = {}
         if parts
