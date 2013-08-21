@@ -1,4 +1,5 @@
 require 'pg_tools'
+require 'set'
 namespace :hpu do
   desc "TODO"
   
@@ -391,6 +392,34 @@ namespace :hpu do
       sv.ho_dem = h[1..-2].join(" ")
       sv.save!
     end
+  end
+
+  task :xep_lichtrucnhat => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+
+    LopMonHoc.each do |lop|
+      lichday = lop.get_days
+      sobuoi = lichday.count
+      dssv = lop.lop_mon_hoc_sinh_viens.shuffle
+      sosv = dssv.count
+      n = sobuoi/sosv
+
+      slot = {}
+      lichday.each do |lich|
+        day = l["time"][0]
+        slot[day] ||= Array.new
+      end
+      dssv.each do |sv| 
+
+        lich = lichday.detect {|l| slot[l["time"][0]].size }
+        lichday.all.each do |l|
+          
+          
+        end
+      end
+    end
+
   end
 
 end

@@ -73,7 +73,8 @@
             = text_area_tag "buoihoc[noidung]", (@lich.noi_dung_day if @lich), :value => "#{(@lich.noi_dung_day if @lich)}", :class => 'redactor', :style => "width: 100%;", :rows => 4
                           
         .tab-pane.active#tab2                  
-          .well.sidebar-nav
+          = submit_tag "Cập nhật", :class =>"btn btn-primary"     
+          .well.sidebar-nav            
             %table{:class => "table table-bordered table-condensed datatable"}                              
               %tbody    
                 - @svs2.each_with_index do |svs, index|    
