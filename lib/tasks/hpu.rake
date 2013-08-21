@@ -438,7 +438,19 @@ namespace :hpu do
   task :update_lichtruc_forsv => :environment do 
     tenant = Tenant.last
     PgTools.set_search_path tenant.scheme, false
-
+    LopMonHoc.all.each do |lop|
+      if lop.trucnhat
+        lichs = JSON.parse(lop.trucnhat)
+        lichs.each do |k,v|
+          sv = SinhVien.where(ma_sinh_vien: v).first
+          if sv
+            sv.trucnhat ||= []
+            sv.trucnhat << k
+            sv.save!
+          end
+        end
+      end
+    end
   end
 
   task :update_lmhsv => :environment do 
