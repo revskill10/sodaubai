@@ -415,7 +415,7 @@ namespace :hpu do
           parts = dssvs.each_slice(3).to_a
         elsif n > 3
           parts = dssv.each_slice(n).to_a
-        elsif n == 0
+        elsif n == 0 and sosv > 0
           temp = (3 * sobuoi)/sosv + 1
           parts = dssv.each_slice(temp).to_a
         end
