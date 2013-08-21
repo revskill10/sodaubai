@@ -409,15 +409,28 @@ namespace :hpu do
       lichday.each do |lich|
         day = l["time"][0]
         slot[day] ||= Array.new
-      end
-      dssv.each do |sv| 
+      end      
 
-        lich = lichday.detect {|l| slot[l["time"][0]].size }
-        lichday.all.each do |l|
-          
-          
-        end
+      #dssv.each do |sv|
+      #  lich = lichday.detect {|lich| slot[lich["time"][0].length <= 3]}
+
+      #end
+    end
+  end
+
+  task :update_lmhsv => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+
+    LopMonHocSinhVien.all.each do |lmh|
+      sv = SinhVien.where(ma_sinh_vien: lmh.ma_sinh_vien).first 
+      if sv 
+        lmh.ho = sv.ho
+        lmh.ho_dem = sv.ho_dem
+        lmh.ten = sv.ten
+        lmh.save!
       end
+
     end
 
   end
