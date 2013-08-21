@@ -403,25 +403,34 @@ namespace :hpu do
       sobuoi = lichday.count
       dssv = lop.lop_mon_hoc_sinh_viens.shuffle      
       sosv = dssv.count
-      if sosv > 0
-        n = sobuoi/sosv
+      if sobuoi > 0
         dssvs = []
-        (n+1).times do |t|
-          dssvs = dssvs + dssv
-        end
-        t = [n, 3].max
-        slot = {}
-        lichday.each do |lich|
-          day = lich["time"][0]
-          slot[day] ||= Set.new
+        n = sosv/sobuoi
 
-        end      
-        dssvs.each_with_index do |sv, index|
-          i = index % t
-          slot[lichday[i]["time"][0]] << sv.ma_sinh_vien if lichday[i] and lichday[i]["time"]
+        if n >= 0 and n < 3 and sosv > 0
+          k = 3 - n
+          k.times do |t|
+            dssvs = dssvs + dssv
+          end
+          parts = dssvs.each_slice(3).to_a
+        elsif n > 3
+          parts = dssv.each_slice(n).to_a
         end
-        lop.trucnhat = slot.to_json
-        lop.save!
+        slot = {}
+        if parts
+          lichday.each_with_index do |lich, index|
+            day = lich["time"][0]
+            slot[day] ||= Set.new
+            if parts[index]
+              parts[index].each do |p|
+                slot[day] << p.ma_sinh_vien
+              end
+            end
+          end      
+          
+          lop.trucnhat = slot.to_json
+          lop.save!
+        end
       end
     end
   end
