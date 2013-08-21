@@ -398,24 +398,38 @@ namespace :hpu do
     tenant = Tenant.last
     PgTools.set_search_path tenant.scheme, false
 
-    LopMonHoc.each do |lop|
+    LopMonHoc.all.each do |lop|
       lichday = lop.get_days
       sobuoi = lichday.count
-      dssv = lop.lop_mon_hoc_sinh_viens.shuffle
+      dssv = lop.lop_mon_hoc_sinh_viens.shuffle      
       sosv = dssv.count
-      n = sobuoi/sosv
+      if sosv > 0
+        n = sobuoi/sosv
+        dssvs = []
+        (n+1).times do |t|
+          dssvs = dssvs + dssv
+        end
+        t = [n, 3].max
+        slot = {}
+        lichday.each do |lich|
+          day = lich["time"][0]
+          slot[day] ||= Set.new
 
-      slot = {}
-      lichday.each do |lich|
-        day = l["time"][0]
-        slot[day] ||= Array.new
-      end      
-
-      #dssv.each do |sv|
-      #  lich = lichday.detect {|lich| slot[lich["time"][0].length <= 3]}
-
-      #end
+        end      
+        dssvs.each_with_index do |sv, index|
+          i = index % t
+          slot[lichday[i]["time"][0]] << sv.ma_sinh_vien if lichday[i] and lichday[i]["time"]
+        end
+        lop.trucnhat = slot.to_json
+        lop.save!
+      end
     end
+  end
+
+  task :update_lichtruc_forsv => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+
   end
 
   task :update_lmhsv => :environment do 

@@ -31,6 +31,16 @@
                 %li.active= link_to "Thời khóa biểu", lop_mon_hoc_path(@lop_mon_hoc.id)+'/calendar'
                         
 .container-fluid{:style=>"margin-top: 4%;"}
+  .well.sidebar-nav{:style => "font-size: 12px;"}
+    - if @lop_mon_hoc
+      %strong Môn học: 
+      %span= @lop_mon_hoc.ten_mon_hoc 
+      %strong.offset1 Giảng viên: 
+      %span= @lop_mon_hoc.ten_giang_vien    
+      %strong.offset1 Lớp:
+      %span= @lop_mon_hoc.ma_lop  
+      %strong.offset1 Số tiết: 
+      %span= @lop_mon_hoc.so_tiet
   %table{:class => "table table-bordered datatable"}
     %thead      
       %td Tuần    
@@ -40,8 +50,8 @@
     %tbody
       - @lich.each_with_index do |lich, index|
         %tr        
-          %td= link_to "T" + lich["tuan"].to_s, tuan_path(lich["tuan"].to_s), :'data-pjax' => '#pjax_container'       
-          %td= link_to "Thứ " + lich["thu"].to_s + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M"))  , :'data-pjax' => '#pjax_container'
+          %td= link_to "T"  + (("0" if lich["tuan"] < 10) || "") + lich["tuan"].to_s, tuan_path(lich["tuan"].to_s)    
+          %td= link_to "Thứ " + lich["thu"].to_s + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M")) 
           %td= lich["so_tiet"]             
           %td= lich["phong"]                           
 
