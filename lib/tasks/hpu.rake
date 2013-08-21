@@ -358,6 +358,29 @@ namespace :hpu do
     ActiveRecord::Base.connection.reset_pk_sequence!('versions')
   end
 
+
+  task :load_sv2 => :environment do     
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false    
+    # attr_accessible :gioi_tinh, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ngay_sinh, :ten, :trang_thai, :ten_nganh
+
+    @client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
+    response = @client.call(:sinh_vien_dang_hoc)
+    res_hash = response.body.to_hash
+    ls = res_hash[:sinh_vien_dang_hoc_response][:sinh_vien_dang_hoc_result][:diffgram][:document_element]
+    ls = ls[:sinh_vien_dang_hoc]  
+    puts "loading ... sinh viens"
+    ls.each do |l|
+      sv = SinhVien.where(ma_sinh_vien: (l[:ma_sinh_vien].strip.upcase if l[:ma_sinh_vien])).first
+      if sv 
+        ho_dem = titleize(l[:hodem].strip.downcase) if l[:hodem] and l[:hodem].is_a?(String)
+        h = ho_dem.split(" ").to_a
+        sv.ho = h[0]
+        sv.ho_dem = h[1..-1].join(" ")        
+        sv.save!        
+      end
+    end
+  end  
   task :update_ho_sinhvien => :environment do 
     tenant = Tenant.last
     PgTools.set_search_path tenant.scheme, false
