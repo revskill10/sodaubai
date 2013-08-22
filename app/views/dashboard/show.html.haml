@@ -37,7 +37,7 @@
       %tbody        
         - @current_lich.each_with_index do |lich, index|
           %tr                  
-            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to TkbGiangVien::THU[lich["thu"]] + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M"))
+            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to TkbGiangVien::THU2[lich["thu"]] + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M"))
             %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["so_tiet"]             
             %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["phong"]                 
             %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
