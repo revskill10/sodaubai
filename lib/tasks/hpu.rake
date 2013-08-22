@@ -408,8 +408,9 @@ namespace :hpu do
 
         if sosv > 0     
           m = [(sosv/sobuoi + 1), 3].max
-        
-          
+          sobuoi.times do |sb|
+            dssvs = dssvs + dssv
+          end          
           parts = dssvs.each_slice(m).to_a
         
           slot = {}
