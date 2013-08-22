@@ -15,8 +15,7 @@
               - if can? :manage, @lich
                 %li= link_to "Quản lý giờ học", quanly_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
               %li= link_to "Thông tin lớp", lop_mon_hoc_path(@lop_mon_hoc.id)  
-            %ul.nav.pull-right  
-              %li= submit_tag "Cập nhật", :class =>"btn btn-success"     
+            %ul.nav.pull-right                   
               %li= link_to "Đăng xuất", destroy_user_session_path
   .container-fluid{:style=>"margin-top: 4%;"} 
     .row-fluid
@@ -35,7 +34,8 @@
           %li
             %i
               %strong{:style => "font-size: 10px;"}= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
-    
+
+    = submit_tag "Cập nhật", :class =>"btn btn-primary"  
     .well.sidebar-nav{:style => "font-size: 12px;"}
       %strong Môn học: 
       %span= @buoihoc["ten_mon_hoc"] if @buoihoc
@@ -72,8 +72,7 @@
 
             = text_area_tag "buoihoc[noidung]", (@lich.noi_dung_day if @lich), :value => "#{(@lich.noi_dung_day if @lich)}", :class => 'redactor', :style => "width: 100%;", :rows => 4
                           
-        .tab-pane.active#tab2                  
-          = submit_tag "Cập nhật", :class =>"btn btn-primary"     
+        .tab-pane.active#tab2                            
           .well.sidebar-nav            
             %table{:class => "table table-bordered table-condensed datatable"}                              
               %tbody    

@@ -15,8 +15,7 @@
               %li= link_to "Sổ đầu bài", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
               %li.active= link_to "Điểm danh chi tiết", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
               %li= link_to "Thông tin lớp", lop_mon_hoc_path(@lop_mon_hoc.id)
-            %ul.nav.pull-right
-              %li= submit_tag "Cập nhật", :class => "btn btn-success" 
+            %ul.nav.pull-right              
               %li= link_to "Đăng xuất", destroy_user_session_path
 
   .container-fluid{:style => "margin-top:4%;"} 
@@ -34,7 +33,10 @@
       - if @buoihoc
         %li
           %i
-            %strong= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
+            %strong= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")  
+
+    = submit_tag "Cập nhật", :class =>"btn btn-primary"  
+        
     %h4 Thông tin lớp môn: 
     .well.sidebar-nav{:style => "font-size: 12px;"}
       %strong Môn học:  
