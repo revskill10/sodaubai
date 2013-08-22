@@ -1,16 +1,20 @@
+require 'pg_tools'
 class API::V1::SinhViensController < ActionController::Base
   # GET /sinh_viens
   # GET /sinh_viens.json
+  before_filter :load_tenant
   def index
     @sinh_viens = SinhVien.all
 
     respond_to do |format|      
       format.json { render json: @sinh_viens }
     end
-  end
-  def trucnhat
+  end  
+  # GET /sinh_viens/1
+  # GET /sinh_viens/1.json
+  def show
     @sinh_vien = SinhVien.where(ma_sinh_vien: params[:id]).first
-    if @sinh_vien      
+    if @sinh_vien
       respond_to do |format|      
         format.json { render json: JSON.parse(@sinh_vien.trucnhat)["days"] }
       end
@@ -18,15 +22,6 @@ class API::V1::SinhViensController < ActionController::Base
       respond_to do |format|      
         format.json { render json: nil }
       end
-    end
-  end
-  # GET /sinh_viens/1
-  # GET /sinh_viens/1.json
-  def show
-    @sinh_vien = SinhVien.find(params[:id])
-
-    respond_to do |format|      
-      format.json { render json: @sinh_vien }
     end
   end
 
@@ -83,5 +78,15 @@ class API::V1::SinhViensController < ActionController::Base
       format.json { head :no_content }
     end
   end
-    
+  
+  def load_tenant
+
+    if @current_tenant ||= Tenant.last     
+      PgTools.set_search_path @current_tenant.scheme    
+     
+    else
+      PgTools.restore_default_search_path
+     
+    end
+  end
 end
