@@ -195,8 +195,8 @@ namespace :hpu do
   end
   
   task :update_tong_so_tiet => :environment do 
-#    tenant = Tenant.last
-#    PgTools.set_search_path tenant.scheme, false
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
     LopMonHoc.all.each do |lop|
       lop.so_tiet = lop.tong_so_tiet
       lop.save! rescue "Save error #{lop.id}"
