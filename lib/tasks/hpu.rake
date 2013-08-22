@@ -406,8 +406,7 @@ namespace :hpu do
       if sobuoi > 0
         dssvs = []        
 
-        if sosv > 0
-          k = 3 - n
+        if sosv > 0          
           30.times do |t|
             dssvs = dssvs + dssv
           end
