@@ -447,7 +447,7 @@ namespace :hpu do
           if svs
             svs.each do |sv|
               trucnhat = (JSON.parse(sv.trucnhat)["days"] if sv.trucnhat ) || []
-              trucnhat << k
+              trucnhat << {:thoigian => k, :ma_lop => lop.ma_lop, :ma_mon_hoc => lop.ma_mon_hoc, :ten_mon_hoc => lop.ten_mon_hoc, :phong => lop.phong_hoc, :nhom_truc => v}
               sv.trucnhat = {"days" => trucnhat}.to_json
               sv.save!
             end

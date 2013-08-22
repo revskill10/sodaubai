@@ -5,7 +5,11 @@ Trytest::Application.routes.draw do
     namespace :v1 do
       resources :tkb_giang_viens
       resources :lop_mon_hoc_sinh_viens
-      resources :sinh_viens
+      resources :sinh_viens do 
+        member do 
+          get 'trucnhat' => 'sinh_viens#trucnhat'
+        end
+      end
       resources :giang_viens
       resources :lop_mon_hocs
     end

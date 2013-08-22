@@ -1,4 +1,4 @@
-class API::V1::SinhViensController < ApplicationController
+class API::V1::SinhViensController < ActionController::Base
   # GET /sinh_viens
   # GET /sinh_viens.json
   def index
@@ -8,7 +8,18 @@ class API::V1::SinhViensController < ApplicationController
       format.json { render json: @sinh_viens }
     end
   end
-
+  def trucnhat
+    @sinh_vien = SinhVien.where(ma_sinh_vien: params[:id]).first
+    if @sinh_vien      
+      respond_to do |format|      
+        format.json { render json: JSON.parse(@sinh_vien.trucnhat)["days"] }
+      end
+    else
+      respond_to do |format|      
+        format.json { render json: nil }
+      end
+    end
+  end
   # GET /sinh_viens/1
   # GET /sinh_viens/1.json
   def show
