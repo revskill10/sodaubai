@@ -14,7 +14,7 @@ class API::V1::SinhViensController < ActionController::Base
   # GET /sinh_viens/1.json
   def show
     @sinh_vien = SinhVien.where(ma_sinh_vien: params[:id]).first
-    if @sinh_vien
+    if @sinh_vien and @sinh_vien.trucnhat
       respond_to do |format|      
         format.json { render json: JSON.parse(@sinh_vien.trucnhat)["days"] }
       end
