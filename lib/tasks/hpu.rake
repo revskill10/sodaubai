@@ -406,11 +406,11 @@ namespace :hpu do
       if sobuoi > 0
         dssvs = []        
 
-        if sosv > 0          
-          30.times do |t|
-            dssvs = dssvs + dssv
-          end
-          parts = dssvs.each_slice(3).to_a
+        if sosv > 0     
+          m = [(sosv/sobuoi + 1), 3].max
+        
+          
+          parts = dssvs.each_slice(m).to_a
         
           slot = {}
           if parts
@@ -435,18 +435,40 @@ namespace :hpu do
   task :update_lichtruc_forsv => :environment do 
     tenant = Tenant.last
     PgTools.set_search_path tenant.scheme, false
+    SinhVien.all.each do |sv|
+      sv.trucnhat = nil
+      sv.save!      
+    end
     LopMonHoc.all.each do |lop|
       if lop.trucnhat
         lichs = JSON.parse(lop.trucnhat)
         lichs.each do |k,v|
-          sv = SinhVien.where(ma_sinh_vien: v).first
-          if sv
-            sv.trucnhat ||= []
-            sv.trucnhat << k
-            sv.save!
+          svs = SinhVien.where(ma_sinh_vien: v)
+          if svs
+            svs.each do |sv|
+              trucnhat = (JSON.parse(sv.trucnhat)["days"] if sv.trucnhat ) || []
+              trucnhat << k
+              sv.trucnhat = {"days" => trucnhat}.to_json
+              sv.save!
+            end
           end
         end
       end
+    end
+  end
+
+  task :tim_sv_khonghoc => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+
+    SinhVien.all.each do |sv|
+      lmh = LopMonHocSinhVien.where(ma_sinh_vien: sv.ma_sinh_vien).first
+      if lmh 
+        sv.trang_thai = 1
+      else
+        sv.trang_thai = 0
+      end
+      sv.save!
     end
   end
 
