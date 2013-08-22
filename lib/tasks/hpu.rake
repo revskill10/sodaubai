@@ -404,35 +404,30 @@ namespace :hpu do
       dssv = lop.lop_mon_hoc_sinh_viens.shuffle      
       sosv = dssv.count
       if sobuoi > 0
-        dssvs = []
-        n = sosv/sobuoi
+        dssvs = []        
 
-        if n > 0 and n < 3 and sosv > 0
+        if sosv > 0
           k = 3 - n
-          k.times do |t|
+          30.times do |t|
             dssvs = dssvs + dssv
           end
           parts = dssvs.each_slice(3).to_a
-        elsif n > 3
-          parts = dssv.each_slice(n).to_a
-        elsif n == 0 and sosv > 0
-          temp = (3 * sobuoi)/sosv + 1
-          parts = dssv.each_slice(temp).to_a
-        end
-        slot = {}
-        if parts
-          lichday.each_with_index do |lich, index|
-            day = lich["time"][0]
-            slot[day] ||= Set.new
-            if parts[index]
-              parts[index].each do |p|
-                slot[day] << p.ma_sinh_vien
+        
+          slot = {}
+          if parts
+            lichday.each_with_index do |lich, index|
+              day = lich["time"][0]
+              slot[day] ||= Set.new
+              if parts[index]
+                parts[index].each do |p|
+                  slot[day] << p.ma_sinh_vien
+                end
               end
-            end
-          end      
-          
-          lop.trucnhat = slot.to_json
-          lop.save!
+            end      
+            
+            lop.trucnhat = slot.to_json
+            lop.save!
+          end
         end
       end
     end
