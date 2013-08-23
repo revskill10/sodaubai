@@ -1,22 +1,19 @@
-%table#lophc.table.table-bordered.table-condensed.table-hover.table-striped
-  %colgroup
-    %col{:style => "width: 30%"}
-    %col{:style => "width: 30%"}
-    %col{:style => "width: 20%"}            
-    %col{:style => "width: 15%"}  
-    %col{:style => "width: 5%"}  
-  %thead
-    %td
-      %input{:type=> "checkbox",:id=>"selectall"} Chọn hết
-    %td Mã sinh viên
-    %td Họ đệm
-    %td Tên  
-    %td Tín chỉ                       
+%table#lophc.table.table-bordered.table-condensed.table-hover.table-striped  
+  %thead    
+    %td STT
+    %td Thời gian
+    %td Lớp
+    %td Môn
+    %td Giảng viên
+    %td Đồng ý
+    %td Không đồng ý
   %tbody    
-    - @svs.each do |sv|
+    - @lichs.each_with_index do |lich, index|
       %tr
-        %td= check_box_tag "msv[#{sv.ma_sinh_vien}]",nil, false, :class => "selectedId"
-        %td= sv.ma_sinh_vien
-        %td= sv.ho_dem || ""
-        %td= sv.ten
-        %td= (sv.tin_chi ? true : false)
+        %td= (index+1).to_s
+        %td= lich.ngay_day
+        %td= lich.lop_mon_hoc.ma_lop
+        %td= lich.lop_mon_hoc.ten_mon_hoc
+        %td= lich.lop_mon_hoc.giang_vien
+        %td= radio_button_tag "daybu[#{lich.id}]", lich.id, false
+        %td= radio_button_tag "daybu[#{lich.id}]", lich.id, false
