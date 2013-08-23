@@ -31,11 +31,11 @@ class LopMonHocSinhVien < ActiveRecord::Base
   end
   def convert_grade(diem)
     case diem
-    when 9..10
+    when 9.0..10.0
       3
-    when 7..8
+    when 7.0..8.0
       2
-    when 5..6
+    when 5.0..6.0
       1    
     else
       0
