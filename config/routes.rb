@@ -88,6 +88,7 @@ Trytest::Application.routes.draw do
   post 'quanly/checklopghep' => 'quanly#checklopghep', :as => 'checklopghep'
   post 'quanly/updatelopghep' => 'quanly#updatelopghep', :as => 'updatelopghep'
   post 'quanly/movelopghep' => 'quanly#movelopghep', :as => 'movelopghep'
+  post 'quanly/qlnghiday' => 'quanly#qlnghiday', :as => 'qlnghiday'
   match '*a', :to => 'application#routing'
   
   
