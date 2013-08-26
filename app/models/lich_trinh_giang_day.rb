@@ -7,9 +7,14 @@ class LichTrinhGiangDay < ActiveRecord::Base
 
   scope :nghiday, -> {where(loai: 1)}
   scope :nghidaychoduyet, -> {nghiday.where(status: 6)}
+  scope :nghidaykoduyet, -> {nghiday.where(status: 4)}
+  scope :nghidaydaduyet, -> {nghiday.where(status: 3)}
   scope :daybu, -> {where(loai: 2)}
   scope :daybuchoduyet, -> {daybu.where(status: 6)}
+  scope :daybukoduyet, -> {daybu.where(status: 4)}
+  scope :daybudaduyet, -> {daybu.where(status: 3)}
   scope :choduyet, -> {where(status: 6)}
+
 
 
   attr_accessible :ngay_day, :nhan_xet_buoi_hoc, :noi_dung_day, :so_tiet_day, :so_vang, :ngay_day_moi, :ma_giang_vien_moi, :ma_mon_hoc_moi, :ten_mon_hoc_moi, :loai, :status, :tuan_moi, :so_tiet_day_moi, :lop_mon_hoc_moi_id

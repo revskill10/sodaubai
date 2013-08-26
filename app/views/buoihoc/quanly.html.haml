@@ -35,15 +35,19 @@
           %i
             %strong{:style => "font-size: 10px;"}= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
   
-  .tabbable
-    %ul.nav.nav-tabs
-      %li.active
-        %a{:href => "#nghiday", :"data-toggle" => "tab"} Nghỉ dạy
-      %li
-        %a{:href => "#daythay", :"data-toggle" => "tab"} Dạy thay
-      %li
-        %a{:href => "#doigio", :"data-toggle" => "tab"} Đổi giờ
+  - if @lich.status != 4
+    .tabbable
+      %ul.nav.nav-tabs      
+        %li.active
+          %a{:href => "#nghiday", :"data-toggle" => "tab"} Nghỉ dạy
+        %li
+          %a{:href => "#daythay", :"data-toggle" => "tab"} Dạy thay
+        %li
+          %a{:href => "#doigio", :"data-toggle" => "tab"} Đổi giờ
+  - else 
+    Đề xuất nghỉ dạy buổi này không được chấp nhận
       
+  - if @lich.status != 4      
     .tab-content
       .tab-pane.active#nghiday        
         .well.sidebar-nav{:style => "font-size: 12px;"}

@@ -206,6 +206,10 @@ class BuoihocController < ApplicationController
       @lich.loai = 1
       @lich.status = 6
       @lich.save!
+    else
+      @lich.loai = nil
+      @lich.status = nil
+      @lich.save!
     end
     respond_to do |format|
       format.js
@@ -223,6 +227,10 @@ class BuoihocController < ApplicationController
         @lich.loai = 2
         @lich.status = 6
         @lich.save!        
+      else
+        @lich.loai = nil
+        @lich.status = nil
+        @lich.save!
       end
       
       respond_to do |format|

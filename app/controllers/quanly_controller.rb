@@ -121,8 +121,18 @@ class QuanlyController < ApplicationController
 	end
 	def qlnghiday
 		authorize! :manage, LichTrinhGiangDay
-		@lichs = LichTrinhGiangDay.find(params[:nghiday].keys)
-		
+
+    dongy = params[:nghiday].select {|k,v| v == "true" }
+    kodongy = params[:nghiday].select {|k,v| v == "false" }
+    @dongys = LichTrinhGiangDay.where(id: dongy.keys)    
+    @kodongys = LichTrinhGiangDay.where(id: kodongy.keys)
+
+    if @dongys.count > 0      
+      @dongys.update_all("status = 3")
+    end
+		if @kodongys.count > 0
+      @kodongys.update_all("status = 4")
+    end
 		respond_to do |format|
 			format.js
 		end

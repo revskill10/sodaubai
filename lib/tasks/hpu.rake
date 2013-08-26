@@ -372,7 +372,7 @@ namespace :hpu do
     ls = ls[:sinh_vien_dang_hoc]  
     puts "loading ... sinh viens"
     ls.each do |l|
-      sv = SinhVien.where(ma_sinh_vien: (l[:ma_sinh_vien].strip.upcase if l[:ma_sinh_vien])).first
+      sv = SinhVien.where(ma_sinh_vien: (l[:ma_sinh_vien].strip.upcase if l[:ma_sinh_vien])).first_or_create!
       if sv 
         ho_dem = titleize(l[:hodem].strip.downcase) if l[:hodem] and l[:hodem].is_a?(String)
         h = ho_dem.split(" ").to_a
