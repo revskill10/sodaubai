@@ -375,7 +375,7 @@ namespace :hpu do
       sv = SinhVien.where(ma_sinh_vien: (l[:ma_sinh_vien].strip.upcase if l[:ma_sinh_vien])).first_or_create!
       if sv 
         sv.gioi_tinh = (l[:gioi_tinh] if l[:gioi_tinh] and l[:gioi_tinh])        
-        sv.lop_hc = (l[:lop].strip.upcase if  l[:lop] and l[:lop].is_a?(String) ) ,
+        sv.lop_hc = (l[:lop].strip.upcase if  l[:lop] and l[:lop].is_a?(String) )
         sv.ma_he_dao_tao = ( titleize(l[:ten_he_dao_tao].strip.downcase) if l[:ten_he_dao_tao] and l[:ten_he_dao_tao].is_a?(String) )
         sv.ma_khoa_hoc = ( titleize(l[:ten_khoa_hoc].strip.downcase) if l[:ten_khoa_hoc] and l[:ten_khoa_hoc].is_a?(String) )        
         sv.ngay_sinh = (l[:ngay_sinh].new_offset(Rational(7, 24)) if l[:ngay_sinh])        

@@ -34,4 +34,10 @@ class GiangVien < ActiveRecord::Base
     end
     return {:ngay => ngays}
   end
+
+  def check_conflict(dt)
+    days = get_days[:ngay]
+    return days
+  end
+
 end

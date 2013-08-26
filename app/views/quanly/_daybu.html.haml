@@ -5,7 +5,7 @@
     %td Lớp
     %td Môn
     %td Giảng viên
-    %td Lí do
+    %td Phòng
     %td Đồng ý
     %td Không đồng ý
   %tbody    
@@ -16,6 +16,6 @@
         %td= lich.lop_mon_hoc.ma_lop
         %td= lich.lop_mon_hoc.ten_mon_hoc
         %td= lich.lop_mon_hoc.giang_vien
-        %td= lich.note
-        %td= radio_button_tag "nghiday[#{lich.id}]", true, false
-        %td= radio_button_tag "nghiday[#{lich.id}]", false, false
+        %td= text_field_tag "daybu[#{lich.id}][phong]", (lich.lop_mon_hoc.phong_hoc || "")
+        %td= radio_button_tag "daybu[#{lich.id}][qd]", true, false
+        %td= radio_button_tag "daybu[#{lich.id}][qd]", false, false

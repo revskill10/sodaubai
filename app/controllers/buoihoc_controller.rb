@@ -205,10 +205,12 @@ class BuoihocController < ApplicationController
     if params[:buoihoc] and params[:buoihoc][:nghiday]
       @lich.loai = 1
       @lich.status = 6
+      @lich.note = params[:buoihoc][:note] if params[:buoihoc][:note]
       @lich.save!
     else
       @lich.loai = nil
       @lich.status = nil
+      @lich.note = nil
       @lich.save!
     end
     respond_to do |format|
@@ -230,6 +232,8 @@ class BuoihocController < ApplicationController
       else
         @lich.loai = nil
         @lich.status = nil
+        @lich.ngay_day_moi = nil
+        @lich.note = nil
         @lich.save!
       end
       
