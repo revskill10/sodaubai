@@ -225,10 +225,16 @@ class BuoihocController < ApplicationController
       
       if params[:buoihoc][:thoigian]
         @ngaybu = str_to_ngay(params[:buoihoc][:thoigian]) 
-        @lich.ngay_day_moi = get_ngay(@ngaybu)          
-        @lich.loai = 2
-        @lich.status = 6
-        @lich.save!        
+        @lich.ngay_day_moi = get_ngay(@ngaybu)      
+        gv = @lich.lop_mon_hoc.giang_vien 
+        if gv and !gv.check_conflict(@lich.ngay_day_moi.localtime)              
+          @lich.loai = 2
+          @lich.status = 6
+          @lich.save!          
+        else
+          @error = 1
+        end
+        
       else
         @lich.loai = nil
         @lich.status = nil
