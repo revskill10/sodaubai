@@ -122,15 +122,7 @@ class QuanlyController < ApplicationController
 	def qlnghiday
 		authorize! :manage, LichTrinhGiangDay
 		@lichs = LichTrinhGiangDay.find(params[:nghiday].keys)
-		params[:nghiday].each do |k,v|
-      lich = @lichs.select {|l| l.)
-		  if v         
-        lich.status = 3        
-      else
-        lich.status = 4
-      end
-      lich.save!
-		end
+		
 		respond_to do |format|
 			format.js
 		end
