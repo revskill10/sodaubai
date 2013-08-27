@@ -52,7 +52,7 @@
       %span= @buoihoc["ma_lop"] if @buoihoc      
     .well.sidebar-nav{:style => "font-size: 12px;"}
       %strong.offset1 Phòng:  
-      %span= text_field_tag "buoihoc[phong]", nil, :value => "#{(@lich.phong_moi || @buoihoc["phong"])}", :style => "width: 8%"
+      %span= text_field_tag "buoihoc[phong]", nil, :value => "#{(@lich.phong_moi || (@buoihoc["phong"] if @buoihoc) || "" )}", :style => "width: 8%"
       %strong.offset1 Sĩ số: 
       %span= @svs.count
       %strong.offset1 Số sinh viên vắng mặt:  
