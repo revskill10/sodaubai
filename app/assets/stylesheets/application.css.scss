@@ -13,11 +13,10 @@
   *= require dataTables/jquery.dataTables
 *= require dataTables/jquery.dataTables.bootstrap
 *= require bootstrap-wysihtml5
-*= require jquery.gridster.min
 *= require bootstrap-wysihtml5
 *= require bootstrap-combobox
 *= require redactor
 
  */
-@import "foundation";
- //= require foundation_and_overrides
+@import "compass_twitter_bootstrap";
+@import "compass_twitter_bootstrap_responsive";

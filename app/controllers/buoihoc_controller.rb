@@ -39,7 +39,7 @@ class BuoihocController < ApplicationController
     begin    
       raise ActiveRecord::RecordNotFound unless @lich
       authorize! :manage, @lich
-
+      authorize! :diemdanh, @lich
       if params[:buoihoc]
         @lichtrinh = params[:buoihoc]  
         @sotietday = @lichtrinh[:sotiet].to_i  
@@ -137,6 +137,7 @@ class BuoihocController < ApplicationController
     begin
       raise ActiveRecord::RecordNotFound unless @lich
       authorize! :manage, @lich
+      authorize! :diemdanh, @lich
       @phong = params[:buoihoc][:phong]
       @sotietday = params[:buoihoc][:sotiet].to_i      
       if @sotietday > 0 and @sotietday <= @tkb.so_tiet
@@ -201,10 +202,16 @@ class BuoihocController < ApplicationController
   def nghiday
     raise ActiveRecord::RecordNotFound unless @lich
     authorize! :manage, @lich
-    
+    authorize! :quanly, @lich    
     if params[:buoihoc] and params[:buoihoc][:nghiday]
       @lich.loai = 1
       @lich.status = 6
+      @lich.note = params[:buoihoc][:note] if params[:buoihoc][:note]
+      @lich.save!
+    else
+      @lich.loai = nil
+      @lich.status = nil
+      @lich.note = nil
       @lich.save!
     end
     respond_to do |format|
@@ -216,13 +223,26 @@ class BuoihocController < ApplicationController
     begin
       raise ActiveRecord::RecordNotFound unless @lich
       authorize! :manage, @lich
-      
+      authorize! :quanly, @lich
       if params[:buoihoc][:thoigian]
         @ngaybu = str_to_ngay(params[:buoihoc][:thoigian]) 
-        @lich.ngay_day_moi = get_ngay(@ngaybu)          
-        @lich.loai = 2
-        @lich.status = 6
-        @lich.save!        
+        @lich.ngay_day_moi = get_ngay(@ngaybu)      
+        gv = @lich.lop_mon_hoc.giang_vien 
+        if gv and !gv.check_conflict(@lich.ngay_day_moi.localtime) and (DateTime.now < @lich.ngay_day) and (DateTime.now < @lich.ngay_day_moi)          
+          @lich.loai = 2
+          @lich.status = 6
+          @lich.save!          
+        else
+          @error = 1 
+          @error = 2 if  (DateTime.now > @lich.ngay_day) or (DateTime.now > @lich.ngay_day_moi)
+        end
+        
+      else
+        @lich.loai = nil
+        @lich.status = nil
+        @lich.ngay_day_moi = nil
+        @lich.note = nil
+        @lich.save!
       end
       
       respond_to do |format|
@@ -239,7 +259,7 @@ class BuoihocController < ApplicationController
   def daythay    
     raise ActiveRecord::RecordNotFound unless @lich
     authorize! :manage, @lich
-
+    authorize! :quanly, @lich
     
     respond_to do |format|
       format.js
@@ -248,6 +268,7 @@ class BuoihocController < ApplicationController
   def doigio    
     raise ActiveRecord::RecordNotFound unless @lich
     authorize! :manage, @lich
+    authorize! :quanly, @lich
 
     ma_giang_vien_moi = params[:giohoc][:magiangvien]
     thoigian = params[:giohoc][:thoigian]
@@ -274,6 +295,8 @@ class BuoihocController < ApplicationController
   def calendar
     raise ActiveRecord::RecordNotFound unless @lich
     authorize! :manage, @lich
+    authorize! :quanly, @lich
+
     gv = params[:doigio][:magiangvien]
     @gv = GiangVien.where(ma_giang_vien: gv).first
     if @gv          
@@ -325,7 +348,7 @@ class BuoihocController < ApplicationController
     @magiangvien = @lop_mon_hoc.ma_giang_vien
     @role = current_user.role
     @type = current_user.imageable
-    if @type.is_a?(GiangVien) then 
+    if @type.is_a?(GiangVien)  then 
       @ngayhoc = @type.get_days[:ngay]
       @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc).first
       @buoihoc = @ngayhoc.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
@@ -340,8 +363,15 @@ class BuoihocController < ApplicationController
       @ngayhoc = @type.get_days[:ngay] if @type.get_days
       @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
       @buoihoc = @ngayhoc.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
+      @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create! 
+    end       
+    if current_user.is_admin?
+      @type = @lop_mon_hoc.giang_vien
+      @ngayhoc = @type.get_days[:ngay]
+      @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc).first
+      @buoihoc = @ngayhoc.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
       @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!        
-    end    
+    end
   end
 
 end

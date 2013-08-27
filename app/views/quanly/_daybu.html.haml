@@ -1,0 +1,24 @@
+%table.table.table-bordered.table-condensed.table-hover.table-striped.datatable
+  %thead    
+    %td STT
+    %td Thời gian
+    %td Thời gian bù
+    %td Lớp
+    %td Môn
+    %td Giảng viên
+    %td Phòng
+    %td Đồng ý
+    %td Không đồng ý
+  %tbody    
+    - @lichs.each_with_index do |lich, index|
+      - if can? :quanly, lich
+        %tr
+          %td= (index+1).to_s
+          %td= lich.ngay_day.localtime
+          %td= lich.ngay_day_moi.localtime
+          %td= lich.lop_mon_hoc.ma_lop
+          %td= lich.lop_mon_hoc.ten_mon_hoc
+          %td= lich.lop_mon_hoc.giang_vien
+          %td= text_field_tag "daybu[#{lich.id}][phong]", (lich.lop_mon_hoc.phong_hoc || "")
+          %td= radio_button_tag "daybu[#{lich.id}][qd]", true, false
+          %td= radio_button_tag "daybu[#{lich.id}][qd]", false, false

@@ -11,8 +11,8 @@
           %ul.nav.pull-left#urls            
             %li= link_to "Quản lý", quanly_path          
             %li= link_to "Ghép lớp", quanlylopghep_path           
-            %li.active= link_to "Nghỉ dạy", quanlynghiday_path       
-            %li= link_to "Dạy bù", quanlydaybu_path            
+            %li= link_to "Nghỉ dạy", quanlynghiday_path       
+            %li.active= link_to "Dạy bù", quanlydaybu_path       
             
           %ul.nav.pull-right            
             %li= link_to 'Đăng xuất', destroy_user_session_path
@@ -20,7 +20,7 @@
 
 .container-fluid{:style=>"margin-top: 4%;"}  
   - if @lichs.count > 0
-    = form_tag qlnghiday_path, :method => :post, :remote => true do                                 
-      = submit_tag "Cập nhật", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}
+    = form_tag qldaybu_path, :method => :post, :remote => true do                                 
+      = submit_tag "Cập nhật", :class => "btn btn-primary"
       %br
-      = render "lich"
+      = render "daybu"

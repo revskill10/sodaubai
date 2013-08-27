@@ -1,9 +1,40 @@
-%h5 Dạy bù:
-#datetimepicker1.input-append.date
-  %input{:"data-format" => "yyyy-MM-dd-hh-mm", :type=>"text", :name => "buoihoc[thoigian]"}
-  %span.add-on
-    %i{:"data-time-icon"=>"icon-time",:"data-date-icon"=>"icon-calendar"}
-.well.sidebar-nav{:style => "font-size: 12px;"}
-  %input#giohoc{:type=>"hidden", :name => "lop_mon_hoc_id", :value => @lop_mon_hoc.id }
-  %input#lophoc{:type=>"hidden", :name => "id", :value => @pid}
-  %span= submit_tag "Đề xuất buổi dạy bù", :class => "btn btn-primary"
+
+- if !(@lich.loai== 2 and @lich.status==3)
+  - if @lich.status == 4
+    %span.label.label-important Đề xuất không được chấp nhận
+
+
+- if can? :quanly, @lich    
+  %h5 Đăng kí dạy bù:
+  #datetimepicker1.input-append.date
+    %input{:"data-format" => "yyyy-MM-dd-hh-mm", :type=>"text", :name => "buoihoc[thoigian]"}
+    %span.add-on
+      %i{:"data-time-icon"=>"icon-time",:"data-date-icon"=>"icon-calendar"}
+  .well.sidebar-nav{:style => "font-size: 12px;"}
+    %input#giohoc{:type=>"hidden", :name => "lop_mon_hoc_id", :value => @lop_mon_hoc.id }
+    %input#lophoc{:type=>"hidden", :name => "id", :value => @pid}      
+    %span= submit_tag "Đề xuất buổi dạy bù", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}
+  %br    
+- if @lich.loai == 2 and @lich.status == 3
+  %span.label.label-success Đề xuất dạy bù đã được chấp nhận.
+- if (@lich.loai == 2 and @lich.status == 6)
+  %span.label.label-success Đề xuất dạy bù đã được gởi đi.  
+- if (@lich.loai == 2 and @lich.status == 3 )   or (@lich.loai == 2 and @lich.status == 6)
+  %table.table.table-bordered.table-condensed.table-hover.table-striped  
+    %thead        
+      %td Thời gian
+      %td Lớp
+      %td Môn
+      %td Giảng viên  
+      %td Phòng      
+    %tbody      
+      %tr      
+        %td= @lich.ngay_day_moi.localtime
+        %td= @lich.lop_mon_hoc.ma_lop
+        %td= @lich.lop_mon_hoc.ten_mon_hoc
+        %td= @lich.lop_mon_hoc.giang_vien
+        %td= @lich.phong_moi      
+
+
+  
+

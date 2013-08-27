@@ -15,7 +15,13 @@ class Ability
         end
         can :manage, LichTrinhGiangDay do |lich|
             can? :manage, lich.lop_mon_hoc or (user.code == lich.ma_giang_vien_moi and lich.status == 3)
-        end        
+        end  
+        cannot :quanly, LichTrinhGiangDay do |lich|
+            cannot? :manage, lich or (lich.ngay_day.localtime.to_i < DateTime.now.to_i)
+        end      
+        cannot :diemdanh, LichTrinhGiangDay do |l|
+            [1,2,3,4].include?(l.loai) and l.status == 6
+        end
         can :manage, ThongBaoLopHoc do |tb|
             user.imageable.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.imageable.is_a?(GiangVien)
             user.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.role == 'trogiang'

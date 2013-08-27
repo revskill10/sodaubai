@@ -35,63 +35,85 @@
           %i
             %strong{:style => "font-size: 10px;"}= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
   
+  
+
+  
   .tabbable
-    %ul.nav.nav-tabs
+    %ul.nav.nav-tabs      
       %li.active
         %a{:href => "#nghiday", :"data-toggle" => "tab"} Nghỉ dạy
       %li
         %a{:href => "#daythay", :"data-toggle" => "tab"} Dạy thay
       %li
         %a{:href => "#doigio", :"data-toggle" => "tab"} Đổi giờ
+  
       
-    .tab-content
-      .tab-pane.active#nghiday        
-        .well.sidebar-nav{:style => "font-size: 12px;"}
-          = form_tag nghiday_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do  
-            %span= check_box_tag "buoihoc[nghiday]", nil, (@lich.loai == 2)
-            = submit_tag "Nghỉ dạy buổi này", :class =>"btn btn-primary" 
-        .well.sidebar-nav{:style => "font-size: 12px;"}           
-          = form_tag daybu_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do  
-            %input{:type => "hidden", :name => "buoihoc[nghiday]", :id => "buoihoc_nghiday"}
-            #daybu
-                  
-                        
-      .tab-pane#daythay
-        .well.sidebar-nav{:style => "font-size: 12px;"}
-          = form_tag daythay_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do  
-            %span Giảng viên dạy thay buổi học này:
-            = collection_select(:daythay, "magiangvien",  @gvs, :ma_giang_vien, :to_s, {:selected => false}, {:class => "combobox", :placeholder => "Chọn giảng viên"}) 
+  
+  .tab-content
+    .tab-pane.active#nghiday        
 
-      .tab-pane#doigio
-        - if @lich.loai.nil? or @lich.loai == 0
-          .well.sidebar-nav{:style => "font-size: 12px;"}                
-            = form_tag calendar_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do         
-              .row-fluid
-                = submit_tag "Chọn giảng viên dạy:", :class =>"btn btn-primary"      
-                = collection_select(:doigio, "magiangvien",  @gvs, :ma_giang_vien, :to_s, {:selected => false}, {:class => "combobox", :placeholder => "Chọn giảng viên"})   
+      .well.sidebar-nav{:style => "font-size: 12px;"}
+        .row-fluid
+          .span5#nghiday
+            - if can? :quanly, @lich
+              = form_tag nghiday_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do  
+                %span= check_box_tag "buoihoc[nghiday]", nil, (@lich.loai == 1 or @lich.loai == 2), :disabled => (@lich.loai == 2 or (@lich.loai == 1 and (@lich.status == 3 or @lich.status == 4) ) )              
+                - if @lich.status != 3 and @lich.status != 4
+                  = submit_tag "Nghỉ dạy buổi này", :class =>"btn btn-primary",  :data => {disable_with: "Submitting..."} 
+              %br
+              %h5 Lí do nghỉ dạy:
+              = text_area_tag "buoihoc[note]", (@lich.note || ""), rows: 10, cols: 25
+              - if @lich.loai == 1 and @lich.status == 4
+                %br
+                %span.label.label-important Đề xuất nghỉ dạy không được chấp nhận
+              - if @lich.loai == 1 and @lich.status == 3
+                %br
+                %span.label.label-success Yêu cầu nghỉ dạy đã được chấp nhận. Bạn có thể đề xuất giờ dạy bù ở phần kế bên.
+            
+          .span5.offset1
+            = form_tag daybu_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do  
+              %input{:type => "hidden", :name => "buoihoc[nghiday]", :id => "buoihoc_nghiday"}
+              #daybu
+                - if (@lich.loai == 1 and @lich.status != 4) or @lich.loai == 2
+                  = render 'daybu'
                 
+                      
+    .tab-pane#daythay
+      .well.sidebar-nav{:style => "font-size: 12px;"}
+        = form_tag daythay_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do  
+          %span Giảng viên dạy thay buổi học này:
+          = collection_select(:daythay, "magiangvien",  @gvs, :ma_giang_vien, :to_s, {:selected => false}, {:class => "combobox", :placeholder => "Chọn giảng viên"}) 
 
-          .well.sidebar-nav{:style => "font-size: 12px;"}      
-            = form_tag doigio_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do       
-              %input#mgv{:type=>"hidden", :name => "giohoc[magiangvien]"}
-              #calendar              
-        - if @lich.loai == 4
-          %table{:class => "table table-bordered table-condensed"}  
-            %thead    
-              %td Tình trạng
-              %td Tuần    
-              %td Thời gian 
-              %td Số tiết          
-              %td Môn   
-              %td Giảng viên   
-            %tbody                
-              %tr     
-                %td= @lich.status.to_s
-                %td= @lich.tuan_moi
-                %td= @lich.ngay_day_moi
-                %td= @lich.so_tiet_day_moi
-                %td= @lich.ten_mon_hoc_moi
-                %td= @lich.giang_vien_moi.ho_ten
+    .tab-pane#doigio
+      - if @lich.loai.nil? or @lich.loai == 0
+        .well.sidebar-nav{:style => "font-size: 12px;"}                
+          = form_tag calendar_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do         
+            .row-fluid
+              = submit_tag "Chọn giảng viên dạy:", :class =>"btn btn-primary",  :data => {disable_with: "Submitting..."}      
+              = collection_select(:doigio, "magiangvien",  @gvs, :ma_giang_vien, :to_s, {:selected => false}, {:class => "combobox", :placeholder => "Chọn giảng viên"})   
+              
+
+        .well.sidebar-nav{:style => "font-size: 12px;"}      
+          = form_tag doigio_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do       
+            %input#mgv{:type=>"hidden", :name => "giohoc[magiangvien]"}
+            #calendar              
+      - if @lich.loai == 4
+        %table{:class => "table table-bordered table-condensed"}  
+          %thead    
+            %td Tình trạng
+            %td Tuần    
+            %td Thời gian 
+            %td Số tiết          
+            %td Môn   
+            %td Giảng viên   
+          %tbody                
+            %tr     
+              %td= @lich.status.to_s
+              %td= @lich.tuan_moi
+              %td= @lich.ngay_day_moi
+              %td= @lich.so_tiet_day_moi
+              %td= @lich.ten_mon_hoc_moi
+              %td= @lich.giang_vien_moi.ho_ten
 
                     
-            
+              

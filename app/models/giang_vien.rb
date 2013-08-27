@@ -34,4 +34,25 @@ class GiangVien < ActiveRecord::Base
     end
     return {:ngay => ngays}
   end
+
+  def get_time(str)
+    DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
+  end
+  def check_conflict(dt)
+    days = get_days[:ngay]
+    td = dt.to_i
+    days.each do |d|
+      day = get_time(d["time"][0]).to_i
+      sogiay = d["so_tiet"] * 3000
+      r1 = day - sogiay
+      r2 = day + sogiay
+      s1 = td - sogiay
+      s2 = td + sogiay
+      r = r1..r2
+      s = s1..s2
+      if r.overlaps?(s) then return true end
+    end
+    return false
+  end
+
 end

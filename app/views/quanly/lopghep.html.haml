@@ -12,6 +12,7 @@
             %li= link_to "Quản lý", quanly_path          
             %li.active= link_to "Ghép lớp", quanlylopghep_path           
             %li= link_to "Nghỉ dạy", quanlynghiday_path       
+            %li= link_to "Dạy bù", quanlydaybu_path       
             
           %ul.nav.pull-right            
             %li= link_to 'Đăng xuất', destroy_user_session_path
@@ -23,14 +24,14 @@
       .well.sidebar-nav.offset1{:style => "font-size: 12px;"}          
         .row-fluid 
           = form_tag filterlophc_path, :method => :post, :remote => true do                                 
-            = submit_tag "Chọn lớp hành chính ", :class => "btn btn-primary"
+            = submit_tag "Chọn lớp hành chính ", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}
             %br
             %br
             = collection_select(:sv, "lophanhchinh",  @lophcsv, :lop_hc, :lop_hc, {:selected => false}, {:class => "combobox", :placeholder => "Mã lớp hành chính"})    
             %hr
         .row-fluid
           = form_tag filtersv_path, :method => :post, :remote => true do                                 
-            = submit_tag "Chọn Mã Sinh Viên", :class => "btn btn-primary"
+            = submit_tag "Chọn Mã Sinh Viên", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}
             %br
             %br
             = collection_select(:sv, "masinhvien",  @msvs, :ma_sinh_vien, :to_s, {:selected => false}, {:class => "combobox", :placeholder => "Mã lớp hành chính"})    
@@ -38,7 +39,7 @@
       .well.sidebar-nav{:style => "font-size: 12px;"}
         .row-fluid
           = form_tag filterloptc_path, :method => :post, :remote => true do                                   
-            = submit_tag "Chọn lớp tín chỉ ", :class => "btn btn-primary"        
+            = submit_tag "Chọn lớp tín chỉ ", :class => "btn btn-primary" ,  :data => {disable_with: "Submitting..."}       
             %br
             %br
             = collection_select(:sv, "loptinchi",  @loptinchi, :id, :to_s, {:selected => false}, {:class => "combobox"})
@@ -53,7 +54,7 @@
     = form_tag checklopghep_path, :method => :post, :remote => true do              
       .well.sidebar-nav{:style => "font-size: 12px;"}
         .row-fluid
-          .span5.offset1= submit_tag "Kiểm tra", :class => "btn btn-primary", :name => :checksv, :id => :checksv               
+          .span5.offset1= submit_tag "Kiểm tra", :class => "btn btn-primary", :name => :checksv, :id => :checksv,  :data => {disable_with: "Submitting..."}               
         
       = render 'table1'    
   .span5.offset1

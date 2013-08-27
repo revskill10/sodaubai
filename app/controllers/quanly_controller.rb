@@ -119,4 +119,62 @@ class QuanlyController < ApplicationController
 			format.html
 		end
 	end
+	def qlnghiday
+		authorize! :manage, LichTrinhGiangDay
+
+    dongy = params[:nghiday].select {|k,v| v == "true" }
+    kodongy = params[:nghiday].select {|k,v| v == "false" }
+    @dongys = LichTrinhGiangDay.where(id: dongy.keys)    
+    @kodongys = LichTrinhGiangDay.where(id: kodongy.keys)
+
+    if @dongys.count > 0      
+      @dongys.update_all("status = 3")
+    end
+		if @kodongys.count > 0
+      @kodongys.update_all("status = 4")
+    end
+		respond_to do |format|
+			format.js
+		end
+	end
+  # quan ly day bu
+  def daybu
+    authorize! :manage, LichTrinhGiangDay
+
+    @lichs = LichTrinhGiangDay.daybuchoduyet
+
+    respond_to do |format|
+      format.html
+    end
+  end
+  def qldaybu
+    authorize! :manage, LichTrinhGiangDay
+    daybus = params[:daybu]
+
+    if daybus and daybus.keys.count > 0
+      @lichs = LichTrinhGiangDay.where(id: daybus.keys)
+      daybus.each do |k,v|
+        phong = v[:phong]
+        qd = v[:qd]
+        lich = @lichs.select {|l| l.id == k.to_i }.first
+        if qd == "true"          
+          if lich 
+            lich.status = 3
+            lich.phong_moi = phong
+            lich.save!
+          end
+        else
+          if lich 
+            lich.status = 4
+            lich.save!
+          end
+        end
+
+      end
+    end
+    
+    respond_to do |format|
+      format.js
+    end
+  end
 end

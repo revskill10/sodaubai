@@ -7,11 +7,18 @@ class LichTrinhGiangDay < ActiveRecord::Base
 
   scope :nghiday, -> {where(loai: 1)}
   scope :nghidaychoduyet, -> {nghiday.where(status: 6)}
+  scope :nghidaykoduyet, -> {nghiday.where(status: 4)}
+  scope :nghidaydaduyet, -> {nghiday.where(status: 3)}
   scope :daybu, -> {where(loai: 2)}
   scope :daybuchoduyet, -> {daybu.where(status: 6)}
+  scope :daybukoduyet, -> {daybu.where(status: 4)}
+  scope :daybudaduyet, -> {daybu.where(status: 3)}
   scope :choduyet, -> {where(status: 6)}
 
 
+  delegate :ma_lop, :to => :lop_mon_hoc
+  delegate :ma_mon_hoc, :to => :lop_mon_hoc
+  
   attr_accessible :ngay_day, :nhan_xet_buoi_hoc, :noi_dung_day, :so_tiet_day, :so_vang, :ngay_day_moi, :ma_giang_vien_moi, :ma_mon_hoc_moi, :ten_mon_hoc_moi, :loai, :status, :tuan_moi, :so_tiet_day_moi, :lop_mon_hoc_moi_id
 
   belongs_to :lop_bo_sung, :class_name => "LopMonHoc", :foreign_key => :lop_mon_hoc_moi_id
@@ -24,16 +31,16 @@ class LichTrinhGiangDay < ActiveRecord::Base
   end
 
   def doigio?
-  	loai == 4
+  	loai == 4 and status == 3
   end
   def nghiday?
-  	loai == 1
+  	loai == 1 and status == 3
   end
   def daybu?
-  	loai == 2
+  	loai == 2 and status == 3
   end
   def daythay?
-  	loai == 3
+  	loai == 3 and status == 3
   end  
   def gvpending?
   	status == 1
@@ -53,5 +60,41 @@ class LichTrinhGiangDay < ActiveRecord::Base
   	return "#{rating_score} / #{ratings}" if ratings and ratings > 0
   	return "" unless  ratings or ratings == 0  		  	
   end
-
+  def info
+    if loai == 1
+      if status == 6 
+        "Nghỉ dạy chờ xét duyệt"
+      elsif status == 3
+        "Nghỉ dạy đã được chấp nhận"
+      elsif status == 4
+        "Nghỉ dạy không được duyệt"
+      end
+    elsif loai == 2
+      if status == 6 
+        "Dạy bù chờ xét duyệt"
+      elsif status == 3
+        "Dạy bù đã được chấp nhận: Ngày dạy bù: #{ngay_day_moi.localtime}, phòng: #{phong_moi}"
+      elsif status == 4
+        "Dạy bù không được duyệt"
+      end
+    elsif loai == 3
+      if status == 6 
+        "Dạy thay chờ xét duyệt"
+      elsif status == 3
+        "Dạy thay đã được chấp nhận"
+      elsif status == 4
+        "Dạy thay không được duyệt"
+      end
+    elsif loai == 4
+      if status == 6 
+        "Đổi giờ chờ xét duyệt"
+      elsif status == 3
+        "Đổi giờ đã được chấp nhận"
+      elsif status == 4
+        "Đổi giờ không được duyệt"
+      end
+    else
+      ""
+    end
+  end
 end

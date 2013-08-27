@@ -82,12 +82,15 @@ Trytest::Application.routes.draw do
   get "quanly" => 'quanly#index', :as => 'quanly'
   match 'quanly/lopghep' => 'quanly#lopghep', :as => 'quanlylopghep'
   match 'quanly/nghiday' => 'quanly#nghiday', :as => 'quanlynghiday'
+  match 'quanly/daybu' => 'quanly#daybu', :as => 'quanlydaybu'
   post 'quanly/filtersv' => 'quanly#filtersv', :as => 'filtersv'
   post 'quanly/filterlophc' => 'quanly#filterlophc', :as => 'filterlophc'
   post 'quanly/filterloptc' => 'quanly#filterloptc', :as => 'filterloptc'
   post 'quanly/checklopghep' => 'quanly#checklopghep', :as => 'checklopghep'
   post 'quanly/updatelopghep' => 'quanly#updatelopghep', :as => 'updatelopghep'
   post 'quanly/movelopghep' => 'quanly#movelopghep', :as => 'movelopghep'
+  post 'quanly/qlnghiday' => 'quanly#qlnghiday', :as => 'qlnghiday'
+  post 'quanly/qldaybu' => 'quanly#qldaybu', :as => 'qldaybu'
   match '*a', :to => 'application#routing'
   
   

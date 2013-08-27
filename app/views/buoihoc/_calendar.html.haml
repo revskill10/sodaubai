@@ -15,4 +15,4 @@
           %td{:style => "background: ##{@color_map["#{lich["ma_mon_hoc"]}"]}" }= lich["so_tiet"]
           %td{:style => "background: ##{@color_map["#{lich["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
 
-= submit_tag "Đổi giờ", :class =>"btn btn-primary"                
+= submit_tag "Đổi giờ", :class =>"btn btn-primary" ,  :data => {disable_with: "Submitting..."}               

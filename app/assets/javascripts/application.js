@@ -12,14 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
-
+//=require bootstrap-all
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require redactor.min
 //= require bootstrap-combobox
 //= require best_in_place
 //= require quanly
-
+//= require bootstrap-datetimepicker
 
 
 $(document).ready(function(){
@@ -28,9 +28,14 @@ $(document).ready(function(){
 	$('.best_in_place').best_in_place();	
 	$('.redactor').redactor();
 
-    $('#datetimepicker1').fdatetimepicker({
-  	  format: 'yyyy-mm-dd-hh-ii'
-  });
+
+    $('#datetimepicker1').datetimepicker({
+	  	pickSeconds: false,
+	  	startDate: new Date(),
+	    endDate: new Date(2014, 8, 12)
+	  });
+    $('[rel=tooltip]').tooltip() ;
+
 });  
 
 
