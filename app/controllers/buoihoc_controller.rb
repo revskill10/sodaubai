@@ -348,7 +348,7 @@ class BuoihocController < ApplicationController
     @magiangvien = @lop_mon_hoc.ma_giang_vien
     @role = current_user.role
     @type = current_user.imageable
-    if @type.is_a?(GiangVien) then 
+    if @type.is_a?(GiangVien) or current_user.is_admin? then 
       @ngayhoc = @type.get_days[:ngay]
       @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc).first
       @buoihoc = @ngayhoc.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
