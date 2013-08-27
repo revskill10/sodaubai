@@ -12,14 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
-//=require bootstrap-all
+
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require redactor.min
 //= require bootstrap-combobox
 //= require best_in_place
 //= require quanly
-//= require bootstrap-datetimepicker
+
+
 
 $(document).ready(function(){
 	$('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bStateSave":true,"bAutoWidth":true,"sScrollY": "300px"});			
@@ -27,9 +28,9 @@ $(document).ready(function(){
 	$('.best_in_place').best_in_place();	
 	$('.redactor').redactor();
 
-    $('#datetimepicker1').datetimepicker({
-  	pickSeconds: false,
-  	startDate: new Date(2013, 8, 12),
-    endDate: new Date(2014, 8, 12)
+    $('#datetimepicker1').fdatetimepicker({
+  	  format: 'yyyy-mm-dd-hh-ii'
   });
 });  
+
+
