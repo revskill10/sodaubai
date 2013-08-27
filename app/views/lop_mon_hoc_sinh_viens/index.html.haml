@@ -59,7 +59,7 @@
         %span Có đầu điểm thực hành? 
         %br
         %br
-        = submit_tag "Thiết lập", :class => "btn" 
+        = submit_tag "Thiết lập", :class => "btn",  :data => {disable_with: "Submitting..."} 
 
         - if can? :manage, LopMonHocSinhVien
           %ul.nav.pull-right
@@ -68,7 +68,7 @@
 
     = form_tag groupupdate_lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id), :method => :post, :remote => true do         
       %ul.nav.pull-right
-        %li= submit_tag "Cập nhật danh sách nhóm thực hành", :class => "btn btn-primary" 
+        %li= submit_tag "Cập nhật danh sách nhóm thực hành", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."} 
       %table#dssv{:class => "table datatable"}    
         = render 'table1'
 

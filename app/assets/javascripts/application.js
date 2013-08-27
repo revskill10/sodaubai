@@ -29,7 +29,8 @@ $(document).ready(function(){
 
     $('#datetimepicker1').datetimepicker({
 	  	pickSeconds: false,
-	  	startDate: new Date(2013, 8, 12),
+	  	startDate: new Date(),
 	    endDate: new Date(2014, 8, 12)
 	  });
+    $('[rel=tooltip]').tooltip() ;
 });  

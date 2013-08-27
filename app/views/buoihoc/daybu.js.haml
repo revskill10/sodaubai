@@ -1,4 +1,15 @@
-- if @error
+- if @error == 1
   alert("Giờ dạy bù bị trùng lịch dạy, Vui lòng chọn giờ khác");
+- if @error == 2
+  alert("Giờ dạy bù không hợp lệ");
 - else
-  alert("Đề xuất của bạn đã được gởi đi");
+  $("#daybu").empty();
+  $("#nghiday").empty();
+  $("#daybu").html("#{escape_javascript(render :partial => 'daybu')}");
+  :plain
+    $('#datetimepicker1').datetimepicker({
+      pickSeconds: false,
+      startDate: new Date(),
+      endDate: new Date(2014, 8, 12)
+    });
+    alert("Đề xuất của bạn đã được gởi đi");

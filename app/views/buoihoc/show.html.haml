@@ -1,41 +1,48 @@
-= form_tag update_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do 
-  .container-fluid
-    .navbar.navbar-fixed-top
-      .navbar-inner
-        .container-fluid
-          %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          %a.brand{:href => "/" } HPU
-          .container.nav-collapse
-            %ul.nav.pull-left#urls
-              %li.active= link_to "Sổ đầu bài", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
-              %li= link_to "Điểm danh chi tiết", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))     
-              - if can? :manage, @lich
-                %li= link_to "Quản lý giờ học", quanly_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
-              %li= link_to "Thông tin lớp", lop_mon_hoc_path(@lop_mon_hoc.id)  
-            %ul.nav.pull-right                   
-              %li= link_to "Đăng xuất", destroy_user_session_path
-  .container-fluid{:style=>"margin-top: 4%;"} 
-    .row-fluid
-      %ul.nav.pull-right
-        %li
-          %i
-            %strong
-              %span= current_user.fullname
 
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/" } HPU
+        .container.nav-collapse
+          %ul.nav.pull-left#urls
+            %li.active= link_to "Sổ đầu bài", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
+            %li= link_to "Điểm danh chi tiết", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))     
+            - if can? :manage, @lich
+              %li= link_to "Quản lý giờ học", quanly_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
+            %li= link_to "Thông tin lớp", lop_mon_hoc_path(@lop_mon_hoc.id)  
+          %ul.nav.pull-right                   
+            %li= link_to "Đăng xuất", destroy_user_session_path
+.container-fluid{:style=>"margin-top: 4%;"} 
+  .row-fluid
+    %ul.nav.pull-right
+      %li
+        %i
+          %strong
+            %span= current_user.fullname
+
+      %li
+        %i
+          %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.localtime.mday}/#{@week.tu_ngay.localtime.mon}, đến ngày #{@week.den_ngay.localtime.mday}/#{@week.den_ngay.localtime.mon}"  
+  .row-fluid
+    %ul.nav.pull-right
+      - if @buoihoc
         %li
           %i
-            %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.localtime.mday}/#{@week.tu_ngay.localtime.mon}, đến ngày #{@week.den_ngay.localtime.mday}/#{@week.den_ngay.localtime.mon}"  
-    .row-fluid
-      %ul.nav.pull-right
-        - if @buoihoc
+            %strong{:style => "font-size: 10px;"}= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")  
+        - if @lich.daybu?
           %li
             %i
-              %strong{:style => "font-size: 10px;"}= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
+              %strong{:style => "font-size: 10px;"}= "Dạy bù vào: #{@lich.ngay_day_moi.localtime.strftime('%Hh:%M ngày %d/%m')}" 
 
-    = submit_tag "Cập nhật", :class =>"btn btn-primary"  
+
+  = form_tag update_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do 
+    - if can? :diemdanh, @lich
+      = submit_tag "Cập nhật", :class =>"btn btn-primary",  :data => {disable_with: "Submitting..."}
     .well.sidebar-nav{:style => "font-size: 12px;"}
       %strong Môn học: 
       %span= @buoihoc["ten_mon_hoc"] if @buoihoc
@@ -55,38 +62,39 @@
       %h6 Các sinh viên vắng mặt:
       %table#svvang{:class => "table table-bordered table-condensed"}  
         = render :partial => 'table1'
-    .tabbable
-      %ul.nav.nav-tabs
-        %li.active
-          %a{:href => "#tab2", :"data-toggle" => "tab"} Điểm danh:
-        %li
-          %a{:href => "#tab1", :"data-toggle" => "tab"} Nội dung giảng dạy: 
-        
-      .tab-content
-        .tab-pane#tab1          
-          .well.sidebar-nav{:style => "font-size: 12px;"}
-            = @lich.score if @lich
+    - if can? :diemdanh, @lich        
+      .tabbable
+        %ul.nav.nav-tabs
+          %li.active
+            %a{:href => "#tab2", :"data-toggle" => "tab"} Điểm danh:
+          %li
+            %a{:href => "#tab1", :"data-toggle" => "tab"} Nội dung giảng dạy: 
+          
+        .tab-content
+          .tab-pane#tab1          
+            .well.sidebar-nav{:style => "font-size: 12px;"}
+              = @lich.score if @lich
 
-          .well.sidebar-nav{:style => "font-size: 12px;"}
-            
+            .well.sidebar-nav{:style => "font-size: 12px;"}
+              
 
-            = text_area_tag "buoihoc[noidung]", (@lich.noi_dung_day if @lich), :value => "#{(@lich.noi_dung_day if @lich)}", :class => 'redactor', :style => "width: 100%;", :rows => 4
-                          
-        .tab-pane.active#tab2                            
-          .well.sidebar-nav            
-            %table{:class => "table table-bordered table-condensed datatable"}                              
-              %tbody    
-                - @svs2.each_with_index do |svs, index|    
-                  %tr{:class => (index%2==1 ? :warning: :success)}
-                    - svs.each_with_index do |sv, i|
-                      %td
-                        %div             
-                          %p= "#{index*4 + i + 1}" + ". " + (sv.ho || "") + " " + (sv.ho_dem || "") + " " + (sv.ten || "")
-                          %span= sv.ma_sinh_vien
-                          %br
-                          %span= (sv.ma_lop_hanh_chinh || "")
-                          %span= check_box_tag "msv[#{sv.ma_sinh_vien}]", nil, get_status(@lich, sv)
+              = text_area_tag "buoihoc[noidung]", (@lich.noi_dung_day if @lich), :value => "#{(@lich.noi_dung_day if @lich)}", :class => 'redactor', :style => "width: 100%;", :rows => 4
+                            
+          .tab-pane.active#tab2                            
+            .well.sidebar-nav            
+              %table{:class => "table table-bordered table-condensed datatable"}                              
+                %tbody    
+                  - @svs2.each_with_index do |svs, index|    
+                    %tr{:class => (index%2==1 ? :warning: :success)}
+                      - svs.each_with_index do |sv, i|
+                        %td
+                          %div             
+                            %p= "#{index*4 + i + 1}" + ". " + (sv.ho || "") + " " + (sv.ho_dem || "") + " " + (sv.ten || "")
+                            %span= sv.ma_sinh_vien
+                            %br
+                            %span= (sv.ma_lop_hanh_chinh || "")
+                            %span= check_box_tag "msv[#{sv.ma_sinh_vien}]", nil, get_status(@lich, sv)
 
-        
+          
 
 

@@ -39,7 +39,7 @@ class BuoihocController < ApplicationController
     begin    
       raise ActiveRecord::RecordNotFound unless @lich
       authorize! :manage, @lich
-
+      authorize! :diemdanh, @lich
       if params[:buoihoc]
         @lichtrinh = params[:buoihoc]  
         @sotietday = @lichtrinh[:sotiet].to_i  
@@ -137,6 +137,7 @@ class BuoihocController < ApplicationController
     begin
       raise ActiveRecord::RecordNotFound unless @lich
       authorize! :manage, @lich
+      authorize! :diemdanh, @lich
       @phong = params[:buoihoc][:phong]
       @sotietday = params[:buoihoc][:sotiet].to_i      
       if @sotietday > 0 and @sotietday <= @tkb.so_tiet
@@ -201,7 +202,7 @@ class BuoihocController < ApplicationController
   def nghiday
     raise ActiveRecord::RecordNotFound unless @lich
     authorize! :manage, @lich
-    
+    authorize! :quanly, @lich    
     if params[:buoihoc] and params[:buoihoc][:nghiday]
       @lich.loai = 1
       @lich.status = 6
@@ -222,17 +223,18 @@ class BuoihocController < ApplicationController
     begin
       raise ActiveRecord::RecordNotFound unless @lich
       authorize! :manage, @lich
-      
+      authorize! :quanly, @lich
       if params[:buoihoc][:thoigian]
         @ngaybu = str_to_ngay(params[:buoihoc][:thoigian]) 
         @lich.ngay_day_moi = get_ngay(@ngaybu)      
         gv = @lich.lop_mon_hoc.giang_vien 
-        if gv and !gv.check_conflict(@lich.ngay_day_moi.localtime)              
+        if gv and !gv.check_conflict(@lich.ngay_day_moi.localtime) and (DateTime.now < @lich.ngay_day) and (DateTime.now < @lich.ngay_day_moi)          
           @lich.loai = 2
           @lich.status = 6
           @lich.save!          
         else
-          @error = 1
+          @error = 1 
+          @error = 2 if  (DateTime.now > @lich.ngay_day) or (DateTime.now > @lich.ngay_day_moi)
         end
         
       else
@@ -257,7 +259,7 @@ class BuoihocController < ApplicationController
   def daythay    
     raise ActiveRecord::RecordNotFound unless @lich
     authorize! :manage, @lich
-
+    authorize! :quanly, @lich
     
     respond_to do |format|
       format.js
@@ -266,6 +268,7 @@ class BuoihocController < ApplicationController
   def doigio    
     raise ActiveRecord::RecordNotFound unless @lich
     authorize! :manage, @lich
+    authorize! :quanly, @lich
 
     ma_giang_vien_moi = params[:giohoc][:magiangvien]
     thoigian = params[:giohoc][:thoigian]
@@ -292,6 +295,8 @@ class BuoihocController < ApplicationController
   def calendar
     raise ActiveRecord::RecordNotFound unless @lich
     authorize! :manage, @lich
+    authorize! :quanly, @lich
+
     gv = params[:doigio][:magiangvien]
     @gv = GiangVien.where(ma_giang_vien: gv).first
     if @gv          

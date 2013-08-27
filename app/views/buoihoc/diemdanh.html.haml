@@ -35,7 +35,7 @@
           %i
             %strong= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")  
 
-    = submit_tag "Cập nhật", :class =>"btn btn-primary"  
+    = submit_tag "Cập nhật", :class =>"btn btn-primary",  :data => {disable_with: "Submitting..."}  
         
     %h4 Thông tin lớp môn: 
     .well.sidebar-nav{:style => "font-size: 12px;"}

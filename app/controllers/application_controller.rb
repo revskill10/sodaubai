@@ -1,6 +1,7 @@
 require 'pg_tools'
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  include ApplicationHelper
   before_filter :load_tenant
   before_filter :authenticate_user!  
   before_filter :load_tuan
@@ -19,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
   protected
   def load_tuan
-    @week = Tuan.find(3)
+    @week = current_tuan
     @current_week = @week.stt    
   end
   def load_tenant

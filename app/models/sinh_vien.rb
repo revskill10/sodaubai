@@ -42,6 +42,13 @@ class SinhVien < ActiveRecord::Base
   def lop_mon_hocs
    lop_mon_hoc_sinh_viens.map {|t| t and t.lop_mon_hoc }   
   end
+  def lich_trinh_giang_days
+    res = []
+    lop_mon_hocs.each do |l|
+      res = res + l.lich_trinh_giang_days
+    end    
+    return res
+  end
   def check_conflict(lop)    
     tkbs = lop.tkb_giang_viens if lop
     tkb1 = get_tkbs

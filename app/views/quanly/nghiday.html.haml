@@ -21,6 +21,6 @@
 .container-fluid{:style=>"margin-top: 4%;"}  
   - if @lichs.count > 0
     = form_tag qlnghiday_path, :method => :post, :remote => true do                                 
-      = submit_tag "Cập nhật", :class => "btn btn-primary"
+      = submit_tag "Cập nhật", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}
       %br
       = render "lich"

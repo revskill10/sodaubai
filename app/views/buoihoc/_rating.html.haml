@@ -2,7 +2,7 @@
   - [1, 2, 3, 4, 5 ].each do |theme|  
     = radio_button_tag 'theme', theme, @theme == theme
     = theme.to_s + "   "
-  = submit_tag "Đánh giá buổi học", :class =>"btn btn-success"     
+  = submit_tag "Đánh giá buổi học", :class =>"btn btn-success" ,  :data => {disable_with: "Submitting..."}    
 
 
     
