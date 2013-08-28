@@ -509,6 +509,22 @@ namespace :hpu do
     end
   end
 
+  task :update_sinhvien => :environment do 
+    # ma sinh vien la chu thuong khi dang nhap, can chuyen qua chu hoa lam code
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    User.all.each do |u|
+      if u.code != u.username
+        u.code = u.code.upcase 
+        sv = SinhVien.where(ma_sinh_vien: u.code).first
+        if sv 
+          u.imageable = sv
+          u.save! 
+        end
+      end
+    end
+  end
+
 end
 def titleize(str)
   str.split(" ").map(&:capitalize).join(" ").gsub("Ii","II")
