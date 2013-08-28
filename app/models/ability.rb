@@ -34,8 +34,7 @@ class Ability
     if user.imageable.is_a?(SinhVien)      
         can :read, SinhVien  
         can [:read, :rate], LichTrinhGiangDay do |lich|
-           user.imageable.lop_mon_hocs.map(&:id).include?(lich.lop_mon_hoc.id) if user.imageable.is_a?(SinhVien) and lich.lop_mon_hoc and lich.ngay_day.localtime <= Time.now            
-           user.imageable.lop_mon_hocs.map(&:id).include?(lich.lop_bo_sung.id) if user.imageable.is_a?(SinhVien) and lich.lop_bo_sung and lich.ngay_day_moi.localtime <= Time.now and lich.status == 3
+           user.imageable.lop_mon_hocs.map(&:id).include?(lich.lop_mon_hoc.id) and lich.lop_mon_hoc and lich.ngay_day.localtime <= Time.now  if user.imageable.is_a?(SinhVien)
         end
         can :read, LopMonHoc do |lop|
             user.imageable.lop_mon_hocs.map(&:id).include?(lop.id) if user.imageable.is_a?(SinhVien) if lop

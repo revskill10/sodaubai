@@ -28,9 +28,9 @@ class BuoihocController < ApplicationController
     end
     
     respond_to do |format|     
-      if can? :read, @lich
+      if can? :manage, @lich
         format.html {render :show}        
-      elsif can? :manage, @lich 
+      elsif can? :read, @lich 
         format.html {render :show_sv}                  
       end      
     end    
