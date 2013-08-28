@@ -2,7 +2,7 @@
   alert("Giờ dạy bù bị trùng lịch dạy, Vui lòng chọn giờ khác");
 - if @error == 2
   alert("Giờ dạy bù không hợp lệ");
-- else
+- unless @error
   $("#daybu").empty();
   $("#nghiday").empty();
   $("#daybu").html("#{escape_javascript(render :partial => 'daybu')}");
