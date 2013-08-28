@@ -29,8 +29,10 @@ class LichTrinhGiangDay < ActiveRecord::Base
       where("so_tiet_vang > 0")      
     end    
   end
-  
-
+    
+  def to_zdate(str)
+    DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
+  end
   def doigio?
   	loai == 4 and status == 3
   end
