@@ -6,25 +6,21 @@ class DashboardController < ApplicationController
 
     @current_lich = @lich.select {|l| l["tuan"] == @current_week}.uniq if @lich
     @current_lich2 = @lich2.select {|l| l["tuan"] == @current_week}.uniq if @lich2
-    if request.headers['X-PJAX']
-      render :layout => false
+    
+    if current_user.imageable.is_a?(SinhVien)
+      respond_to do |format|
+        format.html { render :calendar }
+      end
     end
   end
   def show
     
     @current_lich = @lich.select {|l| l["tuan"] == params[:id].to_i}.uniq if @lich 
     @current_lich2 = @lich2.select {|l| l["tuan"] == @current_week}.uniq if @lich2
-    if request.headers['X-PJAX']      
-      render :layout => false
-    end
+    
   end
   def calendar
-    
-    
-
-    if request.headers['X-PJAX']
-      render :layout => false
-    end
+      
   end
   
   protected

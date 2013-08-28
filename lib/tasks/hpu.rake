@@ -60,10 +60,15 @@ namespace :hpu do
   task :update_tkb2 => :environment do 
     tenant = Tenant.last
     PgTools.set_search_path tenant.scheme, false
-    TkbGiangVien.all.each do |tkb|
-      tkb.update_attributes(days: tkb.get_days)
-      tkb.save rescue puts "Error #{tkb.ma_lop}"
-      #puts tkb.id if tkb.lop_mon_hoc.nil?
+    begin
+      TkbGiangVien.all.each do |tkb|
+        puts tkb.id
+        tkb.update_attributes(days: tkb.get_days)
+        tkb.save rescue puts "Error #{tkb.ma_lop}"
+        #puts tkb.id if tkb.lop_mon_hoc.nil?
+      end
+    rescue Exception => e
+      puts e.inspect
     end
   end
   
@@ -498,7 +503,102 @@ namespace :hpu do
 
   end
 
+  task :update_stv => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    LopMonHocSinhVien.all.each do |l|    
+      l.tong_so_tiet = l.lop_mon_hoc.so_tiet
+      l.so_vang_co_phep = l.lop_mon_hoc.lich_trinh_giang_days.inject(0){|sum,x| sum + x.diem_danhs.where(ma_sinh_vien: l.ma_sinh_vien).sum(:so_tiet_vang, :conditions => {:phep => true}) }
+      l.so_tiet_vang =  l.lop_mon_hoc.lich_trinh_giang_days.inject(0){|sum,x| sum + x.diem_danhs.where(ma_sinh_vien: l.ma_sinh_vien).sum(:so_tiet_vang) }
+      l.save! rescue "tong vang co phep error"
+    end
+  end
+
+  task :update_sinhvien => :environment do 
+    # ma sinh vien la chu thuong khi dang nhap, can chuyen qua chu hoa lam code
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    User.all.each do |u|
+      if u.code != u.username
+        u.code = u.code.upcase 
+        sv = SinhVien.where(ma_sinh_vien: u.code).first
+        if sv 
+          u.imageable = sv
+          u.save! 
+        end
+      end
+    end
+  end
+  task :update_lopmonhoc => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false    
+    @client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
+    response = @client.call(:tkb_theo_giai_doan)    
+    res_hash = response.body.to_hash    
+    ls = res_hash[:tkb_theo_giai_doan_response][:tkb_theo_giai_doan_result][:diffgram][:document_element]
+    ls = ls[:tkb_theo_giai_doan]
+        
+    ls.each_with_index do |l,i|
+                      
+      tkb = TkbGiangVien.where( ma_giang_vien: l[:ma_giao_vien].strip.upcase, ma_lop: l[:ma_lop].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), phong: (l[:ma_phong_hoc].strip if l.has_key?(:ma_phong_hoc) and l[:ma_phong_hoc].is_a?(String)), so_tiet: l[:so_tiet], so_tuan: l[:so_tuan_hoc], thu: l[:thu], tiet_bat_dau: l[:tiet_bat_dau], tuan_hoc_bat_dau: l[:tuan_hoc_bat_dau], ten_giang_vien: titleize(l[:ten_giao_vien].strip.downcase)).first
+      unless tkb        
+        tkb = TkbGiangVien.create!( ma_giang_vien: l[:ma_giao_vien].strip.upcase, ma_lop: l[:ma_lop].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), ngay_bat_dau: l[:tu_ngay].new_offset(Rational(7, 24)), ngay_ket_thuc: l[:ngay_ket_thuc].new_offset(Rational(7, 24)), phong: (l[:ma_phong_hoc].strip if l.has_key?(:ma_phong_hoc) and l[:ma_phong_hoc].is_a?(String)), so_tiet: l[:so_tiet], so_tuan: l[:so_tuan_hoc], thu: l[:thu], tiet_bat_dau: l[:tiet_bat_dau], tuan_hoc_bat_dau: l[:tuan_hoc_bat_dau], ten_giang_vien: titleize(l[:ten_giao_vien].strip.downcase))     
+
+        #tkb.days = tkb.get_days
+        tkb.save!
+
+        l = LopMonHoc.where(:ma_giang_vien => tkb.ma_giang_vien, :ma_lop => tkb.ma_lop, :ma_mon_hoc => tkb.ma_mon_hoc).first
+        unless l
+          l = LopMonHoc.create!(:ma_giang_vien => tkb.ma_giang_vien, :ma_lop => tkb.ma_lop, :ma_mon_hoc => tkb.ma_mon_hoc)
+          l.update_attributes(ten_giang_vien: tkb.ten_giang_vien, ten_mon_hoc: tkb.ten_mon_hoc, phong_hoc: tkb.phong, ngay_bat_dau: tkb.ngay_bat_dau, ngay_ket_thuc: tkb.ngay_ket_thuc, so_tuan_hoc: tkb.so_tuan)
+          l.tkb_giang_viens << tkb
+          l.save rescue puts "error #{l.id}"
+        end
+        if l 
+          l.tkb_giang_viens << tkb
+          l.save rescue puts "error #{l.id}"
+        end
+        tkb.days = tkb.get_days
+        tkb.save!
+      end
+    end
+  end
+  
+  task :update_lopmonhoc_lichday => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    LichTrinhGiangDay.all.each do |l|
+      if l.lop_mon_hoc.nil?
+        lop = LopMonHoc.where(ma_lop: l.ma_lop, ma_mon_hoc: l.ma_mon_hoc).first
+        if lop
+          l.lop_mon_hoc = lop
+          l.save!
+        end
+      end
+    end
+  end
+
+  task :update_sotietday => :environment do 
+    # cap nhat lai so tiet day va phong hoc cho tung buoi hoc
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    LichTrinhGiangDay.all.each do |lich|
+      unless lich.phong_moi
+        lich.phong_moi = lich.lop_mon_hoc.phong_hoc if lich.lop_mon_hoc
+      end
+      unless lich.so_tiet_day_moi
+        ngayhoc = lich.lop_mon_hoc.get_days
+        tkb = lich.lop_mon_hoc.tkb_giang_viens.first
+        buoihoc = ngayhoc.select {|l| to_zdate(l["time"][0]) == lich.ngay_day.localtime}[0] if ngayhoc
+        lich.so_tiet_day_moi = buoihoc["so_tiet"] if buoihoc        
+      end
+      lich.save!
+    end    
+  end
 end
 def titleize(str)
   str.split(" ").map(&:capitalize).join(" ").gsub("Ii","II")
+end
+def to_zdate(str)
+    DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
 end

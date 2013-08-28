@@ -41,7 +41,24 @@ class LopMonHocSinhVien < ActiveRecord::Base
       0
     end  
   end
-  
+  def convert_kocothuchanh(diem)
+    case diem 
+    when 10
+      6
+    when 9
+      5
+    when 8
+      4
+    when 7
+      3
+    when 6
+      2
+    when 5
+      1
+    else
+      0
+    end
+  end
   def hodemdaydu
     (ho || "") + " " + (ho_dem || "")
   end
@@ -56,7 +73,7 @@ class LopMonHocSinhVien < ActiveRecord::Base
   end
   def diemtbkt
     return convert_grade((diemtbkt1.round(0).to_i if diemtbkt1) || 0)  if lop_mon_hoc.get_thuc_hanh == true     
-    return 2 * convert_grade( (diemtbkt1.round(0).to_i if diemtbkt1) || 0 )  if lop_mon_hoc.get_thuc_hanh == false     
+    return convert_kocothuchanh( (diemtbkt1.round(0).to_i if diemtbkt1) || 0 )  if lop_mon_hoc.get_thuc_hanh == false     
   end
   def diemtbkt1
     if lop_mon_hoc.so_lan_kt.nil? or lop_mon_hoc.so_lan_kt == 0 then return 0

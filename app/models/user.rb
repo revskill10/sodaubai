@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 	    self.role = 'guest'
       if extra_attributes["masinhvien"]
         logger.debug "msv: #{extra_attributes["masinhvien"]}"
-        self.code = extra_attributes["masinhvien"]
+        self.code = extra_attributes["masinhvien"].upcase
         sv = SinhVien.where(:ma_sinh_vien => self.code).first        
         self.imageable = sv if sv
         self.role = 'sinhvien'

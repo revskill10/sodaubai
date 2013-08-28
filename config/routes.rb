@@ -91,6 +91,9 @@ Trytest::Application.routes.draw do
   post 'quanly/movelopghep' => 'quanly#movelopghep', :as => 'movelopghep'
   post 'quanly/qlnghiday' => 'quanly#qlnghiday', :as => 'qlnghiday'
   post 'quanly/qldaybu' => 'quanly#qldaybu', :as => 'qldaybu'
+
+  get "admin" => 'admin#index', :as => 'admin'
+  
   match '*a', :to => 'application#routing'
   
   
