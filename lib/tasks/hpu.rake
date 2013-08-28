@@ -498,6 +498,17 @@ namespace :hpu do
 
   end
 
+  task :update_stv => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    LopMonHocSinhVien.all.each do |l|    
+      l.tong_so_tiet = l.lop_mon_hoc.so_tiet
+      l.so_vang_co_phep = l.lop_mon_hoc.lich_trinh_giang_days.inject(0){|sum,x| sum + x.diem_danhs.where(ma_sinh_vien: l.ma_sinh_vien).sum(:so_tiet_vang, :conditions => {:phep => true}) }
+      l.so_tiet_vang =  l.lop_mon_hoc.lich_trinh_giang_days.inject(0){|sum,x| sum + x.diem_danhs.where(ma_sinh_vien: l.ma_sinh_vien).sum(:so_tiet_vang) }
+      l.save! rescue "tong vang co phep error"
+    end
+  end
+
 end
 def titleize(str)
   str.split(" ").map(&:capitalize).join(" ").gsub("Ii","II")
