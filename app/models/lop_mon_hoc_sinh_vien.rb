@@ -73,7 +73,7 @@ class LopMonHocSinhVien < ActiveRecord::Base
   end
   def diemtbkt
     return convert_grade((diemtbkt1.round(0).to_i if diemtbkt1) || 0)  if lop_mon_hoc.get_thuc_hanh == true     
-    return convert_kocothuchanh(convert_grade( (diemtbkt1.round(0).to_i if diemtbkt1) ) || 0 )  if lop_mon_hoc.get_thuc_hanh == false     
+    return convert_kocothuchanh( (diemtbkt1.round(0).to_i if diemtbkt1) || 0 )  if lop_mon_hoc.get_thuc_hanh == false     
   end
   def diemtbkt1
     if lop_mon_hoc.so_lan_kt.nil? or lop_mon_hoc.so_lan_kt == 0 then return 0
