@@ -563,7 +563,42 @@ namespace :hpu do
       end
     end
   end
+  
+  task :update_lopmonhoc_lichday => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    LichTrinhGiangDay.all.each do |l|
+      if l.lop_mon_hoc.nil?
+        lop = LopMonHoc.where(ma_lop: l.ma_lop, ma_mon_hoc: l.ma_mon_hoc).first
+        if lop
+          l.lop_mon_hoc = lop
+          l.save!
+        end
+      end
+    end
+  end
+
+  task :update_sotietday => :environment do 
+    # cap nhat lai so tiet day va phong hoc cho tung buoi hoc
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    LichTrinhGiangDay.all.each do |lich|
+      unless lich.phong_moi
+        lich.phong_moi = lich.lop_mon_hoc.phong_hoc if lich.lop_mon_hoc
+      end
+      unless lich.so_tiet_day_moi
+        ngayhoc = lich.lop_mon_hoc.get_days
+        tkb = lich.lop_mon_hoc.tkb_giang_viens.first
+        buoihoc = ngayhoc.select {|l| to_zdate(l["time"][0]) == lich.ngay_day.localtime}[0] if ngayhoc
+        lich.so_tiet_day_moi = buoihoc["so_tiet"] if buoihoc        
+      end
+      lich.save!
+    end    
+  end
 end
 def titleize(str)
   str.split(" ").map(&:capitalize).join(" ").gsub("Ii","II")
+end
+def to_zdate(str)
+    DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
 end

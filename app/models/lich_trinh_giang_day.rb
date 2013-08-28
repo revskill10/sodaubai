@@ -16,8 +16,8 @@ class LichTrinhGiangDay < ActiveRecord::Base
   scope :choduyet, -> {where(status: 6)}
 
 
-  delegate :ma_lop, :to => :lop_mon_hoc
-  delegate :ma_mon_hoc, :to => :lop_mon_hoc
+  #delegate :ma_lop, :to => :lop_mon_hoc
+  #delegate :ma_mon_hoc, :to => :lop_mon_hoc
   
   attr_accessible :ngay_day, :nhan_xet_buoi_hoc, :noi_dung_day, :so_tiet_day, :so_vang, :ngay_day_moi, :ma_giang_vien_moi, :ma_mon_hoc_moi, :ten_mon_hoc_moi, :loai, :status, :tuan_moi, :so_tiet_day_moi, :lop_mon_hoc_moi_id
 
@@ -29,6 +29,7 @@ class LichTrinhGiangDay < ActiveRecord::Base
       where("so_tiet_vang > 0")      
     end    
   end
+  
 
   def doigio?
   	loai == 4 and status == 3
