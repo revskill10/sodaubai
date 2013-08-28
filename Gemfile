@@ -24,7 +24,7 @@ group :assets do
 end
 
 gem 'compass-rails' # you need this or you get an err
-gem 'zurb-foundation', '~> 4.0.0'
+gem 'compass_twitter_bootstrap'
 gem 'jquery-rails'
 #gem "jquery-rails", "2.3.0"
 # To use ActiveModel has_secure_password
@@ -93,4 +93,3 @@ gem 'redis-rails'
 gem "redis-rack-cache"
 gem 'paper_trail'
 gem 'bootstrap-datetimepicker-rails'
-gem 'foundation-datetimepicker-rails'
