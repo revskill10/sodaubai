@@ -93,6 +93,8 @@ Trytest::Application.routes.draw do
   post 'quanly/qlnghiday' => 'quanly#qlnghiday', :as => 'qlnghiday'
   post 'quanly/qldaybu' => 'quanly#qldaybu', :as => 'qldaybu'
 
+  get "monitor" => 'monitor#index', :as => 'monitor'
+  
   get "admin" => 'admin#index', :as => 'admin'
   
   match '*a', :to => 'application#routing'

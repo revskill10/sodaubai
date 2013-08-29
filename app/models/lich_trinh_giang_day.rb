@@ -29,7 +29,27 @@ class LichTrinhGiangDay < ActiveRecord::Base
       where("so_tiet_vang > 0")      
     end    
   end
-    
+  TIET = {1 => [6,30], 2 => [7,20], 3 => [8,10],
+    4 => [9,5], 5 => [9,55], 6 => [10, 45],
+    7 => [12,30], 8 => [13,20], 9 => [14,10],
+    10 => [15, 5], 11 => [15, 55], 12 => [16, 45],
+    13 => [18, 0], 14 => [18, 50], 15 => [19,40], 16 => [20,30]}
+  def self.compare(g1, g2)
+    return 1 if g1[0] > g2[0]
+    return -1 if g1[0] < g2[0]
+    if g1[0] == g2[0]
+      return 1 if g1[1] > g2[1]
+      return 0 if g1[1] == g2[1]
+      return -1 if g1[1] < g2[1]
+    end
+  end
+  def self.xac_dinh_gio(dt)
+    x = [dt.hour, dt.minute]
+    ts = TIET.reject {|k,v| compare(v,x) == 1}
+    t = ts.values.last  
+    h = DateTime.new(dt.year, dt.month, dt.day, t[0], t[1])
+    return h
+  end
   def to_zdate(str)
     DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
   end
