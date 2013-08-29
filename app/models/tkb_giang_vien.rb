@@ -44,7 +44,7 @@ class TkbGiangVien < ActiveRecord::Base
     x = schedule.all_occurrences
     y = x.each_slice(x.count/so_tuan).to_a
     z = y.each_with_index.map {|m,t| {:tuan => tuan_hoc_bat_dau + t, :time => m, :lop => lop_mon_hoc.id, :ma_lop => ma_lop, :ma_mon_hoc => ma_mon_hoc , :thu => thu, :so_tiet => so_tiet, :tiet_bat_dau => tiet_bat_dau,
-    :ten_mon_hoc => ten_mon_hoc, :phong => phong } }
+    :ten_mon_hoc => ten_mon_hoc, :phong => phong, :ma_giang_vien => lop_mon_hoc.ma_giang_vien, :ten_giang_vien => lop_mon_hoc.ten_giang_vien } }
     return {:ngay => z}.to_json
   end
   

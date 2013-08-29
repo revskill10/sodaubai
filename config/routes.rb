@@ -8,6 +8,7 @@ Trytest::Application.routes.draw do
       resources :sinh_viens do 
         member do 
           get 'trucnhat' => 'sinh_viens#trucnhat'
+          get 'tkb' => 'sinh_viens#tkb'
         end
       end
       resources :giang_viens

@@ -42,16 +42,24 @@
       %strong.offset1 Số tiết: 
       %span= @lop_mon_hoc.so_tiet
   %table{:class => "table table-bordered datatable"}
+    %colgroup
+      %col{:style => "width: 10%"}
+      %col{:style => "width: 35%"}
+      %col{:style => "width: 35%"}
+      %col{:style => "width: 10%"}            
+      %col{:style => "width: 10%"}      
     %thead      
       %td Tuần    
       %td Thời gian 
+      %td Môn học
       %td Số tiết    
       %td Phòng        
     %tbody
       - @lich.each_with_index do |lich, index|
         %tr        
           %td= link_to "T"  + (("0" if lich["tuan"] < 10) || "") + lich["tuan"].to_s, tuan_path(lich["tuan"].to_s)    
-          %td= link_to "Thứ " + lich["thu"].to_s + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M")) 
+          %td= link_to "Thứ " + lich["thu"].to_s + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M"))
+          %td= @lop_mon_hoc.ten_mon_hoc 
           %td= lich["so_tiet"]             
           %td= lich["phong"]                           
 

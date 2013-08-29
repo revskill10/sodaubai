@@ -89,7 +89,7 @@
                       - svs.each_with_index do |sv, i|
                         %td
                           %div             
-                            %p= "#{index*4 + i + 1}" + ". " + (sv.ho || "") + " " + (sv.ho_dem || "") + " " + (sv.ten || "")
+                            %p{:style => "color: #{'blue' if @nhomtruc.include?(sv.ma_sinh_vien)}; font-weight: #{'bold' if @nhomtruc.include?(sv.ma_sinh_vien)}"}= "#{index*4 + i + 1}" + ". " + (sv.ho || "") + " " + (sv.ho_dem || "") + " " + (sv.ten || "")
                             %span= sv.ma_sinh_vien
                             %br
                             %span= (sv.ma_lop_hanh_chinh || "")

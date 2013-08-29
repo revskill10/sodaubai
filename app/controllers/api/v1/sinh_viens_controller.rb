@@ -16,7 +16,22 @@ class API::V1::SinhViensController < ActionController::Base
     @sinh_vien = SinhVien.where(ma_sinh_vien: params[:id]).first
     if @sinh_vien and @sinh_vien.trucnhat
       respond_to do |format|      
-        format.json { render json: JSON.parse(@sinh_vien.trucnhat)["days"] }
+        format.json { render json: JSON.parse(@sinh_vien.trucnhat)["days"].sort_by }
+      end
+    else
+      respond_to do |format|      
+        format.json { render json: nil }
+      end
+    end
+  end
+
+  def tkb
+    @sinh_vien = SinhVien.where(ma_sinh_vien: params[:id]).first
+    if @sinh_vien
+      @current_lops = @sinh_vien.lop_mon_hocs      
+      @lich = @sinh_vien.get_days[:ngay].uniq if @sinh_vien.get_days
+      respond_to do |format|      
+        format.json { render json: @lich }
       end
     else
       respond_to do |format|      

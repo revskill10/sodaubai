@@ -338,9 +338,15 @@ class BuoihocController < ApplicationController
   def to_zdate(str)
     DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
   end
-
+  def from_zdate(str)
+    str1 = str.split("-").to_a
+     str2 = str1[0]+"-"+str1[1]+"-"+str1[2]+"T"+str1[3]+":"+str1[4]+":00Z"
+     return str2
+  end
   def load_lop
-  	@lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])  	
+  	@lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])  
+    @trucnhat = JSON.parse(@lop_mon_hoc.trucnhat) if @lop_mon_hoc.trucnhat
+
     @pid = params[:id]
     @ngay = str_to_ngay(params[:id])
     @malop = @lop_mon_hoc.ma_lop
@@ -358,11 +364,13 @@ class BuoihocController < ApplicationController
         @lich.phong_moi = @lop_mon_hoc.phong_hoc
         @lich.save!
       end
+      @nhomtruc = @trucnhat[from_zdate(@pid)]
     elsif @type.is_a?(SinhVien)
       @ngayhoc = @type.get_days[:ngay]
       @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
       @buoihoc = @ngayhoc.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
       @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first
+      @nhomtruc = @trucnhat[from_zdate(@pid)]
     elsif @role == 'trogiang'  
       @type = current_user    
       @ngayhoc = @type.get_days[:ngay] if @type.get_days
@@ -374,6 +382,7 @@ class BuoihocController < ApplicationController
         @lich.phong_moi = @lop_mon_hoc.phong_hoc
         @lich.save!
       end
+      @nhomtruc = @trucnhat[from_zdate(@pid)]
     end       
     if current_user.is_admin?
       @type = @lop_mon_hoc.giang_vien
@@ -386,7 +395,7 @@ class BuoihocController < ApplicationController
         @lich.phong_moi = @lop_mon_hoc.phong_hoc
         @lich.save!
       end
-
+      @nhomtruc = @trucnhat[from_zdate(@pid)]
     end
   end
 
