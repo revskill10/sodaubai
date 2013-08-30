@@ -25,13 +25,15 @@
       %td Phòng     
       %td Giảng viên
     %tbody
-      - if @lichs and @lichs.count > 0
-        - @lichs.each_with_index do |lich, index|
-          %tr
+      - if @today and @today.count > 0
+        - @today.each_with_index do |lich, index|                    
+          %tr{:class => ("success" if @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ) }
             %td= (index+1).to_s
-            %td= lich.lop_mon_hoc.ma_lop
-            %td= lich.lop_mon_hoc.ten_mon_hoc
-            %td= lich.ngay_day.localtime.strftime("%Hh:%M")
-            %td= lich.so_tiet_day_moi
-            %td= lich.phong_moi
-            %td= lich.lop_mon_hoc.ten_giang_vien
+            %td= lich['ma_lop']
+            %td= lich['ten_mon_hoc']
+            %td= to_zdatetime(lich['time'][0]).strftime("%Hh:%M")
+            %td= lich['so_tiet']
+            %td= lich['phong']
+            %td= lich['ten_giang_vien']
+
+

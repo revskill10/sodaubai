@@ -595,7 +595,26 @@ namespace :hpu do
       lich.save!
     end    
   end
+
+  task :update_tuan => :environment do 
+
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+
+    res = []
+    TkbGiangVien.all.each do |tkb|      
+      d = JSON.parse(tkb.days)["ngay"]
+      res = res + d if d
+    end
+    Tuan.all.each do |t|
+      r = res.select {|m| m["tuan"] == t.stt }
+      t.days = {:ngay => r}.to_json
+      t.save!
+    end
+  end
+
 end
+
 def titleize(str)
   str.split(" ").map(&:capitalize).join(" ").gsub("Ii","II")
 end
