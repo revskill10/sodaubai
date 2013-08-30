@@ -33,7 +33,7 @@ class BuoihocController < ApplicationController
       elsif can? :read, @lich 
         format.html {render :show_sv}                  
       end      
-    end    
+    end
   end
   def update    
     begin    
@@ -43,6 +43,7 @@ class BuoihocController < ApplicationController
       if params[:buoihoc]
         @lichtrinh = params[:buoihoc]  
         @sotietday = @lichtrinh[:sotiet].to_i  
+        @phong = @lichtrinh[:phong].to_s
       end
       if @sotietday and @sotietday > 0 and @tkb and @sotietday <= @tkb.so_tiet
         @lich.so_tiet_day_moi = @sotietday
