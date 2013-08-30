@@ -44,9 +44,7 @@ class Ability
         can :manage, LopMonHocSinhVien
         can :manage, LichTrinhGiangDay
     end
-    if user.groups.count > 0 and user.grouops.map(&:name).include?("theodoi")
-        can :monitor, LichTrinhGiangDay
-    end
+    
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

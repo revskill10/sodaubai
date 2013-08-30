@@ -1,1 +1,37 @@
-= @lichs.inspect
+
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/" } HPU
+        .container.nav-collapse          
+          %ul.nav.pull-right   
+            - if user_signed_in?               
+              %li= link_to "Đăng xuất", destroy_user_session_path
+            - else
+              %li= link_to "Đăng nhập", new_user_session_path
+.container-fluid{:style=>"margin-top: 4%;"} 
+  %table{:class => "table table-bordered table-condensed"}    
+    %thead
+      %td STT
+      %td Mã lớp
+      %td Tên môn
+      %td Giờ dạy
+      %td Số tiết dạy
+      %td Phòng     
+      %td Giảng viên
+    %tbody
+      - if @lichs and @lichs.count > 0
+        - @lichs.each_with_index do |lich, index|
+          %tr
+            %td= (index+1).to_s
+            %td= lich.lop_mon_hoc.ma_lop
+            %td= lich.lop_mon_hoc.ten_mon_hoc
+            %td= lich.ngay_day.localtime.strftime("%Hh:%M")
+            %td= lich.so_tiet_day_moi
+            %td= lich.phong_moi
+            %td= lich.lop_mon_hoc.ten_giang_vien
