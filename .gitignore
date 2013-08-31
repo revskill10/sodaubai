@@ -12,8 +12,11 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+/log/*
+/solr
 /tmp
 /public/system
 /public/assets
 start.bat
 database.yml
+solr/data

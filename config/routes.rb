@@ -32,7 +32,8 @@ Trytest::Application.routes.draw do
 
   resources :giang_viens
   resources :mon_hocs
-  resources :sinh_viens    
+  resources :sinh_viens
+    
   resources :lop_mon_hocs do             
     member do 
       get '/calendar' => 'lop_mon_hocs#calendar'        
@@ -97,6 +98,7 @@ Trytest::Application.routes.draw do
   get "monitor/:lop_mon_hoc_id/:id" => 'monitor#show', :as => 'showmonitor'
   get "admin" => 'admin#index', :as => 'admin'
   
+  get "search" => 'dashboard#search', :as => 'search'
   match '*a', :to => 'application#routing'
   
   

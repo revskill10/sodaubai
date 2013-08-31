@@ -1,0 +1,25 @@
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/" } HPU
+        .container.nav-collapse
+          - if can? :read, SinhVien
+            %ul.nav.pull-left#urls
+              %li= link_to "Thời khóa biểu", "/calendar"
+              %li= link_to "Thăm dò", "http://thamdo.hpu.edu.vn"
+              - if can? :manage, LopMonHocSinhVien
+                %li= link_to "Quản lý", "/quanly"
+          - if can? :search, [SinhVien, GiangVien]
+            %form.form-search
+              %input.input-medium.search-query{:type => "text"}
+              %button.btn{:type => "submit"} Tra cứu
+
+          %ul.nav.pull-right
+            %li= link_to 'Đăng xuất', destroy_user_session_path  
+
+.container-fluid{:style=>"margin-top: 4%;"}
