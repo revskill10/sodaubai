@@ -22,7 +22,12 @@ class DashboardController < ApplicationController
   def calendar
       
   end
-  
+  def search
+
+    respond_to do |format|
+      format.html
+    end
+  end
   protected
   def to_zdate(str)
     DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
