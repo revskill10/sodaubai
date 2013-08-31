@@ -15,6 +15,12 @@ class SinhViensController < ApplicationController
     authorize! :manage, LopMonHocSinhVien
     
   end
+  def search
+
+    respond_to do |format|
+      format.html
+    end
+  end
   protected
   def load_lop
     @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])

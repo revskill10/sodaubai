@@ -19,3 +19,4 @@
 /public/assets
 start.bat
 database.yml
+solr/data

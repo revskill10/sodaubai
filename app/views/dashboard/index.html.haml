@@ -15,10 +15,16 @@
               %li= link_to "Thăm dò", "http://thamdo.hpu.edu.vn"
               - if can? :manage, LopMonHocSinhVien
                 %li= link_to "Quản lý", "/quanly"
+
           %ul.nav.pull-right
             %li= link_to 'Đăng xuất', destroy_user_session_path  
 
 .container-fluid{:style=>"margin-top: 4%;"}
+  .row-fluid
+    - if can? :search, [SinhVien, GiangVien]
+      = form_tag search_path, :method => :get, :class => "form-search" do       
+        %input.input-large.search-query{:type => "text", :name => "search"}
+        %button.btn{:type => "submit"} Tra cứu
   .row-fluid
     %ul.nav.pull-right
       %li

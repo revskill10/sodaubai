@@ -64,6 +64,7 @@ end
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
+  gem 'sunspot_solr'
 end
 gem "haml-rails"
 gem "simple_form"
@@ -93,3 +94,7 @@ gem 'redis-rails'
 gem "redis-rack-cache"
 gem 'paper_trail'
 gem 'bootstrap-datetimepicker-rails'
+
+gem 'sunspot_rails', '~> 1.3.0'
+gem 'progress_bar'
+gem 'bootstrap-multiselect-rails'
