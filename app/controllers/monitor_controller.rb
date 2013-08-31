@@ -17,6 +17,9 @@ class MonitorController < ActionController::Base
     @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])
     @ngay = str_to_ngay(params[:id])
     @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first    
+    @trucnhat = JSON.parse(@lop_mon_hoc.trucnhat) if @lop_mon_hoc.trucnhat
+    @nhomtruc = @trucnhat[from_zdate(params[:id])] if @trucnhat
+    @svs = SinhVien.where(ma_sinh_vien: @nhomtruc) if @nhomtruc
     respond_to do |format|
       format.js
     end

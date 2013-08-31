@@ -17,3 +17,8 @@
 
 %h5 Phòng:
 = @lich.phong_moi
+
+- if @svs
+  %h5 Danh sách sinh viên trực nhật:
+  - @svs.each do |sv|
+    = sv.fullname + "(" + sv.ma_sinh_vien + ")"
