@@ -28,7 +28,10 @@
       - if @today and @today.count > 0
         - @today.each_with_index do |lich, index|                    
           %tr{:class => ("success" if @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ) }
-            %td= (index+1).to_s
+            - if @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") 
+              %td= link_to (index+1).to_s, showmonitor_path(to_zdate(lich['time'][0])), :remote => true
+            - else
+              %td= (index+1).to_s
             %td= lich['ma_lop']
             %td= lich['ten_mon_hoc']
             %td= to_zdatetime(lich['time'][0]).strftime("%Hh:%M")

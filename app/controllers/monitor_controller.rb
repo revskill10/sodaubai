@@ -1,6 +1,7 @@
 require 'pg_tools'
 class MonitorController < ActionController::Base
   include MonitorHelper
+  include BuoihocHelper
   before_filter :load_tenant
   before_filter :load_tuan
   before_filter :load_phongs
@@ -12,7 +13,17 @@ class MonitorController < ActionController::Base
     end
   end
 
+  def show
+
+    @ngay = str_to_ngay(params[:id])
+    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first    
+    respond_to do |format|
+      format.js
+    end
+  end
+
   protected
+  
   def load_tenant
 
     if @current_tenant ||= Tenant.last     
