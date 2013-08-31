@@ -1,4 +1,12 @@
 module BuoihocHelper
+	def so(s)
+		return s.to_s if s >= 100
+		if s < 10
+			return "00" + s.to_s
+		elsif s < 100
+			return "0" + s.to_s		
+		end				
+	end
 	def get_rate(lich)
 		return "#{lich.rating_score}" + "/" + "#{lich.ratings}"
 	end

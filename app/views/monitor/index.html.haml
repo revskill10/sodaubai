@@ -32,10 +32,13 @@
         - @today.each_with_index do |lich, index|                    
           %tr{:class => ("success" if @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ) }
             - if @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") 
-              %td= link_to (index+1).to_s, showmonitor_path(lich['lop'], to_zdatetime(lich['time'][0]).strftime("%Y-%m-%d-%H-%M")), :remote => true
+              %td= link_to so(index+1), showmonitor_path(lich['lop'], to_zdatetime(lich['time'][0]).strftime("%Y-%m-%d-%H-%M")), :remote => true
             - else
-              %td= (index+1).to_s
-            %td= lich['ma_lop']
+              %td= so(index+1)
+            - if @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") 
+              %td= link_to lich['ma_lop'], showmonitor_path(lich['lop'], to_zdatetime(lich['time'][0]).strftime("%Y-%m-%d-%H-%M")), :remote => true
+            - else
+              %td= lich['ma_lop']
             %td= lich['ten_mon_hoc']
             %td= to_zdatetime(lich['time'][0]).strftime("%Hh:%M")
             %td= lich['so_tiet']
