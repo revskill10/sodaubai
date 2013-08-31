@@ -1,1 +1,2 @@
-alert("#{@lich.noi_dung_day}");
+$("#modalbody").html("#{escape_javascript(render :partial => 'result')}");
+$("#mymodal").modal('toggle');

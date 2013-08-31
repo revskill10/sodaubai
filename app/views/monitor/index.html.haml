@@ -15,6 +15,9 @@
             - else
               %li= link_to "Đăng nhập", new_user_session_path
 .container-fluid{:style=>"margin-top: 4%;"} 
+  #mymodal.modal.hide.fade{:tabindex => -1, :role => "dialog", :'area-hidden' => true}
+    .modal-header
+    .modal-body#modalbody
   %table{:class => "table table-bordered table-condensed datatable"}    
     %thead
       %td STT
