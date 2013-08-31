@@ -17,6 +17,8 @@
 .container-fluid{:style=>"margin-top: 4%;"} 
   #mymodal.modal.hide.fade{:tabindex => -1, :role => "dialog", :'area-hidden' => true}
     .modal-header
+      %button{:type => "button", :class => "close", :"data-dismiss" => "modal", :"aria-hidden" => true} x
+      %h3 Thông tin giờ học
     .modal-body#modalbody
   %table{:class => "table table-bordered table-condensed datatable"}    
     %thead
