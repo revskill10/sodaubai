@@ -4,8 +4,8 @@ class GiangVien < ActiveRecord::Base
   #association
   has_many :lop_mon_hocs, :foreign_key => 'ma_giang_vien', :dependent => :destroy, :primary_key => 'ma_giang_vien'
   has_many :tkb_giang_viens, :foreign_key => 'ma_giang_vien', :dependent => :destroy, :primary_key => 'ma_giang_vien' do 
-    def with_lop(ma_lop, ma_mon)
-      where("tkb_giang_viens.ma_lop = ? and tkb_giang_viens.ma_mon_hoc = ?", ma_lop, ma_mon)
+    def with_lop(ma_lop, ma_mon, tuan)
+      where("tkb_giang_viens.ma_lop = ? and tkb_giang_viens.ma_mon_hoc = ? and tkb_giang_viens.tuan_hoc_bat_dau <= ?", ma_lop, ma_mon, tuan)
     end
     def tuans
       group(:tuan_hoc_bat_dau).count

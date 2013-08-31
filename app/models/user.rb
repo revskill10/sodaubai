@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
     ngays = []
     tkbs = get_tkbs
     return nil if tkbs.empty?
-    get_tkbs.each do |tkb|
+    tkbs.each do |tkb|
       ngay = JSON.parse(tkb.days)["ngay"]
       ngays = ngays + ngay
     end

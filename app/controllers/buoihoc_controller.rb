@@ -357,8 +357,8 @@ class BuoihocController < ApplicationController
     @type = current_user.imageable
     if @type.is_a?(GiangVien)  then 
       @ngayhoc = @type.get_days[:ngay]
-      @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc).first
-      @buoihoc = @ngayhoc.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
+      @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc,@current_week).first
+      @buoihoc = @ngayhoc.select {|l| l["tuan"] == @current_week and to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
       @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!        
       if @lich.so_tiet_day_moi.nil? or @lich.phong_moi.nil?
         @lich.so_tiet_day_moi = @buoihoc["so_tiet"] if @buoihoc      
@@ -368,15 +368,15 @@ class BuoihocController < ApplicationController
       @nhomtruc = @trucnhat[from_zdate(@pid)]
     elsif @type.is_a?(SinhVien)
       @ngayhoc = @type.get_days[:ngay]
-      @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
-      @buoihoc = @ngayhoc.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
+      @tkb = @type.get_tkbs.select {|k| k[:tuan_hoc_bat_dau] <= @current_week and k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
+      @buoihoc = @ngayhoc.select {|l| l["tuan"] == @current_week and  to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
       @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first
       @nhomtruc = @trucnhat[from_zdate(@pid)]
     elsif @role == 'trogiang'  
       @type = current_user    
       @ngayhoc = @type.get_days[:ngay] if @type.get_days
-      @tkb = @type.get_tkbs.select {|k| k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
-      @buoihoc = @ngayhoc.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
+      @tkb = @type.get_tkbs.select {|k| k[:tuan_hoc_bat_dau] <= @current_week and  k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
+      @buoihoc = @ngayhoc.select {|l| l["tuan"] == @current_week and  to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
       @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create! 
       if @lich.so_tiet_day_moi.nil? or @lich.phong_moi.nil?
         @lich.so_tiet_day_moi = @buoihoc["so_tiet"] if @buoihoc      
@@ -388,8 +388,8 @@ class BuoihocController < ApplicationController
     if current_user.is_admin?
       @type = @lop_mon_hoc.giang_vien
       @ngayhoc = @type.get_days[:ngay]
-      @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc).first
-      @buoihoc = @ngayhoc.select {|l| to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
+      @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc,@current_week).first
+      @buoihoc = @ngayhoc.select {|l| l["tuan"] == @current_week and  to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
       @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!        
       if @lich.so_tiet_day_moi.nil? or @lich.phong_moi.nil?
         @lich.so_tiet_day_moi = @buoihoc["so_tiet"] if @buoihoc      
