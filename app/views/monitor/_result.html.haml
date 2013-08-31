@@ -7,9 +7,9 @@
 %h5 Số lượng sinh viên vắng: #{@lich.diem_danhs.count || 0}
 - if @lich.diem_danhs.count > 0
   - @lich.diem_danhs.each_with_index do |dd, index|
-    = dd.sinh_vien.ho + " " + dd.sinh_vien.fullname + "(" + dd.ma_sinh_vien + "); "
+    = dd.sinh_vien.ho + " " + dd.sinh_vien.fullname + " (" + dd.ma_sinh_vien + "); "
 
 - if @svs
   %h5 Danh sách sinh viên trực nhật:
   - @svs.each do |sv|
-    = sv.ho + " " + sv.fullname + "(" + sv.ma_sinh_vien + "); "
+    = sv.ho + " " + sv.fullname + " (" + sv.ma_sinh_vien + "); "
