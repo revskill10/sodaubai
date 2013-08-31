@@ -30,7 +30,7 @@
     %tbody
       - if @today and @today.count > 0
         - @today.each_with_index do |lich, index|                    
-          %tr{:class => ("success" if @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ) }
+          %tr{:class => ( @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ? "success" : "error" ) }
             - if @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") 
               %td= link_to so(index+1), showmonitor_path(lich['lop'], to_zdatetime(lich['time'][0]).strftime("%Y-%m-%d-%H-%M")), :remote => true
             - else
