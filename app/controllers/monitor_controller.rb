@@ -14,7 +14,7 @@ class MonitorController < ActionController::Base
   end
 
   def show
-
+    @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])
     @ngay = str_to_ngay(params[:id])
     @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first    
     respond_to do |format|
@@ -23,7 +23,7 @@ class MonitorController < ActionController::Base
   end
 
   protected
-  
+
   def load_tenant
 
     if @current_tenant ||= Tenant.last     

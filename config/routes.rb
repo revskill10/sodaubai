@@ -94,7 +94,7 @@ Trytest::Application.routes.draw do
   post 'quanly/qldaybu' => 'quanly#qldaybu', :as => 'qldaybu'
 
   get "monitor" => 'monitor#index', :as => 'monitor'
-  get "monitor/:id" => 'monitor#show', :as => 'showmonitor'
+  get "monitor/:lop_mon_hoc:id/:id" => 'monitor#show', :as => 'showmonitor'
   get "admin" => 'admin#index', :as => 'admin'
   
   match '*a', :to => 'application#routing'
