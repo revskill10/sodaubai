@@ -613,6 +613,18 @@ namespace :hpu do
     end
   end
 
+  task :reindex_sinhvien => :environment do 
+
+    tenant = Tenant.last    
+    PgTools.set_search_path tenant.scheme, false
+
+    LopMonHocSinhVien.nam_hoc = tenant.nam_hoc
+    LopMonHocSinhVien.hoc_ky = tenant.hoc_ky
+    LopMonHocSinhVien.reindex
+    Sunspot.commit
+  end
+
+
 end
 
 def titleize(str)

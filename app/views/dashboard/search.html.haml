@@ -25,3 +25,11 @@
         = select_tag "search_from", "<option>Sinh viên</option><option>Giảng viên</option><option>Lớp</option><option>Phòng</option>".html_safe, :class => "multiselect"
         %input.input-large.search-query{:type => "text", :name => "search", :placeholder => "Nhập từ khóa bạn muốn tra cứu"}
         %button.btn{:type => "submit"} Tra cứu
+  .row-fluid    
+    - if @results
+      %ul
+        - for res in @results
+          %li= res.fullname
+          %li= res.ngay_sinh
+
+

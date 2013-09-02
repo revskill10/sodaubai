@@ -1,5 +1,56 @@
 class LopMonHocSinhVien < ActiveRecord::Base
 
+  @nam_hoc = ""
+  @hoc_ky = ""
+
+  def self.nam_hoc
+    @nam_hoc
+  end
+  def nam_hoc
+    self.class.nam_hoc
+  end
+  def self.nam_hoc=(n)
+    @nam_hoc = n
+  end
+  def self.hoc_ky
+    @hoc_ky
+  end
+  def self.hoc_ky=(n)
+    @hoc_ky = n
+  end
+  def hoc_ky
+    self.class.hoc_ky
+  end
+
+  FACETS = [:ma_lop, :ten_mon_hoc, :giang_vien, :nam_hoc, :hoc_ky, :ngay_sinh]
+  searchable do 
+    text :ma_sinh_vien
+    text :fullname do 
+      ho + " " + ho_dem + " " + ten
+    end
+
+    boolean :tin_chi
+    string :ma_lop_hanh_chinh
+    string :ngay_sinh do 
+      sinh_vien.ngay_sinh.strftime("%B %Y")
+    end
+    string :ma_lop do 
+      lop_mon_hoc.ma_lop
+    end
+    string :ten_mon_hoc do 
+      lop_mon_hoc.ten_mon_hoc
+    end
+    string :giang_vien do 
+      lop_mon_hoc.ten_giang_vien
+    end
+    string :nam_hoc do 
+      @nam_hoc
+    end
+    string :hoc_ky do 
+      @hoc_ky
+    end      
+  end
+
   default_scope order('ten, ho_dem, ho')
   default_scope :conditions => 'status is null or status = false'
   

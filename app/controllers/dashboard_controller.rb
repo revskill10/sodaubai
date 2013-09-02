@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class DashboardController < ApplicationController
 
   
@@ -23,7 +24,15 @@ class DashboardController < ApplicationController
       
   end
   def search
-
+    if params[:search_form] == "Sinh vien"
+      @search = LopMonHocSinhVien.search do 
+        fulltext params[:search]
+        LopMonHocSinhVien::FACETS.each do |f|
+          facet(f)
+        end        
+      end
+      @results = @search.results
+    end
     respond_to do |format|
       format.html
     end
