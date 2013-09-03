@@ -617,10 +617,12 @@ namespace :hpu do
   task :reindex_sinhvien => :environment do 
 
     tenant = Tenant.last    
+    nam = tenant.nam_hoc
+    hocky = tenant.hoc_ky
     PgTools.set_search_path tenant.scheme, false
 
-    LopMonHocSinhVien.nam_hoc = tenant.nam_hoc
-    LopMonHocSinhVien.hoc_ky = tenant.hoc_ky
+    LopMonHocSinhVien.nam_hoc = nam
+    LopMonHocSinhVien.hoc_ky = hoc_ky
     LopMonHocSinhVien.reindex
     Sunspot.commit
   end

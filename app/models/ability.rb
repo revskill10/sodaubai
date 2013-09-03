@@ -17,7 +17,7 @@ class Ability
             can? :manage, lich.lop_mon_hoc or (user.code == lich.ma_giang_vien_moi and lich.status == 3)
         end  
         cannot :quanly, LichTrinhGiangDay do |lich|
-            cannot? :manage, lich or (lich.ngay_day.localtime.to_i < DateTime.now.to_i)
+            cannot? :manage, lich
         end      
         cannot :diemdanh, LichTrinhGiangDay do |l|
             [1,2,3,4].include?(l.loai) and l.status == 6
@@ -44,7 +44,9 @@ class Ability
         can :manage, LopMonHocSinhVien
         can :manage, LichTrinhGiangDay
     end
-    
+    if user.groups.count > 0 and user.groups.map(&:name).include?("quansinh")        
+        can :thongke, LopMonHoc        
+    end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

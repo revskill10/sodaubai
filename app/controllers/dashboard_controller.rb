@@ -13,7 +13,21 @@ class DashboardController < ApplicationController
         format.html { render :calendar }
       end
     end
+    if can? :thongke, LopMonHoc
+      respond_to do |format|
+        format.html { render :thongke }
+      end
+    end
   end
+
+  def thongke
+    authorize! :thongke, LopMonHoc
+
+    respond_to do |format|
+      format.html { render :thongke }
+    end
+  end
+
   def show
     
     @current_lich = @lich.select {|l| l["tuan"] == params[:id].to_i}.uniq if @lich 
