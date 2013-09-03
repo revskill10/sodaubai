@@ -48,7 +48,7 @@ class MonitorController < ActionController::Base
     #@tiet = LichTrinhGiangDay.xac_dinh_gio(dt).change(:offset => Rational(7,24))
     @lichs = LichTrinhGiangDay.where("ngay_day > timestamp ? and ngay_day < timestamp ?", dt, DateTime.now).order('ngay_day asc, created_at asc')
     @lichs2 = LichTrinhGiangDay.where("ngay_day > timestamp ? and ngay_day < timestamp ?", dt, DateTime.now).order('ngay_day asc, created_at asc').map {|l| "#{l.lop_mon_hoc.ma_lop}_#{l.lop_mon_hoc.ma_mon_hoc}"}
-    @currents = LichTrinhGiangDay.current.map {|l| l and "#{l.lop_mon_hoc.ma_lop}_#{l.lop_mon_hoc.ma_mon_hoc}"}
+    #@currents = LichTrinhGiangDay.current.map {|l| l and "#{l.lop_mon_hoc.ma_lop}_#{l.lop_mon_hoc.ma_mon_hoc}"}
     @today = @days.select {|d| to_zdate(d["time"][0]) == Date.today }.sort_by {|k| to_zdatetime(k['time'][0])}
     #@res2 = @res.select {|n| to_zdate(n["time"][0]) == Date.today}
     #.map {|tkb| tkb and JSON.parse(tkb.days)["ngay"] }
