@@ -23,7 +23,9 @@
 //= require bootstrap-multiselect
 
 $(document).ready(function(){
-	$('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bStateSave":true,"bAutoWidth":true,"sScrollY": "300px"});			
+	$('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bStateSave":true,"bAutoWidth":true,"sScrollY": "300px"});		
+
+	$('#monitor').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bStateSave":true,"bAutoWidth":true,"sScrollY": "400px","iDisplayLength": 50});		
 	$('.combobox').combobox();	
 	$('.best_in_place').best_in_place();		
 	$('.multiselect').multiselect();

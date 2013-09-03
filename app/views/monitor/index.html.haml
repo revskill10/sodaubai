@@ -20,31 +20,44 @@
       %button{:type => "button", :class => "close", :"data-dismiss" => "modal", :"aria-hidden" => true} x
       %h3 Thông tin giờ học
     .modal-body#modalbody
-  %table{:class => "table table-bordered table-condensed datatable"}    
+  .row-fluid
+    %ul.nav.pull-right
+      - if user_signed_in?  
+        %li
+          %i
+            %strong
+              %span= current_user.fullname
+      %li
+        %i
+          %span= "Bây giờ là " + DateTime.now.strftime("%Hh:%M") + " ngày " + DateTime.now.strftime("%d/%m")
+      %li
+        %i
+          %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.localtime.mday}/#{@week.tu_ngay.localtime.mon}, đến ngày #{@week.den_ngay.localtime.mday}/#{@week.den_ngay.localtime.mon}"  
+  .row-fluid    
+  %table#monitor{:class => "table table-bordered table-condensed"}    
     %thead
       %td STT
       %td Mã lớp
       %td Tên môn
-      %td Giờ dạy
+      %td Ca
+      %td Giờ dạy      
       %td Số tiết dạy
       %td Phòng     
       %td Giảng viên
     %tbody
       - if @today and @today.count > 0
         - @today.each_with_index do |lich, index|                    
-          %tr{:class => ( @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ? "success" : "error" ) }
+          %tr{:class => ( @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ? "success" : "error" ) }            
+            %td= so(index+1)
             - if @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") 
-              %td= link_to so(index+1), showmonitor_path(lich['lop'], to_zdatetime(lich['time'][0]).strftime("%Y-%m-%d-%H-%M")), :remote => true
-            - else
-              %td= so(index+1)
-            - if @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") 
-              %td= link_to lich['ma_lop'], showmonitor_path(lich['lop'], to_zdatetime(lich['time'][0]).strftime("%Y-%m-%d-%H-%M")), :remote => true
+              %td= link_to lich['ma_lop'] + ( @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ? " * " : " " ), showmonitor_path(lich['lop'], to_zdatetime(lich['time'][0]).strftime("%Y-%m-%d-%H-%M")), :remote => true
             - else
               %td= lich['ma_lop']
             %td= lich['ten_mon_hoc']
+            %td= "Ca " + (LichTrinhGiangDay.ca(to_zdatetime(lich['time'][0])).to_s || "")
             %td= to_zdatetime(lich['time'][0]).strftime("%Hh:%M")
             %td= lich['so_tiet']
-            %td= lich['phong']
+            %td= (lich['phong'] || "") 
             %td= lich['ten_giang_vien']
 
 

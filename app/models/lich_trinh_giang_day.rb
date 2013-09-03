@@ -15,7 +15,7 @@ class LichTrinhGiangDay < ActiveRecord::Base
   scope :daybudaduyet, -> {daybu.where(status: 3)}
   scope :choduyet, -> {where(status: 6)}
 
-
+  scope :between, lambda {|time1, time2| {:conditions => ["ngay_day = timestamp ? or ngay_day = timestamp ? ", time1.utc, time2.utc]}}  
   #delegate :ma_lop, :to => :lop_mon_hoc
   #delegate :ma_mon_hoc, :to => :lop_mon_hoc
   
@@ -34,6 +34,27 @@ class LichTrinhGiangDay < ActiveRecord::Base
     7 => [12,30], 8 => [13,20], 9 => [14,10],
     10 => [15, 5], 11 => [15, 55], 12 => [16, 45],
     13 => [18, 0], 14 => [18, 50], 15 => [19,40], 16 => [20,30]}
+  CA = {1 => [6,30], 2 => [9,5], 3 => [12,30], 4 => [15,5], 5 => [18,0], 6 => [20,30]}
+  
+  def self.ca(dt)
+    x = [dt.hour, dt.minute]
+    ts = CA.reject {|k,v| compare(v,x) == 1}
+    t = ts.values.last  
+    k = ts.keys.last
+    return k
+
+  end
+  def self.current
+    dt = DateTime.now
+    x = [dt.hour, dt.minute]
+    ts = CA.reject {|k,v| compare(v,x) == 1}
+    t = ts.values.last  
+    k = ts.keys.last
+    v = CA[k + 1]
+    h = DateTime.new(dt.year, dt.month, dt.day, t[0], t[1])
+    h2 = DateTime.new(dt.year, dt.month, dt.day, v[0], v[1])
+    return self.between(h, h2)
+  end    
   def self.compare(g1, g2)
     return 1 if g1[0] > g2[0]
     return -1 if g1[0] < g2[0]
