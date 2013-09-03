@@ -1,12 +1,38 @@
 class SinhVien < ActiveRecord::Base
 
+  @nam_hoc = ""
+  @hoc_ky = ""
+
+  def self.nam_hoc
+    @nam_hoc
+  end
+  def nam_hoc
+    self.class.nam_hoc
+  end
+  def self.nam_hoc=(n)
+    @nam_hoc = n
+  end
+  def self.hoc_ky
+    @hoc_ky
+  end
+  def self.hoc_ky=(n)
+    @hoc_ky = n
+  end
+  def hoc_ky
+    self.class.hoc_ky
+  end
   searchable do 
     text :ten, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ten_nganh
     time :ngay_sinh
     string :ns do 
       ngay_sinh.strftime("%B %Y")
     end
-    
+    string :nam_hoc do 
+      @nam_hoc
+    end
+    string :hoc_ky do 
+      @hoc_ky
+    end
   end
 
   default_scope order('ten, ho_dem, ngay_sinh, gioi_tinh')
