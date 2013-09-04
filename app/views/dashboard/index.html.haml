@@ -23,7 +23,7 @@
   .row-fluid
     - if can? :search, [SinhVien, GiangVien]
       = form_tag search_path, :method => :get, :class => "form-search" do    
-        = select_tag "type", "<option value='1' selected=#{'selected' if params[:type]=='1'}>Sinh viên</option><option value='2' selected=#{'selected' if params[:type]=='2'}>Lớp môn học</option>".html_safe, :class => "multiselect"   
+        = select_tag "type", "<option value='1' selected=#{'selected' if params[:type]=='1'}>Sinh viên</option><option value='2' selected=#{'selected' if params[:type]=='2'}>Lớp môn học</option>".html_safe, :class => "multiselect", :placeholder => "Tìm theo sinh viên, giảng viên, lớp học,..."   
         %input.input-large.search-query{:type => "text", :name => "search"}
         %button.btn{:type => "submit"} Tra cứu
   .row-fluid

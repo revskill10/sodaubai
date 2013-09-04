@@ -4,7 +4,10 @@ class SinhVien < ActiveRecord::Base
   FACETS = [:lop_hc]
   searchable do 
     text :ten, :boost => 5
-    text :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ten_nganh
+    text :ho, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ten_nganh
+    text :hovaten do 
+      (ho || "") + " " + (ho_dem || "") + (ten || "")
+    end
     time :ngay_sinh
     string :ns do 
       ngay_sinh.strftime("%B %Y")
