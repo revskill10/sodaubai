@@ -10,9 +10,10 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+//= require custom.modernizr
 //= require jquery
 //= require jquery_ujs
-//=require bootstrap-all
+//= require bootstrap-all
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require redactor.min
@@ -21,6 +22,7 @@
 //= require quanly
 //= require bootstrap-datetimepicker
 //= require bootstrap-multiselect
+
 
 $(document).ready(function(){
 	$('.datatable').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bStateSave":true,"bAutoWidth":true,"sScrollY": "300px"});		

@@ -37,7 +37,8 @@ Trytest::Application.routes.draw do
   resources :lop_mon_hocs do             
     member do 
       get '/calendar' => 'lop_mon_hocs#calendar'        
-    end
+      get '/search' => 'lop_mon_hocs#search'
+    end    
     resources :diem_chi_tiets      do  
       collection do        
         get '/:loai' => 'diem_chi_tiets#index'

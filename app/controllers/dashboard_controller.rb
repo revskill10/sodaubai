@@ -1,8 +1,8 @@
-# encoding: UTF-8
+#encoding: utf-8
 class DashboardController < ApplicationController
 
   
-  before_filter :load_lops
+  before_filter :load_lops, :except => [:search]
   def index    
 
     @current_lich = @lich.select {|l| l["tuan"] == @current_week}.uniq if @lich
@@ -28,17 +28,33 @@ class DashboardController < ApplicationController
       
   end
   def search
-    if params[:search_form] == "Sinh vien"
-      @search = LopMonHocSinhVien.search do 
+    @type = params[:type]
+    @keyword = params[:search]
+    if params[:type] == '1'
+      @search = SinhVien.search do 
         fulltext params[:search]
-        LopMonHocSinhVien::FACETS.each do |f|
+        SinhVien::FACETS.each do |f|
           facet(f)
         end        
+        with(:ns, params[:month]) if params[:month].present?
+        paginate(:page => params[:page] || 1, :per_page => 50)
+      end
+      @results = @search.results
+    elsif params[:type] == '2'
+      @search = LopMonHoc.search do 
+        fulltext params[:search]
+        
+        LopMonHoc::FACETS.each do |f|
+          facet(f)
+        end        
+        with(:bat_dau, params[:bat_dau]) if params[:bat_dau].present?
+        with(:ket_thuc, params[:ket_thuc]) if params[:ket_thuc].present?
+        paginate(:page => params[:page] || 1, :per_page => 50)
       end
       @results = @search.results
     end
-    respond_to do |format|
-      format.html
+    respond_to do |format|      
+      format.html      
     end
   end
   protected

@@ -16,9 +16,11 @@ class SinhViensController < ApplicationController
     
   end
   def search
+    authorize! :search, SinhVien
 
+    
     respond_to do |format|
-      format.html
+      format.js
     end
   end
   protected

@@ -45,7 +45,7 @@ class Ability
         can :manage, LichTrinhGiangDay
     end
     if user.groups.count > 0 and user.groups.map(&:name).include?("quansinh")        
-        can :thongke, LopMonHoc        
+        can :search, LopMonHoc        
     end
     # Define abilities for the passed in user here. For example:
     #

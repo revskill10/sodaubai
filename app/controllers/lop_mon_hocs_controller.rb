@@ -75,7 +75,31 @@ class LopMonHocsController < ApplicationController
     end
   end
 
+  def search
+    authorize! :search, LopMonHoc
 
+    @lop = LopMonHoc.find(params[:id])    
+    @lichtrucnhat = @lop.convert_trucnhat if @lop.trucnhat
+    respond_to do |format|
+      format.js
+      format.xlsx {
+        p = Axlsx::Package.new
+        wb = p.workbook
+        wb.add_worksheet(:name => "Lịch trực nhật") do |sheet|
+          sheet.add_row ["Lịch trực nhật"]
+          sheet.add_row ["Mã lớp: #{@lop.ma_lop}"]
+          sheet.add_row ["Tên môn học: #{@lop.ten_mon_hoc}"]
+          sheet.add_row ["Tên giảng viên: #{@lop.ten_giang_vien}"]
+          sheet.add_row ["Phòng: #{@lop.phong_hoc}"]
+          sheet.add_row ["Ngày bắt đầu: #{@lop.ngay_bat_dau.localtime.strftime('%d/%m/%Y')}"]
+          sheet.add_row ["Ngày kết thúc: #{@lop.ngay_ket_thuc.localtime.strftime('%d/%m/%Y')}"]
+          sheet.add_row ["Ca học", "Thời gian", "Họ và tên", "Mã sinh viên", "Mã lớp hành chính", "Hoàn thành", "Không hoàn thành"]
+          @lichtrucnhat.each { |label| sheet.add_row [label[:ca], label[:time], label[:ho_va_ten], label[:ma_sinh_vien], label[:lop_hc]] }          
+        end
+        send_data p.to_stream.read, :filename => "lichtrucnhat-#{@lop.ma_lop + @lop.ma_mon_hoc}.xlsx", :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
+      }
+    end
+  end
 
   def calendar
     authorize! :read, @lop_mon_hoc

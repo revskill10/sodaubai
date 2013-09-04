@@ -1,37 +1,19 @@
 class SinhVien < ActiveRecord::Base
 
-  @nam_hoc = ""
-  @hoc_ky = ""
-
-  def self.nam_hoc
-    @nam_hoc
-  end
-  def nam_hoc
-    self.class.nam_hoc
-  end
-  def self.nam_hoc=(n)
-    @nam_hoc = n
-  end
-  def self.hoc_ky
-    @hoc_ky
-  end
-  def self.hoc_ky=(n)
-    @hoc_ky = n
-  end
-  def hoc_ky
-    self.class.hoc_ky
-  end
+  
+  FACETS = [:ns, :nam_hoc, :hoc_ky]
   searchable do 
-    text :ten, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ten_nganh
+    text :ten, :boost => 5
+    text :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ten_nganh
     time :ngay_sinh
     string :ns do 
       ngay_sinh.strftime("%B %Y")
     end
     string :nam_hoc do 
-      @nam_hoc
+      "2013-2014"
     end
-    string :hoc_ky do 
-      @hoc_ky
+    integer :hoc_ky do 
+      1
     end
   end
 

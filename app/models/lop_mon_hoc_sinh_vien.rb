@@ -1,27 +1,6 @@
 class LopMonHocSinhVien < ActiveRecord::Base
 
-  @nam_hoc = ""
-  @hoc_ky = ""
-
-  def self.nam_hoc
-    @nam_hoc
-  end
-  def nam_hoc
-    self.class.nam_hoc
-  end
-  def self.nam_hoc=(n)
-    @nam_hoc = n
-  end
-  def self.hoc_ky
-    @hoc_ky
-  end
-  def self.hoc_ky=(n)
-    @hoc_ky = n
-  end
-  def hoc_ky
-    self.class.hoc_ky
-  end
-
+  
   FACETS = [:ma_lop, :ten_mon_hoc, :giang_vien, :nam_hoc, :hoc_ky, :ngay_sinh]
   searchable do 
     text :ma_sinh_vien
@@ -44,10 +23,10 @@ class LopMonHocSinhVien < ActiveRecord::Base
       lop_mon_hoc.ten_giang_vien
     end
     string :nam_hoc do 
-      @nam_hoc
+      '2013-2014'
     end
-    string :hoc_ky do 
-      @hoc_ky
+    integer :hoc_ky do 
+      1
     end      
   end
 

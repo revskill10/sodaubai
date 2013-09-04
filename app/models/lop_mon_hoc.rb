@@ -39,10 +39,56 @@ class LopMonHoc < ActiveRecord::Base
     :D => [["D101","D102","D103"],["D201","D202","D203"],["D301","D302","D304"]],
     :E => [["E301"]],
     :F => [["F101B","F102"],["F201","F205"],["F302"]]}
-
+  FACETS = [:bat_dau, :ket_thuc]
+  searchable do 
+    text :ma_lop, :ma_mon_hoc, :ten_giang_vien, :ma_giang_vien, :phong_hoc, :ten_mon_hoc
+    string :ten_mon_hoc
+    string :ten_giang_vien
+    string :phong_hoc
+    string :bat_dau do 
+      ngay_bat_dau.localtime.strftime("%d/%m/%Y")
+    end
+    string :ket_thuc do 
+      ngay_ket_thuc.localtime.strftime("%d/%m/%Y")
+    end
+    string :nam_hoc do 
+      '2013-2014'
+    end
+    integer :hoc_ky do 
+      1
+    end
+  end
   after_save :update_trogiang
+  def to_zdate(str)
+    DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
+  end
   def to_s
     "#{ma_lop} #{ten_mon_hoc} #{ma_giang_vien}"
+  end
+  def convert_trucnhat
+    result = []
+    if trucnhat 
+      truc = JSON.parse(trucnhat)
+      truc.each do |k,v|
+        d = to_zdate(k)        
+        ca = LichTrinhGiangDay.ca(d)
+        if v and v.count > 0 then           
+          svs = SinhVien.where(ma_sinh_vien: v)
+          if svs and svs.count > 0 then 
+            svs.each do |sv|
+              temp = {}
+              temp[:ca] = ca
+              temp[:time] = d
+              temp[:ho_va_ten] = sv.ho + " " + (sv.ho_dem || "") + " " + sv.ten
+              temp[:ma_sinh_vien] = sv.ma_sinh_vien
+              temp[:lop_hc] = sv.lop_hc
+              result << temp
+            end 
+          end
+        end
+      end
+    end
+    return result
   end
   def get_thuc_hanh
     # false la khong co thuc hanh
