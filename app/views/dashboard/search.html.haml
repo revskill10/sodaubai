@@ -21,7 +21,7 @@
 .container-fluid#pjax-search{:style=>"margin-top: 4%;"}      
   = form_tag search_path, :method => :get, :class => "form-search" do   
     .row-fluid    
-      = select_tag "type", "<option value='1' selected=#{'selected' if params[:type]=='1'}>Sinh viên</option><option value='2' selected=#{'selected' if params[:type]=='2'}>Lớp môn học</option>".html_safe, :class => "multiselect"
+      = select_tag "type", "<option value='1' #{('selected' if @type=='1')}>Sinh viên</option><option value='2' #{('selected' if @type=='2')}>Lớp môn học</option>".html_safe, :class => "multiselect"
       %input.input-large.search-query{:type => "text", :name => "search", :placeholder => "Nhập từ khóa bạn muốn tra cứu", :value => params[:search]}
       %button.btn{:type => "submit"} Tra cứu
     %br
