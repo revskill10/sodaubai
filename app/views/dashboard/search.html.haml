@@ -18,59 +18,66 @@
           %ul.nav.pull-right
             %li= link_to 'Đăng xuất', destroy_user_session_path  
 
-.container-fluid#pjax-search{:style=>"margin-top: 4%;"}    
-  - if can? :search, [SinhVien, GiangVien]
-    = form_tag search_path, :method => :get, :class => "form-search" do   
-      .row-fluid    
-        = select_tag "type", "<option value='1' selected=#{'selected' if params[:type]=='1'}>Sinh viên</option><option value='2' selected=#{'selected' if params[:type]=='2'}>Lớp</option>".html_safe, :class => "multiselect"
-        %input.input-large.search-query{:type => "text", :name => "search", :placeholder => "Nhập từ khóa bạn muốn tra cứu", :value => params[:search]}
-        %button.btn{:type => "submit"} Tra cứu
-      %br
-      .row-fluid
-        .span3
-          .well.sidebar-nav{:style => "font-size: 12px;"}
-            - if @search
-              %ul.nav.nav-list
-                - if @type == "1" 
-                  %li.nav-header Ngày sinh
-                  - for row in @search.facet(:ns).rows[0..10]
-                    - if params[:month].blank?
-                      %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :month => row.value)
-                    - else
-                      %li
-                        .strong= row.value + "(#{row.count})"
-                        = link_to "remove", search_path(:type => @type, :search => @keyword)
-                - elsif @type == "2"
-                  %li.nav-header Ngày bắt đầu
-                  - for row in @search.facet(:bat_dau).rows[0..10]
-                    - if params[:bat_dau].blank?
-                      %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :bat_dau => row.value, :ket_thuc => params[:ket_thuc])
-                    - else
-                      %li
-                        .strong= row.value + "(#{row.count})"
-                        = link_to "remove", search_path(:type => @type, :search => @keyword, :ket_thuc => params[:ket_thuc])      
-                  %li.nav-header Ngày kết thúc
-                  - for row in @search.facet(:ket_thuc).rows[0..10]
-                    - if params[:ket_thuc].blank?
-                      %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :ket_thuc => row.value, :bat_dau => params[:bat_dau])
-                    - else
-                      %li
-                        .strong= row.value + "(#{row.count})"
-                        = link_to "remove", search_path(:type => @type, :search => @keyword, :bat_dau => params[:bat_dau])                                              
-        .span8.offset1
-          - if @results
-            = will_paginate @results, renderer: BootstrapPagination::Rails
-            - if @type == "2"
-              #mymodal.modal.hide.fade{:tabindex => -1, :role => "dialog", :'area-hidden' => true}
-                .modal-header
-                  %button{:type => "button", :class => "close", :"data-dismiss" => "modal", :"aria-hidden" => true} x
-                  %h3 Thông tin trực nhật
-                .modal-body#modalbody
-            %table#monitor{:class => "table table-bordered"}
-              - if @type == "1"
-                = render 'result'
+.container-fluid#pjax-search{:style=>"margin-top: 4%;"}      
+  = form_tag search_path, :method => :get, :class => "form-search" do   
+    .row-fluid    
+      = select_tag "type", "<option value='1' selected=#{'selected' if params[:type]=='1'}>Sinh viên</option><option value='2' selected=#{'selected' if params[:type]=='2'}>Lớp môn học</option>".html_safe, :class => "multiselect"
+      %input.input-large.search-query{:type => "text", :name => "search", :placeholder => "Nhập từ khóa bạn muốn tra cứu", :value => params[:search]}
+      %button.btn{:type => "submit"} Tra cứu
+    %br
+    .row-fluid
+      .span3
+        .well.sidebar-nav{:style => "font-size: 12px;"}
+          - if @search
+            %ul.nav.nav-list
+              - if @type == "1" 
+                %li.nav-header Ngày sinh
+                - for row in @search.facet(:ns).rows[0..10]
+                  - if params[:month].blank?
+                    %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :month => row.value)
+                  - else
+                    %li
+                      .strong= row.value + "(#{row.count})"
+                      = link_to "remove", search_path(:type => @type, :search => @keyword)
               - elsif @type == "2"
-                = render 'result_giangvien'
-            
+                %li.nav-header Môn học
+                - for row in @search.facet(:ten_mon_hoc).rows[0..10]
+                  - if params[:ten_mon_hoc].blank?
+                    %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :ten_mon_hoc => row.value, :ten_giang_vien => params[:ten_giang_vien], :phong_hoc => params[:phong_hoc])
+                  - else
+                    %li
+                      .strong= row.value + "(#{row.count})"
+                      = link_to "remove", search_path(:type => @type, :search => @keyword, :ten_giang_vien => params[:ten_giang_vien], :phong_hoc => params[:phong_hoc])      
+                %li.nav-header Giảng viên
+                - for row in @search.facet(:ten_giang_vien).rows[0..10]
+                  - if params[:ten_giang_vien].blank?
+                    %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :ten_giang_vien => row.value, :ten_mon_hoc => params[:ten_mon_hoc], :phong_hoc => params[:phong_hoc])
+                  - else
+                    %li
+                      .strong= row.value + "(#{row.count})"
+                      = link_to "remove", search_path(:type => @type, :search => @keyword, :ten_mon_hoc => params[:ten_mon_hoc], :phong_hoc => params[:phong_hoc])
+                %li.nav-header Phòng học
+                - for row in @search.facet(:phong_hoc).rows[0..10]
+                  - if params[:phong_hoc].blank?
+                    %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :phong_hoc => row.value, :ten_mon_hoc => params[:ten_mon_hoc], :ten_giang_vien => params[:ten_giang_vien])
+                  - else
+                    %li
+                      .strong= row.value + "(#{row.count})"
+                      = link_to "remove", search_path(:type => @type, :search => @keyword, :ten_mon_hoc => params[:ten_mon_hoc], :ten_mon_hoc => params[:ten_mon_hoc], :ten_giang_vien => params[:ten_giang_vien])
+      .span8.offset1
+        - if @results
+          = will_paginate @results, renderer: BootstrapPagination::Rails
+          - if @type == "2"
+            #mymodal.modal.hide.fade{:tabindex => -1, :role => "dialog", :'area-hidden' => true}
+              .modal-header
+                %button{:type => "button", :class => "close", :"data-dismiss" => "modal", :"aria-hidden" => true} x
+                %h3 Thông tin trực nhật
+              .modal-body#modalbody
+          %table#monitor{:class => "table table-bordered"}
+            - if @type == "1"
+              = render 'result'
+            - elsif @type == "2"
+              = render 'result_giangvien'
+          
 
 

@@ -39,9 +39,9 @@ class LopMonHoc < ActiveRecord::Base
     :D => [["D101","D102","D103"],["D201","D202","D203"],["D301","D302","D304"]],
     :E => [["E301"]],
     :F => [["F101B","F102"],["F201","F205"],["F302"]]}
-  FACETS = [:bat_dau, :ket_thuc]
+  FACETS = [:ten_mon_hoc, :ten_giang_vien, :phong_hoc]
   searchable do 
-    text :ma_lop, :ma_mon_hoc, :ten_giang_vien, :ma_giang_vien, :phong_hoc, :ten_mon_hoc
+    text :ma_lop, :ma_mon_hoc, :ten_giang_vien, :ma_giang_vien, :phong_hoc, :ten_mon_hoc, :phong_hoc
     string :ten_mon_hoc
     string :ten_giang_vien
     string :phong_hoc

@@ -36,7 +36,7 @@ class DashboardController < ApplicationController
         SinhVien::FACETS.each do |f|
           facet(f)
         end        
-        with(:ns, params[:month]) if params[:month].present?
+        with(:lop_hc, params[:lop_hc]) if params[:lop_hc].present?
         paginate(:page => params[:page] || 1, :per_page => 50)
       end
       @results = @search.results
@@ -47,8 +47,9 @@ class DashboardController < ApplicationController
         LopMonHoc::FACETS.each do |f|
           facet(f)
         end        
-        with(:bat_dau, params[:bat_dau]) if params[:bat_dau].present?
-        with(:ket_thuc, params[:ket_thuc]) if params[:ket_thuc].present?
+        with(:ten_mon_hoc, params[:ten_mon_hoc]) if params[:ten_mon_hoc].present?
+        with(:ten_giang_vien, params[:ten_giang_vien]) if params[:ten_giang_vien].present?
+        with(:phong_hoc, params[:phong_hoc]) if params[:phong_hoc].present?
         paginate(:page => params[:page] || 1, :per_page => 50)
       end
       @results = @search.results
