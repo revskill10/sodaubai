@@ -32,9 +32,9 @@
             %ul.nav.nav-list
               - if @type == "1" 
                 %li.nav-header Ngày sinh
-                - for row in @search.facet(:ns).rows[0..10]
-                  - if params[:month].blank?
-                    %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :month => row.value)
+                - for row in @search.facet(:lop_hc).rows[0..10]
+                  - if params[:lop_hc].blank?
+                    %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :lop_hc => row.value)
                   - else
                     %li
                       .strong= row.value + "(#{row.count})"
