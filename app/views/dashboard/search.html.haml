@@ -31,7 +31,7 @@
           - if @search
             %ul.nav.nav-list
               - if @type == "1" 
-                %li.nav-header Ngày sinh
+                %li.nav-header Lớp hành chính
                 - for row in @search.facet(:lop_hc).rows[0..10]
                   - if params[:lop_hc].blank?
                     %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :lop_hc => row.value)
