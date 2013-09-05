@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
     username
   end
   def is_admin?
-    username == 'dungth@hpu.edu.vn'
+    username == 'dungth@hpu.edu.vn' or username == 'trungth@hpu.edu.vn'
   end
   def fullname
     "#{ho_dem} #{ten}"

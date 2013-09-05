@@ -369,7 +369,7 @@ class BuoihocController < ApplicationController
       @nhomtruc = @trucnhat[from_zdate(@pid)] if @trucnhat
     elsif @type.is_a?(SinhVien)
       @ngayhoc = @type.get_days[:ngay]
-      @tkb = @type.get_tkbs.select {|k| k[:tuan_hoc_bat_dau] <= @tuan and k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
+      #@tkb = @type.get_tkbs.select {|k| k[:tuan_hoc_bat_dau] <= @tuan and k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
       @buoihoc = @ngayhoc.select {|l| l["tuan"] == @tuan and  to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
       @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first
       @nhomtruc = @trucnhat[from_zdate(@pid)] if @trucnhat
