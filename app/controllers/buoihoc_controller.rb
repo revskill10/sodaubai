@@ -45,7 +45,7 @@ class BuoihocController < ApplicationController
         @sotietday = @lichtrinh[:sotiet].to_i  
         @phong = @lichtrinh[:phong].to_s
       end
-      if @sotietday and @sotietday > 0 and @tkb and @sotietday <= @tkb.so_tiet
+      if @sotietday and @sotietday > 0 and @buoihoc and @sotietday <= @buoihoc["so_tiet"]
         @lich.so_tiet_day_moi = @sotietday
         @lich.phong_moi = @phong
         @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
@@ -141,7 +141,7 @@ class BuoihocController < ApplicationController
       authorize! :diemdanh, @lich
       @phong = params[:buoihoc][:phong]
       @sotietday = params[:buoihoc][:sotiet].to_i      
-      if @sotietday > 0 and @sotietday <= @tkb.so_tiet
+      if @sotietday > 0 and @buoihoc and @sotietday <= @buoihoc["so_tiet"]
         @lich.so_tiet_day_moi = @sotietday
         @lich.phong_moi = @phong
         params[:msv].each do |k,v|
@@ -149,7 +149,7 @@ class BuoihocController < ApplicationController
           dd = @lich.diem_danhs.where(ma_sinh_vien: k).create if !dd and (v[:sotiet].to_i > 0 or !v[:note].blank?)
           if dd            
             st = v[:sotiet].to_i
-            if st and st >=0 and st <= @tkb.so_tiet             
+            if st and st >=0 and st <= @buoihoc["so_tiet"]
               dd.so_tiet_vang = st if st >= 0 and st <= @sotietday              
               dd.so_tiet_vang = @sotietday if (dd.so_tiet_vang and dd.so_tiet_vang > @sotietday)
               
@@ -358,7 +358,7 @@ class BuoihocController < ApplicationController
     @type = current_user.imageable
     if @type.is_a?(GiangVien)  then 
       @ngayhoc = @type.get_days[:ngay]
-      @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc, @tuan).first
+      #@tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc, @tuan).first
       @buoihoc = @ngayhoc.select {|l| l["tuan"] == @tuan and to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
       @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!        
       if @lich.so_tiet_day_moi.nil? or @lich.phong_moi.nil?
@@ -376,7 +376,7 @@ class BuoihocController < ApplicationController
     elsif @role == 'trogiang'  
       @type = current_user    
       @ngayhoc = @type.get_days[:ngay] if @type.get_days
-      @tkb = @type.get_tkbs.select {|k| k[:tuan_hoc_bat_dau] <= @tuan and  k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
+      #@tkb = @type.get_tkbs.select {|k| k[:tuan_hoc_bat_dau] <= @tuan and  k[:ma_lop] == @malop and k[:ma_mon_hoc] == @mamonhoc}.first
       @buoihoc = @ngayhoc.select {|l| l["tuan"] == @tuan and  to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
       @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create! 
       if @lich.so_tiet_day_moi.nil? or @lich.phong_moi.nil?
@@ -389,7 +389,7 @@ class BuoihocController < ApplicationController
     if current_user.is_admin?
       @type = @lop_mon_hoc.giang_vien
       @ngayhoc = @type.get_days[:ngay]
-      @tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc, @tuan).first
+      #@tkb = @type.tkb_giang_viens.with_lop(@malop, @mamonhoc, @tuan).first
       @buoihoc = @ngayhoc.select {|l| l["tuan"] == @tuan and  to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
       @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!        
       if @lich.so_tiet_day_moi.nil? or @lich.phong_moi.nil?
