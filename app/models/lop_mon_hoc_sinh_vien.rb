@@ -1,34 +1,7 @@
 class LopMonHocSinhVien < ActiveRecord::Base
 
   
-  FACETS = [:ma_lop, :ten_mon_hoc, :giang_vien, :nam_hoc, :hoc_ky, :ngay_sinh]
-  searchable do 
-    text :ma_sinh_vien
-    text :fullname do 
-      ho + " " + ho_dem + " " + ten
-    end
-
-    boolean :tin_chi
-    string :ma_lop_hanh_chinh
-    string :ngay_sinh do 
-      sinh_vien.ngay_sinh.strftime("%B %Y")
-    end
-    string :ma_lop do 
-      lop_mon_hoc.ma_lop
-    end
-    string :ten_mon_hoc do 
-      lop_mon_hoc.ten_mon_hoc
-    end
-    string :giang_vien do 
-      lop_mon_hoc.ten_giang_vien
-    end
-    string :nam_hoc do 
-      '2013-2014'
-    end
-    integer :hoc_ky do 
-      1
-    end      
-  end
+  
 
   default_scope order('ten, ho_dem, ho')
   default_scope :conditions => 'status is null or status = false'

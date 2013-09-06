@@ -624,7 +624,7 @@ namespace :hpu do
     #LopMonHocSinhVien.nam_hoc = nam
     #puts LopMonHocSinhVien.nam_hoc
     #LopMonHocSinhVien.hoc_ky = hoc_ky
-    LopMonHocSinhVien.reindex
+    #LopMonHocSinhVien.reindex
     LopMonHoc.reindex
     SinhVien.reindex
     Sunspot.commit
