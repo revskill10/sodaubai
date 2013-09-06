@@ -1,15 +1,24 @@
-%h5 Tên giảng viên: #{@lich.lop_mon_hoc.ten_giang_vien}
-%h5 Tên môn: #{@lich.lop_mon_hoc.ten_mon_hoc}
-%h5 Phòng: #{@lich.phong_moi}
-%h5 Nội dung giảng dạy:
-= raw(@lich.noi_dung_day)
+- if @lich
+  %h5 Tên giảng viên: #{@lich.lop_mon_hoc.ten_giang_vien}
+  %h5 Tên môn: #{@lich.lop_mon_hoc.ten_mon_hoc}
+  %h5 Phòng: #{@lich.phong_moi}
+  %h5 Nội dung giảng dạy:
+  = raw(@lich.noi_dung_day)
 
-%h5 Số lượng sinh viên vắng: #{@lich.diem_danhs.count || 0}
-- if @lich.diem_danhs.count > 0
-  - @lich.diem_danhs.each_with_index do |dd, index|
-    = dd.sinh_vien.ho + " " + dd.sinh_vien.fullname + " (" + dd.ma_sinh_vien + "); "
+  %h5 Số lượng sinh viên vắng: #{@lich.diem_danhs.count || 0} / #{@lich.siso}
+  - if @lich.diem_danhs.count > 0
+    - @lich.diem_danhs.each_with_index do |dd, index|
+      = dd.sinh_vien.ho + " " + dd.sinh_vien.fullname + " (" + dd.ma_sinh_vien + "); "
 
-- if @svs
-  %h5 Danh sách sinh viên trực nhật:
-  - @svs.each do |sv|
-    = sv.ho + " " + sv.fullname + " (" + sv.ma_sinh_vien + "); "
+  - if @svs
+    %h5 Danh sách sinh viên trực nhật:
+    - @svs.each do |sv|
+      = sv.ho + " " + sv.fullname + " (" + sv.ma_sinh_vien + "); "
+- else
+  %h5 Tên giảng viên: #{@lop_mon_hoc.ten_giang_vien}
+  %h5 Tên môn: #{@lop_mon_hoc.ten_mon_hoc}
+  %h5 Phòng: #{@lop_mon_hoc.phong_hoc}
+  - if @svs
+    %h5 Danh sách sinh viên trực nhật:
+    - @svs.each do |sv|
+      = sv.ho + " " + sv.fullname + " (" + sv.ma_sinh_vien + "); "
