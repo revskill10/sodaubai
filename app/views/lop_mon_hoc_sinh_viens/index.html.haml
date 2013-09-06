@@ -54,9 +54,15 @@
 
         %span lần kiểm tra thường xuyên (Tối đa 5 đầu điểm)
         %br
-
+      
         = check_box_tag :thuc_hanh, nil, @lop_mon_hoc.get_thuc_hanh
         %span Có đầu điểm thực hành? 
+        %br
+        %br
+        
+
+        = text_field_tag :so_tiet_phan_bo, (@lop_mon_hoc.so_tiet_phan_bo || @lop_mon_hoc.so_tiet), :placeholder => 'Số tiết dạy phân bổ'
+        %span tổng số tiết phân bổ
         %br
         %br
         = submit_tag "Thiết lập", :class => "btn",  :data => {disable_with: "Submitting..."} 

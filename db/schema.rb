@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130830074907) do
+ActiveRecord::Schema.define(:version => 20130906063745) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -152,8 +152,8 @@ ActiveRecord::Schema.define(:version => 20130830074907) do
     t.datetime "ngay_bat_dau"
     t.datetime "ngay_ket_thuc"
     t.string   "phong_hoc"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.string   "ten_giang_vien"
     t.string   "ten_mon_hoc"
     t.text     "dssv"
@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(:version => 20130830074907) do
     t.integer  "so_lan_kt"
     t.boolean  "thuc_hanh"
     t.text     "trucnhat"
+    t.decimal  "so_tiet_phan_bo"
   end
 
   add_index "lop_mon_hocs", ["ma_mon_hoc"], :name => "index_lop_mon_hocs_on_ma_mon_hoc"

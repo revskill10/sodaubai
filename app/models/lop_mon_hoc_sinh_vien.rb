@@ -65,12 +65,14 @@ class LopMonHocSinhVien < ActiveRecord::Base
   def hodemdaydu
     (ho || "") + " " + (ho_dem || "")
   end
-
+  def tong_so_tiet
+    lop_mon_hoc.so_tiet_phan_bo || lop_mon_hoc.so_tiet || 1
+  end
   def diemqt
     (diemcc || 0) + diemtbkt + convert_grade((diem_thuc_hanh.round(0).to_i if diem_thuc_hanh) || 0)
   end
   def diemcc
-    return convert_dcc(100-(so_tiet_vang * 100 / lop_mon_hoc.so_tiet)) if so_tiet_vang and lop_mon_hoc.so_tiet
+    return convert_dcc(100-(so_tiet_vang * 100 / tong_so_tiet)) if so_tiet_vang and lop_mon_hoc.so_tiet
     #return self.so_tiet_vang
     return 4 unless so_tiet_vang
   end

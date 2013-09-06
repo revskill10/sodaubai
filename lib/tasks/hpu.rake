@@ -629,7 +629,16 @@ namespace :hpu do
     SinhVien.reindex
     Sunspot.commit
   end
+  task :update_so_tiet_phan_bo => :environment do 
+    tenant = Tenant.last       
+    PgTools.set_search_path tenant.scheme, false
 
+    LopMonHoc.all.each do |lop|
+      lop.so_tiet_phan_bo = lop.so_tiet unless lop.so_tiet_phan_bo
+      lop.save!
+    end
+
+  end
 
 end
 
