@@ -1,5 +1,4 @@
-class DiemDanh < ActiveRecord::Base
-  has_paper_trail
+class DiemDanh < ActiveRecord::Base  
   attr_accessible :ma_sinh_vien, :so_tiet_vang, :lich_trinh_giang_day_id
 
   delegate :lop_mon_hoc, :to => :lich_trinh_giang_day, :allow_nil => false
@@ -11,7 +10,10 @@ class DiemDanh < ActiveRecord::Base
 
   after_save :set_default
   
-   
+  
+  def tuan
+    lich_trinh_giang_day.tuan
+  end
   
   private
   

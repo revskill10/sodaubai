@@ -640,6 +640,17 @@ namespace :hpu do
 
   end
 
+  task :update_siso_and_tuan => :environment do 
+
+    tenant = Tenant.last       
+    PgTools.set_search_path tenant.scheme, false
+    LichTrinhGiangDay.all.each do |lich|
+      lich.siso = lich.lop_mon_hoc.lop_mon_hoc_sinh_viens.count
+      lich.tuan = lich.get_tuan
+      lich.save!
+    end
+  end
+
 end
 
 def titleize(str)

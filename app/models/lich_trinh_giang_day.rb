@@ -29,13 +29,17 @@ class LichTrinhGiangDay < ActiveRecord::Base
       where("so_tiet_vang > 0")      
     end    
   end
+  after_create :update_siso_and_tuan
+
   TIET = {1 => [6,30], 2 => [7,20], 3 => [8,10],
     4 => [9,5], 5 => [9,55], 6 => [10, 45],
     7 => [12,30], 8 => [13,20], 9 => [14,10],
     10 => [15, 5], 11 => [15, 55], 12 => [16, 45],
     13 => [18, 0], 14 => [18, 50], 15 => [19,40], 16 => [20,30]}
   CA = {1 => [6,30], 2 => [9,5], 3 => [12,30], 4 => [15,5], 5 => [18,0], 6 => [20,30]}
-  
+  def get_tuan
+    Tuan.all.detect {|t| t.tu_ngay.localtime <= ngay_day.localtime and t.den_ngay.localtime >= ngay_day.localtime }.stt
+  end
   def self.ca(dt)
     x = [dt.hour, dt.minute]
     ts = CA.reject {|k,v| compare(v,x) == 1}
@@ -140,5 +144,12 @@ class LichTrinhGiangDay < ActiveRecord::Base
     else
       ""
     end
+  end
+
+  protected
+  def update_siso_and_tuan
+    self.siso = lop_mon_hoc.lop_mon_hoc_sinh_viens.count
+    self.tuan = self.get_tuan
+    self.save!
   end
 end

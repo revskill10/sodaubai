@@ -32,8 +32,5 @@ class ApplicationController < ActionController::Base
       PgTools.restore_default_search_path
      
     end
-  end
-  def user_for_paper_trail
-    user_signed_in? ? current_user : "Guest"
-  end
+  end  
 end
