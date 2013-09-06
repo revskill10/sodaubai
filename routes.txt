@@ -1,0 +1,229 @@
+No configuration file found
+                        api_v1_tkb_giang_viens GET    /api/v1/tkb_giang_viens(.:format)                                          api/v1/tkb_giang_viens#index {:format=>:json}
+                                               POST   /api/v1/tkb_giang_viens(.:format)                                          api/v1/tkb_giang_viens#create {:format=>:json}
+                     new_api_v1_tkb_giang_vien GET    /api/v1/tkb_giang_viens/new(.:format)                                      api/v1/tkb_giang_viens#new {:format=>:json}
+                    edit_api_v1_tkb_giang_vien GET    /api/v1/tkb_giang_viens/:id/edit(.:format)                                 api/v1/tkb_giang_viens#edit {:format=>:json}
+                         api_v1_tkb_giang_vien GET    /api/v1/tkb_giang_viens/:id(.:format)                                      api/v1/tkb_giang_viens#show {:format=>:json}
+                                               PUT    /api/v1/tkb_giang_viens/:id(.:format)                                      api/v1/tkb_giang_viens#update {:format=>:json}
+                                               DELETE /api/v1/tkb_giang_viens/:id(.:format)                                      api/v1/tkb_giang_viens#destroy {:format=>:json}
+                 api_v1_lop_mon_hoc_sinh_viens GET    /api/v1/lop_mon_hoc_sinh_viens(.:format)                                   api/v1/lop_mon_hoc_sinh_viens#index {:format=>:json}
+                                               POST   /api/v1/lop_mon_hoc_sinh_viens(.:format)                                   api/v1/lop_mon_hoc_sinh_viens#create {:format=>:json}
+              new_api_v1_lop_mon_hoc_sinh_vien GET    /api/v1/lop_mon_hoc_sinh_viens/new(.:format)                               api/v1/lop_mon_hoc_sinh_viens#new {:format=>:json}
+             edit_api_v1_lop_mon_hoc_sinh_vien GET    /api/v1/lop_mon_hoc_sinh_viens/:id/edit(.:format)                          api/v1/lop_mon_hoc_sinh_viens#edit {:format=>:json}
+                  api_v1_lop_mon_hoc_sinh_vien GET    /api/v1/lop_mon_hoc_sinh_viens/:id(.:format)                               api/v1/lop_mon_hoc_sinh_viens#show {:format=>:json}
+                                               PUT    /api/v1/lop_mon_hoc_sinh_viens/:id(.:format)                               api/v1/lop_mon_hoc_sinh_viens#update {:format=>:json}
+                                               DELETE /api/v1/lop_mon_hoc_sinh_viens/:id(.:format)                               api/v1/lop_mon_hoc_sinh_viens#destroy {:format=>:json}
+                     trucnhat_api_v1_sinh_vien GET    /api/v1/sinh_viens/:id/trucnhat(.:format)                                  api/v1/sinh_viens#trucnhat {:format=>:json}
+                          tkb_api_v1_sinh_vien GET    /api/v1/sinh_viens/:id/tkb(.:format)                                       api/v1/sinh_viens#tkb {:format=>:json}
+                             api_v1_sinh_viens GET    /api/v1/sinh_viens(.:format)                                               api/v1/sinh_viens#index {:format=>:json}
+                                               POST   /api/v1/sinh_viens(.:format)                                               api/v1/sinh_viens#create {:format=>:json}
+                          new_api_v1_sinh_vien GET    /api/v1/sinh_viens/new(.:format)                                           api/v1/sinh_viens#new {:format=>:json}
+                         edit_api_v1_sinh_vien GET    /api/v1/sinh_viens/:id/edit(.:format)                                      api/v1/sinh_viens#edit {:format=>:json}
+                              api_v1_sinh_vien GET    /api/v1/sinh_viens/:id(.:format)                                           api/v1/sinh_viens#show {:format=>:json}
+                                               PUT    /api/v1/sinh_viens/:id(.:format)                                           api/v1/sinh_viens#update {:format=>:json}
+                                               DELETE /api/v1/sinh_viens/:id(.:format)                                           api/v1/sinh_viens#destroy {:format=>:json}
+                            api_v1_giang_viens GET    /api/v1/giang_viens(.:format)                                              api/v1/giang_viens#index {:format=>:json}
+                                               POST   /api/v1/giang_viens(.:format)                                              api/v1/giang_viens#create {:format=>:json}
+                         new_api_v1_giang_vien GET    /api/v1/giang_viens/new(.:format)                                          api/v1/giang_viens#new {:format=>:json}
+                        edit_api_v1_giang_vien GET    /api/v1/giang_viens/:id/edit(.:format)                                     api/v1/giang_viens#edit {:format=>:json}
+                             api_v1_giang_vien GET    /api/v1/giang_viens/:id(.:format)                                          api/v1/giang_viens#show {:format=>:json}
+                                               PUT    /api/v1/giang_viens/:id(.:format)                                          api/v1/giang_viens#update {:format=>:json}
+                                               DELETE /api/v1/giang_viens/:id(.:format)                                          api/v1/giang_viens#destroy {:format=>:json}
+                           api_v1_lop_mon_hocs GET    /api/v1/lop_mon_hocs(.:format)                                             api/v1/lop_mon_hocs#index {:format=>:json}
+                                               POST   /api/v1/lop_mon_hocs(.:format)                                             api/v1/lop_mon_hocs#create {:format=>:json}
+                        new_api_v1_lop_mon_hoc GET    /api/v1/lop_mon_hocs/new(.:format)                                         api/v1/lop_mon_hocs#new {:format=>:json}
+                       edit_api_v1_lop_mon_hoc GET    /api/v1/lop_mon_hocs/:id/edit(.:format)                                    api/v1/lop_mon_hocs#edit {:format=>:json}
+                            api_v1_lop_mon_hoc GET    /api/v1/lop_mon_hocs/:id(.:format)                                         api/v1/lop_mon_hocs#show {:format=>:json}
+                                               PUT    /api/v1/lop_mon_hocs/:id(.:format)                                         api/v1/lop_mon_hocs#update {:format=>:json}
+                                               DELETE /api/v1/lop_mon_hocs/:id(.:format)                                         api/v1/lop_mon_hocs#destroy {:format=>:json}
+                                          rate        /rate(.:format)                                                            rater#create
+                               dashboard_index GET    /dashboard/index(.:format)                                                 dashboard#index
+                                      calendar        /calendar(.:format)                                                        dashboard#calendar
+                                          tuan        /tuan/:id(.:format)                                                        dashboard#show
+                                 access_denied GET    /dashboard/access_denied(.:format)                                         dashboard#access_denied
+                                          root        /                                                                          dashboard#index
+                                users_sign_out GET    /users/sign_out(.:format)                                                  devise/cas_sessions#destroy
+                                  user_service GET    /users/service(.:format)                                                   devise/cas_sessions#service
+                          user_single_sign_out POST   /users/service(.:format)                                                   devise/cas_sessions#single_sign_out
+                              new_user_session GET    /users/sign_in(.:format)                                                   devise/cas_sessions#new
+                     unregistered_user_session GET    /users/unregistered(.:format)                                              devise/cas_sessions#unregistered
+                                  user_session POST   /users/sign_in(.:format)                                                   devise/cas_sessions#create
+                          destroy_user_session DELETE /users/sign_out(.:format)                                                  devise/cas_sessions#destroy
+                               tkb_giang_viens GET    /tkb_giang_viens(.:format)                                                 tkb_giang_viens#index
+                                               POST   /tkb_giang_viens(.:format)                                                 tkb_giang_viens#create
+                            new_tkb_giang_vien GET    /tkb_giang_viens/new(.:format)                                             tkb_giang_viens#new
+                           edit_tkb_giang_vien GET    /tkb_giang_viens/:id/edit(.:format)                                        tkb_giang_viens#edit
+                                tkb_giang_vien GET    /tkb_giang_viens/:id(.:format)                                             tkb_giang_viens#show
+                                               PUT    /tkb_giang_viens/:id(.:format)                                             tkb_giang_viens#update
+                                               DELETE /tkb_giang_viens/:id(.:format)                                             tkb_giang_viens#destroy
+                             report_giang_vien GET    /giang_viens/:id/report(.:format)                                          giang_viens#report
+                                   giang_viens GET    /giang_viens(.:format)                                                     giang_viens#index
+                                               POST   /giang_viens(.:format)                                                     giang_viens#create
+                                new_giang_vien GET    /giang_viens/new(.:format)                                                 giang_viens#new
+                               edit_giang_vien GET    /giang_viens/:id/edit(.:format)                                            giang_viens#edit
+                                    giang_vien GET    /giang_viens/:id(.:format)                                                 giang_viens#show
+                                               PUT    /giang_viens/:id(.:format)                                                 giang_viens#update
+                                               DELETE /giang_viens/:id(.:format)                                                 giang_viens#destroy
+                                      mon_hocs GET    /mon_hocs(.:format)                                                        mon_hocs#index
+                                               POST   /mon_hocs(.:format)                                                        mon_hocs#create
+                                   new_mon_hoc GET    /mon_hocs/new(.:format)                                                    mon_hocs#new
+                                  edit_mon_hoc GET    /mon_hocs/:id/edit(.:format)                                               mon_hocs#edit
+                                       mon_hoc GET    /mon_hocs/:id(.:format)                                                    mon_hocs#show
+                                               PUT    /mon_hocs/:id(.:format)                                                    mon_hocs#update
+                                               DELETE /mon_hocs/:id(.:format)                                                    mon_hocs#destroy
+                              report_sinh_vien GET    /sinh_viens/:id/report(.:format)                                           sinh_viens#report
+                                    sinh_viens GET    /sinh_viens(.:format)                                                      sinh_viens#index
+                                               POST   /sinh_viens(.:format)                                                      sinh_viens#create
+                                 new_sinh_vien GET    /sinh_viens/new(.:format)                                                  sinh_viens#new
+                                edit_sinh_vien GET    /sinh_viens/:id/edit(.:format)                                             sinh_viens#edit
+                                     sinh_vien GET    /sinh_viens/:id(.:format)                                                  sinh_viens#show
+                                               PUT    /sinh_viens/:id(.:format)                                                  sinh_viens#update
+                                               DELETE /sinh_viens/:id(.:format)                                                  sinh_viens#destroy
+                          calendar_lop_mon_hoc GET    /lop_mon_hocs/:id/calendar(.:format)                                       lop_mon_hocs#calendar
+                            search_lop_mon_hoc GET    /lop_mon_hocs/:id/search(.:format)                                         lop_mon_hocs#search
+                                               GET    /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets/:loai(.:format)               diem_chi_tiets#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets/:loai(.:format)               diem_chi_tiets#create
+                    lop_mon_hoc_diem_chi_tiets GET    /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets(.:format)                     diem_chi_tiets#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets(.:format)                     diem_chi_tiets#create
+                 new_lop_mon_hoc_diem_chi_tiet GET    /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets/new(.:format)                 diem_chi_tiets#new
+                edit_lop_mon_hoc_diem_chi_tiet GET    /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets/:id/edit(.:format)            diem_chi_tiets#edit
+                     lop_mon_hoc_diem_chi_tiet GET    /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets/:id(.:format)                 diem_chi_tiets#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets/:id(.:format)                 diem_chi_tiets#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets/:id(.:format)                 diem_chi_tiets#destroy
+                  lop_mon_hoc_diem_chuyen_cans GET    /lop_mon_hocs/:lop_mon_hoc_id/diem_chuyen_cans(.:format)                   diem_chuyen_cans#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/diem_chuyen_cans(.:format)                   diem_chuyen_cans#create
+               new_lop_mon_hoc_diem_chuyen_can GET    /lop_mon_hocs/:lop_mon_hoc_id/diem_chuyen_cans/new(.:format)               diem_chuyen_cans#new
+              edit_lop_mon_hoc_diem_chuyen_can GET    /lop_mon_hocs/:lop_mon_hoc_id/diem_chuyen_cans/:id/edit(.:format)          diem_chuyen_cans#edit
+                   lop_mon_hoc_diem_chuyen_can GET    /lop_mon_hocs/:lop_mon_hoc_id/diem_chuyen_cans/:id(.:format)               diem_chuyen_cans#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/diem_chuyen_cans/:id(.:format)               diem_chuyen_cans#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/diem_chuyen_cans/:id(.:format)               diem_chuyen_cans#destroy
+groupupdate_lop_mon_hoc_lop_mon_hoc_sinh_viens POST   /lop_mon_hocs/:lop_mon_hoc_id/lop_mon_hoc_sinh_viens/groupupdate(.:format) lop_mon_hoc_sinh_viens#groupupdate
+      group_lop_mon_hoc_lop_mon_hoc_sinh_viens GET    /lop_mon_hocs/:lop_mon_hoc_id/lop_mon_hoc_sinh_viens/group(.:format)       lop_mon_hoc_sinh_viens#group
+            lop_mon_hoc_lop_mon_hoc_sinh_viens GET    /lop_mon_hocs/:lop_mon_hoc_id/lop_mon_hoc_sinh_viens(.:format)             lop_mon_hoc_sinh_viens#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/lop_mon_hoc_sinh_viens(.:format)             lop_mon_hoc_sinh_viens#create
+         new_lop_mon_hoc_lop_mon_hoc_sinh_vien GET    /lop_mon_hocs/:lop_mon_hoc_id/lop_mon_hoc_sinh_viens/new(.:format)         lop_mon_hoc_sinh_viens#new
+        edit_lop_mon_hoc_lop_mon_hoc_sinh_vien GET    /lop_mon_hocs/:lop_mon_hoc_id/lop_mon_hoc_sinh_viens/:id/edit(.:format)    lop_mon_hoc_sinh_viens#edit
+             lop_mon_hoc_lop_mon_hoc_sinh_vien GET    /lop_mon_hocs/:lop_mon_hoc_id/lop_mon_hoc_sinh_viens/:id(.:format)         lop_mon_hoc_sinh_viens#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/lop_mon_hoc_sinh_viens/:id(.:format)         lop_mon_hoc_sinh_viens#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/lop_mon_hoc_sinh_viens/:id(.:format)         lop_mon_hoc_sinh_viens#destroy
+                       lop_mon_hoc_topic_posts GET    /lop_mon_hocs/:lop_mon_hoc_id/topics/:topic_id/posts(.:format)             posts#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/topics/:topic_id/posts(.:format)             posts#create
+                    new_lop_mon_hoc_topic_post GET    /lop_mon_hocs/:lop_mon_hoc_id/topics/:topic_id/posts/new(.:format)         posts#new
+                   edit_lop_mon_hoc_topic_post GET    /lop_mon_hocs/:lop_mon_hoc_id/topics/:topic_id/posts/:id/edit(.:format)    posts#edit
+                        lop_mon_hoc_topic_post GET    /lop_mon_hocs/:lop_mon_hoc_id/topics/:topic_id/posts/:id(.:format)         posts#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/topics/:topic_id/posts/:id(.:format)         posts#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/topics/:topic_id/posts/:id(.:format)         posts#destroy
+                            lop_mon_hoc_topics GET    /lop_mon_hocs/:lop_mon_hoc_id/topics(.:format)                             topics#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/topics(.:format)                             topics#create
+                         new_lop_mon_hoc_topic GET    /lop_mon_hocs/:lop_mon_hoc_id/topics/new(.:format)                         topics#new
+                        edit_lop_mon_hoc_topic GET    /lop_mon_hocs/:lop_mon_hoc_id/topics/:id/edit(.:format)                    topics#edit
+                             lop_mon_hoc_topic GET    /lop_mon_hocs/:lop_mon_hoc_id/topics/:id(.:format)                         topics#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/topics/:id(.:format)                         topics#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/topics/:id(.:format)                         topics#destroy
+                       lop_mon_hoc_can_bo_lops GET    /lop_mon_hocs/:lop_mon_hoc_id/can_bo_lops(.:format)                        can_bo_lops#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/can_bo_lops(.:format)                        can_bo_lops#create
+                    new_lop_mon_hoc_can_bo_lop GET    /lop_mon_hocs/:lop_mon_hoc_id/can_bo_lops/new(.:format)                    can_bo_lops#new
+                   edit_lop_mon_hoc_can_bo_lop GET    /lop_mon_hocs/:lop_mon_hoc_id/can_bo_lops/:id/edit(.:format)               can_bo_lops#edit
+                        lop_mon_hoc_can_bo_lop GET    /lop_mon_hocs/:lop_mon_hoc_id/can_bo_lops/:id(.:format)                    can_bo_lops#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/can_bo_lops/:id(.:format)                    can_bo_lops#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/can_bo_lops/:id(.:format)                    can_bo_lops#destroy
+                 lop_mon_hoc_tai_lieu_mon_hocs GET    /lop_mon_hocs/:lop_mon_hoc_id/tai_lieu_mon_hocs(.:format)                  tai_lieu_mon_hocs#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/tai_lieu_mon_hocs(.:format)                  tai_lieu_mon_hocs#create
+              new_lop_mon_hoc_tai_lieu_mon_hoc GET    /lop_mon_hocs/:lop_mon_hoc_id/tai_lieu_mon_hocs/new(.:format)              tai_lieu_mon_hocs#new
+             edit_lop_mon_hoc_tai_lieu_mon_hoc GET    /lop_mon_hocs/:lop_mon_hoc_id/tai_lieu_mon_hocs/:id/edit(.:format)         tai_lieu_mon_hocs#edit
+                  lop_mon_hoc_tai_lieu_mon_hoc GET    /lop_mon_hocs/:lop_mon_hoc_id/tai_lieu_mon_hocs/:id(.:format)              tai_lieu_mon_hocs#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/tai_lieu_mon_hocs/:id(.:format)              tai_lieu_mon_hocs#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/tai_lieu_mon_hocs/:id(.:format)              tai_lieu_mon_hocs#destroy
+                lop_mon_hoc_thong_bao_lop_hocs GET    /lop_mon_hocs/:lop_mon_hoc_id/thong_bao_lop_hocs(.:format)                 thong_bao_lop_hocs#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/thong_bao_lop_hocs(.:format)                 thong_bao_lop_hocs#create
+             new_lop_mon_hoc_thong_bao_lop_hoc GET    /lop_mon_hocs/:lop_mon_hoc_id/thong_bao_lop_hocs/new(.:format)             thong_bao_lop_hocs#new
+            edit_lop_mon_hoc_thong_bao_lop_hoc GET    /lop_mon_hocs/:lop_mon_hoc_id/thong_bao_lop_hocs/:id/edit(.:format)        thong_bao_lop_hocs#edit
+                 lop_mon_hoc_thong_bao_lop_hoc GET    /lop_mon_hocs/:lop_mon_hoc_id/thong_bao_lop_hocs/:id(.:format)             thong_bao_lop_hocs#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/thong_bao_lop_hocs/:id(.:format)             thong_bao_lop_hocs#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/thong_bao_lop_hocs/:id(.:format)             thong_bao_lop_hocs#destroy
+                   lop_mon_hoc_dang_ky_day_bus GET    /lop_mon_hocs/:lop_mon_hoc_id/dang_ky_day_bus(.:format)                    dang_ky_day_bus#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/dang_ky_day_bus(.:format)                    dang_ky_day_bus#create
+                new_lop_mon_hoc_dang_ky_day_bu GET    /lop_mon_hocs/:lop_mon_hoc_id/dang_ky_day_bus/new(.:format)                dang_ky_day_bus#new
+               edit_lop_mon_hoc_dang_ky_day_bu GET    /lop_mon_hocs/:lop_mon_hoc_id/dang_ky_day_bus/:id/edit(.:format)           dang_ky_day_bus#edit
+                    lop_mon_hoc_dang_ky_day_bu GET    /lop_mon_hocs/:lop_mon_hoc_id/dang_ky_day_bus/:id(.:format)                dang_ky_day_bus#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/dang_ky_day_bus/:id(.:format)                dang_ky_day_bus#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/dang_ky_day_bus/:id(.:format)                dang_ky_day_bus#destroy
+                        lop_mon_hoc_kien_nghis GET    /lop_mon_hocs/:lop_mon_hoc_id/kien_nghis(.:format)                         kien_nghis#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/kien_nghis(.:format)                         kien_nghis#create
+                     new_lop_mon_hoc_kien_nghi GET    /lop_mon_hocs/:lop_mon_hoc_id/kien_nghis/new(.:format)                     kien_nghis#new
+                    edit_lop_mon_hoc_kien_nghi GET    /lop_mon_hocs/:lop_mon_hoc_id/kien_nghis/:id/edit(.:format)                kien_nghis#edit
+                         lop_mon_hoc_kien_nghi GET    /lop_mon_hocs/:lop_mon_hoc_id/kien_nghis/:id(.:format)                     kien_nghis#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/kien_nghis/:id(.:format)                     kien_nghis#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/kien_nghis/:id(.:format)                     kien_nghis#destroy
+                         lop_mon_hoc_nhat_kies GET    /lop_mon_hocs/:lop_mon_hoc_id/nhat_kies(.:format)                          nhat_kies#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/nhat_kies(.:format)                          nhat_kies#create
+                       new_lop_mon_hoc_nhat_ky GET    /lop_mon_hocs/:lop_mon_hoc_id/nhat_kies/new(.:format)                      nhat_kies#new
+                      edit_lop_mon_hoc_nhat_ky GET    /lop_mon_hocs/:lop_mon_hoc_id/nhat_kies/:id/edit(.:format)                 nhat_kies#edit
+                           lop_mon_hoc_nhat_ky GET    /lop_mon_hocs/:lop_mon_hoc_id/nhat_kies/:id(.:format)                      nhat_kies#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/nhat_kies/:id(.:format)                      nhat_kies#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/nhat_kies/:id(.:format)                      nhat_kies#destroy
+                  lop_mon_hoc_ra_som_vao_muons GET    /lop_mon_hocs/:lop_mon_hoc_id/ra_som_vao_muons(.:format)                   ra_som_vao_muons#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/ra_som_vao_muons(.:format)                   ra_som_vao_muons#create
+               new_lop_mon_hoc_ra_som_vao_muon GET    /lop_mon_hocs/:lop_mon_hoc_id/ra_som_vao_muons/new(.:format)               ra_som_vao_muons#new
+              edit_lop_mon_hoc_ra_som_vao_muon GET    /lop_mon_hocs/:lop_mon_hoc_id/ra_som_vao_muons/:id/edit(.:format)          ra_som_vao_muons#edit
+                   lop_mon_hoc_ra_som_vao_muon GET    /lop_mon_hocs/:lop_mon_hoc_id/ra_som_vao_muons/:id(.:format)               ra_som_vao_muons#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/ra_som_vao_muons/:id(.:format)               ra_som_vao_muons#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/ra_som_vao_muons/:id(.:format)               ra_som_vao_muons#destroy
+                         lop_mon_hoc_day_thays GET    /lop_mon_hocs/:lop_mon_hoc_id/day_thays(.:format)                          day_thays#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/day_thays(.:format)                          day_thays#create
+                      new_lop_mon_hoc_day_thay GET    /lop_mon_hocs/:lop_mon_hoc_id/day_thays/new(.:format)                      day_thays#new
+                     edit_lop_mon_hoc_day_thay GET    /lop_mon_hocs/:lop_mon_hoc_id/day_thays/:id/edit(.:format)                 day_thays#edit
+                          lop_mon_hoc_day_thay GET    /lop_mon_hocs/:lop_mon_hoc_id/day_thays/:id(.:format)                      day_thays#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/day_thays/:id(.:format)                      day_thays#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/day_thays/:id(.:format)                      day_thays#destroy
+                         lop_mon_hoc_nghi_days GET    /lop_mon_hocs/:lop_mon_hoc_id/nghi_days(.:format)                          nghi_days#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/nghi_days(.:format)                          nghi_days#create
+                      new_lop_mon_hoc_nghi_day GET    /lop_mon_hocs/:lop_mon_hoc_id/nghi_days/new(.:format)                      nghi_days#new
+                     edit_lop_mon_hoc_nghi_day GET    /lop_mon_hocs/:lop_mon_hoc_id/nghi_days/:id/edit(.:format)                 nghi_days#edit
+                          lop_mon_hoc_nghi_day GET    /lop_mon_hocs/:lop_mon_hoc_id/nghi_days/:id(.:format)                      nghi_days#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/nghi_days/:id(.:format)                      nghi_days#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/nghi_days/:id(.:format)                      nghi_days#destroy
+                      rate_lop_mon_hoc_buoihoc POST   /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id/rate(.:format)                   buoihoc#rate
+                    update_lop_mon_hoc_buoihoc POST   /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id(.:format)                        buoihoc#update
+                  diemdanh_lop_mon_hoc_buoihoc POST   /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id/diemdanh(.:format)               buoihoc#diemdanh
+                                               GET    /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id/diemdanh(.:format)               buoihoc#get_diemdanh
+                  calendar_lop_mon_hoc_buoihoc POST   /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id/calendar(.:format)               buoihoc#calendar
+                     daybu_lop_mon_hoc_buoihoc POST   /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id/daybu(.:format)                  buoihoc#daybu
+                   nghiday_lop_mon_hoc_buoihoc POST   /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id/nghiday(.:format)                buoihoc#nghiday
+                   daythay_lop_mon_hoc_buoihoc POST   /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id/daythay(.:format)                buoihoc#daythay
+                    doigio_lop_mon_hoc_buoihoc POST   /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id/doigio(.:format)                 buoihoc#doigio
+                    quanly_lop_mon_hoc_buoihoc GET    /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id/quanly(.:format)                 buoihoc#get_quanly
+                 lichtrinh_lop_mon_hoc_buoihoc GET    /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id/lichtrinh(.:format)              buoihoc#lichtrinh
+            lichtrinh_edit_lop_mon_hoc_buoihoc GET    /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id/lichtrinh_edit(.:format)         buoihoc#lichtrinh_edit
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id/lichtrinh(.:format)              buoihoc#syllabus
+                     lop_mon_hoc_buoihoc_index GET    /lop_mon_hocs/:lop_mon_hoc_id/buoihoc(.:format)                            buoihoc#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/buoihoc(.:format)                            buoihoc#create
+                       new_lop_mon_hoc_buoihoc GET    /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/new(.:format)                        buoihoc#new
+                      edit_lop_mon_hoc_buoihoc GET    /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id/edit(.:format)                   buoihoc#edit
+                           lop_mon_hoc_buoihoc GET    /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id(.:format)                        buoihoc#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id(.:format)                        buoihoc#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/buoihoc/:id(.:format)                        buoihoc#destroy
+                                  lop_mon_hocs GET    /lop_mon_hocs(.:format)                                                    lop_mon_hocs#index
+                                               POST   /lop_mon_hocs(.:format)                                                    lop_mon_hocs#create
+                               new_lop_mon_hoc GET    /lop_mon_hocs/new(.:format)                                                lop_mon_hocs#new
+                              edit_lop_mon_hoc GET    /lop_mon_hocs/:id/edit(.:format)                                           lop_mon_hocs#edit
+                                   lop_mon_hoc GET    /lop_mon_hocs/:id(.:format)                                                lop_mon_hocs#show
+                                               PUT    /lop_mon_hocs/:id(.:format)                                                lop_mon_hocs#update
+                                               DELETE /lop_mon_hocs/:id(.:format)                                                lop_mon_hocs#destroy
+                                        quanly GET    /quanly(.:format)                                                          quanly#index
+                                 quanlylopghep        /quanly/lopghep(.:format)                                                  quanly#lopghep
+                                 quanlynghiday        /quanly/nghiday(.:format)                                                  quanly#nghiday
+                                   quanlydaybu        /quanly/daybu(.:format)                                                    quanly#daybu
+                                      filtersv POST   /quanly/filtersv(.:format)                                                 quanly#filtersv
+                                   filterlophc POST   /quanly/filterlophc(.:format)                                              quanly#filterlophc
+                                   filterloptc POST   /quanly/filterloptc(.:format)                                              quanly#filterloptc
+                                  checklopghep POST   /quanly/checklopghep(.:format)                                             quanly#checklopghep
+                                 updatelopghep POST   /quanly/updatelopghep(.:format)                                            quanly#updatelopghep
+                                   movelopghep POST   /quanly/movelopghep(.:format)                                              quanly#movelopghep
+                                     qlnghiday POST   /quanly/qlnghiday(.:format)                                                quanly#qlnghiday
+                                       qldaybu POST   /quanly/qldaybu(.:format)                                                  quanly#qldaybu
+                                       monitor GET    /monitor(.:format)                                                         monitor#index
+                                   showmonitor GET    /monitor/:lop_mon_hoc_id/:id(.:format)                                     monitor#show
+                                         admin GET    /admin(.:format)                                                           admin#index
+                                        search GET    /search(.:format)                                                          dashboard#search
+                                                      /*a(.:format)                                                              application#routing

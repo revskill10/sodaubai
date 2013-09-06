@@ -30,9 +30,17 @@ Trytest::Application.routes.draw do
   
   resources :tkb_giang_viens
 
-  resources :giang_viens
+  resources :giang_viens do 
+    member do 
+      get '/report' => 'giang_viens#report'
+    end
+  end
   resources :mon_hocs
-  resources :sinh_viens
+  resources :sinh_viens do 
+    member do 
+      get '/report' => 'sinh_viens#report'
+    end
+  end
     
   resources :lop_mon_hocs do             
     member do 

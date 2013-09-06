@@ -7,6 +7,7 @@ class DiemDanh < ActiveRecord::Base
 
   validates :ma_sinh_vien, :presence => true  
   
+  delegate :tuan, :to => :lich_trinh_giang_day, :allow_nil => false
 
   after_save :set_default
   
