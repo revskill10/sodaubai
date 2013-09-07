@@ -25,6 +25,12 @@ module BuoihocHelper
 	def get_vang(lich, sv) 
 		return lich.diem_danhs.where(ma_sinh_vien: sv.ma_sinh_vien).first.try(:so_tiet_vang) || 0
 	end
+	def get_tiet_nghi(lich, i)
+		return false unless lich.tiet_nghi
+		tn = lich.tiet_nghi.split(",").to_a
+		return true if tn.include?(i.to_s)
+		return false
+	end
 	def get_ngay(ngay)
 		Time.zone.parse(ngay.to_s)
 	end

@@ -1,4 +1,4 @@
-$("#buoihoc_sotiet").val("#{@lich.so_tiet_day_moi.to_s if @lich.so_tiet_day_moi}");
+$("#buoihoc_sotiet").html("#{@lich.so_tiet_day_moi.to_s if @lich.so_tiet_day_moi}");
 $("#buoihoc_phong").val("#{@lich.phong_moi if @lich.phong_moi}");
 - if @error
   alert("Số tiết dạy không hợp lệ");  

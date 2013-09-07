@@ -591,7 +591,13 @@ namespace :hpu do
         ngayhoc = lich.lop_mon_hoc.get_days
         tkb = lich.lop_mon_hoc.tkb_giang_viens.first
         buoihoc = ngayhoc.select {|l| to_zdate(l["time"][0]) == lich.ngay_day.localtime}[0] if ngayhoc
-        lich.so_tiet_day_moi = buoihoc["so_tiet"] if buoihoc        
+        lich.so_tiet_day_moi = buoihoc["so_tiet"] if buoihoc                
+      end
+      unless lich.so_tiet_day
+        ngayhoc = lich.lop_mon_hoc.get_days
+        tkb = lich.lop_mon_hoc.tkb_giang_viens.first
+        buoihoc = ngayhoc.select {|l| to_zdate(l["time"][0]) == lich.ngay_day.localtime}[0] if ngayhoc
+        lich.so_tiet_day = buoihoc["so_tiet"] if buoihoc                
       end
       lich.save!
     end    

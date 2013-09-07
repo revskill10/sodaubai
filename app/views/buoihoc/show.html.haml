@@ -44,24 +44,53 @@
     - if can? :diemdanh, @lich
       = submit_tag "Cập nhật", :class =>"btn btn-primary",  :data => {disable_with: "Submitting..."}
     .well.sidebar-nav{:style => "font-size: 12px;"}
-      %strong Môn học: 
-      %span= @buoihoc["ten_mon_hoc"] if @buoihoc
-      %strong.offset1 Giảng viên: 
-      %span= @lop_mon_hoc.ten_giang_vien    
-      %strong.offset1 Lớp:
-      %span= @buoihoc["ma_lop"] if @buoihoc      
-    .well.sidebar-nav{:style => "font-size: 12px;"}
-      %strong.offset1 Phòng:  
-      %span= text_field_tag "buoihoc[phong]", nil, :value => "#{(@lich.phong_moi || (@buoihoc["phong"] if @buoihoc) || "" )}", :style => "width: 8%"
-      %strong.offset1 Sĩ số: 
-      %span= @svs.count
-      %strong.offset1 Số sinh viên vắng mặt:  
-      %span#sovang= @svvang.count
-      %strong.offset1 Số tiết: 
-      %span= text_field_tag "buoihoc[sotiet]", nil, :value => "#{(@lich.so_tiet_day_moi if @lich) || (@tkb.so_tiet if @tkb) || "" }", :style => "width: 5%"
-      %h6 Các sinh viên vắng mặt:
-      %table#svvang{:class => "table table-bordered table-condensed"}  
-        = render :partial => 'table1'
+      %table{:class => "table table-bordered"}            
+        %thead
+          %td{:style => 'font-weight: bold;'} Môn học
+          %td{:style => 'font-weight: bold;'} Giảng viên
+          %td{:style => 'font-weight: bold;'} Lớp
+          %td{:style => 'font-weight: bold;'} Tổng số tiết phân bổ            
+        %tbody    
+          %tr
+            %td
+              %span= @buoihoc["ten_mon_hoc"] if @buoihoc
+            %td
+              %span= @lop_mon_hoc.ten_giang_vien    
+            %td
+              %span= @buoihoc["ma_lop"] if @buoihoc    
+            %td
+              %span= @lop_mon_hoc.so_tiet_phan_bo
+    .well.sidebar-nav{:style => "font-size: 12px;"}        
+      %table{:class => "table table-bordered"}            
+        %thead
+          %td{:style => 'font-weight: bold;'} Phòng
+          %td{:style => 'font-weight: bold;'} Sĩ số
+          %td{:style => 'font-weight: bold;'} Số sinh viên vắng
+          %td{:style => 'font-weight: bold;'} Số tiết dự kiến
+          %td{:style => 'font-weight: bold;'} Số tiết thực tế        
+        %tbody      
+          %tr
+            %td
+              %span= text_field_tag "buoihoc[phong]", nil, :value => "#{(@lich.phong_moi || (@buoihoc["phong"] if @buoihoc) || "" )}", :disabled => ('disabled' unless can? :nghitiet, @lich)
+            %td
+              %span= @lich.siso
+            %td
+              %span#sovang= @svvang.count
+            %td
+              %span= "#{(@lich.so_tiet_day if @lich) || ""}"
+            %td
+              %span#buoihoc_sotiet= "#{(@lich.so_tiet_day_moi if @lich) || "" }"    
+      - if @lich.so_tiet_day        
+        %h6 Nghỉ dạy các tiết:
+        - @lich.so_tiet_day.times do |t|
+          %span= check_box_tag "tiet_nghi[#{@lich.id}][#{t}]", nil, get_tiet_nghi(@lich, t), :disabled => ('disabled' unless can? :nghitiet, @lich)
+          %span= "Tiết #{t+1}" 
+          
+      %br
+      - if @svvang and @svvang.count > 0
+        %h6 Các sinh viên vắng mặt:
+        %table#svvang{:class => "table table-bordered table-condensed"}  
+          = render :partial => 'table1'
     - if can? :diemdanh, @lich        
       .tabbable
         %ul.nav.nav-tabs

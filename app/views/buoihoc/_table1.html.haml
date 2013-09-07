@@ -12,13 +12,12 @@
   %td Tên            
   %td Số tiết vắng
   %td Phép            
-%tbody
-  - if @svvang and @svvang.count > 0
-    - @svvang.each_with_index do |sv, index|
-      %tr
-        %td= (index+1).to_s
-        %td= sv.ma_sinh_vien
-        %td= sv.hodemdaydu
-        %td= sv.ten
-        %td= get_vang(@lich, sv)
-        %td= check_box_tag "msv2[#{sv.ma_sinh_vien}][phep]",nil, get_phep(@lich, sv), :disabled => "disabled"
+%tbody  
+  - @svvang.each_with_index do |sv, index|
+    %tr
+      %td= (index+1).to_s
+      %td= sv.ma_sinh_vien
+      %td= sv.hodemdaydu
+      %td= sv.ten
+      %td= get_vang(@lich, sv)
+      %td= check_box_tag "msv2[#{sv.ma_sinh_vien}][phep]",nil, get_phep(@lich, sv), :disabled => "disabled"

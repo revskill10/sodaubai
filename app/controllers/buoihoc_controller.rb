@@ -41,13 +41,22 @@ class BuoihocController < ApplicationController
       authorize! :manage, @lich
       authorize! :diemdanh, @lich
       if params[:buoihoc]
-        @lichtrinh = params[:buoihoc]  
-        @sotietday = @lichtrinh[:sotiet].to_i  
-        @phong = @lichtrinh[:phong].to_s
+        @lichtrinh = params[:buoihoc]                  
+        @phong = @lichtrinh[:phong].to_s        
+      end
+      if params[:tiet_nghi]
+        @tietnghis = params[:tiet_nghi][@lich.id.to_s]
+        if @tietnghis
+          @sotietday = @lich.so_tiet_day - @tietnghis.count
+          @lich.tiet_nghi = @tietnghis.keys.join(",")
+        end        
+      else
+        @lich.tiet_nghi = nil
+        @sotietday = @lich.so_tiet_day
       end
       if @sotietday and @sotietday > 0 and @buoihoc and @sotietday <= @buoihoc["so_tiet"]
         @lich.so_tiet_day_moi = @sotietday
-        @lich.phong_moi = @phong
+        @lich.phong_moi = @phong if @phong
         @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
         @ids = @svs.map {|k| k.ma_sinh_vien}
 
@@ -139,11 +148,23 @@ class BuoihocController < ApplicationController
       raise ActiveRecord::RecordNotFound unless @lich
       authorize! :manage, @lich
       authorize! :diemdanh, @lich
-      @phong = params[:buoihoc][:phong]
-      @sotietday = params[:buoihoc][:sotiet].to_i      
+      if params[:buoihoc]
+        @lichtrinh = params[:buoihoc]                  
+        @phong = @lichtrinh[:phong].to_s        
+      end
+      if params[:tiet_nghi]
+        @tietnghis = params[:tiet_nghi][@lich.id.to_s]
+        if @tietnghis
+          @sotietday = @lich.so_tiet_day - @tietnghis.count
+          @lich.tiet_nghi = @tietnghis.keys.join(",")
+        end        
+      else
+        @lich.tiet_nghi = nil
+        @sotietday = @lich.so_tiet_day
+      end
       if @sotietday > 0 and @buoihoc and @sotietday <= @buoihoc["so_tiet"]
-        @lich.so_tiet_day_moi = @sotietday
-        @lich.phong_moi = @phong
+        @lich.so_tiet_day_moi = @sotietday if @sotietday
+        @lich.phong_moi = @phong if @phong
         params[:msv].each do |k,v|
           dd = @lich.diem_danhs.where(ma_sinh_vien: k).first
           dd = @lich.diem_danhs.where(ma_sinh_vien: k).create if !dd and (v[:sotiet].to_i > 0 or !v[:note].blank?)
