@@ -383,6 +383,7 @@ class BuoihocController < ApplicationController
       @buoihoc = @ngayhoc.select {|l| l["tuan"] == @tuan and to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
       @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!        
       if @lich.so_tiet_day_moi.nil? or @lich.phong_moi.nil?
+        @lich.so_tiet_day = @buoihoc["so_tiet"] if @buoihoc 
         @lich.so_tiet_day_moi = @buoihoc["so_tiet"] if @buoihoc      
         @lich.phong_moi = @lop_mon_hoc.phong_hoc
         @lich.save!
@@ -401,6 +402,7 @@ class BuoihocController < ApplicationController
       @buoihoc = @ngayhoc.select {|l| l["tuan"] == @tuan and  to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
       @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create! 
       if @lich.so_tiet_day_moi.nil? or @lich.phong_moi.nil?
+        @lich.so_tiet_day = @buoihoc["so_tiet"] if @buoihoc 
         @lich.so_tiet_day_moi = @buoihoc["so_tiet"] if @buoihoc      
         @lich.phong_moi = @lop_mon_hoc.phong_hoc
         @lich.save!
@@ -414,6 +416,7 @@ class BuoihocController < ApplicationController
       @buoihoc = @ngayhoc.select {|l| l["tuan"] == @tuan and  to_zdate(l["time"][0]) == @ngay}[0] if @ngayhoc
       @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first_or_create!        
       if @lich.so_tiet_day_moi.nil? or @lich.phong_moi.nil?
+        @lich.so_tiet_day = @buoihoc["so_tiet"] if @buoihoc 
         @lich.so_tiet_day_moi = @buoihoc["so_tiet"] if @buoihoc      
         @lich.phong_moi = @lop_mon_hoc.phong_hoc
         @lich.save!
