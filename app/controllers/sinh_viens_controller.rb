@@ -2,28 +2,29 @@ class SinhViensController < ApplicationController
   # GET /sinh_viens
   # GET /sinh_viens.json
   before_filter :authenticate_user!  
-  before_filter :load_lop  , :except => [:filter, :report]
+  before_filter :load_lop  , :except => :show
   def index        
-    authorize! :read, @lop_mon_hoc
-    @sinh_viens = @lop_mon_hoc.sinh_viens
+    authorize! :read, SinhVien
+    @sinh_vien = SinhVien.where(ma_sinh_vien: params[:id]).first
+    @lops = @sinh_vien.lop_mon_hocs
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @sinh_viens }
     end
   end
-  def filter
-    authorize! :manage, LopMonHocSinhVien
-    
-  end
-  def report
+  
+  def show
+    authorize! :read, SinhVien
     @sinh_vien = SinhVien.where(ma_sinh_vien: params[:id]).first
+    @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])
 
     if @sinh_vien
-      @dd = @sinh_vien.diem_danhs
+      @dd = @sinh_vien.diem_danhs.includes(:lich_trinh_giang_day => :lop_mon_hoc).all
+
       @grid = PivotTable::Grid.new do |g|
         g.source_data = @dd
         g.column_name = :tuan
-        g.row_name = :ma_sinh_vien
+        g.row_name = :lop_mon_hoc
       end
       @grid.build
     end
@@ -33,14 +34,7 @@ class SinhViensController < ApplicationController
       format.html
     end
   end
-  def search
-    authorize! :search, SinhVien
-
-    
-    respond_to do |format|
-      format.js
-    end
-  end
+  
   protected
   def load_lop
     @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])

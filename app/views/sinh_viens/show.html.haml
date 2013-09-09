@@ -1,0 +1,13 @@
+- if @grid
+  %table{:class => "table"}	  
+    %thead
+      %td= ""
+      - (1..@current_week).each do |c|      
+        %td= "Tuần #{c}"    
+    %tbody   
+      - @grid.rows.each do |row|
+        %tr   
+          %td= row.header       
+          - (1..@current_week).each do |c|            
+            %td= (row.data[c-1].so_tiet_vang if row.data[c-1]) || "0"
+        

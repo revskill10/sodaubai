@@ -38,7 +38,8 @@ Trytest::Application.routes.draw do
   resources :mon_hocs
   resources :sinh_viens do 
     member do 
-      get '/report' => 'sinh_viens#report'
+      get '/:lop_mon_hoc_id' => 'sinh_viens#show'
+      get '/' => 'sinh_viens#index'
     end
   end
     
