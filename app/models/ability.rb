@@ -6,7 +6,8 @@ class Ability
     #can :read, :all
     
     if user.is_admin?
-        can :manage, :all       
+        can :manage, :all     
+         can :read, ActiveAdmin::Page, :name => "Dashboard"  
     end
     if user.imageable.is_a?(GiangVien) or user.role == 'trogiang'     
         can :read, SinhVien           

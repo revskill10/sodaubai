@@ -3,7 +3,7 @@ require 'active_support/time'
 class TkbGiangVien < ActiveRecord::Base
   
   include IceCube
-  attr_accessible :hoc_ky, :ma_giang_vien, :ma_lop, :ma_mon_hoc, :nam_hoc, :ngay_bat_dau, :ngay_ket_thuc, :phong, :so_tiet, :so_tuan, :thu, :tiet_bat_dau, :tuan_hoc_bat_dau, :ten_giang_vien, :ten_mon_hoc, :days, :loai
+  attr_accessible :phong, :so_tiet, :so_tuan, :thu, :tiet_bat_dau, :tuan_hoc_bat_dau, :ma_giang_vien, :ma_mon_hoc, :ma_lop, :ten_giang_vien, :ten_mon_hoc, :ngay_bat_dau, :ngay_ket_thuc, :days
 
   
 
@@ -11,7 +11,8 @@ class TkbGiangVien < ActiveRecord::Base
   belongs_to :lop_mon_hoc
   belongs_to :mon_hoc, :foreign_key => 'ma_mon_hoc', :primary_key => 'ma_mon_hoc'
   
-  validates :ngay_bat_dau, :ngay_ket_thuc, :so_tiet, :so_tuan, :thu, :tiet_bat_dau, :tuan_hoc_bat_dau, :presence => true
+  validates :so_tiet, :so_tuan, :thu, :tiet_bat_dau, :tuan_hoc_bat_dau, :presence => true
+  validates :so_tiet, :uniqueness => {:scope => [:so_tuan, :thu, :tiet_bat_dau, :tuan_hoc_bat_dau]}
   TIET = {1 => [6,30], 2 => [7,20], 3 => [8,10],
   	4 => [9,5], 5 => [9,55], 6 => [10, 45],
   	7 => [12,30], 8 => [13,20], 9 => [14,10],
@@ -20,6 +21,10 @@ class TkbGiangVien < ActiveRecord::Base
   THU2 = {2 => "Thứ 2", 3 => "Thứ 3", 4 => "Thứ 4", 5 => "Thứ 5", 6 => "Thứ 6", 7 => "Thứ 7", 8 => "Chủ nhật"}
   THU = {2 => :monday, 3 => :tuesday, 4 => :wednesday, 5 => :thursday, 6 => :friday, 7 => :saturday, 8 => :sunday}
   
+
+  after_save :update_days  
+  #after_destroy :update_lop_mon_hoc
+
 
   
   def desc
@@ -47,5 +52,36 @@ class TkbGiangVien < ActiveRecord::Base
     :ten_mon_hoc => ten_mon_hoc, :phong => phong, :ma_giang_vien => lop_mon_hoc.ma_giang_vien, :ten_giang_vien => lop_mon_hoc.ten_giang_vien } }
     return {:ngay => z}.to_json
   end
-  
+  def get_tuan
+    md = ngay_bat_dau.wday
+    res = (ngay_bat_dau..ngay_ket_thuc).to_a.select {|k| md == k.wday}
+    return res.count
+  end
+  def get_ngay_bat_dau
+    t1 = Tuan.find(1)
+    day = t1.tu_ngay + (thu - 1).days    
+    return DateTime.new(day.year, day.month, day.day).change(:offset => Rational(7,24))
+  end
+  def get_ngay_ket_thuc
+    t2 = Tuan.find(tuan_hoc_bat_dau + so_tuan)
+    if t2
+      day = t2.den_ngay
+      return DateTime.new(day.year, day.month, day.day, day.hour, day.min).change(:offset => Rational(7,24))
+    else
+      return nil
+    end
+  end
+  protected
+  def update_days
+    self.update_column(:ma_giang_vien, self.lop_mon_hoc.ma_giang_vien)
+    self.update_column(:ma_mon_hoc , self.lop_mon_hoc.ma_mon_hoc)
+    self.update_column(:ma_lop , self.lop_mon_hoc.ma_lop)
+    self.update_column(:ten_giang_vien , self.lop_mon_hoc.ten_giang_vien)
+    self.update_column(:ten_mon_hoc , self.lop_mon_hoc.ten_mon_hoc)
+    self.update_column(:ngay_bat_dau , self.get_ngay_bat_dau)
+    self.update_column(:ngay_ket_thuc , self.get_ngay_ket_thuc)    
+    self.update_column(:days , self.get_days)    
+    self.lop_mon_hoc.update_column(:so_tiet , self.lop_mon_hoc.tong_so_tiet)
+    self.lop_mon_hoc.update_column(:so_tiet_phan_bo , self.lop_mon_hoc.tong_so_tiet)    
+  end  
 end

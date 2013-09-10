@@ -9,5 +9,7 @@ class MonHoc < ActiveRecord::Base
   validates :ma_mon_hoc, :ten_mon_hoc, :presence => true
   validates :ma_mon_hoc, :uniqueness => {:case_sensitive => false}
 
-
+  def to_s
+  	ten_mon_hoc + " - " + ma_mon_hoc
+  end
 end

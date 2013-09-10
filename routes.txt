@@ -1,4 +1,47 @@
 No configuration file found
+                                    admin_root        /admin(.:format)                                                           admin/dashboard#index
+                                          root        /                                                                          dashboard#index
+                               admin_dashboard        /admin/dashboard(.:format)                                                 admin/dashboard#index
+                     batch_action_admin_groups POST   /admin/groups/batch_action(.:format)                                       admin/groups#batch_action
+                                  admin_groups GET    /admin/groups(.:format)                                                    admin/groups#index
+                                               POST   /admin/groups(.:format)                                                    admin/groups#create
+                               new_admin_group GET    /admin/groups/new(.:format)                                                admin/groups#new
+                              edit_admin_group GET    /admin/groups/:id/edit(.:format)                                           admin/groups#edit
+                                   admin_group GET    /admin/groups/:id(.:format)                                                admin/groups#show
+                                               PUT    /admin/groups/:id(.:format)                                                admin/groups#update
+                                               DELETE /admin/groups/:id(.:format)                                                admin/groups#destroy
+               batch_action_admin_lop_mon_hocs POST   /admin/lop_mon_hocs/batch_action(.:format)                                 admin/lop_mon_hocs#batch_action
+                            admin_lop_mon_hocs GET    /admin/lop_mon_hocs(.:format)                                              admin/lop_mon_hocs#index
+                                               POST   /admin/lop_mon_hocs(.:format)                                              admin/lop_mon_hocs#create
+                         new_admin_lop_mon_hoc GET    /admin/lop_mon_hocs/new(.:format)                                          admin/lop_mon_hocs#new
+                        edit_admin_lop_mon_hoc GET    /admin/lop_mon_hocs/:id/edit(.:format)                                     admin/lop_mon_hocs#edit
+                             admin_lop_mon_hoc GET    /admin/lop_mon_hocs/:id(.:format)                                          admin/lop_mon_hocs#show
+                                               PUT    /admin/lop_mon_hocs/:id(.:format)                                          admin/lop_mon_hocs#update
+                                               DELETE /admin/lop_mon_hocs/:id(.:format)                                          admin/lop_mon_hocs#destroy
+batch_action_admin_lop_mon_hoc_tkb_giang_viens POST   /admin/lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens/batch_action(.:format) admin/tkb_giang_viens#batch_action
+             admin_lop_mon_hoc_tkb_giang_viens GET    /admin/lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens(.:format)              admin/tkb_giang_viens#index
+                                               POST   /admin/lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens(.:format)              admin/tkb_giang_viens#create
+          new_admin_lop_mon_hoc_tkb_giang_vien GET    /admin/lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens/new(.:format)          admin/tkb_giang_viens#new
+         edit_admin_lop_mon_hoc_tkb_giang_vien GET    /admin/lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens/:id/edit(.:format)     admin/tkb_giang_viens#edit
+              admin_lop_mon_hoc_tkb_giang_vien GET    /admin/lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens/:id(.:format)          admin/tkb_giang_viens#show
+                                               PUT    /admin/lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens/:id(.:format)          admin/tkb_giang_viens#update
+                                               DELETE /admin/lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens/:id(.:format)          admin/tkb_giang_viens#destroy
+               batch_action_admin_users_groups POST   /admin/users_groups/batch_action(.:format)                                 admin/users_groups#batch_action
+                            admin_users_groups GET    /admin/users_groups(.:format)                                              admin/users_groups#index
+                                               POST   /admin/users_groups(.:format)                                              admin/users_groups#create
+                         new_admin_users_group GET    /admin/users_groups/new(.:format)                                          admin/users_groups#new
+                        edit_admin_users_group GET    /admin/users_groups/:id/edit(.:format)                                     admin/users_groups#edit
+                             admin_users_group GET    /admin/users_groups/:id(.:format)                                          admin/users_groups#show
+                                               PUT    /admin/users_groups/:id(.:format)                                          admin/users_groups#update
+                                               DELETE /admin/users_groups/:id(.:format)                                          admin/users_groups#destroy
+                   batch_action_admin_comments POST   /admin/comments/batch_action(.:format)                                     admin/comments#batch_action
+                                admin_comments GET    /admin/comments(.:format)                                                  admin/comments#index
+                                               POST   /admin/comments(.:format)                                                  admin/comments#create
+                                 admin_comment GET    /admin/comments/:id(.:format)                                              admin/comments#show
+                         batch_action_comments POST   /comments/batch_action(.:format)                                           comments#batch_action
+                                      comments GET    /comments(.:format)                                                        comments#index
+                                               POST   /comments(.:format)                                                        comments#create
+                                       comment GET    /comments/:id(.:format)                                                    comments#show
                         api_v1_tkb_giang_viens GET    /api/v1/tkb_giang_viens(.:format)                                          api/v1/tkb_giang_viens#index {:format=>:json}
                                                POST   /api/v1/tkb_giang_viens(.:format)                                          api/v1/tkb_giang_viens#create {:format=>:json}
                      new_api_v1_tkb_giang_vien GET    /api/v1/tkb_giang_viens/new(.:format)                                      api/v1/tkb_giang_viens#new {:format=>:json}
@@ -49,13 +92,6 @@ No configuration file found
                      unregistered_user_session GET    /users/unregistered(.:format)                                              devise/cas_sessions#unregistered
                                   user_session POST   /users/sign_in(.:format)                                                   devise/cas_sessions#create
                           destroy_user_session DELETE /users/sign_out(.:format)                                                  devise/cas_sessions#destroy
-                               tkb_giang_viens GET    /tkb_giang_viens(.:format)                                                 tkb_giang_viens#index
-                                               POST   /tkb_giang_viens(.:format)                                                 tkb_giang_viens#create
-                            new_tkb_giang_vien GET    /tkb_giang_viens/new(.:format)                                             tkb_giang_viens#new
-                           edit_tkb_giang_vien GET    /tkb_giang_viens/:id/edit(.:format)                                        tkb_giang_viens#edit
-                                tkb_giang_vien GET    /tkb_giang_viens/:id(.:format)                                             tkb_giang_viens#show
-                                               PUT    /tkb_giang_viens/:id(.:format)                                             tkb_giang_viens#update
-                                               DELETE /tkb_giang_viens/:id(.:format)                                             tkb_giang_viens#destroy
                              report_giang_vien GET    /giang_viens/:id/report(.:format)                                          giang_viens#report
                                    giang_viens GET    /giang_viens(.:format)                                                     giang_viens#index
                                                POST   /giang_viens(.:format)                                                     giang_viens#create
@@ -71,14 +107,22 @@ No configuration file found
                                        mon_hoc GET    /mon_hocs/:id(.:format)                                                    mon_hocs#show
                                                PUT    /mon_hocs/:id(.:format)                                                    mon_hocs#update
                                                DELETE /mon_hocs/:id(.:format)                                                    mon_hocs#destroy
-                              report_sinh_vien GET    /sinh_viens/:id/report(.:format)                                           sinh_viens#report
+                                               GET    /sinh_viens/:id/:lop_mon_hoc_id(.:format)                                  sinh_viens#show
+                                     sinh_vien GET    /sinh_viens/:id(.:format)                                                  sinh_viens#index
                                     sinh_viens GET    /sinh_viens(.:format)                                                      sinh_viens#index
                                                POST   /sinh_viens(.:format)                                                      sinh_viens#create
                                  new_sinh_vien GET    /sinh_viens/new(.:format)                                                  sinh_viens#new
                                 edit_sinh_vien GET    /sinh_viens/:id/edit(.:format)                                             sinh_viens#edit
-                                     sinh_vien GET    /sinh_viens/:id(.:format)                                                  sinh_viens#show
+                                               GET    /sinh_viens/:id(.:format)                                                  sinh_viens#show
                                                PUT    /sinh_viens/:id(.:format)                                                  sinh_viens#update
                                                DELETE /sinh_viens/:id(.:format)                                                  sinh_viens#destroy
+                   lop_mon_hoc_tkb_giang_viens GET    /lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens(.:format)                    tkb_giang_viens#index
+                                               POST   /lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens(.:format)                    tkb_giang_viens#create
+                new_lop_mon_hoc_tkb_giang_vien GET    /lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens/new(.:format)                tkb_giang_viens#new
+               edit_lop_mon_hoc_tkb_giang_vien GET    /lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens/:id/edit(.:format)           tkb_giang_viens#edit
+                    lop_mon_hoc_tkb_giang_vien GET    /lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens/:id(.:format)                tkb_giang_viens#show
+                                               PUT    /lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens/:id(.:format)                tkb_giang_viens#update
+                                               DELETE /lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens/:id(.:format)                tkb_giang_viens#destroy
                           calendar_lop_mon_hoc GET    /lop_mon_hocs/:id/calendar(.:format)                                       lop_mon_hocs#calendar
                             search_lop_mon_hoc GET    /lop_mon_hocs/:id/search(.:format)                                         lop_mon_hocs#search
                                                GET    /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets/:loai(.:format)               diem_chi_tiets#index

@@ -2,7 +2,7 @@ class SinhVien < ActiveRecord::Base
 
   
   FACETS = [:lop_hc]
-  searchable do 
+  searchable  :auto_index => false, :auto_remove => false do 
     text :ten, :boost => 5
     text :ho, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ten_nganh
     text :hovaten do 

@@ -15,7 +15,8 @@
               %li= link_to "Thăm dò", "http://thamdo.hpu.edu.vn"
               - if can? :manage, LopMonHocSinhVien
                 %li= link_to "Quản lý", "/quanly"
-
+              - if can? :manage, :all
+                %li= link_to "Quản trị", "/admin"
           %ul.nav.pull-right
             %li= link_to 'Đăng xuất', destroy_user_session_path  
 

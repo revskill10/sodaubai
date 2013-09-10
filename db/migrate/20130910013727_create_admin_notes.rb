@@ -1,6 +1,5 @@
 class CreateAdminNotes < ActiveRecord::Migration
   def self.up
-    return if PgTools.private_search_path?
     create_table :admin_notes do |t|
       t.string :resource_id, :null => false
       t.string :resource_type, :null => false

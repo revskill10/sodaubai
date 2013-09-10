@@ -39,7 +39,7 @@ class LopMonHoc < ActiveRecord::Base
     :E => [["E301"]],
     :F => [["F101B","F102"],["F201","F205"],["F302"]]}
   FACETS = [:ten_mon_hoc, :ten_giang_vien, :phong_hoc]
-  searchable do 
+  searchable :auto_index => false, :auto_remove => false do 
     text :ma_lop, :ma_mon_hoc, :ten_giang_vien, :ma_giang_vien, :phong_hoc, :ten_mon_hoc, :phong_hoc
     string :ten_mon_hoc
     string :ten_giang_vien
@@ -62,7 +62,7 @@ class LopMonHoc < ActiveRecord::Base
     DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
   end
   def to_s
-    "#{ma_lop} #{ten_mon_hoc} #{ma_giang_vien}"
+    "#{ma_lop} #{ten_mon_hoc} #{ten_giang_vien}"
   end
   def convert_trucnhat
     result = []
@@ -120,6 +120,6 @@ class LopMonHoc < ActiveRecord::Base
     if user 
       user.role = 'trogiang'
       user.save! rescue puts "Error"
-    end
+    end    
   end
 end

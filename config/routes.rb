@@ -1,6 +1,10 @@
 Trytest::Application.routes.draw do
   
   
+  
+
+  ActiveAdmin.routes(self)
+
   namespace :api, :defaults => {:format => :json} do
     namespace :v1 do
       resources :tkb_giang_viens
@@ -28,7 +32,7 @@ Trytest::Application.routes.draw do
   end
   
   
-  resources :tkb_giang_viens
+  
 
   resources :giang_viens do 
     member do 
@@ -43,7 +47,8 @@ Trytest::Application.routes.draw do
     end
   end
     
-  resources :lop_mon_hocs do             
+  resources :lop_mon_hocs do       
+    resources :tkb_giang_viens      
     member do 
       get '/calendar' => 'lop_mon_hocs#calendar'        
       get '/search' => 'lop_mon_hocs#search'

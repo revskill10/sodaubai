@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   include ApplicationHelper
   before_filter :load_tenant
+  skip_authorization_check :unless => :current_admin?
   before_filter :authenticate_user!  
   before_filter :load_tuan
   
@@ -19,6 +20,9 @@ class ApplicationController < ActionController::Base
     @current_ability ||= Ability.new(current_user)
   end
   protected
+  def current_admin?
+    current_user and current_user.is_admin?
+  end
   def load_tuan
     @week = current_tuan
     @current_week = @week.stt    

@@ -250,13 +250,13 @@ class BuoihocController < ApplicationController
         @ngaybu = str_to_ngay(params[:buoihoc][:thoigian]) 
         @lich.ngay_day_moi = get_ngay(@ngaybu)      
         gv = @lich.lop_mon_hoc.giang_vien 
-        if gv and !gv.check_conflict(@lich.ngay_day_moi.localtime) and (DateTime.now < @lich.ngay_day) and (DateTime.now < @lich.ngay_day_moi)          
+        if gv and !gv.check_conflict(@lich.ngay_day_moi.localtime) and (DateTime.now < @lich.ngay_day_moi)          
           @lich.loai = 2
           @lich.status = 6
           @lich.save!          
         else
           @error = 1 
-          @error = 2 if  (DateTime.now > @lich.ngay_day) or (DateTime.now > @lich.ngay_day_moi)
+          @error = 2 if  DateTime.now > @lich.ngay_day_moi
         end
         
       else

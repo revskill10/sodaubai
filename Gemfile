@@ -25,7 +25,7 @@ end
 
 gem 'compass-rails' # you need this or you get an err
 gem 'compass_twitter_bootstrap'
-gem 'jquery-rails'
+gem "jquery-rails", "< 3.0.0"
 #gem "jquery-rails", "2.3.0"
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -100,3 +100,4 @@ gem 'progress_bar'
 gem 'bootstrap-multiselect-rails'
 gem 'pjax_rails'
 gem 'pivot_table'
+gem 'activeadmin'
