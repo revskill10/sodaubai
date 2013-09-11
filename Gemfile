@@ -101,3 +101,6 @@ gem 'bootstrap-multiselect-rails'
 gem 'pjax_rails'
 gem 'pivot_table'
 gem 'activeadmin'
+gem 'resque', :require => "resque/server"
+#gem 'resque-scheduler', :require => 'resque_scheduler'
+gem 'win32-process'

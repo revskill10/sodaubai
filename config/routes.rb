@@ -2,7 +2,9 @@ Trytest::Application.routes.draw do
   
   
   
-
+  match "/jobs" => Resque::Server, :anchor => false, :constraints => lambda { |req|
+    req.env['warden'].authenticated? and req.env['warden'].user.is_admin?
+  }
   ActiveAdmin.routes(self)
 
   namespace :api, :defaults => {:format => :json} do

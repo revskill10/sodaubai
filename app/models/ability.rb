@@ -21,7 +21,7 @@ class Ability
             cannot? :manage, lich
         end      
         can :nghitiet, LichTrinhGiangDay do |lich|
-            (can :manage, lich) and (lich.ngay_day.localtime <= DateTime.now) and (lich.ngay_day.localtime + (lich.so_tiet_day * 45).minutes >= DateTime.now)
+            can :manage, lich
         end
         cannot :diemdanh, LichTrinhGiangDay do |l|
             [1,2,3,4].include?(l.loai) and l.status == 6
