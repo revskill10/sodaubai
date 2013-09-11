@@ -18,6 +18,7 @@ class LopMonHocSinhVien < ActiveRecord::Base
   has_many :thong_bao_lop_hocs, :dependent => :nullify
 
   validates :ma_sinh_vien,  :presence => true  
+  
   def convert_dcc(diem)
     case diem
     when 100
@@ -107,5 +108,5 @@ class LopMonHocSinhVien < ActiveRecord::Base
   	end
   	return res  	
   end
-  
+
 end

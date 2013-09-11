@@ -52,7 +52,7 @@ class DashboardController < ApplicationController
         with(:phong_hoc, params[:phong_hoc]) if params[:phong_hoc].present?
         paginate(:page => params[:page] || 1, :per_page => 50)
       end
-      @results = @search.results
+      @results = @search.results if @search
     end
     respond_to do |format|      
       format.html      
