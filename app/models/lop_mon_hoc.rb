@@ -39,7 +39,7 @@ class LopMonHoc < ActiveRecord::Base
     :E => [["E301"]],
     :F => [["F101B","F102"],["F201","F205"],["F302"]]}
   FACETS = [:ten_mon_hoc, :ten_giang_vien, :phong_hoc]
-  searchable :auto_index => false, :auto_remove => false do 
+  searchable do 
     text :ma_lop, :ma_mon_hoc, :ten_giang_vien, :ma_giang_vien, :phong_hoc, :ten_mon_hoc, :phong_hoc
     string :ten_mon_hoc
     string :ten_giang_vien

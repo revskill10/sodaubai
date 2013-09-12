@@ -1,5 +1,0 @@
-do_my_job:
-  every: 10s
-  class: UpdateSisoJob
-  args:
-  description: Runs the perform method in MyJob

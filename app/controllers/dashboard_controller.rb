@@ -31,7 +31,7 @@ class DashboardController < ApplicationController
     @type = params[:type]
     @keyword = params[:search]
     if params[:type] == '1'
-      @search = SinhVien.search do 
+      @search = Sunspot.search(SinhVien) do 
         fulltext params[:search]
         SinhVien::FACETS.each do |f|
           facet(f)
@@ -41,7 +41,7 @@ class DashboardController < ApplicationController
       end
       @results = @search.results
     elsif params[:type] == '2'
-      @search = LopMonHoc.search do 
+      @search = Sunspot.search(LopMonHoc) do 
         fulltext params[:search]
         
         LopMonHoc::FACETS.each do |f|
@@ -52,7 +52,7 @@ class DashboardController < ApplicationController
         with(:phong_hoc, params[:phong_hoc]) if params[:phong_hoc].present?
         paginate(:page => params[:page] || 1, :per_page => 50)
       end
-      @results = @search.results if @search
+      @results = @search.results
     end
     respond_to do |format|      
       format.html      
