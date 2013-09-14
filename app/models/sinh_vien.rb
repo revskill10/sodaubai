@@ -59,7 +59,7 @@ class SinhVien < ActiveRecord::Base
     end
   end 
   def to_s
-    fullname + ": " + ma_sinh_vien
+    ho + " " + fullname + ": " + ma_sinh_vien
   end
   def lop_mon_hocs
    lop_mon_hoc_sinh_viens.map {|t| t and t.lop_mon_hoc }   

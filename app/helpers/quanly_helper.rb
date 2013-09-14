@@ -1,6 +1,6 @@
 #encoding: UTF-8
 module QuanlyHelper
-	def get_status(s)
+	def get_status2(s)
 		case s
 		when 3
 			return "Đã duyệt"

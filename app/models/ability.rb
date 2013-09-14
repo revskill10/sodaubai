@@ -7,10 +7,13 @@ class Ability
     
     if user.is_admin?
         can :manage, :all     
-         can :read, ActiveAdmin::Page, :name => "Dashboard"  
+        can :read, ActiveAdmin::Page, :name => "Dashboard"  
     end
     if user.imageable.is_a?(GiangVien) or user.role == 'trogiang'     
         can :read, SinhVien           
+        can :read, GiangVien do |gv|
+            can :manage, :all or (gv.ma_giang_vien == user.imageable.ma_giang_vien and !user.is_admin?)
+        end
         can :manage, LopMonHoc do |lop|
           user.code == lop.ma_giang_vien or user.id == lop.user_id
         end

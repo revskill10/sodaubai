@@ -41,6 +41,11 @@ class LichTrinhGiangDay < ActiveRecord::Base
   def get_tuan
     Tuan.all.detect {|t| t.tu_ngay.localtime <= ngay_day.localtime and t.den_ngay.localtime >= ngay_day.localtime }.stt
   end
+
+  def get_svvang
+    diem_danhs.vang
+  end
+
   def self.ca(dt)
     x = [dt.hour, dt.minute]
     ts = CA.reject {|k,v| compare(v,x) == 1}

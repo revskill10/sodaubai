@@ -25,6 +25,7 @@ class LopMonHocsController < ApplicationController
     end  
         
   end
+  
   def show
     authorize! :read, @lop_mon_hoc
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
