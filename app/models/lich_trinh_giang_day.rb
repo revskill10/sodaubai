@@ -9,6 +9,7 @@ class LichTrinhGiangDay < ActiveRecord::Base
   scope :nghidaychoduyet, -> {nghiday.where(status: 6)}
   scope :nghidaykoduyet, -> {nghiday.where(status: 4)}
   scope :nghidaydaduyet, -> {nghiday.where(status: 3)}
+  scope :nghidayquakhu, -> {nghiday.where("status != 6")}
   scope :daybu, -> {where(loai: 2)}
   scope :daybuchoduyet, -> {daybu.where(status: 6)}
   scope :daybukoduyet, -> {daybu.where(status: 4)}

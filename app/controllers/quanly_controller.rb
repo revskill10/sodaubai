@@ -114,7 +114,7 @@ class QuanlyController < ApplicationController
 		authorize! :manage, LichTrinhGiangDay
 
 		@lichs = LichTrinhGiangDay.nghidaychoduyet
-
+		@lichs2 = LichTrinhGiangDay.nghidayquakhu
 		respond_to do |format|
 			format.html
 		end

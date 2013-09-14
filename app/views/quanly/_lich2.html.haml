@@ -5,17 +5,15 @@
     %td Lớp
     %td Môn
     %td Giảng viên
-    %td Lí do
-    %td Đồng ý
-    %td Không đồng ý
+    %td Lí do    
+    %td Tình trạng
   %tbody    
-    - @lichs.each_with_index do |lich, index|
+    - @lichs2.each_with_index do |lich, index|
       %tr
         %td= (index+1).to_s
         %td= format_date(lich.ngay_day.localtime)
         %td= lich.lop_mon_hoc.ma_lop
         %td= lich.lop_mon_hoc.ten_mon_hoc
         %td= lich.lop_mon_hoc.giang_vien
-        %td= lich.note
-        %td= radio_button_tag "nghiday[#{lich.id}]", true, false
-        %td= radio_button_tag "nghiday[#{lich.id}]", false, false
+        %td= lich.note      
+        %td= get_status(lich.status)  
