@@ -42,18 +42,14 @@ Trytest::Application.routes.draw do
     end
   end
   resources :mon_hocs
-  resources :sinh_viens do 
-    member do 
-      get '/:lop_mon_hoc_id' => 'sinh_viens#show'
-      get '/' => 'sinh_viens#index'
-    end
-  end
+  resources :sinh_viens
     
   resources :lop_mon_hocs do       
     resources :tkb_giang_viens      
     member do 
       get '/calendar' => 'lop_mon_hocs#calendar'        
       get '/search' => 'lop_mon_hocs#search'
+      get '/report' => 'lop_mon_hocs#report'
     end    
     resources :diem_chi_tiets      do  
       collection do        

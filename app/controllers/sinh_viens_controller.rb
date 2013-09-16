@@ -16,21 +16,11 @@ class SinhViensController < ApplicationController
   def show
     authorize! :read, SinhVien
     @sinh_vien = SinhVien.where(ma_sinh_vien: params[:id]).first
-    @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])
-
-    if @sinh_vien
-      @dd = @sinh_vien.diem_danhs.includes(:lich_trinh_giang_day => :lop_mon_hoc).all
-
-      @grid = PivotTable::Grid.new do |g|
-        g.source_data = @dd
-        g.column_name = :tuan
-        g.row_name = :lop_mon_hoc
-      end
-      @grid.build
-    end
+    raise ActiveRecord::RecordNotFound unless @sinh_vien    
+    @lichs = @sinh_vien.lich_trinh_giang_days.sort_by {|l| [l.ngay_day, l.tuan]}
+    @lichvangs = @sinh_vien.lich_vangs.map(&:id)
 
     respond_to do |format|
-
       format.html
     end
   end

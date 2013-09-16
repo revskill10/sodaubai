@@ -13,7 +13,7 @@ class BuoihocController < ApplicationController
     if @lich 
       @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
       @ids = @svs.map{|sv| sv.ma_sinh_vien}
-      
+      @lichs = @lop_mon_hoc.lich_trinh_giang_days.order('ngay_day desc, tuan desc')
       if @lich.voters
         voters = JSON.parse(@lich.voters) 
         @theme = voters[@type.ma_sinh_vien] if @type.is_a?(SinhVien)
@@ -22,9 +22,10 @@ class BuoihocController < ApplicationController
       #@idv = @lich.diem_danhs.select{|t| t and t.so_tiet_vang and t.so_tiet_vang > 0}.map { |k| k.ma_sinh_vien}
       @idv = @lich.diem_danhs.vang.map {|k| k.ma_sinh_vien}
       @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
-      
-      
+           
       @svs2 = @svs.each_slice(4)    
+      
+
     end
     
     respond_to do |format|     

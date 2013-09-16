@@ -3,21 +3,19 @@
     %td STT
     %td Tuần
     %td Thời gian
+    %td Giảng viên
     %td Lớp
     %td Môn    
     %td Nội dung
-    %td Sinh viên vắng
+    %td Vắng
   %tbody    
     - @lichs.each_with_index do |lich, index|
-      %tr        
+      %tr{:class => ("success" if lich.diem_danhs.pluck(:ma_sinh_vien).include?(@sinh_vien.ma_sinh_vien))}     
         %td= (index+1).to_s
         %td= lich.tuan.to_s
         %td= format_date2(lich.ngay_day)
+        %td= link_to lich.lop_mon_hoc.ten_giang_vien, giang_vien_path(lich.lop_mon_hoc.ma_giang_vien)
         %td= link_to lich.lop_mon_hoc.ma_lop, report_lop_mon_hoc_path(lich.lop_mon_hoc)
         %td= lich.lop_mon_hoc.ten_mon_hoc
         %td= (raw(lich.noi_dung_day.gsub(/\n/,'<br/>')) if lich.noi_dung_day ) || ""
-        %td
-          - if lich.diem_danhs.count > 0 
-            %ol         
-              - lich.diem_danhs.vang.each do |dd|
-                %li= link_to(dd.sinh_vien.to_s, sinh_vien_path(dd.sinh_vien.ma_sinh_vien)) + ", "
+        %td= ("Vắng" if lich.diem_danhs.pluck(:ma_sinh_vien).include?(@sinh_vien.ma_sinh_vien))        

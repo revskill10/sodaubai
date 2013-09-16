@@ -20,7 +20,17 @@
       = select_tag "type", "<option value='1' selected=#{'selected' if params[:type]=='1'}>Sinh viên</option><option value='2' selected=#{'selected' if params[:type]=='2'}>Lớp môn học</option>".html_safe, :class => "multiselect", :placeholder => "Tìm theo sinh viên, giảng viên, lớp học,..."   
       %input.input-large.search-query{:type => "text", :name => "search"}
       %button.btn{:type => "submit"} Tra cứu
-  %h4{:style => "text-align:center;"}= "Tiến trình giảng dạy của giảng viên: #{@gv}"
+  %h4{:style => "text-align:center;"} Lịch trình thực hiện lớp môn
+  .well.sidebar-nav{:style => "font-size: 12px;"}
+    - if @lop_mon_hoc
+      %strong Môn học: 
+      %span= @lop_mon_hoc.ten_mon_hoc 
+      %strong.offset1 Giảng viên: 
+      %span= @lop_mon_hoc.ten_giang_vien    
+      %strong.offset1 Lớp:
+      %span= @lop_mon_hoc.ma_lop  
+      %strong.offset1 Số tiết: 
+      %span= @lop_mon_hoc.so_tiet_phan_bo
   %hr
   - if @lichs.count > 0
     = render "lich"

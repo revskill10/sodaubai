@@ -1,3 +1,4 @@
+#encoding: UTF-8
 class SinhVien < ActiveRecord::Base
 
   
@@ -30,7 +31,7 @@ class SinhVien < ActiveRecord::Base
   has_one :user, :as => :imageable  
   has_one :can_bo_lop, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien'
   has_many :lop_mon_hoc_sinh_viens, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien', :dependent => :destroy
-      
+  
   has_many :diem_chuyen_cans, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien', :dependent => :destroy do 
   	def with_lop(ma_lop)
   		where("diem_chuyen_cans.ma_lop" => ma_lop)
@@ -42,6 +43,8 @@ class SinhVien < ActiveRecord::Base
   	end        
   end
   
+
+
   def thong_tin_diem_danh(ma_lop, ngay_vang)
     res  = DiemDanh.by_lop_sinhvien_ngay(ma_lop, self.ma_sinh_vien, ngay_vang)
     if res.empty? then return  0 
@@ -50,6 +53,9 @@ class SinhVien < ActiveRecord::Base
   
   def dem
     return (ho || "") + " " + (ho_dem || "")
+  end
+  def raw_name
+    dem + " " + ten + ", MSV:  #{ma_sinh_vien}, Lớp:  #{lop_hc}"
   end
   def fullname
     if self.ho_dem
@@ -70,6 +76,14 @@ class SinhVien < ActiveRecord::Base
       res = res + l.lich_trinh_giang_days
     end    
     return res
+  end
+  def lich_vangs
+    res = []
+    return res if diem_danhs.count == 0
+    diem_danhs.each do |dd|
+      res << dd.lich_trinh_giang_day
+    end
+    return res.uniq { |l| l.id }
   end
   def check_conflict(lop)    
     tkbs = lop.tkb_giang_viens if lop

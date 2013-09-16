@@ -62,12 +62,20 @@
               %span= @lop_mon_hoc.so_tiet_phan_bo
     .well.sidebar-nav{:style => "font-size: 12px;"}        
       %table{:class => "table table-bordered"}            
+        %colgroup
+          %col{:style => "width: 10%"}
+          %col{:style => "width: 15%"}
+          %col{:style => "width: 15%"}
+          %col{:style => "width: 15%"}            
+          %col{:style => "width: 15%"}
+          %col{:style => "width: 30%"}  
         %thead
           %td{:style => 'font-weight: bold;'} Phòng
           %td{:style => 'font-weight: bold;'} Sĩ số
           %td{:style => 'font-weight: bold;'} Số sinh viên vắng
           %td{:style => 'font-weight: bold;'} Số tiết dự kiến
-          %td{:style => 'font-weight: bold;'} Số tiết thực tế        
+          %td{:style => 'font-weight: bold;'} Số tiết thực tế  
+          %td{:style => 'font-weight: bold;'} Nghỉ dạy các tiết      
         %tbody      
           %tr
             %td
@@ -80,11 +88,11 @@
               %span= "#{(@lich.so_tiet_day if @lich) || ""}"
             %td
               %span#buoihoc_sotiet= "#{(@lich.so_tiet_day_moi if @lich) || "" }"    
-      - if @lich.so_tiet_day        
-        %h6 Nghỉ dạy các tiết:
-        - @lich.so_tiet_day.times do |t|
-          %span= check_box_tag "tiet_nghi[#{@lich.id}][#{t}]", nil, get_tiet_nghi(@lich, t), :disabled => ('disabled' unless can? :nghitiet, @lich)
-          %span= "Tiết #{t+1}" 
+            %td
+              - if @lich.so_tiet_day                        
+                - @lich.so_tiet_day.times do |t|
+                  %span= check_box_tag "tiet_nghi[#{@lich.id}][#{t}]", nil, get_tiet_nghi(@lich, t), :disabled => ('disabled' unless can? :nghitiet, @lich)
+                  %span= "Tiết #{t+1}" 
           
       %br
       - if @svvang and @svvang.count > 0
@@ -108,7 +116,9 @@
               
 
               = text_area_tag "buoihoc[noidung]", (@lich.noi_dung_day if @lich), :value => "#{(@lich.noi_dung_day if @lich)}", :class => 'redactor', :style => "width: 100%;", :rows => 4
-                            
+              
+            - if can? :diemdanh, @lich and @lichs and @lichs.count > 0
+              = render 'lich'
           .tab-pane.active#tab2                            
             .well.sidebar-nav            
               %table{:class => "table table-bordered table-condensed datatable"}                              

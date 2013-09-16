@@ -25,31 +25,36 @@ class LopMonHocsController < ApplicationController
     end  
         
   end
-  
+  def report
+
+    raise ActiveRecord::RecordNotFound unless @lop_mon_hoc
+    @lichs = @lop_mon_hoc.lich_trinh_giang_days.order('ngay_day, tuan')
+
+    respond_to do |format|
+      format.html
+    end
+
+  end
   def show
     authorize! :read, @lop_mon_hoc
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     
     
-    respond_to do |format|
-      if request.headers['X-PJAX']
-        format.html {render :layout => false}        
-      else
-        format.html {render :show}
-       # format.xlsx {render xlsx: :dslop, filename: "dslop_doc"}
-        format.xlsx {
-        p = Axlsx::Package.new        
-        wb = p.workbook
-        wb.add_worksheet(:name => "Reporting") do |sheet|
-          sheet.add_row ["REPORTING"]
-          @svs.each do |sv| 
-            sheet.add_row [sv.ma_sinh_vien, sv.ho_dem, sv.ten, sv.diemcc, sv.diemtbkt, sv.diem_thuc_hanh, sv.diemqt] 
-          end          
-        end
-        send_data p.to_stream.read, :filename => 'lops.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"     
-      }
+    respond_to do |format|      
+      format.html {render :show}
+     # format.xlsx {render xlsx: :dslop, filename: "dslop_doc"}
+      format.xlsx {
+      p = Axlsx::Package.new        
+      wb = p.workbook
+      wb.add_worksheet(:name => "Reporting") do |sheet|
+        sheet.add_row ["REPORTING"]
+        @svs.each do |sv| 
+          sheet.add_row [sv.ma_sinh_vien, sv.ho_dem, sv.ten, sv.diemcc, sv.diemtbkt, sv.diem_thuc_hanh, sv.diemqt] 
+        end          
       end
-    end
+      send_data p.to_stream.read, :filename => 'lops.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"     
+    }
+    end    
   end
   def update
     authorize! :manage, @lop_mon_hoc
