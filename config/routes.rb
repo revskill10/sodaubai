@@ -107,6 +107,8 @@ Trytest::Application.routes.draw do
   post 'quanly/qlnghiday' => 'quanly#qlnghiday', :as => 'qlnghiday'
   post 'quanly/qldaybu' => 'quanly#qldaybu', :as => 'qldaybu'
 
+  get "quanly/report1" => 'quanly#report1', :as => 'report1'
+  get "quanly/report2/(:tuan)" => 'quanly#report2', :as => 'report2'
   get "monitor" => 'monitor#index', :as => 'monitor'
   get "monitor/:lop_mon_hoc_id/:id" => 'monitor#show', :as => 'showmonitor'
   get "admin" => 'admin#index', :as => 'admin'

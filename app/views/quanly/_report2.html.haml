@@ -1,0 +1,23 @@
+%thead
+  %td STT    
+  %td Mã sinh viên
+  %td Họ
+  %td Họ đệm
+  %td Tên
+  %td Mã lớp      
+  %td Id lớp môn học      
+  %td Số tiết vắng
+  %td Ngày dạy
+%tbody
+  - if @res.count > 0        
+    - @res.each_with_index do |res, index|
+      %tr
+        %td= (index+1).to_s
+        %td= res["ma_sinh_vien"]
+        %td= res["ho"]
+        %td= res["ho_dem"]
+        %td= res["ten"]
+        %td= res["ma_lop"]            
+        %td= res["lop_mon_hoc_id"]            
+        %td= res["so_tiet_vang"]
+        %td= res["ngay_day"]
