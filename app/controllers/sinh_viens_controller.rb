@@ -13,8 +13,7 @@ class SinhViensController < ApplicationController
     end
   end
   
-  def show
-    authorize! :read, SinhVien
+  def show    
     @sinh_vien = SinhVien.where(ma_sinh_vien: params[:id]).first
     raise ActiveRecord::RecordNotFound unless @sinh_vien    
     @lichs = @sinh_vien.lich_trinh_giang_days.sort_by {|l| [l.ngay_day, l.tuan]}
