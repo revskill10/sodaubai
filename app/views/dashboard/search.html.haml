@@ -64,7 +64,7 @@
                     %li
                       .strong= row.value + "(#{row.count})"
                       = link_to "remove", search_path(:type => @type, :search => @keyword, :ten_mon_hoc => params[:ten_mon_hoc], :ten_mon_hoc => params[:ten_mon_hoc], :ten_giang_vien => params[:ten_giang_vien])
-      .span8.offset1
+      .span9
         - if @results
           = will_paginate @results, renderer: BootstrapPagination::Rails
           - if @type == "2"

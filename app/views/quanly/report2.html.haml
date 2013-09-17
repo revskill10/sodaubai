@@ -36,6 +36,7 @@
           - (1..@current_week).each do |t|          
             %li{:style => ("font-weight:bold;" if @tuan == t.to_s)}= link_to "Tuần #{t}", report2_path + "/#{t}"
     .span9
+      = will_paginate @res, renderer: BootstrapPagination::Rails
       %table#monitor.table.table-bordered.table-condensed.table-hover.table-striped
         = render 'report2'         
   

@@ -25,6 +25,7 @@
               
 
 .container-fluid{:style=>"margin-top: 4%;"}  
+  = will_paginate @res, renderer: BootstrapPagination::Rails
   %table.table.table-bordered.table-condensed.table-hover.table-striped.datatable
     %thead
       %td STT    
