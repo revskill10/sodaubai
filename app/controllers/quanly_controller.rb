@@ -197,4 +197,49 @@ class QuanlyController < ApplicationController
     end
   end
 
+  # Danh sach sinh vien nghi qua 20% so tiet
+  def report3  	
+  	sql = <<-eos
+		select *,ROUND(TongSoTietVang/so_tiet_phan_bo*100,2) as Tile
+From (
+Select d.ma_sinh_vien,s.ho,s.ho_dem,s.ten,s.lop_hc,l1.ma_lop,l1.id Lop_mon_hoc_id,l1.ma_mon_hoc,l1.ten_mon_hoc,l1.ten_giang_vien,l1.so_tiet_phan_bo,sum(d.so_tiet_vang) As TongSoTietVang
+from t1.diem_danhs d
+inner join t1.lich_trinh_giang_days l on d.lich_trinh_giang_day_id=l.id
+inner join t1.lop_mon_hocs l1 on l.lop_mon_hoc_id=l1.id
+inner join t1.sinh_viens s on d.ma_sinh_vien=s.ma_sinh_vien
+where l1.so_tiet_phan_bo>0
+Group by d.ma_sinh_vien,s.ho,s.ho_dem,s.ten,s.lop_hc,l1.ma_lop,l1.id,l1.ma_mon_hoc,l1.ten_mon_hoc,l1.ten_giang_vien,l1.so_tiet
+having sum(d.so_tiet_vang)>0
+) as S
+Where TongSoTietVang/so_tiet_phan_bo*100>=20
+Order by Tile DESC
+  	eos
+  	@res = DiemDanh.paginate_by_sql(sql,  :page => params[:page] || 1, :per_page => 50)
+  	respond_to do |format|
+  		format.html
+  	end
+  end
+  # Danh sach sinh vien lop mon nghi nhieu trong tuan
+  def report4
+  	@tuan = params[:tuan] || @current_week  	
+  	sql = <<-eos
+		Select d.ma_sinh_vien,s.ho,s.ho_dem,s.ten,l1.ma_lop,l1.id Lop_mon_hoc_id,l1.ma_mon_hoc,l1.ten_mon_hoc,l1.ten_giang_vien,SUM(d.so_tiet_vang) AS TongTietVang
+from t1.diem_danhs d
+inner join t1.lich_trinh_giang_days l on d.lich_trinh_giang_day_id=l.id
+inner join t1.lop_mon_hocs l1 on l.lop_mon_hoc_id=l1.id
+inner join t1.sinh_viens s on d.ma_sinh_vien=s.ma_sinh_vien
+Where d.lich_trinh_giang_day_id in (Select id
+From t1.Lich_trinh_giang_days
+where tuan=#{@tuan}
+) and d.so_tiet_vang>0
+Group by d.ma_sinh_vien,s.ho,s.ho_dem,s.ten,l1.ma_lop,l1.id ,l1.ma_mon_hoc,l1.ten_mon_hoc,l1.ten_giang_vien
+Having SUM(d.so_tiet_vang)>=6
+ORDER BY SUM(d.so_tiet_vang) DESC	
+  	eos
+  	@res = DiemDanh.paginate_by_sql(sql,  :page => params[:page] || 1, :per_page => 50)
+  	respond_to do |format|
+  		format.html
+  	end
+  end
+
 end
