@@ -111,6 +111,7 @@ Trytest::Application.routes.draw do
   get "quanly/report2/(:tuan)" => 'quanly#report2', :as => 'report2'
   get "quanly/report3" => 'quanly#report3', :as => 'report3'
   get "quanly/report4/(:tuan)" => 'quanly#report4', :as => 'report4'
+  get "quanly/report5/(:tuan)" => 'quanly#report5', :as => 'report5'
   get "monitor" => 'monitor#index', :as => 'monitor'
   get "monitor/:lop_mon_hoc_id/:id" => 'monitor#show', :as => 'showmonitor'
   get "admin" => 'admin#index', :as => 'admin'

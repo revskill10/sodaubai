@@ -1,0 +1,19 @@
+%thead
+  %td STT    
+  %td Mã giảng viên
+  %td Tên  
+  %td Mã lớp      
+  %td Mã môn học
+  %td Tên môn học
+  %td Phòng  
+%tbody
+  - if @res.count > 0        
+    - @res.each_with_index do |res, index|
+      %tr
+        %td= (index+1).to_s
+        %td= res.ma_giang_vien
+        %td= res.ten_giang_vien        
+        %td= res.ma_lop
+        %td= res.ma_mon_hoc
+        %td= res.ten_mon_hoc
+        %td= res.phong

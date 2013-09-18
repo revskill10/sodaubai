@@ -242,4 +242,22 @@ ORDER BY SUM(d.so_tiet_vang) DESC
   	end
   end
 
+  # Giang Vien Chua Tham Gia Ghi Lich Trinh Theo Tuan 
+  def report5
+  	@tuan = params[:tuan] || @current_week
+  	sql = <<-eos
+		Select ma_giang_vien,ten_giang_vien,ma_lop,ma_mon_hoc,ten_mon_hoc,phong,lop_mon_hoc_id
+From t1.tkb_giang_viens 
+where tuan_hoc_bat_dau + So_tuan > #{@tuan} and tuan_hoc_bat_dau<=4 and lop_mon_hoc_id not in (Select l1.id
+from t1.lich_trinh_giang_days l
+inner join t1.lop_mon_hocs l1 on l.lop_mon_hoc_id=l1.id
+Where l.tuan= #{@tuan} and date_trunc('day', l.ngay_day)>'2013-09-02 00:00:00') and ma_giang_vien not in ('02050014','02050015','03020006','07050004','1971021017','1971021018','1971021019','1971021020','1971021023','1971021024','99020002')
+Order by ma_giang_vien
+  	eos
+  	@res = LichTrinhGiangDay.paginate_by_sql(sql, :page => params[:page] || 1, :per_page => 50)
+  	respond_to do |format|
+  		format.html
+  	end
+  end
+
 end
