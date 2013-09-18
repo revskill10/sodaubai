@@ -17,15 +17,15 @@
     - @res.each_with_index do |res, index|
       %tr
         %td= (index+1).to_s
-        %td= res.ma_sinh_vien
-        %td= res.ho
-        %td= res.ho_dem
-        %td= res.ten
-        %td= res.lop_hc
-        %td= res.ma_lop
-        %td= res.ma_mon_hoc
-        %td= res.ten_mon_hoc
-        %td= res.ten_giang_vien
-        %td= res.so_tiet_phan_bo
-        %td= res.tongsotietvang
-        %td= res.tile
+        %td= res["ma_sinh_vien"]
+        %td= res["ho"]
+        %td= res["ho_dem"]
+        %td= res["ten"]
+        %td= res["lop_hc"]
+        %td= res["ma_lop"]
+        %td= res["ma_mon_hoc"]
+        %td= res["ten_mon_hoc"]
+        %td= res["ten_giang_vien"]
+        %td= res["so_tiet_phan_bo"]
+        %td= res["tongsotietvang"]
+        %td= res["tile"]

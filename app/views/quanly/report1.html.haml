@@ -26,8 +26,7 @@
             %li= link_to 'Đăng xuất', destroy_user_session_path
               
 
-.container-fluid{:style=>"margin-top: 4%;"}  
-  = will_paginate @res, renderer: BootstrapPagination::Rails
+.container-fluid{:style=>"margin-top: 4%;"}    
   %table.table.table-bordered.table-condensed.table-hover.table-striped.datatable
     %thead
       %td STT    

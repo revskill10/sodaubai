@@ -175,7 +175,7 @@ namespace :hpu do
     response = @client.call(:lop_ghep_hk)    
     res_hash = response.body.to_hash    
     ls = res_hash[:lop_ghep_hk_response][:lop_ghep_hk_result][:diffgram][:document_element]
-    ls = ls[:t_lop_ghep_hk]
+    ls = ls[:lop_ghep_hk]
     LopGhep.delete_all
     ActiveRecord::Base.connection.reset_pk_sequence!('lop_gheps') 
     puts "loading... lop ghep"
@@ -655,6 +655,23 @@ namespace :hpu do
       lich.siso = lich.lop_mon_hoc.lop_mon_hoc_sinh_viens.count
       lich.tuan = lich.get_tuan
       lich.save!
+    end
+  end
+
+  task :update_loaigiangvien => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    @client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
+    response = @client.call(:danh_sach_can_bo_giang_vien)    
+    res_hash = response.body.to_hash    
+    ls = res_hash[:danh_sach_can_bo_giang_vien_response][:danh_sach_can_bo_giang_vien_result][:diffgram][:document_element]
+    ls = ls[:danh_sach_can_bo_giang_vien]
+    ls.each do |g|
+      gv = GiangVien.where(ma_giang_vien: g[:ma_giao_vien]).first
+      if gv
+        gv.ma_loai = g[:loai_giao_vien]
+        gv.save!
+      end
     end
   end
 

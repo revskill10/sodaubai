@@ -31,8 +31,7 @@
     %h5{:style => "text-align:center;"}= "Danh sách sinh viên vắng quá 20%"
     %hr
   .row-fluid
-    
-    = will_paginate @res, renderer: BootstrapPagination::Rails
+        
     %table#monitor.table.table-bordered.table-condensed.table-hover.table-striped
       = render 'report3'         
   
