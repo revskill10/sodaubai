@@ -67,7 +67,7 @@
           %td= sv.ten          
           %td.progress  
             .bar.bar-danger{:style => "width: #{dc(@lop_mon_hoc, sv)}%"}
-            .bar.bar-success{:style => "width: #{100- dc(@lop_mon_hoc, sv)}%"}= (100- dc(@lop_mon_hoc, sv)).to_s + "%"
+            .bar.bar-success{:style => "width: #{100- dc(@lop_mon_hoc, sv)}%"}= (100- dc(@lop_mon_hoc, sv).round(2)).to_s + "%"
           %td= sv.diemcc
           - if @lop_mon_hoc.get_thuc_hanh
             %td= sv.convert_grade(sv.diem_thuc_hanh)
