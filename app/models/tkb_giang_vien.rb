@@ -3,6 +3,7 @@ require 'active_support/time'
 class TkbGiangVien < ActiveRecord::Base
   
   include IceCube
+  include DestroyedAt
   attr_accessible :phong, :so_tiet, :so_tuan, :thu, :tiet_bat_dau, :tuan_hoc_bat_dau, :ma_giang_vien, :ma_mon_hoc, :ma_lop, :ten_giang_vien, :ten_mon_hoc, :ngay_bat_dau, :ngay_ket_thuc, :days
 
   

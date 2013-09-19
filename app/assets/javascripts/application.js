@@ -31,12 +31,15 @@ $(document).ready(function(){
 	$('.combobox').combobox();	
 	$('.best_in_place').best_in_place();		
 	$('.multiselect').multiselect();
-
+	$('#dung').datetimepicker({
+	      pickTime: false
+	  });
     $('#datetimepicker1').datetimepicker({
 	  	pickSeconds: false,
 	  	startDate: new Date(),
 	    endDate: new Date(2014, 8, 12)
 	  });
+
     $('[rel=tooltip]').tooltip() ;
 
 });  

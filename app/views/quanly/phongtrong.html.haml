@@ -14,7 +14,7 @@
             %li.active= link_to "Quản lý", quanly_path          
             %li= link_to "Ghép lớp", quanlylopghep_path           
             %li= link_to "Nghỉ dạy", quanlynghiday_path       
-            %li= link_to "Dạy bù", quanlydaybu_path     
+            %li= link_to "Dạy bù", quanlydaybu_path
             %li.dropdown
               %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
                 Thống kê
@@ -31,7 +31,15 @@
               
 
 .container-fluid{:style=>"margin-top: 4%;"}     
-  
+  = form_tag getphongtrong_path, :method => :post, :remote => true do  
+    #dung.input-append
+      %input{:"data-format" => "yyyy-MM-dd", :type=>"text", :name => "ngay", :value => "#{DateTime.now.strftime('%Y-%m-%d')}"}
+      %span.add-on
+        %i{:"data-time-icon"=>"icon-time",:"data-date-icon"=>"icon-calendar"}
 
+    = submit_tag "Chọn ngày", :class => "btn btn-success"
+  #pt
+
+  
 
   

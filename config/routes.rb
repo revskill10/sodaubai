@@ -106,6 +106,8 @@ Trytest::Application.routes.draw do
   post 'quanly/movelopghep' => 'quanly#movelopghep', :as => 'movelopghep'
   post 'quanly/qlnghiday' => 'quanly#qlnghiday', :as => 'qlnghiday'
   post 'quanly/qldaybu' => 'quanly#qldaybu', :as => 'qldaybu'
+  get 'quanly/phongtrong' => 'quanly#phongtrong', :as => 'phongtrong'
+  post 'quanly/getphongtrong' => 'quanly#getphongtrong', :as => 'getphongtrong'
 
   get "quanly/report1" => 'quanly#report1', :as => 'report1'
   get "quanly/report2/(:tuan)" => 'quanly#report2', :as => 'report2'

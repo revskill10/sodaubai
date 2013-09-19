@@ -1,4 +1,5 @@
 class QuanlyController < ApplicationController
+	include BuoihocHelper
 	def index
 		authorize! :manage, LopMonHocSinhVien
 		respond_to do |format|
@@ -122,17 +123,17 @@ class QuanlyController < ApplicationController
 	def qlnghiday
 		authorize! :manage, LichTrinhGiangDay
 
-    dongy = params[:nghiday].select {|k,v| v == "true" }
-    kodongy = params[:nghiday].select {|k,v| v == "false" }
-    @dongys = LichTrinhGiangDay.where(id: dongy.keys)    
-    @kodongys = LichTrinhGiangDay.where(id: kodongy.keys)
+	    dongy = params[:nghiday].select {|k,v| v == "true" }
+	    kodongy = params[:nghiday].select {|k,v| v == "false" }
+	    @dongys = LichTrinhGiangDay.where(id: dongy.keys)    
+	    @kodongys = LichTrinhGiangDay.where(id: kodongy.keys)
 
-    if @dongys.count > 0      
-      @dongys.update_all(:status => 3, :user_id => current_user.id)
-    end
-		if @kodongys.count > 0
-      @kodongys.update_all(:status => 4, :user_id => current_user.id)
-    end
+	    if @dongys.count > 0      
+	      @dongys.update_all(:status => 3, :user_id => current_user.id)
+	    end
+			if @kodongys.count > 0
+	      @kodongys.update_all(:status => 4, :user_id => current_user.id)
+	    end
 		respond_to do |format|
 			format.js
 		end
@@ -180,6 +181,19 @@ class QuanlyController < ApplicationController
     end
   end
 
+  def phongtrong
+  	
+  	respond_to do |format|
+  		format.html
+  	end
+  end
+  def getphongtrong
+  	@ngay = str_to_date(params[:ngay])  	
+  	@phongtrong = LichTrinhGiangDay.phong_trong(@ngay)
+  	respond_to do |format|
+  		format.js  		
+  	end
+  end
   # Danh sach giang vien dang ky nghi day
   def report1  	    
     sql = "SELECT l1.ma_giang_vien,l1.ten_giang_vien,l1.ma_lop,l1.ten_mon_hoc,l1.phong_hoc,l.tuan,l.ngay_day,l.so_tiet_day,Case when l.status=3 then 'Duyet' when l.status=6 then 'Chua duyet' when l.status=4 then 'Khong duyet' END  as TrangThai  FROM t1.lich_trinh_giang_days l inner join t1.lop_mon_hocs l1 on l.lop_mon_hoc_id=l1.id where l.loai=1 and l.tuan=4 Order by l.ngay_day"

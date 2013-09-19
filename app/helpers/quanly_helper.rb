@@ -11,4 +11,9 @@ module QuanlyHelper
 	def format_date(d)
 		return d.strftime("%H:%M ngày %d/%m/%Y")
 	end
+	def ca_trong(v, ca)
+		lich = v.select {|p| p[:ca] == ca}.first
+		return nil unless lich
+		return "<p style='text-align:center;'><span style='font-weight:bold;'>#{lich[:ten_giang_vien]}</span><br/>#{lich[:ten_mon_hoc]}<br/>#{lich[:ma_lop]}</p>"
+	end
 end

@@ -1,4 +1,5 @@
 class LopMonHoc < ActiveRecord::Base  
+  include DestroyedAt
   attr_accessible :hoc_ky, :ma_giang_vien, :ma_lop, :ma_mon_hoc, :nam_hoc, :ngay_bat_dau, :ngay_ket_thuc, :phong_hoc, :so_tiet, :so_tuan_hoc, :ten_giang_vien, :ten_mon_hoc, :dssv, :group, :user_id, :so_lan_kt, :thuc_hanh, :so_tiet_phan_bo
 
 
@@ -38,6 +39,7 @@ class LopMonHoc < ActiveRecord::Base
     :D => [["D101","D102","D103"],["D201","D202","D203"],["D301","D302","D304"]],
     :E => [["E301"]],
     :F => [["F101B","F102"],["F201","F205"],["F302"]]}
+  PHONGS2 = ["A101","A102","A103","A201","A202","A204","A205","A301","A302","A303","A305","A306","A401","A402","A403","A404","A405","A501","A502","B101","B102","B103","B105","B201","B202","B203","B205","B301","B302","B303","B305","B401","B402","B403","C101","C102","C103","C104","C201","C202","C203","C204","C301","C302","C303","C304","D101","D102","D103","D201","D202","D203","D301","D302","D304","E301","F101B","F102","F201","F205","F302"]
   FACETS = [:ten_mon_hoc, :ten_giang_vien, :phong_hoc]
   searchable do 
     text :ma_lop, :ma_mon_hoc, :ten_giang_vien, :ma_giang_vien, :phong_hoc, :ten_mon_hoc, :phong_hoc

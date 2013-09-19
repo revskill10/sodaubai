@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class LichTrinhGiangDay < ActiveRecord::Base
   
-
+  include DestroyedAt
   # Danh sach lich dang ky nghi day
 
 
@@ -83,6 +83,32 @@ class LichTrinhGiangDay < ActiveRecord::Base
     h = DateTime.new(dt.year, dt.month, dt.day, t[0], t[1])
     return h
   end
+  def self.current_tuan(ngay)
+    Tuan.all.detect {|t| t.tu_ngay.localtime <= ngay and t.den_ngay.localtime >= ngay }
+  end
+  def self.phong_trong(ngay)
+    @week = current_tuan(ngay)
+    @days = JSON.parse(@week.days)["ngay"]
+    @today = @days.select {|d| to_zdate(d["time"][0]).to_date == ngay }.select {|t| t["phong"] != nil}.sort_by {|a| [a["phong"], a["ca"]]}
+    res = {}
+    @today.each_with_index do |lich, index|
+      res[lich['phong']] ||= []
+      temp = {}
+      temp[:ca] = LichTrinhGiangDay.ca(to_zdatetime(lich['time'][0]))
+      
+      temp[:ma_giang_vien] = lich['ma_giang_vien']
+      temp[:ten_giang_vien] = lich['ten_giang_vien']
+      temp[:ten_mon_hoc] = lich['ten_mon_hoc']
+      temp[:ma_lop] = lich['ma_lop']
+      temp[:lop_id] = lich['lop']
+      temp[:so_tiet] = lich['so_tiet']
+      res[lich['phong']] << temp
+    end
+    return res
+  end
+  def self.to_zdate(str)
+    DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
+  end
   def to_zdate(str)
     DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
   end
@@ -153,8 +179,11 @@ class LichTrinhGiangDay < ActiveRecord::Base
       ""
     end
   end
-
+  def self.to_zdatetime(str)
+    DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
+  end
   protected
+
   def update_siso_and_tuan
     self.siso = lop_mon_hoc.lop_mon_hoc_sinh_viens.count
     self.tuan = self.get_tuan

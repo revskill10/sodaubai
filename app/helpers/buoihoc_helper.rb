@@ -37,6 +37,9 @@ module BuoihocHelper
 	def str_to_ngay(str)
 		DateTime.strptime(str, "%Y-%m-%d-%H-%M").change(:offset => Rational(7,24))
 	end
+	def str_to_date(str)
+		Date.strptime(str, "%Y-%m-%d").change(:offset => Rational(7,24))
+	end
 	def get_tuan(dt)
 		Tuan.all.detect {|t| t.tu_ngay.localtime <= dt.change(:offset => Rational(7,24)) and t.den_ngay.localtime >= dt.change(:offset => Rational(7,24)) }
 	end
