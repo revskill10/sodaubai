@@ -14,13 +14,14 @@ class LichTrinhGiangDay < ActiveRecord::Base
   scope :daybuchoduyet, -> {daybu.where(status: 6)}
   scope :daybukoduyet, -> {daybu.where(status: 4)}
   scope :daybudaduyet, -> {daybu.where(status: 3)}
+  scope :daybuquakhu, -> {daybu.where("status != 6")}
   scope :choduyet, -> {where(status: 6)}
 
   scope :between, lambda {|time1, time2| {:conditions => ["ngay_day = timestamp ? or ngay_day = timestamp ? ", time1.utc, time2.utc]}}  
   #delegate :ma_lop, :to => :lop_mon_hoc
   #delegate :ma_mon_hoc, :to => :lop_mon_hoc
   
-  attr_accessible :ngay_day, :nhan_xet_buoi_hoc, :noi_dung_day, :so_tiet_day, :so_vang, :ngay_day_moi, :ma_giang_vien_moi, :ma_mon_hoc_moi, :ten_mon_hoc_moi, :loai, :status, :tuan_moi, :so_tiet_day_moi, :lop_mon_hoc_moi_id
+  attr_accessible :ngay_day, :nhan_xet_buoi_hoc, :noi_dung_day, :so_tiet_day, :so_vang, :ngay_day_moi, :ma_giang_vien_moi, :ma_mon_hoc_moi, :ten_mon_hoc_moi, :loai, :status, :tuan_moi, :so_tiet_day_moi, :lop_mon_hoc_moi_id, :user_id
 
   belongs_to :lop_bo_sung, :class_name => "LopMonHoc", :foreign_key => :lop_mon_hoc_moi_id
   belongs_to :lop_mon_hoc
@@ -30,6 +31,7 @@ class LichTrinhGiangDay < ActiveRecord::Base
       where("so_tiet_vang > 0")      
     end    
   end
+  belongs_to :nguoi_duyet, :class_name => "User", :foreign_key => :user_id, :primary_key => :id
   after_create :update_siso_and_tuan
 
   TIET = {1 => [6,30], 2 => [7,20], 3 => [8,10],

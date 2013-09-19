@@ -19,8 +19,18 @@
               
 
 .container-fluid{:style=>"margin-top: 4%;"}  
+  
+  
   - if @lichs.count > 0
     = form_tag qldaybu_path, :method => :post, :remote => true do                                 
       = submit_tag "Cập nhật", :class => "btn btn-primary"
       %br
       = render "daybu"
+  - else
+    %h5 Hiện giờ chưa có giảng viên đăng ký dạy bù
+    %hr
+  %br
+  - if @lichs2.count > 0
+    %h5 Các lịch dạy bù trước đây
+    = render "daybu2"
+            

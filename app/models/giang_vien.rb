@@ -21,7 +21,7 @@ class GiangVien < ActiveRecord::Base
   validates :ho_ten, :ma_giang_vien, :presence => true
   validates :ma_giang_vien, :uniqueness => { :case_sensitive => false }
   def to_s
-    "#{ho_ten} #{ma_giang_vien}"
+    "#{ho_ten}"
   end
   def get_days
     ngays = []

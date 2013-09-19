@@ -128,10 +128,10 @@ class QuanlyController < ApplicationController
     @kodongys = LichTrinhGiangDay.where(id: kodongy.keys)
 
     if @dongys.count > 0      
-      @dongys.update_all("status = 3")
+      @dongys.update_all(:status => 3, :user_id => current_user.id)
     end
 		if @kodongys.count > 0
-      @kodongys.update_all("status = 4")
+      @kodongys.update_all(:status => 4, :user_id => current_user.id)
     end
 		respond_to do |format|
 			format.js
@@ -139,10 +139,10 @@ class QuanlyController < ApplicationController
 	end
   # quan ly day bu
   def daybu
-    authorize! :manage, LichTrinhGiangDay
+    #authorize! :manage, LichTrinhGiangDay
 
     @lichs = LichTrinhGiangDay.daybuchoduyet
-
+    @lichs2 = LichTrinhGiangDay.daybuquakhu
     respond_to do |format|
       format.html
     end
@@ -150,7 +150,7 @@ class QuanlyController < ApplicationController
   def qldaybu
     authorize! :manage, LichTrinhGiangDay
     daybus = params[:daybu]
-
+    
     if daybus and daybus.keys.count > 0
       @lichs = LichTrinhGiangDay.where(id: daybus.keys)
       daybus.each do |k,v|
@@ -161,11 +161,13 @@ class QuanlyController < ApplicationController
           if lich 
             lich.status = 3
             lich.phong_moi = phong
+            lich.nguoi_duyet = current_user
             lich.save!
           end
         else
           if lich 
             lich.status = 4
+            lich.nguoi_duyet = current_user
             lich.save!
           end
         end

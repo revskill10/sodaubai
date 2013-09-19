@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :groups,  :join_table => "users_groups"
   has_many :lop_mon_hocs
   has_many :lich_trinh_giang_days, :through => :lop_mon_hocs
+  has_many :lich_nghi_days, :class_name => "LichTrinhGiangDay"
   def cas_extra_attributes=(extra_attributes)
     if extra_attributes["status"] != 0    	    
       if extra_attributes["hovaten"]
@@ -38,7 +39,7 @@ class User < ActiveRecord::Base
     end
   end
   def to_s
-    username
+    "#{ho_dem} #{ten}"
   end
   def is_admin?
     username == 'dungth@hpu.edu.vn' or username == 'trungth@hpu.edu.vn'
