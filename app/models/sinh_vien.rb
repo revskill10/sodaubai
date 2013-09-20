@@ -43,7 +43,13 @@ class SinhVien < ActiveRecord::Base
   	end        
   end
   
+  def so_mon
+    lop_mon_hocs.count
+  end
 
+  def so_tiet_nghi
+    diem_danhs.sum(:so_tiet_vang)
+  end
 
   def thong_tin_diem_danh(ma_lop, ngay_vang)
     res  = DiemDanh.by_lop_sinhvien_ngay(ma_lop, self.ma_sinh_vien, ngay_vang)

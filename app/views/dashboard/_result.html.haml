@@ -8,14 +8,18 @@
   %td STT
   %td Mã sinh viên
   %td Họ đệm
-  %td Tên
+  %td Tên  
   %td Lớp hành chính
+  %td Số môn
+  %td Số tiết nghỉ
 %tbody
   - if @results and @results.count > 0
     - @results.each_with_index do |sv, index|
       %tr
         %td= (index+1).to_s
-        %td= sv.ma_sinh_vien
+        %td= link_to sv.ma_sinh_vien, sinh_vien_path(sv.ma_sinh_vien)
         %td= sv.ho + " " + sv.ho_dem
         %td= sv.ten     
-        %td= sv.lop_hc   
+        %td= sv.lop_hc  
+        %td= sv.so_mon
+        %td= sv.so_tiet_nghi 
