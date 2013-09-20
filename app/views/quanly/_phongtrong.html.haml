@@ -11,14 +11,14 @@
     %td Ca 2
     %td Ca 3
     %td Ca 4    
-  %tbody    
+  %tbody        
     - @phongtrong.each do |k,v|
       %tr        
         %td= k.to_s        
-        %td{:style => ( ca_trong(v,1) ?  "background-color: #d0e9c6;":  "background-color: #ebcccc;" ) }= raw(ca_trong(v, 1))
-        %td{:style => ( ca_trong(v,2) ?  "background-color: #d0e9c6;":  "background-color: #ebcccc;" ) }= raw(ca_trong(v, 2))
-        %td{:style => ( ca_trong(v,3) ?  "background-color: #d0e9c6;":  "background-color: #ebcccc;" ) }= raw(ca_trong(v, 3))
-        %td{:style => ( ca_trong(v,4) ?  "background-color: #d0e9c6;":  "background-color: #ebcccc;" ) }= raw(ca_trong(v, 4))
+        %td{:style => ( ca_trong(v,1)[:res] ?  "background-color: #d0e9c6;":  "background-color: #ebcccc;" ) }= raw(ca_trong(v, 1)[:val])
+        %td{:style => ( ca_trong(v,2)[:res] ?  "background-color: #d0e9c6;":  "background-color: #ebcccc;" ) }= raw(ca_trong(v, 2)[:val])
+        %td{:style => ( ca_trong(v,3)[:res] ?  "background-color: #d0e9c6;":  "background-color: #ebcccc;" ) }= raw(ca_trong(v, 3)[:val])
+        %td{:style => ( ca_trong(v,4)[:res] ?  "background-color: #d0e9c6;":  "background-color: #ebcccc;" ) }= raw(ca_trong(v, 4)[:val])
 
 :javascript
   $('#monitor').dataTable({"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>","sPaginationType": "bootstrap","bStateSave":true,"bAutoWidth":true,"sScrollY": "400px","iDisplayLength": 100});

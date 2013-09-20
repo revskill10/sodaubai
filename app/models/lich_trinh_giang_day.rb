@@ -91,6 +91,10 @@ class LichTrinhGiangDay < ActiveRecord::Base
     @days = JSON.parse(@week.days)["ngay"]
     @today = @days.select {|d| to_zdate(d["time"][0]).to_date == ngay }.select {|t| t["phong"] != nil}.sort_by {|a| [a["phong"], a["ca"]]}
     res = {}
+    phongs = LopMonHoc::PHONGS2
+    phongs.each do |phong|
+      res[phong] = []
+    end
     @today.each_with_index do |lich, index|
       res[lich['phong']] ||= []
       temp = {}
