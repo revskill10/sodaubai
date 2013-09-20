@@ -21,7 +21,7 @@ class LichTrinhGiangDay < ActiveRecord::Base
   #delegate :ma_lop, :to => :lop_mon_hoc
   #delegate :ma_mon_hoc, :to => :lop_mon_hoc
   
-  attr_accessible :ngay_day, :nhan_xet_buoi_hoc, :noi_dung_day, :so_tiet_day, :so_vang, :ngay_day_moi, :ma_giang_vien_moi, :ma_mon_hoc_moi, :ten_mon_hoc_moi, :loai, :status, :tuan_moi, :so_tiet_day_moi, :lop_mon_hoc_moi_id, :user_id
+  attr_accessible :ngay_day, :nhan_xet_buoi_hoc, :noi_dung_day, :so_tiet_day, :so_vang, :ngay_day_moi, :ma_giang_vien_moi, :ma_mon_hoc_moi, :ten_mon_hoc_moi, :loai, :status, :tuan_moi, :so_tiet_day_moi, :lop_mon_hoc_moi_id, :user_id, :phong_moi, :tuan, :siso
 
   belongs_to :lop_bo_sung, :class_name => "LopMonHoc", :foreign_key => :lop_mon_hoc_moi_id
   belongs_to :lop_mon_hoc
@@ -109,6 +109,12 @@ class LichTrinhGiangDay < ActiveRecord::Base
       res[lich['phong']] << temp
     end
     return res
+  end
+  def self.lich_day_phan_bo(ngay)
+    @week = current_tuan(ngay)
+    @days = JSON.parse(@week.days)["ngay"]
+    @today = @days.select {|d| to_zdate(d["time"][0]).to_date == ngay }.select {|t| t["phong"] != nil}.sort_by {|a| [a["phong"], a["ca"]]}    
+    return @today
   end
   def self.to_zdate(str)
     DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))

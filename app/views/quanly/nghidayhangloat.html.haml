@@ -11,15 +11,15 @@
         %a.brand{:href => "/" } HPU
         .container.nav-collapse
           %ul.nav.pull-left#urls            
-            %li.active= link_to "Quản lý", quanly_path    
+            %li= link_to "Quản lý", quanly_path    
             %li= link_to "Ghép lớp", quanlylopghep_path           
-            %li.dropdown
+            %li.active.dropdown
               %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
                 Đào tạo
                 %b.caret
               %ul.dropdown-menu                        
-                %li= link_to "Nghỉ dạy", quanlynghiday_path 
-                %li= link_to "Đăng ký nghỉ dạy cho giảng viên", nghidayhangloat_path       
+                %li= link_to "Nghỉ dạy", quanlynghiday_path       
+                %li.active= link_to "Đăng ký nghỉ dạy cho giảng viên", nghidayhangloat_path 
                 %li= link_to "Dạy bù", quanlydaybu_path   
                 %li= link_to "Tra cứu phòng trống", phongtrong_path  
             %li.dropdown
@@ -32,13 +32,20 @@
                 %li= link_to "Danh sách sinh viên vắng quá 20% số tiết", report3_path
                 %li= link_to "Danh sách sinh viên lớp môn nghỉ nhiều trong tuần", report4_path                
                 %li= link_to "Danh sách giảng viên chưa tham gia ghi lịch trình theo tuần", report5_path
-            
           %ul.nav.pull-right            
             %li= link_to 'Đăng xuất', destroy_user_session_path
               
 
 .container-fluid{:style=>"margin-top: 4%;"}     
-  
+  = form_tag nghidayhangloat_path, :method => :post, :remote => true do  
+    #dung.input-append
+      %input{:"data-format" => "yyyy-MM-dd", :type=>"text", :name => "ngay", :value => "#{DateTime.now.strftime('%Y-%m-%d')}"}
+      %span.add-on
+        %i{:"data-time-icon"=>"icon-time",:"data-date-icon"=>"icon-calendar"}
 
+    = submit_tag "Chọn ngày", :class => "btn btn-success"
+  #pt
+
+  
 
   

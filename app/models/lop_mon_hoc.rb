@@ -91,6 +91,9 @@ class LopMonHoc < ActiveRecord::Base
     end
     return result
   end
+  def siso 
+    lop_mon_hoc_sinh_viens.count
+  end
   def get_thuc_hanh
     # false la khong co thuc hanh
     return false if thuc_hanh == false

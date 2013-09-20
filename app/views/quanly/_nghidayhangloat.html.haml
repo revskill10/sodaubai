@@ -1,0 +1,26 @@
+= form_tag post_nghidayhangloat_path, :method => :post, :remote => true do  
+  = submit_tag "Cập nhật", :class => "btn btn-important"
+  %table#monitor{:class => "table table-bordered table-condensed"}    
+    %thead
+      %td STT
+      %td Mã lớp
+      %td Tên môn
+      %td Ca
+      %td Giờ dạy      
+      %td Số tiết dạy
+      %td Phòng     
+      %td Giảng viên
+      %td Duyệt nghỉ dạy
+    %tbody
+      - if @today and @today.count > 0
+        - @today.each_with_index do |lich, index|                    
+          %tr           
+            %td= so(index+1)            
+            %td= lich['ma_lop']
+            %td= lich['ten_mon_hoc']
+            %td= "Ca " + (LichTrinhGiangDay.ca(to_zdatetime(lich['time'][0])).to_s || "")
+            %td= to_zdatetime(lich['time'][0]).strftime("%Hh:%M")
+            %td= lich['so_tiet']
+            %td= (lich['phong'] || "") 
+            %td= lich['ten_giang_vien']
+            %td= check_box_tag "lich[#{lich['lop']}][#{lich['time'][0]},#{lich['so_tiet']},#{lich['phong']},#{lich['tuan']}",nil, false

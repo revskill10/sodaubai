@@ -1,5 +1,6 @@
 class QuanlyController < ApplicationController
 	include BuoihocHelper
+
 	def index
 		authorize! :manage, LopMonHocSinhVien
 		respond_to do |format|
@@ -194,6 +195,52 @@ class QuanlyController < ApplicationController
   		format.js  		
   	end
   end
+
+  # nghi day hang loat
+  def nghidayhangloat
+  	if params[:ngay]
+  	  @ngay = str_to_date(params[:ngay])  	
+  	  @today = LichTrinhGiangDay.lich_day_phan_bo(@ngay)
+  	  respond_to do |format|
+  		  format.js
+  	  end
+  	else
+      respond_to do |format|
+        format.html
+      end
+  	end  	
+  end
+  def post_nghidayhangloat
+  	@lichs = params[:lich]
+    if @lichs
+      @lichs.each do |k,v|
+        lop = LopMonHoc.find(k)
+        if lop
+          d = v.keys[0].split(",").to_a               
+          ngay_day = DateTime.strptime(d[0].gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
+          nd=Time.zone.parse(ngay_day.to_s)
+          sotiet = d[1].to_i
+          phong = d[2]
+          tuan = d[3].to_i
+          @lich = lop.lich_trinh_giang_days.where(ngay_day: nd).first
+          if @lich 
+            @lich.loai = 1
+            @lich.status = 3
+            #lich.tuan = tuan
+            @lich.nguoi_duyet = current_user
+            @lich.save!
+          else
+            @lich = lop.lich_trinh_giang_days.create!(ngay_day: nd, phong_moi: phong, so_tiet_day: sotiet, tuan: tuan, siso: lop.siso)
+          end
+        end
+
+      end
+    end
+  	respond_to do |format|
+  		format.js
+  	end
+  end
+
   # Danh sach giang vien dang ky nghi day
   def report1  	    
     sql = "SELECT l1.ma_giang_vien,l1.ten_giang_vien,l1.ma_lop,l1.ten_mon_hoc,l1.phong_hoc,l.tuan,l.ngay_day,l.so_tiet_day,Case when l.status=3 then 'Duyet' when l.status=6 then 'Chua duyet' when l.status=4 then 'Khong duyet' END  as TrangThai  FROM t1.lich_trinh_giang_days l inner join t1.lop_mon_hocs l1 on l.lop_mon_hoc_id=l1.id where l.loai=1 and l.tuan=4 Order by l.ngay_day"
@@ -282,5 +329,13 @@ Order by ma_giang_vien
   		format.html
   	end
   end
-
+  protected
+  def to_zdate(str)
+    DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
+  end
+  def from_zdate(str)
+    str1 = str.split("-").to_a
+     str2 = str1[0]+"-"+str1[1]+"-"+str1[2]+"T"+str1[3]+":"+str1[4]+":00Z"
+     return str2
+  end
 end
