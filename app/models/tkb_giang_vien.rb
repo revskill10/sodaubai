@@ -3,7 +3,7 @@ require 'active_support/time'
 class TkbGiangVien < ActiveRecord::Base
   
   include IceCube
-  include DestroyedAt
+  
   attr_accessible :phong, :so_tiet, :so_tuan, :thu, :tiet_bat_dau, :tuan_hoc_bat_dau, :ma_giang_vien, :ma_mon_hoc, :ma_lop, :ten_giang_vien, :ten_mon_hoc, :ngay_bat_dau, :ngay_ket_thuc, :days
 
   
@@ -59,7 +59,7 @@ class TkbGiangVien < ActiveRecord::Base
     return res.count
   end
   def get_ngay_bat_dau
-    t1 = Tuan.find(1)
+    t1 = Tuan.find(tuan_hoc_bat_dau)
     day = t1.tu_ngay + (thu - 1).days    
     return DateTime.new(day.year, day.month, day.day).change(:offset => Rational(7,24))
   end

@@ -26,7 +26,7 @@ class LichTrinhGiangDay < ActiveRecord::Base
   belongs_to :lop_bo_sung, :class_name => "LopMonHoc", :foreign_key => :lop_mon_hoc_moi_id
   belongs_to :lop_mon_hoc
   belongs_to :giang_vien_moi, :class_name => "GiangVien", :foreign_key => :ma_giang_vien_moi, :primary_key => :ma_giang_vien
-  has_many :diem_danhs do 
+  has_many :diem_danhs, :dependent => :destroy do 
     def vang
       where("so_tiet_vang > 0")      
     end    

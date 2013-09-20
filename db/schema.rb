@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130919085250) do
+ActiveRecord::Schema.define(:version => 20130919090047) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20130919085250) do
     t.string   "ma_giang_vien"
     t.integer  "lop_mon_hoc_id"
     t.integer  "lich_trinh_giang_day_id"
+    t.datetime "destroyed_at"
   end
 
   add_index "diem_danhs", ["lich_trinh_giang_day_id"], :name => "index_diem_danhs_on_lich_trinh_giang_day_id"
