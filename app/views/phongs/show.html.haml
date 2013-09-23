@@ -1,0 +1,56 @@
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/" } HPU
+        .container.nav-collapse
+          %ul.nav.pull-left#urls                        
+            
+          %ul.nav.pull-right            
+            %li= link_to 'Đăng xuất', destroy_user_session_path
+              
+
+.container-fluid{:style=>"margin-top: 4%;"}  
+  .row-fluid    
+    = form_tag search_path, :method => :get, :class => "form-search" do    
+      = select_tag "type", "<option value='1' selected=#{'selected' if params[:type]=='1'}>Sinh viên</option><option value='2' selected=#{'selected' if params[:type]=='2'}>Lớp môn học</option>".html_safe, :class => "multiselect", :placeholder => "Tìm theo sinh viên, giảng viên, lớp học,..."   
+      %input.input-large.search-query{:type => "text", :name => "search"}
+      %button.btn{:type => "submit"} Tra cứu
+  %h4{:style => "text-align:center;"}= "Sổ đầu bài theo phòng học #{@id}"
+  %hr
+  %table#monitor{:class => "table table-bordered"}
+    %colgroup
+      %col{:style => "width: 3%"}
+      %col{:style => "width: 18%"}
+      %col{:style => "width: 14%"}
+      %col{:style => "width: 7%"}                    
+      %col{:style => "width: 18%"}                    
+      %col{:style => "width: 20%"}    
+      %col{:style => "width: 20%"}         
+    %thead
+      %td STT
+      %td Thời gian
+      %td Giảng viên
+      %td Mã lớp
+      %td Môn học    
+      %td Nội dung
+      %td Sinh viên vắng
+    %tbody
+      - if @lichs and @lichs.count > 0
+        - @lichs.each_with_index do |lich, index|        
+          %tr
+            %td= (index+1).to_s
+            %td= format_date2(lich.ngay_day)
+            %td= link_to lich.lop_mon_hoc.ten_giang_vien, giang_vien_path(lich.lop_mon_hoc.ma_giang_vien)
+            %td= link_to lich.lop_mon_hoc.ma_lop, report_lop_mon_hoc_path(lich.lop_mon_hoc.id)
+            %td= lich.lop_mon_hoc.ten_mon_hoc 
+            %td= (raw(lich.noi_dung_day.gsub(/\n/,'<br/>')) if lich.noi_dung_day ) || ""
+            %td
+              - if lich.diem_danhs.count > 0 
+                %ol         
+                  - lich.diem_danhs.vang.each do |dd|
+                    %li= link_to(dd.sinh_vien.to_s, sinh_vien_path(dd.sinh_vien.ma_sinh_vien)) + ", "

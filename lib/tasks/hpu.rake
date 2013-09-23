@@ -644,8 +644,14 @@ namespace :hpu do
     #puts LopMonHocSinhVien.nam_hoc
     #LopMonHocSinhVien.hoc_ky = hoc_ky
     #LopMonHocSinhVien.reindex
-    LopMonHoc.reindex
+  #  LopMonHoc.reindex
     SinhVien.reindex
+    Sunspot.commit
+  end
+  task :reindex_lopmonhoc => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    LopMonHoc.reindex
     Sunspot.commit
   end
   task :update_so_tiet_phan_bo => :environment do 

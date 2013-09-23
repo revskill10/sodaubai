@@ -43,7 +43,7 @@ Trytest::Application.routes.draw do
   end
   resources :mon_hocs
   resources :sinh_viens
-    
+  resources :phongs
   resources :lop_mon_hocs do       
     resources :tkb_giang_viens      
     member do 
