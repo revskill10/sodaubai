@@ -60,15 +60,15 @@
                 %span= check_box_tag "buoihoc[nghiday]", nil, (@lich.loai == 1 or @lich.loai == 2), :disabled => (@lich.loai == 2 or (@lich.loai == 1 and (@lich.status == 3 or @lich.status == 4) ) )              
                 - if @lich.status != 3 and @lich.status != 4
                   = submit_tag "Nghỉ dạy buổi này", :class =>"btn btn-primary",  :data => {disable_with: "Submitting..."} 
-              %br
-              %h5 Lí do nghỉ dạy:
-              = text_area_tag "buoihoc[note]", (@lich.note || ""), rows: 10, cols: 25
-              - if @lich.loai == 1 and @lich.status == 4
                 %br
-                %span.label.label-important Đề xuất nghỉ dạy không được chấp nhận
-              - if @lich.loai == 1 and @lich.status == 3
-                %br
-                %span.label.label-success Yêu cầu nghỉ dạy đã được chấp nhận. Bạn có thể đề xuất giờ dạy bù ở phần kế bên.
+                %h5 Lí do nghỉ dạy:
+                = text_area_tag "buoihoc[note]", (@lich.note || ""), rows: 10, cols: 25
+                - if @lich.loai == 1 and @lich.status == 4
+                  %br
+                  %span.label.label-important Đề xuất nghỉ dạy không được chấp nhận
+                - if @lich.loai == 1 and @lich.status == 3
+                  %br
+                  %span.label.label-success Yêu cầu nghỉ dạy đã được chấp nhận. Bạn có thể đề xuất giờ dạy bù ở phần kế bên.
             
           .span5.offset1
             = form_tag daybu_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do  
