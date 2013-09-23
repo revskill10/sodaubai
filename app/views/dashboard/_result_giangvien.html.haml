@@ -17,11 +17,12 @@
 %tbody
   - if @results and @results.count > 0
     - @results.each_with_index do |lop, index|
-      %tr
-        %td= (index+1).to_s
-        %td= link_to lop.ten_giang_vien, giang_vien_path(lop.ma_giang_vien)
-        %td= link_to lop.ma_lop, report_lop_mon_hoc_path(lop.id)
-        %td= lop.ten_mon_hoc 
-        %td= lop.phong_hoc
-        %td= lop.giang_vien.khoi_luong(lop.id).to_s
-        %td= link_to "Xuất ra Excel", search_lop_mon_hoc_path(lop.id) + ".xlsx"
+      - if lop.giang_vien
+        %tr
+          %td= (index+1).to_s
+          %td= link_to lop.ten_giang_vien, giang_vien_path(lop.ma_giang_vien)
+          %td= link_to lop.ma_lop, report_lop_mon_hoc_path(lop.id)
+          %td= lop.ten_mon_hoc 
+          %td= lop.phong_hoc
+          %td= lop.giang_vien.khoi_luong(lop.id).to_s
+          %td= link_to "Xuất ra Excel", search_lop_mon_hoc_path(lop.id) + ".xlsx"
