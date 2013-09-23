@@ -28,8 +28,8 @@ class LopMonHocsController < ApplicationController
   def report
 
     raise ActiveRecord::RecordNotFound unless @lop_mon_hoc
-    @lichs = @lop_mon_hoc.lich_trinh_giang_days.order('ngay_day, tuan')
-
+    #@lichs = @lop_mon_hoc.lich_trinh_giang_days.order('ngay_day, tuan')
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     respond_to do |format|
       format.html
     end
