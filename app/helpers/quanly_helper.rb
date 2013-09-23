@@ -16,4 +16,11 @@ module QuanlyHelper
 		return {:res => nil, :val => "<p><br/><br/><br/></p>"} unless lich
 		return {:res => 1, :val => "<p style='text-align:center;'><span style='font-weight:bold;'>#{lich[:ten_giang_vien]}</span><br/>#{lich[:ten_mon_hoc]}<br/>#{lich[:ma_lop]}</p>"}
 	end
+	def check_nghiday(lich)		
+    ngay_day = DateTime.strptime(lich['time'][0].gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
+    nd=Time.zone.parse(ngay_day.to_s)    
+    li = LichTrinhGiangDay.where(ngay_day: nd).first
+    return false unless li
+    return li.daduyet?
+	end
 end

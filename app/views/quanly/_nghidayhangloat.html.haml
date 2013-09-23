@@ -23,4 +23,4 @@
             %td= lich['so_tiet']
             %td= (lich['phong'] || "") 
             %td= lich['ten_giang_vien']
-            %td= check_box_tag "lich[#{lich['lop']}][#{lich['time'][0]},#{lich['so_tiet']},#{lich['phong']},#{lich['tuan']}",nil, false
+            %td= check_box_tag "lich[#{lich['lop']}][#{lich['time'][0]},#{lich['so_tiet']},#{lich['phong']},#{lich['tuan']}",nil, check_nghiday(lich)

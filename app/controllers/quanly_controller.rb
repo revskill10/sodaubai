@@ -121,6 +121,16 @@ class QuanlyController < ApplicationController
 			format.html
 		end
 	end
+  def huynghiday
+    @lichs3 = params[:lich]
+    if @lichs3 and @lichs3.count > 0
+      LichTrinhGiangDay.update_all({:status => nil, :loai => nil},{:id => @lichs3.keys})
+    end    
+    @lichs2 = LichTrinhGiangDay.nghidayquakhu
+    respond_to do |format|
+      format.js
+    end
+  end
 	def qlnghiday
 		authorize! :manage, LichTrinhGiangDay
 
@@ -240,6 +250,8 @@ class QuanlyController < ApplicationController
   		format.js
   	end
   end
+
+  
 
   # Danh sach giang vien dang ky nghi day
   def report1  	    

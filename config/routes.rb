@@ -110,7 +110,7 @@ Trytest::Application.routes.draw do
   post 'quanly/getphongtrong' => 'quanly#getphongtrong', :as => 'getphongtrong'
   match 'quanly/nghidayhangloat' => 'quanly#nghidayhangloat', :as => 'nghidayhangloat'
   post 'quanly/post_nghidayhangloat' => 'quanly#post_nghidayhangloat', :as => 'post_nghidayhangloat'
-
+  post 'quanly/huynghiday' => 'quanly#huynghiday', :as => 'huynghiday'
   get "quanly/report1" => 'quanly#report1', :as => 'report1'
   get "quanly/report2/(:tuan)" => 'quanly#report2', :as => 'report2'
   get "quanly/report3" => 'quanly#report3', :as => 'report3'

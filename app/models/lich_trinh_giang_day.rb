@@ -47,7 +47,9 @@ class LichTrinhGiangDay < ActiveRecord::Base
   def get_svvang
     diem_danhs.vang
   end
-
+  def daduyet?
+    loai == 1 and status == 3
+  end
   def self.ca(dt)
     x = [dt.hour, dt.minute]
     ts = CA.reject {|k,v| compare(v,x) == 1}

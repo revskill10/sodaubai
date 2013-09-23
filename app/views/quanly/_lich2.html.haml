@@ -1,21 +1,25 @@
-%table.table.table-bordered.table-condensed.table-hover.table-striped.datatable  
-  %thead    
-    %td STT
-    %td Thời gian
-    %td Lớp
-    %td Môn
-    %td Giảng viên
-    %td Lí do    
-    %td Tình trạng
-    %td Người duyệt
-  %tbody    
-    - @lichs2.each_with_index do |lich, index|
-      %tr
-        %td= (index+1).to_s
-        %td= format_date(lich.ngay_day.localtime)
-        %td= lich.lop_mon_hoc.ma_lop
-        %td= lich.lop_mon_hoc.ten_mon_hoc
-        %td= lich.lop_mon_hoc.giang_vien
-        %td= lich.note      
-        %td= get_status2(lich.status)  
-        %td= lich.nguoi_duyet
+= form_tag huynghiday_path, :method => :post, :remote => true do                              
+  = submit_tag "Cập nhật", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}
+  %table.table.table-bordered.table-condensed.table-hover.table-striped.datatable  
+    %thead    
+      %td STT
+      %td Thời gian
+      %td Lớp
+      %td Môn
+      %td Giảng viên
+      %td Lí do    
+      %td Tình trạng
+      %td Người duyệt
+      %td Hủy
+    %tbody    
+      - @lichs2.each_with_index do |lich, index|
+        %tr
+          %td= (index+1).to_s
+          %td= format_date(lich.ngay_day.localtime)
+          %td= lich.lop_mon_hoc.ma_lop
+          %td= lich.lop_mon_hoc.ten_mon_hoc
+          %td= lich.lop_mon_hoc.giang_vien
+          %td= lich.note      
+          %td= get_status2(lich.status)  
+          %td= lich.nguoi_duyet
+          %td= check_box_tag "lich[#{lich.id}]",nil, false
