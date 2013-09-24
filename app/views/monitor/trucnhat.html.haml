@@ -1,0 +1,54 @@
+
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/" } HPU
+        .container.nav-collapse          
+          %ul.nav.pull-right   
+            - if user_signed_in?               
+              %li= link_to "Đăng xuất", destroy_user_session_path
+            - else
+              %li= link_to "Đăng nhập", new_user_session_path
+.container-fluid{:style=>"margin-top: 4%;"}   
+  .row-fluid
+    %ul.nav.pull-right
+      - if user_signed_in?  
+        %li
+          %i
+            %strong
+              %span= current_user.fullname
+      %li
+        %i
+          %span= "Bây giờ là " + DateTime.now.strftime("%Hh:%M") + " ngày " + DateTime.now.strftime("%d/%m")
+      %li
+        %i
+          %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.localtime.mday}/#{@week.tu_ngay.localtime.mon}, đến ngày #{@week.den_ngay.localtime.mday}/#{@week.den_ngay.localtime.mon}"  
+  .row-fluid  
+    #tn  
+  .row-fluid
+    %table#monitor{:class => "table table-bordered table-condensed"}    
+      %thead
+        %td STT
+        %td Mã lớp
+        %td Tên môn        
+        %td Giờ dạy      
+        %td Số tiết dạy
+        %td Phòng     
+        %td Giảng viên
+      %tbody
+        - if @today and @today.count > 0
+          - @today.each_with_index do |lich, index|                    
+            %tr{:class => ( @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ? "success" : "error" ) }            
+              %td= so(index+1)            
+              %td= link_to lich['ma_lop'] + ( @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ? " * " : " " ), showtrucnhat_path(lich['lop'], to_zdatetime(lich['time'][0]).strftime("%Y-%m-%d-%H-%M")), :remote => true            
+              %td= lich['ten_mon_hoc']              
+              %td= to_zdatetime(lich['time'][0]).strftime("%Hh:%M")
+              %td= lich['so_tiet']
+              %td= (lich['phong'] || "") 
+              %td= lich['ten_giang_vien']
+  

@@ -1,0 +1,13 @@
+= form_tag qltrucnhat_path, :method => :post, :remote => true do                            
+  %table{:class => "table table-bordered"}        
+    %thead          
+      %td Sinh viên          
+      %td Hoàn thành      
+    %tbody
+      - if @svs      
+        - @svs.each_with_index do |sv, index|
+          %tr                
+            %td= sv.ho + " " + sv.fullname                
+            %td= check_box_tag "msv[#{sv.ma_sinh_vien}]",nil, false, :disabled => (!@lich)
+  %br
+  = submit_tag "Cập nhật trực nhật", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}
