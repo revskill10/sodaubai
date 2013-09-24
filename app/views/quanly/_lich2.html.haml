@@ -1,5 +1,6 @@
 = form_tag huynghiday_path, :method => :post, :remote => true do                              
-  = submit_tag "Cập nhật", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}
+  - if can? :manage, :all
+    = submit_tag "Cập nhật", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}
   %table.table.table-bordered.table-condensed.table-hover.table-striped.datatable  
     %thead    
       %td STT
