@@ -124,7 +124,7 @@ class QuanlyController < ApplicationController
   def huynghiday
     @lichs3 = params[:lich]
     if @lichs3 and @lichs3.count > 0
-      LichTrinhGiangDay.update_all({:status => nil, :loai => nil},{:id => @lichs3.keys})
+      LichTrinhGiangDay.update_all({:status => nil, :loai => nil, :note => nil},{:id => @lichs3.keys})
     end    
     @lichs2 = LichTrinhGiangDay.nghidayquakhu
     respond_to do |format|
@@ -235,12 +235,17 @@ class QuanlyController < ApplicationController
           @lich = lop.lich_trinh_giang_days.where(ngay_day: nd).first
           if @lich 
             @lich.loai = 1
-            @lich.status = 3
-            #lich.tuan = tuan
+            @lich.status = 3                        
             @lich.nguoi_duyet = current_user
             @lich.save!
           else
             @lich = lop.lich_trinh_giang_days.create!(ngay_day: nd, phong_moi: phong, so_tiet_day: sotiet, tuan: tuan, siso: lop.siso)
+            if @lich
+              @lich.loai = 1
+              @lich.status = 3                          
+              @lich.nguoi_duyet = current_user
+              @lich.save!
+            end
           end
         end
 

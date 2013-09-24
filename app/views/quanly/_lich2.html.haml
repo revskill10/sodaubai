@@ -10,7 +10,8 @@
       %td Lí do    
       %td Tình trạng
       %td Người duyệt
-      %td Hủy
+      - if can? :manage, :all
+        %td Hủy
     %tbody    
       - @lichs2.each_with_index do |lich, index|
         %tr
@@ -22,4 +23,5 @@
           %td= lich.note      
           %td= get_status2(lich.status)  
           %td= lich.nguoi_duyet
-          %td= check_box_tag "lich[#{lich.id}]",nil, false
+          - if can? :manage, :all
+            %td= check_box_tag "lich[#{lich.id}]",nil, false
