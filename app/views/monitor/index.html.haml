@@ -51,7 +51,7 @@
             %td= so(index+1)            
             %td= link_to lich['ma_lop'] + ( @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ? " * " : " " ), showmonitor_path(lich['lop'], to_zdatetime(lich['time'][0]).strftime("%Y-%m-%d-%H-%M")), :remote => true            
             %td= lich['ten_mon_hoc']
-            %td= "Ca " + (LichTrinhGiangDay.ca(to_zdatetime(lich['time'][0])).to_s || "")
+            %td= "Ca" + (LichTrinhGiangDay.ca(to_zdatetime(lich['time'][0])).to_s || "")
             %td= to_zdatetime(lich['time'][0]).strftime("%Hh:%M")
             %td= lich['so_tiet']
             %td= (lich['phong'] || "") 

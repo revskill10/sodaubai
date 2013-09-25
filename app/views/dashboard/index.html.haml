@@ -13,7 +13,7 @@
             %ul.nav.pull-left#urls
               %li= link_to "Thời khóa biểu", "/calendar"
               %li= link_to "Thăm dò", "http://thamdo.hpu.edu.vn"
-              - if can? :manage, LopMonHocSinhVien
+              - if can? :manage, LopMonHocSinhVien and can? :manage, LichTrinhGiangDay
                 %li= link_to "Quản lý", "/quanly"
               - if can? :manage, :all
                 %li= link_to "Quản trị", "/admin"

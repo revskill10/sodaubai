@@ -34,21 +34,21 @@
     %table#monitor{:class => "table table-bordered table-condensed"}    
       %thead
         %td STT
+        %td Phòng  
         %td Mã lớp
         %td Tên môn        
         %td Giờ dạy      
-        %td Số tiết dạy
-        %td Phòng     
+        %td Số tiết dạy           
         %td Giảng viên
       %tbody
         - if @today and @today.count > 0
           - @today.each_with_index do |lich, index|                    
             %tr{:class => ( @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ? "success" : "error" ) }            
-              %td= so(index+1)            
+              %td= so(index+1)    
+              %td= (lich['phong'] || "")        
               %td= link_to lich['ma_lop'] + ( @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ? " * " : " " ), showtrucnhat_path(lich['lop'], to_zdatetime(lich['time'][0]).strftime("%Y-%m-%d-%H-%M")), :remote => true            
               %td= lich['ten_mon_hoc']              
               %td= to_zdatetime(lich['time'][0]).strftime("%Hh:%M")
-              %td= lich['so_tiet']
-              %td= (lich['phong'] || "") 
+              %td= lich['so_tiet']              
               %td= lich['ten_giang_vien']
   
