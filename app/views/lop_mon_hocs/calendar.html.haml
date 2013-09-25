@@ -41,6 +41,8 @@
       %span= @lop_mon_hoc.ma_lop  
       %strong.offset1 Số tiết: 
       %span= @lop_mon_hoc.so_tiet_phan_bo
+      %strong.offset1 Sĩ số:
+      %span= @lop_mon_hoc.lop_mon_hoc_sinh_viens.count
   %table{:class => "table table-bordered datatable"}
     %colgroup
       %col{:style => "width: 10%"}
@@ -57,7 +59,7 @@
     %tbody
       - @lich.each_with_index do |lich, index|
         %tr        
-          %td= link_to "T"  + (("0" if lich["tuan"] < 10) || "") + lich["tuan"].to_s, tuan_path(lich["tuan"].to_s)    
+          %td= link_to "T"  + (("0" if lich["tuan"] < 10) || "") + lich["tuan"].to_s, "/lop_mon_hocs/#{@lop_mon_hoc.id}/#{lich["tuan"].to_s}"
           %td= link_to "Thứ " + lich["thu"].to_s + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M"))
           %td= @lop_mon_hoc.ten_mon_hoc 
           %td= lich["so_tiet"]             

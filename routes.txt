@@ -1,4 +1,5 @@
 No configuration file found
+                                          jobs        /jobs(.:format)                                                            Resque::Server
                                     admin_root        /admin(.:format)                                                           admin/dashboard#index
                                           root        /                                                                          dashboard#index
                                admin_dashboard        /admin/dashboard(.:format)                                                 admin/dashboard#index
@@ -107,15 +108,20 @@ batch_action_admin_lop_mon_hoc_tkb_giang_viens POST   /admin/lop_mon_hocs/:lop_m
                                        mon_hoc GET    /mon_hocs/:id(.:format)                                                    mon_hocs#show
                                                PUT    /mon_hocs/:id(.:format)                                                    mon_hocs#update
                                                DELETE /mon_hocs/:id(.:format)                                                    mon_hocs#destroy
-                                               GET    /sinh_viens/:id/:lop_mon_hoc_id(.:format)                                  sinh_viens#show
-                                     sinh_vien GET    /sinh_viens/:id(.:format)                                                  sinh_viens#index
                                     sinh_viens GET    /sinh_viens(.:format)                                                      sinh_viens#index
                                                POST   /sinh_viens(.:format)                                                      sinh_viens#create
                                  new_sinh_vien GET    /sinh_viens/new(.:format)                                                  sinh_viens#new
                                 edit_sinh_vien GET    /sinh_viens/:id/edit(.:format)                                             sinh_viens#edit
-                                               GET    /sinh_viens/:id(.:format)                                                  sinh_viens#show
+                                     sinh_vien GET    /sinh_viens/:id(.:format)                                                  sinh_viens#show
                                                PUT    /sinh_viens/:id(.:format)                                                  sinh_viens#update
                                                DELETE /sinh_viens/:id(.:format)                                                  sinh_viens#destroy
+                                        phongs GET    /phongs(.:format)                                                          phongs#index
+                                               POST   /phongs(.:format)                                                          phongs#create
+                                     new_phong GET    /phongs/new(.:format)                                                      phongs#new
+                                    edit_phong GET    /phongs/:id/edit(.:format)                                                 phongs#edit
+                                         phong GET    /phongs/:id(.:format)                                                      phongs#show
+                                               PUT    /phongs/:id(.:format)                                                      phongs#update
+                                               DELETE /phongs/:id(.:format)                                                      phongs#destroy
                    lop_mon_hoc_tkb_giang_viens GET    /lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens(.:format)                    tkb_giang_viens#index
                                                POST   /lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens(.:format)                    tkb_giang_viens#create
                 new_lop_mon_hoc_tkb_giang_vien GET    /lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens/new(.:format)                tkb_giang_viens#new
@@ -125,6 +131,8 @@ batch_action_admin_lop_mon_hoc_tkb_giang_viens POST   /admin/lop_mon_hocs/:lop_m
                                                DELETE /lop_mon_hocs/:lop_mon_hoc_id/tkb_giang_viens/:id(.:format)                tkb_giang_viens#destroy
                           calendar_lop_mon_hoc GET    /lop_mon_hocs/:id/calendar(.:format)                                       lop_mon_hocs#calendar
                             search_lop_mon_hoc GET    /lop_mon_hocs/:id/search(.:format)                                         lop_mon_hocs#search
+                            report_lop_mon_hoc GET    /lop_mon_hocs/:id/report(.:format)                                         lop_mon_hocs#report
+                                               GET    /lop_mon_hocs/:id/:tuan_id(.:format)                                       lop_mon_hocs#tuan
                                                GET    /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets/:loai(.:format)               diem_chi_tiets#index
                                                POST   /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets/:loai(.:format)               diem_chi_tiets#create
                     lop_mon_hoc_diem_chi_tiets GET    /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets(.:format)                     diem_chi_tiets#index
@@ -266,8 +274,21 @@ groupupdate_lop_mon_hoc_lop_mon_hoc_sinh_viens POST   /lop_mon_hocs/:lop_mon_hoc
                                    movelopghep POST   /quanly/movelopghep(.:format)                                              quanly#movelopghep
                                      qlnghiday POST   /quanly/qlnghiday(.:format)                                                quanly#qlnghiday
                                        qldaybu POST   /quanly/qldaybu(.:format)                                                  quanly#qldaybu
+                                    phongtrong GET    /quanly/phongtrong(.:format)                                               quanly#phongtrong
+                                 getphongtrong POST   /quanly/getphongtrong(.:format)                                            quanly#getphongtrong
+                               nghidayhangloat        /quanly/nghidayhangloat(.:format)                                          quanly#nghidayhangloat
+                          post_nghidayhangloat POST   /quanly/post_nghidayhangloat(.:format)                                     quanly#post_nghidayhangloat
+                                    huynghiday POST   /quanly/huynghiday(.:format)                                               quanly#huynghiday
+                                       report1 GET    /quanly/report1(.:format)                                                  quanly#report1
+                                       report2 GET    /quanly/report2(/:tuan)(.:format)                                          quanly#report2
+                                       report3 GET    /quanly/report3(.:format)                                                  quanly#report3
+                                       report4 GET    /quanly/report4(/:tuan)(.:format)                                          quanly#report4
+                                       report5 GET    /quanly/report5(/:tuan)(.:format)                                          quanly#report5
                                        monitor GET    /monitor(.:format)                                                         monitor#index
                                    showmonitor GET    /monitor/:lop_mon_hoc_id/:id(.:format)                                     monitor#show
                                          admin GET    /admin(.:format)                                                           admin#index
+                                      trucnhat GET    /trucnhat(.:format)                                                        monitor#trucnhat
+                                  showtrucnhat GET    /monitor/:lop_mon_hoc_id/:id/trucnhat(.:format)                            monitor#showtrucnhat
+                                    qltrucnhat POST   /monitor/qltrucnhat(.:format)                                              monitor#qltrucnhat
                                         search GET    /search(.:format)                                                          dashboard#search
                                                       /*a(.:format)                                                              application#routing

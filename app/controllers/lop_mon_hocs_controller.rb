@@ -56,6 +56,14 @@ class LopMonHocsController < ApplicationController
     }
     end    
   end
+  def tuan
+    @lop_mon_hoc = LopMonHoc.find(params[:id])
+    @lichlop = @lop_mon_hoc.get_days
+    @lich = @lichlop.select {|l| l["tuan"] == params[:tuan_id].to_i}.uniq if @lichlop
+    respond_to do |format|
+      format.html { render 'calendar'}
+    end
+  end
   def update
     authorize! :manage, @lop_mon_hoc
     @sn = params[:so_nhom].to_s.empty? ? 1 : params[:so_nhom].to_i
@@ -111,13 +119,8 @@ class LopMonHocsController < ApplicationController
   def calendar
     authorize! :read, @lop_mon_hoc
     @lich = @lop_mon_hoc.get_days
-    respond_to do |format|
-      if request.headers['X-PJAX']
-        format.html {render :calendar, :layout => false}        
-      else        
-        format.html {render :calendar}        
-      end
-
+    respond_to do |format|          
+      format.html {render :calendar}            
     end
   end
  
