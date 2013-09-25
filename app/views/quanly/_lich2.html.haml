@@ -23,6 +23,6 @@
           %td= lich.lop_mon_hoc.giang_vien
           %td= lich.note      
           %td= get_status2(lich.status)  
-          %td= lich.nguoi_duyet
+          %td= (lich.nguoi_duyet ? lich.nguoi_duyet.username : "")
           - if can? :manage, :all
             %td= check_box_tag "lich[#{lich.id}]",nil, false
