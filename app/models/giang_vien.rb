@@ -50,24 +50,24 @@ class GiangVien < ActiveRecord::Base
     days.each do |d|
       day = get_time(d["time"][0]).to_i
       sogiay = d["so_tiet"] * 3000
-      r1 = day - sogiay
+      r1 = day
       r2 = day + sogiay
-      s1 = td - sogiay
-      s2 = td + sogiay
+      #s1 = td - sogiay
+      #s2 = td + sogiay
       r = r1..r2
-      s = s1..s2
+      s = td..td
       if r.overlaps?(s) then return true end
     end
     lich_trinh_giang_days.each do |l|
       if l.ngay_day_moi
         day = l.ngay_day_moi.localtime.to_i
         sogiay = 9000
-        r1 = day - sogiay
+        r1 = day
         r2 = day + sogiay
-        s1 = td - sogiay
-        s2 = td + sogiay
+        #s1 = td - sogiay
+        #s2 = td + sogiay
         r = r1..r2
-        s = s1..s2
+        s = td..td
         if r.overlaps?(s) then return true end
       end
     end
