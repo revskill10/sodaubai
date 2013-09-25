@@ -47,7 +47,8 @@ class Ability
             user.imageable.lop_mon_hocs.map(&:id).include?(lop.id) if user.imageable.is_a?(SinhVien) if lop
         end
     end
-    if user.groups.count > 0 and user.groups.map(&:name).include?("daotao")        
+    if user.groups.count > 0 and user.groups.map(&:name).include?("daotao") 
+        can :read, SinhVien         
         can :manage, LopMonHocSinhVien
         can :manage, LichTrinhGiangDay
     end
