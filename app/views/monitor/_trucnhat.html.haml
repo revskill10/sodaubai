@@ -21,6 +21,8 @@
                 %td= sv.lop_hc
                 %td= check_box_tag "msv[#{sv.ma_sinh_vien}]",nil, check_trucnhat(@kotruc, sv.ma_sinh_vien)
     .span4
+      %br
+      %br
       %table{:class => "table table-bordered"}        
         %thead                  
           %td Lí do
@@ -28,7 +30,7 @@
           %tr
             %td= text_area_tag "note", raw(@note)
     %br    
-  - if @svvangs
+  - if @svvangs and @svvangs.count > 0
     .row-fluid
       .span8
         %h5 Danh sách sinh viên vắng:
