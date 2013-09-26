@@ -71,6 +71,9 @@ class MonitorController < ActionController::Base
       @note = @lichtrucnhat.note
     end
     @phong = params[:phong]
+    if @lich 
+      @svvangs = @lich.diem_danhs.vang
+    end
     respond_to do |format|
       format.js
     end

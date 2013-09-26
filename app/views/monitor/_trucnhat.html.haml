@@ -5,6 +5,7 @@
   = hidden_field_tag :phong
   .row-fluid    
     .span8
+      %h5 Danh sách sinh viên trực nhật:
       %table{:class => "table table-bordered"}           
         %thead          
           %td Mã sinh viên   
@@ -27,5 +28,21 @@
           %tr
             %td= text_area_tag "note", raw(@note)
     %br    
-      
+  - if @svvangs
+    .row-fluid
+      .span8
+        %h5 Danh sách sinh viên vắng:
+        %table{:class => "table table-bordered"}
+          %thead
+            %td Mã sinh viên   
+            %td Họ và tên
+            %td Lớp hành chính
+          %tbody
+            - @svvangs.each do |sv|
+              %tr                
+                %td= link_to sv.ma_sinh_vien, sinh_vien_path(sv.ma_sinh_vien)
+                %td= sv.ho + " " + sv.fullname                
+                %td= sv.lop_hc
+          
+
   = submit_tag "Cập nhật trực nhật", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}
