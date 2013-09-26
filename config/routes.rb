@@ -121,7 +121,7 @@ Trytest::Application.routes.draw do
   get "monitor/:lop_mon_hoc_id/:id" => 'monitor#show', :as => 'showmonitor'
   get "admin" => 'admin#index', :as => 'admin'
   get "trucnhat" => 'monitor#trucnhat', :as => 'trucnhat'
-  get "monitor/:lop_mon_hoc_id/:id/trucnhat" => 'monitor#showtrucnhat', :as => 'showtrucnhat'
+  get "monitor/:lop_mon_hoc_id/:phong/:id/trucnhat" => 'monitor#showtrucnhat', :as => 'showtrucnhat'
   post "monitor/qltrucnhat" => 'monitor#qltrucnhat', :as => 'qltrucnhat'
   get "search" => 'dashboard#search', :as => 'search'
   match '*a', :to => 'application#routing'

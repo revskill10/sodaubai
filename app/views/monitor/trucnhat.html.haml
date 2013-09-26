@@ -45,10 +45,10 @@
           - @today.each_with_index do |lich, index|                    
             %tr{:class => ( @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ? "success" : "error" ) }            
               %td= so(index+1)    
-              %td= (lich['phong'] || "")        
-              %td= link_to lich['ma_lop'] + ( @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ? " * " : " " ), showtrucnhat_path(lich['lop'], to_zdatetime(lich['time'][0]).strftime("%Y-%m-%d-%H-%M")), :remote => true            
+              %td= link_to (lich['phong'] || ""), phong_path(lich['phong'] || "")
+              %td= link_to lich['ma_lop'] + ( @lichs2.include?("#{lich['ma_lop']}_#{lich['ma_mon_hoc']}") ? " * " : " " ), "/monitor/#{lich['lop']}/#{lich['phong']}/#{to_zdatetime(lich['time'][0]).strftime("%Y-%m-%d-%H-%M")}/trucnhat", :remote => true            
               %td= lich['ten_mon_hoc']              
               %td= to_zdatetime(lich['time'][0]).strftime("%Hh:%M")
               %td= lich['so_tiet']              
-              %td= lich['ten_giang_vien']
+              %td= link_to lich['ten_giang_vien'], giang_vien_path(lich['ma_giang_vien'])
   

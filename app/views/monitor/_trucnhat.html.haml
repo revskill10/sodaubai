@@ -1,13 +1,31 @@
-= form_tag qltrucnhat_path, :method => :post, :remote => true do                            
-  %table{:class => "table table-bordered"}        
-    %thead          
-      %td Sinh viên          
-      %td Hoàn thành      
-    %tbody
-      - if @svs      
-        - @svs.each_with_index do |sv, index|
-          %tr                
-            %td= sv.ho + " " + sv.fullname                
-            %td= check_box_tag "msv[#{sv.ma_sinh_vien}]",nil, false, :disabled => (!@lich)
-  %br
+%h5{:style => "text-align:center;"}= "Phòng: #{@phong}, lớp: #{@lop_mon_hoc.ma_lop}, giảng viên: #{@lop_mon_hoc.ten_giang_vien}, sĩ số: #{getdiemdanh(@lich)}/ #{@siso}"
+= form_tag qltrucnhat_path, :method => :post, :remote => true do                         
+  = hidden_field_tag :lop_mon_hoc_id
+  = hidden_field_tag :ngay_truc
+  = hidden_field_tag :phong
+  .row-fluid    
+    .span8
+      %table{:class => "table table-bordered"}           
+        %thead          
+          %td Mã sinh viên   
+          %td Họ và tên
+          %td Lớp hành chính
+          %td Không trực nhật
+        %tbody
+          - if @svs      
+            - @svs.each_with_index do |sv, index|
+              %tr                
+                %td= link_to sv.ma_sinh_vien, sinh_vien_path(sv.ma_sinh_vien)
+                %td= sv.ho + " " + sv.fullname                
+                %td= sv.lop_hc
+                %td= check_box_tag "msv[#{sv.ma_sinh_vien}]",nil, check_trucnhat(@kotruc, sv.ma_sinh_vien)
+    .span4
+      %table{:class => "table table-bordered"}        
+        %thead                  
+          %td Lí do
+        %tbody
+          %tr
+            %td= text_area_tag "note", raw(@note)
+    %br    
+      
   = submit_tag "Cập nhật trực nhật", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}

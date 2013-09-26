@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130924085248) do
+ActiveRecord::Schema.define(:version => 20130926041533) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -112,7 +112,10 @@ ActiveRecord::Schema.define(:version => 20130924085248) do
     t.integer  "lop_mon_hoc_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.text     "note"
   end
+
+  add_index "lich_truc_nhats", ["lop_mon_hoc_id"], :name => "index_lich_truc_nhats_on_lop_mon_hoc_id"
 
   create_table "lop_gheps", :force => true do |t|
     t.string   "ma_lop_ghep"
@@ -293,6 +296,18 @@ ActiveRecord::Schema.define(:version => 20130924085248) do
   end
 
   add_index "topics", ["lop_mon_hoc_id"], :name => "index_topics_on_lop_mon_hoc_id"
+
+  create_table "truc_nhats", :force => true do |t|
+    t.string   "ma_sinh_vien"
+    t.integer  "lich_truc_nhat_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.boolean  "status"
+  end
+
+  add_index "truc_nhats", ["lich_truc_nhat_id"], :name => "index_truc_nhats_on_lich_truc_nhat_id"
+  add_index "truc_nhats", ["ma_sinh_vien"], :name => "index_truc_nhats_on_ma_sinh_vien"
+  add_index "truc_nhats", ["status"], :name => "index_truc_nhats_on_status"
 
   create_table "tuans", :force => true do |t|
     t.integer  "stt"
