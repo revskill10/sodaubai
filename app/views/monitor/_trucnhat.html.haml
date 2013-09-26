@@ -38,11 +38,11 @@
             %td Họ và tên
             %td Lớp hành chính
           %tbody
-            - @svvangs.each do |sv|
+            - @svvangs.each do |dd|
               %tr                
-                %td= link_to sv.ma_sinh_vien, sinh_vien_path(sv.ma_sinh_vien)
-                %td= sv.ho + " " + sv.fullname                
-                %td= sv.lop_hc
+                %td= link_to dd.sinh_vien.ma_sinh_vien, sinh_vien_path(dd.sinh_vien.ma_sinh_vien)
+                %td= dd.sinh_vien.ho + " " + dd.sinh_vien.fullname                
+                %td= dd.sinh_vien.lop_hc
           
 
   = submit_tag "Cập nhật trực nhật", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}

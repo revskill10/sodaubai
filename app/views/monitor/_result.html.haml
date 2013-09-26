@@ -7,7 +7,7 @@
 
   %h5 Số lượng sinh viên vắng: #{@lich.diem_danhs.count || 0} / #{@lich.siso}
   - if @lich.diem_danhs.count > 0
-    - @lich.diem_danhs.each_with_index do |dd, index|
+    - @lich.diem_danhs.vang.each_with_index do |dd, index|
       = dd.sinh_vien.ho + " " + dd.sinh_vien.fullname + " (" + dd.ma_sinh_vien + "); "
 
   - if @svs
