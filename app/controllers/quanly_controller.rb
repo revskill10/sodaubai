@@ -234,7 +234,7 @@ class QuanlyController < ApplicationController
           tuan = d[3].to_i
           @lich = lop.lich_trinh_giang_days.where(ngay_day: nd).first
           if @lich 
-            @lich.loai = 1
+            @lich.loai = 1 unless @lich.loai == 2
             @lich.status = 3                  
             @lich.nghile = true      
             @lich.nguoi_duyet = current_user
