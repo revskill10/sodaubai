@@ -43,7 +43,7 @@ class MonitorController < ActionController::Base
     @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])
     @ngay = str_to_ngay(params[:ngay_truc])
     @lich = @lop_mon_hoc.lich_truc_nhats.where(ngay_truc: get_ngay(@ngay)).first_or_create!
-    @lich.update_attributes(note: note, phong: phong)
+    @lich.update_attributes(note: note, phong: phong, tuan: @current_week)
     if @lich.truc_nhats.count > 0
       @lich.truc_nhats.update_all(status: false)
     end

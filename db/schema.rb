@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130926041533) do
+ActiveRecord::Schema.define(:version => 20130927065405) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(:version => 20130926041533) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.text     "note"
+    t.integer  "tuan"
   end
 
   add_index "lich_truc_nhats", ["lop_mon_hoc_id"], :name => "index_lich_truc_nhats_on_lop_mon_hoc_id"
