@@ -1,9 +1,7 @@
 %thead
   %td STT    
   %td Mã sinh viên
-  %td Họ
-  %td Họ đệm
-  %td Tên  
+  %td Họ và tên  
   %td Mã lớp      
   %td Mã môn học
   %td Tên môn học
@@ -14,12 +12,10 @@
     - @res.each_with_index do |res, index|
       %tr
         %td= (index+1).to_s
-        %td= res["ma_sinh_vien"]
-        %td= res["ho"]
-        %td= res["ho_dem"]
-        %td= res["ten"]
-        %td= res["ma_lop"]
+        %td= link_to res["ma_sinh_vien"], sinh_vien_path(res["ma_sinh_vien"])
+        %td= (res["ho"] || "") + (res["ho_dem"] ? " " + res["ho_dem"] + " " : " ") + (res["ten"] || "")        
+        %td= link_to res["ma_lop"], report_lop_mon_hoc_path(res["id"])
         %td= res["ma_mon_hoc"]
         %td= res["ten_mon_hoc"]
-        %td= res["ten_giang_vien"]
+        %td= link_to res["ten_giang_vien"], giang_vien_path(res["ma_giang_vien"])
         %td= res["tongtietvang"]

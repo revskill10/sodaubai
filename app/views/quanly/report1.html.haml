@@ -10,34 +10,38 @@
         .container.nav-collapse
           %ul.nav.pull-left#urls            
             %li= link_to "Quản lý", quanly_path    
-            %li= link_to "Ghép lớp", quanlylopghep_path           
-            %li.dropdown
-              %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
-                Đào tạo
-                %b.caret
-              %ul.dropdown-menu                        
-                %li= link_to "Nghỉ dạy", quanlynghiday_path       
-                %li= link_to "Dạy bù", quanlydaybu_path   
-                %li= link_to "Tra cứu phòng trống", phongtrong_path  
+            - if can? :manage, LopMonHocSinhVien
+              %li= link_to "Ghép lớp", quanlylopghep_path           
+              %li.dropdown
+                %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
+                  Đào tạo
+                  %b.caret
+                %ul.dropdown-menu                        
+                  %li= link_to "Nghỉ dạy", quanlynghiday_path       
+                  %li= link_to "Dạy bù", quanlydaybu_path   
+                  %li= link_to "Tra cứu phòng trống", phongtrong_path  
             %li.active.dropdown
               %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
                 Thống kê
                 %b.caret
               %ul.dropdown-menu                
-                %li.active= link_to "Giảng viên đăng ký nghỉ dạy", report1_path
-                %li= link_to "Danh sách sinh viên vắng theo tuần", report2_path 
-                %li= link_to "Danh sách sinh viên vắng quá 20% số tiết", report3_path
-                %li= link_to "Danh sách sinh viên lớp môn nghỉ nhiều trong tuần", report4_path                
-                %li= link_to "Danh sách giảng viên chưa tham gia ghi lịch trình theo tuần", report5_path
+                - if can? :manage, LopMonHocSinhVien
+                  %li.active= link_to "Giảng viên đăng ký nghỉ dạy", report1_path
+                  %li= link_to "Danh sách giảng viên chưa tham gia ghi lịch trình", report5_path
+                - if can? :quanly, SinhVien
+                  %li= link_to "Danh sách sinh viên vắng theo buổi học", report2_path 
+                  %li= link_to "Danh sách sinh viên vắng quá 20% số tiết", report3_path
+                  %li= link_to "Danh sách sinh viên vắng theo lớp môn học", report4_path
+
           %ul.nav.pull-right            
             %li= link_to 'Đăng xuất', destroy_user_session_path
               
 
 .container-fluid{:style=>"margin-top: 4%;"}    
+  %h5{:style => "text-align:center;"} Danh sách giảng viên đăng ký nghỉ dạy
   %table.table.table-bordered.table-condensed.table-hover.table-striped.datatable
     %thead
-      %td STT    
-      %td Mã giảng viên
+      %td STT          
       %td Tên giảng viên
       %td Mã lớp
       %td Tên môn học
@@ -49,13 +53,12 @@
       - if @res.count > 0        
         - @res.each_with_index do |res, index|
           %tr
-            %td= (index+1).to_s
-            %td= res["ma_giang_vien"]
-            %td= res["ten_giang_vien"]
-            %td= res["ma_lop"]
+            %td= (index+1).to_s            
+            %td= link_to res["ten_giang_vien"], giang_vien_path(res["ma_giang_vien"])
+            %td= link_to res["ma_lop"], report_lop_mon_hoc_path(res["id"])
             %td= res["ten_mon_hoc"]
-            %td= res["phong_hoc"]
-            %td= res["tuan"]
+            %td= (res["phong_moi"] ? link_to(res["phong_moi"], phong_path(res["phong_moi"])) : "")
+            %td= "T" + res["tuan"]
             %td= res["ngay_day"]
             %td= res["so_tiet_day"]
 

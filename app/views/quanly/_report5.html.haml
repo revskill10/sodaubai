@@ -1,7 +1,13 @@
+%colgroup
+  %col{:style => "width: 5%"}
+  %col{:style => "width: 25%"}
+  %col{:style => "width: 15%"}
+  %col{:style => "width: 15%"}            
+  %col{:style => "width: 30%"}  
+  %col{:style => "width: 10%"}
 %thead
-  %td STT    
-  %td Mã giảng viên
-  %td Tên  
+  %td STT      
+  %td Họ và tên  
   %td Mã lớp      
   %td Mã môn học
   %td Tên môn học
@@ -10,10 +16,9 @@
   - if @res.count > 0        
     - @res.each_with_index do |res, index|
       %tr
-        %td= (index+1).to_s
-        %td= res["ma_giang_vien"]
-        %td= res["ten_giang_vien"]
-        %td= res["ma_lop"]
+        %td= (index+1).to_s        
+        %td= link_to res["ten_giang_vien"], giang_vien_path(res["ma_giang_vien"])
+        %td= link_to res["ma_lop"], report_lop_mon_hoc_path(res["lop_mon_hoc_id"])
         %td= res["ma_mon_hoc"]
         %td= res["ten_mon_hoc"]
-        %td= res["phong"]
+        %td= (res["phong"] ? link_to(res["phong"], phong_path(res["phong"])) : "")

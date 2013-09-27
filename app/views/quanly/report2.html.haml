@@ -26,28 +26,28 @@
                 %b.caret
               %ul.dropdown-menu                
                 - if can? :manage, LopMonHocSinhVien
-                  %li.active= link_to "Giảng viên đăng ký nghỉ dạy", report1_path
-                  %li= link_to "Danh sách giảng viên chưa tham gia ghi lịch trình theo tuần", report5_path
+                  %li= link_to "Giảng viên đăng ký nghỉ dạy", report1_path
+                  %li= link_to "Danh sách giảng viên chưa tham gia ghi lịch trình", report5_path
                 - if can? :quanly, SinhVien
-                  %li= link_to "Danh sách sinh viên vắng theo tuần", report2_path 
+                  %li.active= link_to "Danh sách sinh viên vắng theo buổi học", report2_path 
                   %li= link_to "Danh sách sinh viên vắng quá 20% số tiết", report3_path
-                  %li= link_to "Danh sách sinh viên lớp môn nghỉ nhiều trong tuần", report4_path
+                  %li= link_to "Danh sách sinh viên vắng theo lớp môn học", report4_path
           %ul.nav.pull-right            
             %li= link_to 'Đăng xuất', destroy_user_session_path
               
 
 .container-fluid{:style=>"margin-top: 4%;"}  
   .row-fluid
-    %h5{:style => "text-align:center;"}= "Danh sách sinh viên vắng theo tuần #{@tuan}"
+    %h5{:style => "text-align:center;"}= "Danh sách sinh viên vắng theo buổi học trong tuần #{@tuan}"
     %hr
   .row-fluid
-    .span3
+    .span2
       .well.sidebar-nav{:style => "font-size: 12px;"}
         %ul.nav.nav-list              
           %li.nav-header Tuần:
           - (1..@current_week).each do |t|          
             %li{:style => ("font-weight:bold;" if @tuan == t.to_s)}= link_to "Tuần #{t}", report2_path + "/#{t}"
-    .span9      
+    .span10      
       %table#monitor.table.table-bordered.table-condensed.table-hover.table-striped
         = render 'report2'         
   

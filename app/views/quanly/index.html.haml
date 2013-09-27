@@ -26,7 +26,7 @@
                 %b.caret
               %ul.dropdown-menu                
                 - if can? :manage, LopMonHocSinhVien
-                  %li.active= link_to "Giảng viên đăng ký nghỉ dạy", report1_path
+                  %li= link_to "Giảng viên đăng ký nghỉ dạy", report1_path
                   %li= link_to "Danh sách giảng viên chưa tham gia ghi lịch trình theo tuần", report5_path
                 - if can? :quanly, SinhVien
                   %li= link_to "Danh sách sinh viên vắng theo tuần", report2_path 
