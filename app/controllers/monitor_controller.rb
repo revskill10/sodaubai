@@ -1,8 +1,9 @@
 require 'pg_tools'
 class MonitorController < ActionController::Base
   include MonitorHelper
-  include BuoihocHelper
+  include BuoihocHelper  
   before_filter :load_tenant
+  before_filter :authenticate_user!  , :except => [:index, :show]
   before_filter :load_tuan
   before_filter :load_phongs
 
