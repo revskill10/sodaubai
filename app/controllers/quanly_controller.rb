@@ -262,6 +262,7 @@ class QuanlyController < ApplicationController
 
   # Danh sach giang vien dang ky nghi day
   def report1  	    
+    authorize! :quanly, SinhVien
     sql = "SELECT l1.ma_giang_vien,l1.ten_giang_vien,l1.ma_lop,l1.ten_mon_hoc,l1.phong_hoc,l.tuan,l.ngay_day,l.so_tiet_day,Case when l.status=3 then 'Duyet' when l.status=6 then 'Chua duyet' when l.status=4 then 'Khong duyet' END  as TrangThai  FROM t1.lich_trinh_giang_days l inner join t1.lop_mon_hocs l1 on l.lop_mon_hoc_id=l1.id where l.loai=1 and l.tuan=4 Order by l.ngay_day"
     #@res = LichTrinhGiangDay.paginate_by_sql(sql, :page => params[:page] || 1, :per_page => 50)
     @res = ActiveRecord::Base.connection.execute(sql)
@@ -271,7 +272,8 @@ class QuanlyController < ApplicationController
   end
 
   # Danh sach sinh vien vang theo tuan
-  def report2  	
+  def report2
+    authorize! :quanly, SinhVien  	
   	@tuan = params[:tuan] || @current_week  	
   	sql = "Select d.ma_sinh_vien,s.ho,s.ho_dem,s.ten,l1.ma_lop,l1.ma_mon_hoc,l1.ten_mon_hoc,l1.ten_giang_vien,d.so_tiet_vang,l.ngay_day from t1.diem_danhs d inner join t1.lich_trinh_giang_days l on d.lich_trinh_giang_day_id=l.id inner join t1.lop_mon_hocs l1 on l.lop_mon_hoc_id=l1.id inner join t1.sinh_viens s on d.ma_sinh_vien=s.ma_sinh_vien Where d.lich_trinh_giang_day_id in (Select id From t1.Lich_trinh_giang_days where tuan= #{@tuan} ) and d.so_tiet_vang>0 Order by l.ngay_day,l1.ma_lop,d.ma_sinh_vien"
   	#@res = DiemDanh.paginate_by_sql(sql, :page => params[:page] || 1, :per_page => 50)
@@ -283,6 +285,7 @@ class QuanlyController < ApplicationController
 
   # Danh sach sinh vien nghi qua 20% so tiet
   def report3  	
+    authorize! :quanly, SinhVien
   	sql = <<-eos
 		select *,ROUND(TongSoTietVang/so_tiet_phan_bo*100,2) as Tile
 From (
@@ -306,6 +309,7 @@ Order by Tile DESC
   end
   # Danh sach sinh vien lop mon nghi nhieu trong tuan
   def report4
+    authorize! :quanly, SinhVien
   	@tuan = params[:tuan] || @current_week  	
   	sql = <<-eos
 		Select d.ma_sinh_vien,s.ho,s.ho_dem,s.ten,l1.ma_lop,l1.id Lop_mon_hoc_id,l1.ma_mon_hoc,l1.ten_mon_hoc,l1.ten_giang_vien,SUM(d.so_tiet_vang) AS TongTietVang
@@ -331,6 +335,7 @@ ORDER BY SUM(d.so_tiet_vang) DESC
 
   # Giang Vien Chua Tham Gia Ghi Lich Trinh Theo Tuan 
   def report5
+    authorize! :quanly, SinhVien
   	@tuan = params[:tuan] || @current_week
   	sql = <<-eos
 		Select ma_giang_vien,ten_giang_vien,ma_lop,ma_mon_hoc,ten_mon_hoc,phong,lop_mon_hoc_id
