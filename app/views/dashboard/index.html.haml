@@ -13,8 +13,10 @@
             %ul.nav.pull-left#urls
               %li= link_to "Thời khóa biểu", "/calendar"
               %li= link_to "Thăm dò", "http://thamdo.hpu.edu.vn"
-              - if (can? :manage, LopMonHocSinhVien and can? :manage, LichTrinhGiangDay) or (can? :quanly, SinhVien) or (can? :thanhtra, GiangVien)
-                %li= link_to "Quản lý", "/quanly"              
+              - if (can? :manage, LopMonHocSinhVien and can? :manage, LichTrinhGiangDay) or (can? :quanly, SinhVien) or (can? :qlthanhtra, GiangVien)
+                %li= link_to "Quản lý", "/quanly"  
+              - if (can ? :thanhtra)
+                %li= link_to "Thanh tra", "/thanhtra"
               - if can? :manage, :all
                 %li= link_to "Quản trị", "/admin"
           %ul.nav.pull-right
