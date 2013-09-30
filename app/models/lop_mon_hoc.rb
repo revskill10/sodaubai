@@ -45,13 +45,7 @@ class LopMonHoc < ActiveRecord::Base
     text :ma_lop, :ma_mon_hoc, :ten_giang_vien, :ma_giang_vien, :phong_hoc, :ten_mon_hoc, :phong_hoc
     string :ten_mon_hoc
     string :ten_giang_vien
-    string :phong_hoc
-    string :bat_dau do 
-      ngay_bat_dau.localtime.strftime("%d/%m/%Y")
-    end
-    string :ket_thuc do 
-      ngay_ket_thuc.localtime.strftime("%d/%m/%Y")
-    end
+    string :phong_hoc    
     string :nam_hoc do 
       '2013-2014'
     end

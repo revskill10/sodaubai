@@ -533,7 +533,10 @@ namespace :hpu do
 
   task :update_lopmonhoc => :environment do 
     tenant = Tenant.last
-    PgTools.set_search_path tenant.scheme, false    
+    PgTools.set_search_path tenant.scheme, false   
+
+    TkbGiangVien.delete_all
+    ActiveRecord::Base.connection.reset_pk_sequence!('tkb_giang_viens')  
     @client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
     response = @client.call(:tkb_theo_giai_doan)    
     res_hash = response.body.to_hash    
@@ -548,11 +551,26 @@ namespace :hpu do
     end
     ls.each do |l|
       lop = LopMonHoc.where(ma_lop: l[:ma_lop].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_giang_vien: l[:ma_giao_vien].strip.upcase).first
+      gv = GiangVien.where(:ma_giang_vien => l[:ma_giao_vien].strip.upcase).first
+      if gv then puts gv.ma_giang_vien end
+      unless gv 
+        GiangVien.where(:ho_ten => titleize(l[:ten_giao_vien].strip.downcase), :ma_giang_vien => l[:ma_giao_vien].strip.upcase).create!
+      end
       unless lop
         # todo , xoa het tkb va cap nhat lai
+        lop = LopMonHoc.where(ma_lop: l[:ma_lop].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_giang_vien: l[:ma_giao_vien].strip.upcase).create!        
+
+        #lop.tkb_giang_viens.destroy_all
+      end
+      lop.update_attributes(ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase),ten_giang_vien: titleize(l[:ten_giao_vien].strip.downcase))
+      
+    end
+    ls.each do |l|
+      lop = LopMonHoc.where(ma_lop: l[:ma_lop].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ma_giang_vien: l[:ma_giao_vien].strip.upcase).first
+      if lop 
+        lop.tkb_giang_viens.where(so_tiet: l[:so_tiet], so_tuan: l[:so_tuan_hoc], thu: l[:thu], tiet_bat_dau: l[:tiet_bat_dau], tuan_hoc_bat_dau: l[:tuan_hoc_bat_dau]).create!
       end
     end
-                      
       #tkb = TkbGiangVien.where( ma_giang_vien: l[:ma_giao_vien].strip.upcase, ma_lop: l[:ma_lop].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase, ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), phong: (l[:ma_phong_hoc].strip if l.has_key?(:ma_phong_hoc) and l[:ma_phong_hoc].is_a?(String)), so_tiet: l[:so_tiet], so_tuan: l[:so_tuan_hoc], thu: l[:thu], tiet_bat_dau: l[:tiet_bat_dau], tuan_hoc_bat_dau: l[:tuan_hoc_bat_dau], ten_giang_vien: titleize(l[:ten_giao_vien].strip.downcase)).first
       #unless tkb        
      #   TkbGiangVien.skip_callback(:create)
