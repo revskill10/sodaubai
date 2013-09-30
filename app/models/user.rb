@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
     "#{ho_dem} #{ten}"
   end
   def is_admin?
-    username == 'dungth@hpu.edu.vn' or username == 'trungth@hpu.edu.vn'
+    username == 'dungth@hpu.edu.vn' or username == 'trungth@hpu.edu.vn' or (user.groups.count > 0 and user.groups.map(&:name).include?("admin") )
   end
   def fullname
     "#{ho_dem} #{ten}"

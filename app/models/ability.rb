@@ -65,6 +65,10 @@ class Ability
         can :quanly, GiangVien
         can :thanhtra, GiangVien
     end
+    if user.groups.count > 0 and user.groups.map(&:name).include?("admin") 
+        can :manage, :all     
+        can :read, ActiveAdmin::Page, :name => "Dashboard"  
+    end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
