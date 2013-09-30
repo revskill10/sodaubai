@@ -40,7 +40,7 @@
   
 
   - if @current_lich and @current_lich.count > 0
-    %h4 Các lớp chính
+    %h4 Các lớp chính trong tuần
     %table{:class => "table table-bordered datatable"}
       %colgroup
         %col{:style => "width: 40%"}
@@ -64,7 +64,7 @@
             %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to lich["ma_lop"], lop_mon_hoc_path(lich["lop"])
   
   - if @current_lich2 and @current_lich2.count > 0
-    %h4 Các lớp trợ giảng
+    %h4 Các lớp trợ giảng trong tuần
     %table{:class => "table table-bordered datatable"}
       %colgroup
         %col{:style => "width: 40%"}
