@@ -53,12 +53,15 @@ class Ability
         can :manage, LichTrinhGiangDay
     end
     if user.groups.count > 0 and user.groups.map(&:name).include?("qlsv") 
+        can :read, SinhVien  
         can :quanly, SinhVien
     end
     if user.groups.count > 0 and user.groups.map(&:name).include?("thanhtra") 
+        can :read, SinhVien  
         can :quanly, GiangVien
     end
     if user.groups.count > 0 and user.groups.map(&:name).include?("qlthanhtra") 
+        can :read, SinhVien  
         can :quanly, GiangVien
         can :thanhtra, GiangVien
     end
