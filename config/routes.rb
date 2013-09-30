@@ -50,7 +50,7 @@ Trytest::Application.routes.draw do
       get '/calendar' => 'lop_mon_hocs#calendar'        
       get '/search' => 'lop_mon_hocs#search'
       get '/report' => 'lop_mon_hocs#report'
-      get '/:tuan_id' => 'lop_mon_hocs#tuan'
+      get '/t/:tuan_id' => 'lop_mon_hocs#tuan'
     end    
     resources :diem_chi_tiets      do  
       collection do        

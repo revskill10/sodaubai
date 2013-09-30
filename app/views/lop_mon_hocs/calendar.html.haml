@@ -59,7 +59,7 @@
     %tbody
       - @lich.each_with_index do |lich, index|
         %tr        
-          %td= link_to "T"  + (("0" if lich["tuan"] < 10) || "") + lich["tuan"].to_s, "/lop_mon_hocs/#{@lop_mon_hoc.id}/#{lich["tuan"].to_s}"
+          %td= link_to "T"  + (("0" if lich["tuan"] < 10) || "") + lich["tuan"].to_s, "/lop_mon_hocs/#{@lop_mon_hoc.id}/t/#{lich["tuan"].to_s}"
           %td= link_to "Thứ " + lich["thu"].to_s + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M"))
           %td= @lop_mon_hoc.ten_mon_hoc 
           %td= lich["so_tiet"]             

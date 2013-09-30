@@ -46,8 +46,7 @@ class LopMonHocSinhViensController < ApplicationController
     end
     #@groups_arrays = @groups.map {|gr| ["Group #{gr.id}", gr.id] }
     respond_to do |format|
-      format.html { render :layout => false if request.headers['X-PJAX']}
-      format.json { render json: @lop_mon_hoc_sinh_viens }
+      format.html      
     end
     
   end
