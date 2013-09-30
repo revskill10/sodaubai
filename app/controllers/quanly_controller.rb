@@ -258,7 +258,41 @@ class QuanlyController < ApplicationController
   	end
   end
 
+  def vipham
+
+    @lichs = LichViPham.order('ngay_vi_pham, tuan')
+    respond_to do |format|
+      format.html
+    end
+  end
   
+  def qlvipham
+    @tuan = params[:tuan]
+    if params[:vipham]
+      @viphams = LichViPham.find(params[:vipham].keys)
+      @viphams.each do |vp|
+        vp.lenmuon = (params[:vipham][vp.id.to_s][:lenmuon] != "false" ? true : false)
+        vp.vesom = (params[:vipham][vp.id.to_s][:vesom] != "false" ? true: false)
+        vp.bogio = (params[:vipham][vp.id.to_s][:bogio] != "false" ? true: false)
+        vp.note1 = params[:vipham][vp.id.to_s][:note1]
+        vp.note2 = params[:vipham][vp.id.to_s][:note2]
+        vp.nguoi_duyet = current_user
+        vp.save!
+      end
+    end
+    if @tuan 
+      @lichs = LichViPham.where(tuan: @tuan).order('ngay_vi_pham, tuan')
+    else
+      @lichs = LichViPham.order('ngay_vi_pham, tuan')
+    end
+    #if @lenmuons_keys then 
+    #  LichViPham.update_all({:lenmuon => true}, {:id => @lenmuons_keys})
+    #end
+    respond_to do |format|
+      format.js
+      format.html { render 'vipham' }
+    end
+  end
 
   # Danh sach giang vien dang ky nghi day
   def report1  	    

@@ -20,7 +20,7 @@
                   %li= link_to "Nghỉ dạy", quanlynghiday_path       
                   %li= link_to "Dạy bù", quanlydaybu_path   
                   %li= link_to "Tra cứu phòng trống", phongtrong_path  
-            %li.active.dropdown
+            %li.dropdown
               %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
                 Thống kê
                 %b.caret
@@ -32,7 +32,13 @@
                   %li= link_to "Danh sách sinh viên vắng theo tuần", report2_path 
                   %li= link_to "Danh sách sinh viên vắng quá 20% số tiết", report3_path
                   %li= link_to "Danh sách sinh viên lớp môn nghỉ nhiều trong tuần", report4_path
-            
+            - if can? :thanhtra, GiangVien
+              %li.dropdown
+                %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
+                  Thanh tra
+                  %b.caret
+                %ul.dropdown-menu                        
+                  %li= link_to "Đăng ký vi phạm", vipham_path
           %ul.nav.pull-right            
             %li= link_to 'Đăng xuất', destroy_user_session_path
               

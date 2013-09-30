@@ -55,6 +55,13 @@ class Ability
     if user.groups.count > 0 and user.groups.map(&:name).include?("qlsv") 
         can :quanly, SinhVien
     end
+    if user.groups.count > 0 and user.groups.map(&:name).include?("thanhtra") 
+        can :quanly, GiangVien
+    end
+    if user.groups.count > 0 and user.groups.map(&:name).include?("qlthanhtra") 
+        can :quanly, GiangVien
+        can :thanhtra, GiangVien
+    end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

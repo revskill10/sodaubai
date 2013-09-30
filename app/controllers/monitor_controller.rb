@@ -25,6 +25,47 @@ class MonitorController < ActionController::Base
       format.js
     end
   end
+  def thanhtra
+    authorize! :quanly, GiangVien
+    dt = Date.today.to_datetime.change(:offset => Rational(7,24))
+    @today = @days.select {|d| to_zdate(d["time"][0]) == Date.today }.select {|k| k['phong']}.sort_by {|k| k['phong']}
+    @today += @days.select {|d| to_zdate(d["time"][0]) == Date.today }.select {|k| k['phong'].nil?}
+    @lichs2 = LichTrucNhat.where("ngay_truc > timestamp ? and ngay_truc < timestamp ?", dt, DateTime.now).order('ngay_truc asc, created_at asc').map {|l| "#{l.lop_mon_hoc.ma_lop}_#{l.lop_mon_hoc.ma_mon_hoc}"}
+    respond_to do |format|
+      format.html {render :thanhtra, :layout => 'application'}
+    end
+  end
+  def qlthanhtra
+    authorize! :quanly, GiangVien
+    @lenmuon = params[:lenmuon]
+    @vesom = (params[:vesom] ? true: false)
+    @bogio = (params[:bogio] ? true: false)
+    @phong = params[:phong]
+    @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])
+    @ngay = str_to_ngay(params[:ngay_vi_pham])
+    @lich_vi_pham = @lop_mon_hoc.lich_vi_phams.where(ngay_vi_pham: get_ngay(@ngay)).first_or_create!
+    @lich_vi_pham.update_attributes(tuan: @current_week, user_id: current_user.id, phong: @phong, lenmuon: @lenmuon, vesom: @vesom, bogio: @bogio, note1: params[:note1])
+    
+    respond_to do |format|
+      format.js
+    end
+  end
+  def showthanhtra
+    authorize! :quanly, GiangVien
+    @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])
+    @siso = @lop_mon_hoc.lop_mon_hoc_sinh_viens.count
+    @ngay_vi_pham = params[:id]
+    @phong = params[:phong]
+    @ngay = str_to_ngay(@ngay_vi_pham)
+    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first    
+    @lich_vi_pham = @lop_mon_hoc.lich_vi_phams.where(ngay_vi_pham: get_ngay(@ngay)).first
+    #if @lich_vi_pham
+    #  @lich_vi_pham.upadte_attributes(tuan: @current_week, user_id: current_user.id, phong: @phong)
+    @end        
+    respond_to do |format|
+      format.js
+    end
+  end
   def trucnhat
     authorize! :quanly, SinhVien
     dt = Date.today.to_datetime.change(:offset => Rational(7,24))
@@ -34,7 +75,7 @@ class MonitorController < ActionController::Base
     respond_to do |format|
       format.html {render :trucnhat, :layout => 'application'}
     end
-  end
+  end  
   def qltrucnhat
     authorize! :quanly, SinhVien
     @svs = params[:msv]
@@ -43,7 +84,7 @@ class MonitorController < ActionController::Base
     @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])
     @ngay = str_to_ngay(params[:ngay_truc])
     @lich = @lop_mon_hoc.lich_truc_nhats.where(ngay_truc: get_ngay(@ngay)).first_or_create!
-    @lich.update_attributes(note: note, phong: phong, tuan: @current_week)
+    @lich.update_attributes(note: note, phong: phong, tuan: @current_week, user_id: current_user.id)
     if @lich.truc_nhats.count > 0
       @lich.truc_nhats.update_all(status: false)
     end
@@ -58,6 +99,7 @@ class MonitorController < ActionController::Base
     end
   end
   def showtrucnhat
+    authorize! :quanly, SinhVien
     @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])
     @siso = @lop_mon_hoc.lop_mon_hoc_sinh_viens.count
     @ngay_truc = params[:id]

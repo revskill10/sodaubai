@@ -1,0 +1,18 @@
+%h5{:style => "text-align:center;"}= "Phòng: #{@phong}, lớp: #{@lop_mon_hoc.ma_lop}, giảng viên: #{@lop_mon_hoc.ten_giang_vien}, sĩ số: #{getdiemdanh(@lich)}/ #{@siso}"
+= form_tag qlthanhtra_path, :method => :post, :remote => true do                         
+  = hidden_field_tag :lop_mon_hoc_id
+  = hidden_field_tag :ngay_vi_pham
+  = hidden_field_tag :phong
+  = submit_tag "Cập nhật", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}  
+  %table{:class => "table table-bordered"}           
+    %thead                    
+      %td Lên lớp muộn
+      %td Về sớm
+      %td Bỏ giờ dạy
+      %td Mô tả chi tiết      
+    %tbody      
+      %tr                
+        %td= check_box_tag "lenmuon", nil, (@lich_vi_pham ? @lich_vi_pham.lenmuon : false)
+        %td= check_box_tag "vesom", nil, (@lich_vi_pham ? @lich_vi_pham.vesom : false)
+        %td= check_box_tag "bogio", nil, (@lich_vi_pham ? @lich_vi_pham.bogio : false)
+        %td= text_area_tag "note1", (@lich_vi_pham ? raw(@lich_vi_pham.note1) : "")        

@@ -21,7 +21,7 @@ class LopMonHoc < ActiveRecord::Base
   
 
   has_many :thong_bao_lop_hocs, :dependent => :destroy
-
+  has_many :lich_vi_phams, :dependent => :destroy
   has_many :lich_trinh_giang_days, :dependent => :destroy
   has_many :diem_danhs, :through => :lich_trinh_giang_days
   has_many :lich_truc_nhats, :dependent => :nullify

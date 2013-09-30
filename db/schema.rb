@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130927065405) do
+ActiveRecord::Schema.define(:version => 20130930014054) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -114,9 +114,31 @@ ActiveRecord::Schema.define(:version => 20130927065405) do
     t.datetime "updated_at",     :null => false
     t.text     "note"
     t.integer  "tuan"
+    t.integer  "user_id"
   end
 
   add_index "lich_truc_nhats", ["lop_mon_hoc_id"], :name => "index_lich_truc_nhats_on_lop_mon_hoc_id"
+  add_index "lich_truc_nhats", ["user_id"], :name => "index_lich_truc_nhats_on_user_id"
+
+  create_table "lich_vi_phams", :force => true do |t|
+    t.datetime "ngay_vi_pham"
+    t.integer  "lop_mon_hoc_id"
+    t.string   "phong"
+    t.integer  "tuan"
+    t.boolean  "lenmuon"
+    t.boolean  "vesom"
+    t.boolean  "bogio"
+    t.text     "note1"
+    t.text     "note2"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "user_id"
+    t.boolean  "status"
+    t.integer  "nguoi_duyet_id"
+  end
+
+  add_index "lich_vi_phams", ["nguoi_duyet_id"], :name => "index_lich_vi_phams_on_nguoi_duyet_id"
+  add_index "lich_vi_phams", ["user_id"], :name => "index_lich_vi_phams_on_user_id"
 
   create_table "lop_gheps", :force => true do |t|
     t.string   "ma_lop_ghep"
