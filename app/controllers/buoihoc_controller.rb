@@ -248,12 +248,16 @@ class BuoihocController < ApplicationController
       authorize! :manage, @lich
       authorize! :quanly, @lich
       if params[:buoihoc][:thoigian]
+        @tiet = params[:buoihoc][:tiet]
+        t = LichTrinhGiangDay::TIET[@tiet.to_i]
+        thoigian = params[:buoihoc][:thoigian] + "-" + t[0].to_s + "-" + t[1].to_s
         @ngaybu = str_to_ngay(params[:buoihoc][:thoigian]) 
         @lich.ngay_day_moi = get_ngay(@ngaybu)      
+        @lich.tuan_moi = LichTrinhGiangDay.current_tuan(@lich.ngay_day_moi.localtime)
         gv = @lich.lop_mon_hoc.giang_vien 
         if gv and !gv.check_conflict(@lich.ngay_day_moi.localtime) and (DateTime.now < @lich.ngay_day_moi)          
           @lich.loai = 2
-          @lich.status = 6
+          @lich.status = 6          
           @lich.save!          
         else
           @error = 1 

@@ -6,11 +6,17 @@
 
 - if can? :quanly, @lich    
   %h5 Đăng kí dạy bù:
-  #datetimepicker1.input-append.date
-    %input{:"data-format" => "yyyy-MM-dd-hh-mm", :type=>"text", :name => "buoihoc[thoigian]"}
-    %span.add-on
-      %i{:"data-time-icon"=>"icon-time",:"data-date-icon"=>"icon-calendar"}
   .well.sidebar-nav{:style => "font-size: 12px;"}
+    
+    %h5 Ngày dạy bù (năm-tháng-ngày)
+    #dung.input-append
+      %input{:"data-format" => "yyyy-MM-dd", :type=>"text", :name => "buoihoc[thoigian]"}
+      %span.add-on
+        %i{:"data-time-icon"=>"icon-time",:"data-date-icon"=>"icon-calendar"}
+    %br
+    %h5 Tiết
+    %span= select_tag "buoihoc[tiet]", "<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option>".html_safe 
+    %br    
     %input#giohoc{:type=>"hidden", :name => "lop_mon_hoc_id", :value => @lop_mon_hoc.id }
     %input#lophoc{:type=>"hidden", :name => "id", :value => @pid}      
     %span= submit_tag "Đề xuất buổi dạy bù", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}
