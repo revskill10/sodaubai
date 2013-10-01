@@ -64,7 +64,7 @@ class TkbGiangVien < ActiveRecord::Base
     return DateTime.new(day.year, day.month, day.day).change(:offset => Rational(7,24))
   end
   def get_ngay_ket_thuc
-    t2 = Tuan.find(tuan_hoc_bat_dau + so_tuan)
+    t2 = Tuan.find(tuan_hoc_bat_dau + so_tuan -1)
     if t2
       day = t2.den_ngay
       return DateTime.new(day.year, day.month, day.day, day.hour, day.min).change(:offset => Rational(7,24))
