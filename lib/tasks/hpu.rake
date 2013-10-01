@@ -712,6 +712,33 @@ namespace :hpu do
     end
   end
 
+  task :load_lopmonhocsv => :environment do  
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    @client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
+    response = @client.call(:lop_mon_hoc_sinh_vien_hk)
+    res_hash = response.body.to_hash
+    ls = res_hash[:lop_mon_hoc_sinh_vien_hk_response][:lop_mon_hoc_sinh_vien_hk_result][:diffgram][:document_element]
+    ls = ls[:lop_mon_hoc_sinh_vien_hk]  
+    puts "loading... lopsv"    
+    ls.each do |l|    
+      hodem = titleize(l[:hodem].strip.downcase).split(" ").to_a
+      ho = hodem[0] if hodem[0]
+      ho_dem = hodem[1] if hodem[1]
+
+      lops = LopMonHoc.where(ma_lop: l[:malop].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase)
+      if lops and lops.count > 0
+        lops.each do |lop|
+          lopmon=lop.lop_mon_hoc_sinh_viens.where(ma_sinh_vien: l[:ma_sinh_vien].strip.upcase).first
+          unless lopmon then 
+            lopmon = lop.lop_mon_hoc_sinh_viens.where(ma_sinh_vien: l[:ma_sinh_vien].strip.upcase).create!
+            lopmon.update_attributes(ten_mon_hoc: titleize(l[:ten_mon_hoc].strip.downcase), ho: ho,  ho_dem: ho_dem, ten: titleize(l[:ten].strip.downcase), ma_lop_hanh_chinh: l[:ma_lop_hanh_chinh].strip.upcase )             
+            lopmon.save!
+          end
+        end
+      end
+    end 
+
 end
 
 def titleize(str)
