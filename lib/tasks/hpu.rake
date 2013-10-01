@@ -738,7 +738,7 @@ namespace :hpu do
         end
       end
     end 
-
+  end
 end
 
 def titleize(str)
