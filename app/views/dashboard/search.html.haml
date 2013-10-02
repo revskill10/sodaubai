@@ -34,35 +34,35 @@
                 %li.nav-header Lớp hành chính
                 - for row in @search.facet(:lop_hc).rows[0..10]
                   - if params[:lop_hc].blank?
-                    %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :lop_hc => row.value)
+                    %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :lop_hc => row.value, :ten => params[:ten], :ten_nganh => params[:ten_nganh], :ma_khoa_hoc => params[:ma_khoa_hoc])
                   - else
                     %li
                       .strong= row.value + "(#{row.count})"
-                      = link_to "remove", search_path(:type => @type, :search => @keyword)
+                      = link_to "remove", search_path(:type => @type, :search => @keyword, :ten => params[:ten], :ten_nganh => params[:ten_nganh], :ma_khoa_hoc => params[:ma_khoa_hoc])
                 %li.nav-header Tên
                 - for row in @search.facet(:ten).rows[0..10]
                   - if params[:ten].blank?
-                    %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :ten => row.value)
+                    %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :ten => row.value, :lop_hc => params[:lop_hc], :ten_nganh => params[:ten_nganh], :ma_khoa_hoc => params[:ma_khoa_hoc])
                   - else
                     %li
                       .strong= row.value + "(#{row.count})"
-                      = link_to "remove", search_path(:type => @type, :search => @keyword)
+                      = link_to "remove", search_path(:type => @type, :search => @keyword, :lop_hc => params[:lop_hc], :ten_nganh => params[:ten_nganh], :ma_khoa_hoc => params[:ma_khoa_hoc])
                 %li.nav-header Ngành đào tạo
                 - for row in @search.facet(:ten_nganh).rows[0..10]
                   - if params[:ten_nganh].blank?
-                    %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :ten_nganh => row.value)
+                    %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :ten_nganh => row.value, :ten => params[:ten], :lop_hc => params[:lop_hc], :ma_khoa_hoc => params[:ma_khoa_hoc])
                   - else
                     %li
                       .strong= row.value + "(#{row.count})"
-                      = link_to "remove", search_path(:type => @type, :search => @keyword)
+                      = link_to "remove", search_path(:type => @type, :search => @keyword, :ten => params[:ten], :lop_hc => params[:lop_hc], :ma_khoa_hoc => params[:ma_khoa_hoc])
                 %li.nav-header Khóa học
                 - for row in @search.facet(:ma_khoa_hoc).rows[0..10]
                   - if params[:ma_khoa_hoc].blank?
-                    %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :ma_khoa_hoc => row.value)
+                    %li= link_to row.value + "(#{row.count})", search_path(:type => @type, :search => @keyword, :ma_khoa_hoc => row.value, :ten => params[:ten], :ten_nganh => params[:ten_nganh], :lop_hc => params[:lop_hc])
                   - else
                     %li
                       .strong= row.value + "(#{row.count})"
-                      = link_to "remove", search_path(:type => @type, :search => @keyword)
+                      = link_to "remove", search_path(:type => @type, :search => @keyword, :ma_khoa_hoc => row.value, :ten => params[:ten], :ten_nganh => params[:ten_nganh], :lop_hc => params[:lop_hc])
               - elsif @type == "2"
                 %li.nav-header Môn học
                 - for row in @search.facet(:ten_mon_hoc).rows[0..10]
