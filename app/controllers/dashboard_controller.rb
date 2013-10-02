@@ -33,6 +33,9 @@ class DashboardController < ApplicationController
           facet(f)
         end        
         with(:lop_hc, params[:lop_hc]) if params[:lop_hc].present?
+        with(:ten, params[:ten]) if params[:ten].present?
+        with(:ten_nganh, params[:ten_nganh]) if params[:ten_nganh].present?
+        with(:ma_khoa_hoc, params[:ma_khoa_hoc]) if params[:ma_khoa_hoc].present?
         paginate(:page => params[:page] || 1, :per_page => 50)
       end
       @results = @search.results

@@ -2,7 +2,7 @@
 class SinhVien < ActiveRecord::Base
 
   
-  FACETS = [:ten, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc]
+  FACETS = [:ten, :lop_hc, :ten_nganh, :ma_khoa_hoc]
   searchable do 
     text :ten, :boost => 5
     text :ho, :ho_dem, :lop_hc, :ma_he_dao_tao, :ma_khoa_hoc, :ma_nganh, :ma_sinh_vien, :ten_nganh
@@ -15,7 +15,7 @@ class SinhVien < ActiveRecord::Base
     end
     string :ten
     string :ma_khoa_hoc
-    string :ma_he_dao_tao
+    string :ten_nganh
     string :lop_hc
     string :nam_hoc do 
       "2013-2014"
