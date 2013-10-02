@@ -17,6 +17,8 @@
                 %li= link_to "Quản lý", "/quanly"  
               - if (can? :thanhtra, GiangVien)
                 %li= link_to "Thanh tra", "/thanhtra"
+              - if (can? :quanly, SinhVien)
+                %li= link_to "Trực nhật", "/trucnhat"
               - if can? :manage, :all
                 %li= link_to "Quản trị", "/admin"
           %ul.nav.pull-right

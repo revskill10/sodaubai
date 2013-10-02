@@ -1,10 +1,11 @@
 %colgroup
   %col{:style => "width: 3%"}
   %col{:style => "width: 17%"}
-  %col{:style => "width: 10%"}
-  %col{:style => "width: 20%"}                    
-  %col{:style => "width: 5%"}                    
-  %col{:style => "width: 5%"}    
+  %col{:style => "width: 7%"}
+  %col{:style => "width: 25%"}                    
+  %col{:style => "width: 8%"}                    
+  %col{:style => "width: 15%"}    
+  %col{:style => "width: 15%"} 
   %col{:style => "width: 10%"}         
 %thead
   %td STT
@@ -12,7 +13,8 @@
   %td Mã lớp
   %td Môn học
   %td Phòng
-  %td Khối lượng
+  %td Khối lượng thực hiện
+  %td Khối lượng phân bổ
   %td Xuất
 %tbody
   - if @results and @results.count > 0
@@ -25,4 +27,5 @@
           %td= lop.ten_mon_hoc 
           %td= (link_to lop.phong_hoc, phong_path(lop.phong_hoc) if lop.phong_hoc) || ""
           %td= lop.giang_vien.khoi_luong(lop.id).to_s
+          %td= lop.khoi_luong_phan_bo
           %td= link_to "Xuất ra Excel", search_lop_mon_hoc_path(lop.id) + ".xlsx"

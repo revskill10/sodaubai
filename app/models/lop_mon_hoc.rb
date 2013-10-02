@@ -88,6 +88,16 @@ class LopMonHoc < ActiveRecord::Base
   def siso 
     lop_mon_hoc_sinh_viens.count
   end
+  def khoi_luong_phan_bo
+    return 0 unless tkb_giang_viens
+    return 0 if tkb_giang_viens.count == 0
+    res = 0
+    tkb_giang_viens.each do |tkb|
+      tongsotiet = tkb.so_tiet * tkb.so_tuan
+      res += tongsotiet
+    end
+    return res
+  end
   def get_thuc_hanh
     # false la khong co thuc hanh
     return false if thuc_hanh == false
