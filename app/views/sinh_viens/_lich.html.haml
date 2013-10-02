@@ -7,6 +7,7 @@
     %td Giảng viên
     %td Lớp
     %td Môn    
+    %td Số tiết
     %td Nội dung
     %td Ghi chú    
   %tbody    
@@ -19,5 +20,6 @@
         %td= link_to lich.lop_mon_hoc.ten_giang_vien, giang_vien_path(lich.lop_mon_hoc.ma_giang_vien)
         %td= link_to lich.lop_mon_hoc.ma_lop, report_lop_mon_hoc_path(lich.lop_mon_hoc)
         %td= lich.lop_mon_hoc.ten_mon_hoc
+        %td= (lich.so_tiet_day_moi || 0)
         %td= (raw(lich.noi_dung_day.gsub(/\n/,'<br/>')) if lich.noi_dung_day ) || ""
         %td= ("Vắng" if lich.diem_danhs.pluck(:ma_sinh_vien).include?(@sinh_vien.ma_sinh_vien))
