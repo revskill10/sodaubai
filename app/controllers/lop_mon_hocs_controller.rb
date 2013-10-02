@@ -68,10 +68,10 @@ class LopMonHocsController < ApplicationController
     authorize! :manage, @lop_mon_hoc
     @sn = params[:so_nhom].to_s.empty? ? 1 : params[:so_nhom].to_i
     @sl = params[:so_lan_kt].to_s.empty? ? 0 : params[:so_lan_kt].to_i
-    @st = params[:so_tiet_phan_bo].empty? ? @lop_mon_hoc.so_tiet : params[:so_tiet_phan_bo].to_f
+    #@st = params[:so_tiet_phan_bo].empty? ? @lop_mon_hoc.so_tiet : params[:so_tiet_phan_bo].to_f
     th = params[:thuc_hanh]
     if @sn <= 0 then @sn = 1 end
-    @lop_mon_hoc.update_attributes(group: @sn, so_lan_kt: @sl, so_tiet_phan_bo: @st) if @sl >= 0 and @sl <= 5 and @sn >= 1 
+    @lop_mon_hoc.update_attributes(group: @sn, so_lan_kt: @sl) if @sl >= 0 and @sl <= 5 and @sn >= 1 
     @lop_mon_hoc.thuc_hanh = true if th
     @lop_mon_hoc.thuc_hanh = false unless th
     
