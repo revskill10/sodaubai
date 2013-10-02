@@ -724,7 +724,7 @@ namespace :hpu do
     ls.each do |l|    
       hodem = titleize(l[:hodem].strip.downcase).split(" ").to_a
       ho = hodem[0] if hodem[0]
-      ho_dem = hodem[1] if hodem[1]
+      ho_dem = hodem[1..-1].join(" ") if hodem[1]
 
       lops = LopMonHoc.where(ma_lop: l[:malop].strip.upcase, ma_mon_hoc: l[:ma_mon_hoc].strip.upcase)
       if lops and lops.count > 0
