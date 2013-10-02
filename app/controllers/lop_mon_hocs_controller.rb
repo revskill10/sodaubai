@@ -46,13 +46,26 @@ class LopMonHocsController < ApplicationController
       format.xlsx {
       p = Axlsx::Package.new        
       wb = p.workbook
+      style_shout = wb.styles.add_style sz: 11, b: false, alignment: { horizontal: :center }
       wb.add_worksheet(:name => "Reporting") do |sheet|
-        sheet.add_row ["REPORTING"]
-        sheet.add_row ["Mã sinh viên", "Họ đệm", "Tên", "Lớp hành chính", "Diểm chuyên cần", "Điểm Trung bình kiểm tra", "Điểm thực hành", "Điểm quá trình"]
-        @svs.each do |sv| 
-          sheet.add_row [sv.ma_sinh_vien.to_s, sv.ho_dem, sv.ten, sv.ma_lop_hanh_chinh.to_s, sv.diemcc.to_s, sv.diemtbkt.to_s, sv.diem_thuc_hanh.to_s, sv.diemqt.to_s] 
+
+        sheet.add_row ["Bảng điểm lớp môn học"]
+        sheet.add_row ["Số thứ tự", "Mã sinh viên", "Họ đệm", "Tên", "Lớp hành chính", "Diểm chuyên cần", "Điểm Trung bình kiểm tra", "Điểm thực hành", "Điểm quá trình"]
+        @svs.each_with_index do |sv, index|           
+          sheet.add_row [(index+1), sv.ma_sinh_vien.to_s, sv.ho_dem, sv.ten, sv.ma_lop_hanh_chinh.to_s, sv.diemcc.to_s, sv.diemtbkt.to_s, sv.diem_thuc_hanh.to_s, sv.diemqt.to_s] 
+          sheet["A#{index+3}"].style = style_shout  
+          sheet["B#{index+3}"].style = style_shout  
+          sheet["C#{index+3}"].style = style_shout  
+          sheet["D#{index+3}"].style = style_shout  
+          sheet["E#{index+3}"].style = style_shout  
+          sheet["F#{index+3}"].style = style_shout  
+          sheet["G#{index+3}"].style = style_shout  
+          sheet["H#{index+3}"].style = style_shout  
+          sheet["I#{index+3}"].style = style_shout  
         end          
+        
       end
+
       send_data p.to_stream.read, :filename => "lop-#{@lop_mon_hoc.ma_lop}-#{@lop_mon_hoc.ma_giang_vien}.xlsx", :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"     
     }
     end    
@@ -128,5 +141,5 @@ class LopMonHocsController < ApplicationController
   def load_lop
     @lop_mon_hoc ||= LopMonHoc.find(params[:id])
   end
-
+  
 end

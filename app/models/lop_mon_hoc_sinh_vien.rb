@@ -69,6 +69,14 @@ class LopMonHocSinhVien < ActiveRecord::Base
   def tong_so_tiet
     lop_mon_hoc.khoi_luong_phan_bo || 1
   end
+  def extract_dem    
+    dd = ho_dem.split(" ").to_a
+    ddem = ""
+    if dd.count > 1 then 
+      ddem = ho_dem[1..-1].join(" ")
+    end
+    return ddem
+  end
   def diemqt
     (diemcc || 0) + diemtbkt + convert_grade((diem_thuc_hanh.round(0).to_i if diem_thuc_hanh) || 0)
   end

@@ -23,12 +23,7 @@ class GiangVien < ActiveRecord::Base
   def to_s
     "#{ho_ten}"
   end
-  def khoi_luong(lop)    
-    nghi_day_duoc_duyet = lich_trinh_giang_days.nghidayquakhu
-    day_bu_duoc_duyet = lich_trinh_giang_days.daybuquakhu.where("ngay_day_moi < ?", DateTime.now)
-    res = lich_trinh_giang_days - nghi_day_duoc_duyet
-    return res.select {|l| l.lop_mon_hoc_id == lop}.inject(0) {|sum,x| sum + (x.so_tiet_day_moi || 0) }
-  end
+  
   def get_days
     ngays = []
     if tkb_giang_viens.count > 0 
