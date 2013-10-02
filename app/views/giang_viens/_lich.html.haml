@@ -7,6 +7,7 @@
     %td Lớp
     %td Môn    
     %td Nội dung
+    %td Số tiết
     %td Sinh viên vắng
   %tbody    
     - @lichs.each_with_index do |lich, index|
@@ -18,6 +19,7 @@
         %td= link_to lich.lop_mon_hoc.ma_lop, report_lop_mon_hoc_path(lich.lop_mon_hoc)
         %td= lich.lop_mon_hoc.ten_mon_hoc
         %td= (raw(lich.noi_dung_day.gsub(/\n/,'<br/>')) if lich.noi_dung_day ) || ""
+        %td= (lich.so_tiet_day_moi || 0)
         %td
           - if lich.diem_danhs.count > 0 
             %ol         
