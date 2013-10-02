@@ -49,7 +49,7 @@ class LopMonHocsController < ApplicationController
       wb.add_worksheet(:name => "Reporting") do |sheet|
         sheet.add_row ["REPORTING"]
         @svs.each do |sv| 
-          sheet.add_row [sv.ma_sinh_vien, sv.ho_dem, sv.ten, sv.diemcc, sv.diemtbkt, sv.diem_thuc_hanh, sv.diemqt] 
+          sheet.add_row [sv.ma_sinh_vien, sv.ho_dem, sv.ten, sv.ma_lop_hanh_chinh, sv.diemcc, sv.diemtbkt, sv.diem_thuc_hanh, sv.diemqt] 
         end          
       end
       send_data p.to_stream.read, :filename => 'lops.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"     
@@ -114,8 +114,7 @@ class LopMonHocsController < ApplicationController
         send_data p.to_stream.read, :filename => "lichtrucnhat-#{@lop.ma_lop + @lop.ma_mon_hoc}.xlsx", :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
       }
     end
-  end
-
+  end  
   def calendar
     authorize! :read, @lop_mon_hoc
     @lich = @lop_mon_hoc.get_days
