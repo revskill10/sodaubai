@@ -41,16 +41,17 @@
       %td Sinh viên vắng
     %tbody
       - if @lichs and @lichs.count > 0
-        - @lichs.each_with_index do |lich, index|        
-          %tr
-            %td= (index+1).to_s
-            %td= format_date2(lich.ngay_day)
-            %td= link_to lich.lop_mon_hoc.ten_giang_vien, giang_vien_path(lich.lop_mon_hoc.ma_giang_vien)
-            %td= link_to lich.lop_mon_hoc.ma_lop, report_lop_mon_hoc_path(lich.lop_mon_hoc.id)
-            %td= lich.lop_mon_hoc.ten_mon_hoc 
-            %td= (raw(lich.noi_dung_day.gsub(/\n/,'<br/>')) if lich.noi_dung_day ) || ""
-            %td
-              - if lich.diem_danhs.count > 0 
-                %ol         
-                  - lich.diem_danhs.vang.each do |dd|
-                    %li= link_to(dd.sinh_vien.to_s, sinh_vien_path(dd.sinh_vien.ma_sinh_vien)) + ", "
+        - @lichs.each_with_index do |lich, index|
+          - if lich.lop_mon_hoc
+            %tr
+              %td= (index+1).to_s
+              %td= format_date2(lich.ngay_day)
+              %td= link_to lich.lop_mon_hoc.ten_giang_vien, giang_vien_path(lich.lop_mon_hoc.ma_giang_vien)
+              %td= link_to lich.lop_mon_hoc.ma_lop, report_lop_mon_hoc_path(lich.lop_mon_hoc.id)
+              %td= lich.lop_mon_hoc.ten_mon_hoc 
+              %td= (raw(lich.noi_dung_day.gsub(/\n/,'<br/>')) if lich.noi_dung_day ) || ""
+              %td
+                - if lich.diem_danhs.count > 0 
+                  %ol         
+                    - lich.diem_danhs.vang.each do |dd|
+                      %li= link_to(dd.sinh_vien.to_s, sinh_vien_path(dd.sinh_vien.ma_sinh_vien)) + ", "

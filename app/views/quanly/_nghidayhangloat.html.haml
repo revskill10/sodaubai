@@ -14,7 +14,7 @@
       %td Duyệt nghỉ dạy
     %tbody
       - if @today and @today.count > 0
-        - @today.each_with_index do |lich, index|                    
+        - @today.each_with_index do |lich, index|
           %tr           
             %td= so(index+1)            
             %td= lich['ma_lop']

@@ -66,7 +66,7 @@ class LopMonHocSinhVien < ActiveRecord::Base
   def hodemdaydu
     (ho || "") + " " + (ho_dem || "")
   end
-  def tong_so_tiet
+  def tong_so_tiet    
     lop_mon_hoc.khoi_luong_phan_bo || 1
   end  
   def diemqt

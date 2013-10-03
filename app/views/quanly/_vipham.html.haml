@@ -14,21 +14,22 @@
     %td Phản hồi
     %td Người duyệt
   %tbody    
-    - @lichs.each_with_index do |lich, index|      
-      %tr
-        = hidden_field_tag "vipham[#{lich.id}][lenmuon]", false
-        = hidden_field_tag "vipham[#{lich.id}][vesom]", false
-        = hidden_field_tag "vipham[#{lich.id}][bogio]", false
-        %td= (index+1).to_s
-        %td= lich.tuan
-        %td= format_date(lich.ngay_vi_pham.localtime)
-        %td= lich.lop_mon_hoc.ma_lop
-        %td= lich.lop_mon_hoc.ten_mon_hoc
-        %td= lich.lop_mon_hoc.giang_vien
-        %td= lich.phong
-        %td= check_box_tag "vipham[#{lich.id}][lenmuon]", nil, lich.lenmuon        
-        %td= check_box_tag "vipham[#{lich.id}][vesom]", nil, lich.vesom        
-        %td= check_box_tag "vipham[#{lich.id}][bogio]", nil, lich.bogio        
-        %td= text_area_tag "vipham[#{lich.id}][note1]", (lich ? raw(lich.note1) : "")        
-        %td= text_area_tag "vipham[#{lich.id}][note2]", (lich ? raw(lich.note2) : "")  
-        %td= lich.user      
+    - @lichs.each_with_index do |lich, index|
+      - if lich.lop_mon_hoc
+        %tr
+          = hidden_field_tag "vipham[#{lich.id}][lenmuon]", false
+          = hidden_field_tag "vipham[#{lich.id}][vesom]", false
+          = hidden_field_tag "vipham[#{lich.id}][bogio]", false
+          %td= (index+1).to_s
+          %td= lich.tuan
+          %td= format_date(lich.ngay_vi_pham.localtime)
+          %td= lich.lop_mon_hoc.ma_lop
+          %td= lich.lop_mon_hoc.ten_mon_hoc
+          %td= lich.lop_mon_hoc.giang_vien
+          %td= lich.phong
+          %td= check_box_tag "vipham[#{lich.id}][lenmuon]", nil, lich.lenmuon        
+          %td= check_box_tag "vipham[#{lich.id}][vesom]", nil, lich.vesom        
+          %td= check_box_tag "vipham[#{lich.id}][bogio]", nil, lich.bogio        
+          %td= text_area_tag "vipham[#{lich.id}][note1]", (lich ? raw(lich.note1) : "")        
+          %td= text_area_tag "vipham[#{lich.id}][note2]", (lich ? raw(lich.note2) : "")  
+          %td= lich.user      
