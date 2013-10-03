@@ -105,3 +105,4 @@ gem 'resque', :require => "resque/server"
 gem 'resque-scheduler', :require => 'resque_scheduler'
 gem 'win32-process'
 gem 'destroyed_at'
+gem 'thinreports-rails'
