@@ -60,9 +60,11 @@
       %span Có đầu điểm thực hành? 
       %br
       %br
-      
+      %span Khối lượng giảng dạy theo đề cương chi tiết:
+      %br
       %span= text_field_tag :so_tiet_phan_bo, @lop_mon_hoc.so_tiet_phan_bo, :placeholder => 'Khối lượng theo đề cương chi tiết'                 
-      %span Khối lượng được phân bổ: #{@lop_mon_hoc.khoi_luong_phan_bo}. 
+      %br
+      %span Khối lượng được phân bổ theo thời khóa biểu: #{@lop_mon_hoc.khoi_luong_phan_bo}. 
       - if  (@lop_mon_hoc.khoi_luong_phan_bo || 0) < (@lop_mon_hoc.so_tiet_phan_bo)
         %span Nếu bạn cần đăng ký bổ sung vui lòng đăng ký bổ sung tại đây.
       %br
