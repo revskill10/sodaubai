@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130930014054) do
+ActiveRecord::Schema.define(:version => 20130930014951) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -137,8 +137,11 @@ ActiveRecord::Schema.define(:version => 20130930014054) do
     t.integer  "nguoi_duyet_id"
   end
 
+  add_index "lich_vi_phams", ["bogio"], :name => "index_lich_vi_phams_on_bogio"
+  add_index "lich_vi_phams", ["lenmuon"], :name => "index_lich_vi_phams_on_lenmuon"
   add_index "lich_vi_phams", ["nguoi_duyet_id"], :name => "index_lich_vi_phams_on_nguoi_duyet_id"
   add_index "lich_vi_phams", ["user_id"], :name => "index_lich_vi_phams_on_user_id"
+  add_index "lich_vi_phams", ["vesom"], :name => "index_lich_vi_phams_on_vesom"
 
   create_table "lop_gheps", :force => true do |t|
     t.string   "ma_lop_ghep"
