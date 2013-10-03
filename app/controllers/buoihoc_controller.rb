@@ -251,7 +251,7 @@ class BuoihocController < ApplicationController
         @tiet = params[:buoihoc][:tiet]
         t = LichTrinhGiangDay::TIET[@tiet.to_i]
         thoigian = params[:buoihoc][:thoigian] + "-" + t[0].to_s + "-" + t[1].to_s
-        @ngaybu = str_to_ngay(params[:buoihoc][:thoigian]) 
+        @ngaybu = str_to_ngay(thoigian) 
         @lich.ngay_day_moi = get_ngay(@ngaybu)      
         @lich.tuan_moi = LichTrinhGiangDay.current_tuan(@lich.ngay_day_moi.localtime)
         gv = @lich.lop_mon_hoc.giang_vien 
