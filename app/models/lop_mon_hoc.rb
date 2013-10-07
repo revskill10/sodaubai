@@ -86,9 +86,9 @@ class LopMonHoc < ActiveRecord::Base
     return result
   end
   def khoi_luong
-    nghi_day_duoc_duyet = lich_trinh_giang_days.nghidayquakhu
+    nghi_day = lich_trinh_giang_days.nghiday
     #day_bu_duoc_duyet = lop.lich_trinh_giang_days.daybuquakhu.where("ngay_day_moi < ?", DateTime.now)
-    res = lich_trinh_giang_days - nghi_day_duoc_duyet
+    res = lich_trinh_giang_days - nghi_day
     return res.inject(0) {|sum,x| sum + (x.so_tiet_day_moi || 0) }
   end
   def siso 

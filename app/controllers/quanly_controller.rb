@@ -294,6 +294,17 @@ class QuanlyController < ApplicationController
     end
   end
 
+  def dkbs
+
+    respond_to do |format|
+      format.html
+    end
+  end
+  def qldkbs
+    respond_to do |format|
+      format.js
+    end
+  end
   # Danh sach giang vien dang ky nghi day
   def report1  	    
     authorize! :quanly, SinhVien

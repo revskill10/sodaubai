@@ -255,13 +255,12 @@ class BuoihocController < ApplicationController
         @lich.ngay_day_moi = get_ngay(@ngaybu)      
         @lich.tuan_moi = LichTrinhGiangDay.current_tuan(@lich.ngay_day_moi.localtime)
         gv = @lich.lop_mon_hoc.giang_vien 
-        if gv and !gv.check_conflict(@lich.ngay_day_moi.localtime) and (DateTime.now < @lich.ngay_day_moi)          
+        if gv and !gv.check_conflict(@lich.ngay_day_moi.localtime)  
           @lich.loai = 2
           @lich.status = 6          
           @lich.save!          
         else
-          @error = 1 
-          @error = 2 if  DateTime.now > @lich.ngay_day_moi
+          @error = 1           
         end
         
       else

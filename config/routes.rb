@@ -51,6 +51,9 @@ Trytest::Application.routes.draw do
       get '/search' => 'lop_mon_hocs#search'
       get '/report' => 'lop_mon_hocs#report'
       get '/t/:tuan_id' => 'lop_mon_hocs#tuan'
+      get '/showdkbs' => 'lop_mon_hocs#showdkbs', :as => 'showdkbs'
+      post '/dkbs' => 'lop_mon_hocs#dkbs', :as => 'dkbs'
+      post '/qldkbs' => 'lop_mon_hocs#qldkbs', :as => 'qldkbs'
     end    
     resources :diem_chi_tiets      do  
       collection do        
@@ -128,7 +131,7 @@ Trytest::Application.routes.draw do
   get "monitor/:lop_mon_hoc_id/:phong/:id/trucnhat" => 'monitor#showtrucnhat', :as => 'showtrucnhat'
   get "monitor/:lop_mon_hoc_id/:phong/:id/thanhtra" => 'monitor#showthanhtra', :as => 'showthanhtra'
   post "monitor/qltrucnhat" => 'monitor#qltrucnhat', :as => 'qltrucnhat'
-  post "monitor/qlthanhtra" => 'monitor#qlthanhtra', :as => 'qlthanhtra'
+  post "monitor/qlthanhtra" => 'monitor#qlthanhtra', :as => 'qlthanhtra'  
   get "search" => 'dashboard#search', :as => 'search'
   match '*a', :to => 'application#routing'
   

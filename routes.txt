@@ -132,7 +132,9 @@ batch_action_admin_lop_mon_hoc_tkb_giang_viens POST   /admin/lop_mon_hocs/:lop_m
                           calendar_lop_mon_hoc GET    /lop_mon_hocs/:id/calendar(.:format)                                       lop_mon_hocs#calendar
                             search_lop_mon_hoc GET    /lop_mon_hocs/:id/search(.:format)                                         lop_mon_hocs#search
                             report_lop_mon_hoc GET    /lop_mon_hocs/:id/report(.:format)                                         lop_mon_hocs#report
-                                               GET    /lop_mon_hocs/:id/:tuan_id(.:format)                                       lop_mon_hocs#tuan
+                                               GET    /lop_mon_hocs/:id/t/:tuan_id(.:format)                                     lop_mon_hocs#tuan
+                          showdkbs_lop_mon_hoc GET    /lop_mon_hocs/:id/showdkbs(.:format)                                       lop_mon_hocs#showdkbs
+                              dkbs_lop_mon_hoc POST   /lop_mon_hocs/:id/dkbs(.:format)                                           lop_mon_hocs#dkbs
                                                GET    /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets/:loai(.:format)               diem_chi_tiets#index
                                                POST   /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets/:loai(.:format)               diem_chi_tiets#create
                     lop_mon_hoc_diem_chi_tiets GET    /lop_mon_hocs/:lop_mon_hoc_id/diem_chi_tiets(.:format)                     diem_chi_tiets#index
@@ -288,7 +290,13 @@ groupupdate_lop_mon_hoc_lop_mon_hoc_sinh_viens POST   /lop_mon_hocs/:lop_mon_hoc
                                    showmonitor GET    /monitor/:lop_mon_hoc_id/:id(.:format)                                     monitor#show
                                          admin GET    /admin(.:format)                                                           admin#index
                                       trucnhat GET    /trucnhat(.:format)                                                        monitor#trucnhat
-                                  showtrucnhat GET    /monitor/:lop_mon_hoc_id/:id/trucnhat(.:format)                            monitor#showtrucnhat
+                                      thanhtra GET    /thanhtra(.:format)                                                        monitor#thanhtra
+                                        vipham GET    /quanly/vipham(.:format)                                                   quanly#vipham
+                                      qlvipham POST   /quanly/qlvipham(.:format)                                                 quanly#qlvipham
+                                      qlvipham GET    /quanly/qlvipham(/:tuan)(.:format)                                         quanly#qlvipham
+                                  showtrucnhat GET    /monitor/:lop_mon_hoc_id/:phong/:id/trucnhat(.:format)                     monitor#showtrucnhat
+                                  showthanhtra GET    /monitor/:lop_mon_hoc_id/:phong/:id/thanhtra(.:format)                     monitor#showthanhtra
                                     qltrucnhat POST   /monitor/qltrucnhat(.:format)                                              monitor#qltrucnhat
+                                    qlthanhtra POST   /monitor/qlthanhtra(.:format)                                              monitor#qlthanhtra
                                         search GET    /search(.:format)                                                          dashboard#search
                                                       /*a(.:format)                                                              application#routing

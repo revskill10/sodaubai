@@ -1,1 +1,10 @@
-alert("OK")
+- if  (@lop_mon_hoc.khoi_luong_phan_bo || 0) < (@lop_mon_hoc.so_tiet_phan_bo)
+  :plain
+    s = $("#formdkbs");
+    s.html("");
+    s.html("#{escape_javascript(render 'formdkbs')}");
+- else
+  :plain
+    s = $("#formdkbs");
+    s.html("");    
+alert("OK");

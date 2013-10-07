@@ -104,6 +104,7 @@ class LopMonHocsController < ApplicationController
     end
   end
 
+
   def search
     authorize! :search, LopMonHoc
 
@@ -136,7 +137,40 @@ class LopMonHocsController < ApplicationController
       format.html {render :calendar}            
     end
   end
- 
+  def showdkbs
+    authorize! :manage, @lop_mon_hoc
+    @sotietbs = @lop_mon_hoc.so_tiet_phan_bo - @lop_mon_hoc.khoi_luong_phan_bo
+
+    if @lop_mon_hoc.da_duyet_bo_sung == true
+      @sobuoibs = @lop_mon_hoc.so_buoi_bo_sung
+    end    
+    respond_to do |format|
+      format.js
+    end
+  end
+  def dkbs
+    authorize! :manage, @lop_mon_hoc
+    @sobuoibs = params[:sobuoibs].to_i
+    @sotietbs = params[:sotietbs].to_i
+
+    if @sobuoibs > 0
+      @lop_mon_hoc.da_duyet_bo_sung = false
+      @lop_mon_hoc.so_tiet_bo_sung = @sotietbs
+      @lop_mon_hoc.so_buoi_bo_sung = @sobuoibs
+      @lop_mon_hoc.save!
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+  def qldkbs
+    authorize! :manage, @lop_mon_hoc
+
+    respond_to do |format|
+      format.js
+    end
+  end
   protected
   def load_lop
     @lop_mon_hoc ||= LopMonHoc.find(params[:id])

@@ -41,41 +41,43 @@
 
 .container-fluid{:style=>"margin-top: 4%;"}   
   
-  
-  = form_tag lop_mon_hoc_path(@lop_mon_hoc.id), :method => :put, :remote => true do 
+  .row-fluid
+    .span7
+      = form_tag lop_mon_hoc_path(@lop_mon_hoc.id), :method => :put, :remote => true do 
 
-    .well.sidebar-nav.of{:style => "font-size: 12px;"}    
-      %h4 Thiết lập thông số lớp môn học
-      
-      = text_field_tag :so_nhom, @lop_mon_hoc.group, :placeholder => 'Số nhóm thực hành'
-      %span  nhóm thực hành, bài tập lớn, đồ án môn học
-      %br
-      
-      = text_field_tag :so_lan_kt, @lop_mon_hoc.so_lan_kt, :placeholder => 'Số lần kiểm tra thường xuyên'     
+        .well.sidebar-nav.of{:style => "font-size: 12px;"}    
+          %h4 Thiết lập thông số lớp môn học
+          
+          = text_field_tag :so_nhom, @lop_mon_hoc.group, :placeholder => 'Số nhóm thực hành'
+          %span  nhóm thực hành, bài tập lớn, đồ án môn học
+          %br
+          
+          = text_field_tag :so_lan_kt, @lop_mon_hoc.so_lan_kt, :placeholder => 'Số lần kiểm tra thường xuyên'     
 
-      %span lần kiểm tra thường xuyên (Tối đa 5 đầu điểm)
-      %br
-    
-      = check_box_tag :thuc_hanh, nil, @lop_mon_hoc.get_thuc_hanh
-      %span Có đầu điểm thực hành? 
-      %br
-      %br
-      %span Khối lượng giảng dạy theo đề cương chi tiết:
-      %br
-      %span= text_field_tag :so_tiet_phan_bo, @lop_mon_hoc.so_tiet_phan_bo, :placeholder => 'Khối lượng theo đề cương chi tiết'                 
-      %br
-      %span Khối lượng được phân bổ theo thời khóa biểu: #{@lop_mon_hoc.khoi_luong_phan_bo}. 
-      - if  (@lop_mon_hoc.khoi_luong_phan_bo || 0) < (@lop_mon_hoc.so_tiet_phan_bo)
-        %span Nếu bạn cần đăng ký bổ sung vui lòng đăng ký bổ sung tại đây.
-      %br
-      %br
-      = submit_tag "Thiết lập", :class => "btn",  :data => {disable_with: "Submitting..."} 
+          %span lần kiểm tra thường xuyên (Tối đa 5 đầu điểm)
+          %br
+        
+          = check_box_tag :thuc_hanh, nil, @lop_mon_hoc.get_thuc_hanh
+          %span Có đầu điểm thực hành? 
+          %br
+          %br
+          %span Khối lượng giảng dạy theo đề cương chi tiết:
+          %br
+          %span= text_field_tag :so_tiet_phan_bo, @lop_mon_hoc.so_tiet_phan_bo, :placeholder => 'Khối lượng theo đề cương chi tiết'                 
+          %br
+          %br Khối lượng được phân bổ theo thời khóa biểu: #{@lop_mon_hoc.khoi_luong_phan_bo}.
+          #formdkbs 
+            = render 'formdkbs'
+          %br          
+          %br
+          = submit_tag "Thiết lập", :class => "btn",  :data => {disable_with: "Submitting..."} 
 
-      - if can? :manage, LopMonHocSinhVien
-        %ul.nav.pull-right
-          %li
-            = link_to 'Thêm sinh viên vào lớp', new_lop_mon_hoc_lop_mon_hoc_sinh_vien_path(@lop_mon_hoc), :class => 'btn'
-
+          - if can? :manage, LopMonHocSinhVien
+            %ul.nav.pull-right
+              %li
+                = link_to 'Thêm sinh viên vào lớp', new_lop_mon_hoc_lop_mon_hoc_sinh_vien_path(@lop_mon_hoc), :class => 'btn'
+    .span5
+      #dkbs
   = form_tag groupupdate_lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id), :method => :post, :remote => true do         
     %ul.nav.pull-right
       %li= submit_tag "Cập nhật danh sách nhóm thực hành", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."} 
