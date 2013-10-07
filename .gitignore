@@ -21,3 +21,4 @@ start.bat
 database.yml
 solr/data
 routes.txt
+Gemfile.lock
