@@ -13,7 +13,7 @@ class BuoihocController < ApplicationController
     if @lich 
       @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
       @ids = @svs.map{|sv| sv.ma_sinh_vien}
-      @lichs = @lop_mon_hoc.lich_trinh_giang_days.order('ngay_day, tuan')
+      @lichs = @lop_mon_hoc.lich_trinh_giang_days.where('char_length(noi_dung_day) > 0').order('ngay_day, tuan')
       if @lich.voters
         voters = JSON.parse(@lich.voters) 
         @theme = voters[@type.ma_sinh_vien] if @type.is_a?(SinhVien)
