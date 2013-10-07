@@ -712,6 +712,15 @@ namespace :hpu do
     end
   end
 
+  task :update_khoiluongphanbo => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    LopMonHoc.all.each do |l|
+      l.so_tiet_phan_bo = l.khoi_luong_phan_bo
+      l.save!
+    end
+  end
+
   task :load_lopmonhocsv => :environment do  
     tenant = Tenant.last
     PgTools.set_search_path tenant.scheme, false
