@@ -96,13 +96,8 @@ class LopMonHoc < ActiveRecord::Base
   end
   def khoi_luong_phan_bo
     return 0 unless tkb_giang_viens
-    return 0 if tkb_giang_viens.count == 0
-    res = 0
-    tkb_giang_viens.each do |tkb|
-      tongsotiet = tkb.so_tiet * tkb.so_tuan
-      res += tongsotiet
-    end
-    return res
+    return 0 if tkb_giang_viens.count == 0        
+    return tkb_giang_viens.group(:tuan_hoc_bat_dau).sum('so_tiet * so_tuan').values.map(&:to_i).sum
   end
   def get_thuc_hanh
     # false la khong co thuc hanh
