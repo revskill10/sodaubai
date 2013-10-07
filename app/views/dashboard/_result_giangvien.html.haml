@@ -27,5 +27,5 @@
           %td= lop.ten_mon_hoc 
           %td= (link_to lop.phong_hoc, phong_path(lop.phong_hoc) if lop.phong_hoc) || ""
           %td= lop.khoi_luong.to_s
-          %td= lop.khoi_luong_phan_bo
+          %td= (lop.so_tiet_phan_bo || lop.khoi_luong_phan_bo)
           %td= link_to "Xuất ra Excel", search_lop_mon_hoc_path(lop.id) + ".xlsx"

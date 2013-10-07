@@ -67,7 +67,7 @@ class LopMonHocSinhVien < ActiveRecord::Base
     (ho || "") + " " + (ho_dem || "")
   end
   def tong_so_tiet    
-    lop_mon_hoc.khoi_luong_phan_bo || 1
+    lop_mon_hoc.so_tiet_phan_bo || lop_mon_hoc.khoi_luong_phan_bo || 1
   end  
   def diemqt
     (diemcc || 0) + diemtbkt + convert_grade((diem_thuc_hanh.round(0).to_i if diem_thuc_hanh) || 0)

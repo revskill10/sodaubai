@@ -42,7 +42,7 @@
     %strong.offset1 Lớp: 
     %span= @buoihoc["ma_lop"] if @buoihoc
     %strong.offset1 Số tiết thực hiện: 
-    %span= "#{@lop_mon_hoc.khoi_luong} / #{@lop_mon_hoc.khoi_luong_phan_bo}"
+    %span= "#{@lop_mon_hoc.khoi_luong} / #{@lop_mon_hoc.so_tiet_phan_bo || @lop_mon_hoc.khoi_luong_phan_bo}"
   %table{:class => "table datatable"}
     %colgroup
       %col{:style => "width: 3%"}

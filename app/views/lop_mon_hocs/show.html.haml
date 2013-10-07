@@ -45,7 +45,7 @@
       %strong.offset1 Lớp:
       %span= @lop_mon_hoc.ma_lop  
       %strong.offset1 Số tiết thực hiện: 
-      %span= "#{@lop_mon_hoc.khoi_luong} / #{@lop_mon_hoc.khoi_luong_phan_bo}"
+      %span= "#{@lop_mon_hoc.khoi_luong} / #{@lop_mon_hoc.so_tiet_phan_bo || @lop_mon_hoc.khoi_luong_phan_bo}"
       %strong.offset1 Sĩ số:
       %span= @svs.count
   %div#info
