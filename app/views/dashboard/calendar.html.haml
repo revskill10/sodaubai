@@ -26,7 +26,7 @@
       %li
         %i
           %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.localtime.mday}/#{@week.tu_ngay.localtime.mon}, đến ngày #{@week.den_ngay.localtime.mday}/#{@week.den_ngay.localtime.mon}"  
-  %table{:class => "table table-bordered datatable"}
+  %table#monitor{:class => "table table-bordered"}
     %div#loading
     %thead    
       %td Tuần    

@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'pg_tools'
 require 'set'
 namespace :hpu do
@@ -747,6 +748,17 @@ namespace :hpu do
         end
       end
     end 
+  end
+
+  task :themloptkb => :environment do  
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    l = LopMonHoc.where(ma_lop: 'XD1701K', ma_giang_vien: '1971025008', ma_mon_hoc: 'ALT31031').first_or_create!
+    l.update_attributes(ten_mon_hoc: 'Giải tích', ten_giang_vien: 'Nguyễn Thị Huệ')
+    l.tkb_giang_viens.where(tuan_hoc_bat_dau:8, so_tiet: 3, phong: 'C304', so_tuan: 1, tiet_bat_dau:7, thu: 2).first_or_create!
+    l.tkb_giang_viens.where(tuan_hoc_bat_dau:8, so_tiet: 3, phong: 'C304', so_tuan: 1, tiet_bat_dau:7, thu: 7).first_or_create!
+    l.tkb_giang_viens.where(tuan_hoc_bat_dau:9, so_tiet: 3, phong: 'C304', so_tuan: 6, tiet_bat_dau:7, thu: 2).first_or_create!
+    l.tkb_giang_viens.where(tuan_hoc_bat_dau:9, so_tiet: 3, phong: 'C304', so_tuan: 6, tiet_bat_dau:7, thu: 7).first_or_create!
   end
 end
 

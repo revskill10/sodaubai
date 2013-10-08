@@ -42,8 +42,8 @@ class TkbGiangVien < ActiveRecord::Base
     return false if (ti1.to_a & ti2.to_a).empty?
   end
   def schedule
-    new_schedule = Schedule.new(ngay_bat_dau)
-    new_schedule.add_recurrence_rule(Rule.daily.day(THU[thu]).hour_of_day(TIET[tiet_bat_dau][0]).minute_of_hour(TIET[tiet_bat_dau][1]).second_of_minute(0).until(ngay_ket_thuc))    
+    new_schedule = Schedule.new(get_ngay_bat_dau)
+    new_schedule.add_recurrence_rule(Rule.daily.day(THU[thu]).hour_of_day(TIET[tiet_bat_dau][0]).minute_of_hour(TIET[tiet_bat_dau][1]).second_of_minute(0).until(get_ngay_ket_thuc))    
     new_schedule
   end
   def get_days
@@ -54,8 +54,8 @@ class TkbGiangVien < ActiveRecord::Base
     return {:ngay => z}.to_json
   end
   def get_tuan
-    md = ngay_bat_dau.wday
-    res = (ngay_bat_dau..ngay_ket_thuc).to_a.select {|k| md == k.wday}
+    md = get_ngay_bat_dau.wday
+    res = (get_ngay_bat_dau..get_ngay_ket_thuc).to_a.select {|k| md == k.wday}
     return res.count
   end
   def get_ngay_bat_dau
@@ -63,9 +63,8 @@ class TkbGiangVien < ActiveRecord::Base
     day = t1.tu_ngay + (thu - 1).days    
     return DateTime.new(day.year, day.month, day.day).change(:offset => Rational(7,24))
   end
-  def get_ngay_ket_thuc
-    
-    t2 = Tuan.find(tuan_hoc_bat_dau + so_tuan)
+  def get_ngay_ket_thuc    
+    t2 = Tuan.find(tuan_hoc_bat_dau + so_tuan - 1)
     
     if t2
       day = t2.den_ngay
