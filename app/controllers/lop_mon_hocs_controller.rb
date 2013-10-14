@@ -1,5 +1,4 @@
 # encoding: UTF-8
-require 'helloreport'
 class LopMonHocsController < ApplicationController  
   
   include DashboardHelper
@@ -7,6 +6,15 @@ class LopMonHocsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_lop, :except => :index
   
+  def tinhhinh
+    authorize! :manage, @lop_mon_hoc
+
+    respond_to do |format|
+      format.pdf do 
+
+      end
+    end
+  end
   def lichtrinh
     authorize! :manage, @lop_mon_hoc    
     #output = LichReport.new(@lop_mon_hoc).to_pdf    
