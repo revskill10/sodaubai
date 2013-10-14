@@ -760,6 +760,14 @@ namespace :hpu do
     l.tkb_giang_viens.where(tuan_hoc_bat_dau:9, so_tiet: 3, phong: 'C304', so_tuan: 6, tiet_bat_dau:7, thu: 2).first_or_create!
     l.tkb_giang_viens.where(tuan_hoc_bat_dau:9, so_tiet: 3, phong: 'C304', so_tuan: 6, tiet_bat_dau:7, thu: 7).first_or_create!
   end
+  task :updatetuan => :environment do  
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    LichTrinhGiangDay.all.each do |lich|
+      lich.tuan = lich.get_tuan
+      lich.save! rescue puts lich.id 
+    end
+  end
 end
 
 def titleize(str)

@@ -1,0 +1,128 @@
+.container-fluid{:style => "page-break-after: always;"}
+  %input{:id => "mprint", :type => "button", :value => "Print", :onclick => "printpage()"}
+  .row-fluid
+    %table.table
+      %colgroup
+        %col{:style => "width: 10%"}        
+        %col{:style => "width: 35%"}
+        %col{:style => "width: 15%"}
+        %col{:style => "width: 40%"}      
+      %tbody
+        %td{:style => "text-align:center;"}
+          %img{:src => "/images/logo.gif", :height => "75px;", :width => "75px;"}
+        %td{:style => "text-align:center;"}
+          %div{:style => "text-align:center;font-size:14px;"} BỘ GIÁO DỤC VÀ ĐÀO TẠO            
+          %div{:style => "text-align;center;font-weight:bold;font-size:14px;"} 
+            %u TRƯỜNG ĐẠI HỌC DÂN LẬP HẢI PHÒNG    
+        %td
+          .strong
+        %td{:style => "text-align:center;"}
+          %div{:style => "text-align;center;font-weight:bold;font-size:14px;"} CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM            
+          %div{:style => "text-align;center;font-size:14px;"} 
+            %u Độc lập - Tự do - Hạnh phúc    
+  .row-fluid
+    %br
+    %h1{:style => 'text-align:center;'} LỊCH GIẢNG DẠY
+  .row-fluid
+    %table.table
+      %colgroup
+        %col{:style => "width: 50%"}        
+        %col{:style => "width: 10%"}
+        %col{:style => "width: 40%"}
+      %tbody        
+        %td
+          %table.table
+            %colgroup
+              %col{:style => "width: 60%"}        
+              %col{:style => "width: 40%"}
+            %tbody{:style => "border-collapse: collapse;border-spacing:0;border:2px blue solid"}
+              %td
+                %p Số tuần lễ: 
+                %p Số tiết lý thuyết:
+                %p Số tiết BT,TN,TH,TKMH:
+                %p Tổng số tiết:
+              %td
+                %p #{@sotuan}
+                %p ...
+                %p ...
+                %p 45
+        %td
+          %br
+        %td
+          %div{:style => "padding-left:5px;"}            
+            %p 
+              %span Môn học: 
+              %span{:style => "font-weight:bold;"} #{@lop_mon_hoc.ten_mon_hoc.capitalize}
+            %p 
+              %span CBGD phụ trách: 
+              %span{:style => "font-weight:bold;"} #{@lop_mon_hoc.ten_giang_vien}
+            %p Ngành:  ………...…………………… Khoá: ..
+            %p 
+              %span Lớp: 
+              %span{:style => "font-weight:bold;"} #{@lop_mon_hoc.ma_lop} 
+              %span Học kỳ: 1 Năm học: 2011 - 2012    
+  .row-fluid
+    %br
+    %table.table{:style => "border-collapse: collapse;border-spacing:0;border:1px #000 solid"}
+      %colgroup
+        %col{:style => "width: 5%"}
+        %col{:style => "width: 20%"}
+        %col{:style => "width: 43%"}
+        %col{:style => "width: 5%"}                    
+        %col{:style => "width: 5%"}                    
+        %col{:style => "width: 22%"} 
+      %thead{:style => "border-collapse: collapse;border-spacing:0;border:1px #000 solid"}
+        %td.strong{:style => "border-collapse: collapse;border-spacing:0;border:1px #000 solid;text-align:center;font-weight:bold;"} Tuần
+        %td.strong{:style => "border-collapse: collapse;border-spacing:0;border:1px #000 solid;text-align:center;font-weight:bold;"} Thời gian        
+        %td.strong{:style => "border-collapse: collapse;border-spacing:0;border:1px #000 solid;text-align:center;font-weight:bold;"} Nội dung
+        %td.strong{:style => "border-collapse: collapse;border-spacing:0;border:1px #000 solid;text-align:center;font-weight:bold;"} Số tiết
+        %td.strong{:style => "border-collapse: collapse;border-spacing:0;border:1px #000 solid;text-align:center;font-weight:bold;"} Phòng
+        %td.strong{:style => "border-collapse: collapse;border-spacing:0;border:1px #000 solid;text-align:center;font-weight:bold;"} Sinh viên vắng
+      %tbody{:style => "border-collapse: collapse;border-spacing:0;border:1px #000 solid"}
+        - @lichs.each_with_index do |lich, index|
+          %tr                  
+            %td{:style => "border-collapse: collapse;border-spacing:0;border:1px #000 solid;text-align:center;vertical-align:middle;"}= lich.tuan.to_s
+            %td{:style => "border-collapse: collapse;border-spacing:0;border:1px #000 solid;text-align:center;vertical-align:middle;"}= raw(format_date2(lich.ngay_day) + (lich.loai == 2 ? "<br/> <i><strong>(dạy bù vào #{format_date2(lich.ngay_day_moi)}</strong></i>)" : "" ) )
+            %td{:style => "border-collapse: collapse;border-spacing:0;border:1px #000 solid;"}= (raw(lich.noi_dung_day.gsub(/\n/,'<br/>')) if lich.noi_dung_day ) || ""
+            %td{:style => "border-collapse: collapse;border-spacing:0;border:1px #000 solid;text-align:center;vertical-align:middle;"}= lich.so_tiet_day_moi
+            %td{:style => "border-collapse: collapse;border-spacing:0;border:1px #000 solid;text-align:center;vertical-align:middle;"}= lich.phong_moi
+            %td{:style => "border-collapse: collapse;border-spacing:0;border:1px #000 solid;text-align:left;"}
+              - if lich.diem_danhs.count > 0               
+                - lich.diem_danhs.vang.each do |dd|
+                  = link_to(dd.sinh_vien.to_s, sinh_vien_path(dd.sinh_vien.ma_sinh_vien)) + raw("<br/>")
+    .row-fluid
+      %i
+        %span{:style => "font-weight:bold;"} Ghi chú: Lập thành 02 bản - Bộ môn và CBGD thực hiện - Kết thúc học kỳ nộp lại cho phòng ĐT
+    .row-fluid
+      %table.table
+        %colgroup
+          %col{:style => "width: 10%"}
+          %col{:style => "width: 40%"}
+          %col{:style => "width: 60%"}
+          %col{:style => "width: 10%"}
+        %tbody
+          %td
+            %br
+          %td
+            %br
+            %h5{:style => "text-align:center;"} CHỦ NHIỆM BỘ MÔN
+            %p KÝ DUYỆT KẾ HOẠCH
+            %br
+            %br
+            %br        
+            %p KÝ XÁC NHẬN ĐÃ HOÀN THÀNH KẾ HOẠCH
+            %br
+            %br
+            %br              
+          %td{:style => "text-align:center;"}                        
+            %h5 GIẢNG VIÊN
+          %td
+            %br
+.container-fluid    
+  %div{:style => "position:fixed; bottom:0;"} QC07-B04/1        
+      
+:javascript
+  function printpage() {
+    $("#mprint").hide();
+    window.print();
+  }              

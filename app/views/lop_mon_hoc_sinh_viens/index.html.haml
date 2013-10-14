@@ -67,7 +67,8 @@
           %br
           %br Khối lượng được phân bổ theo thời khóa biểu: #{@lop_mon_hoc.khoi_luong_phan_bo}.
           #formdkbs 
-            = render 'formdkbs'
+            - if @lop_mon_hoc.so_tiet_phan_bo > @lop_mon_hoc.khoi_luong_phan_bo
+              = render 'formdkbs'
           %br          
           %br
           = submit_tag "Thiết lập", :class => "btn",  :data => {disable_with: "Submitting..."} 

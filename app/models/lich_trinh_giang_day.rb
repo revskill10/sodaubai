@@ -41,7 +41,11 @@ class LichTrinhGiangDay < ActiveRecord::Base
     13 => [18, 0], 14 => [18, 50], 15 => [19,40], 16 => [20,30]}
   CA = {1 => [6,30], 2 => [9,5], 3 => [12,30], 4 => [15,5], 5 => [18,0], 6 => [20,30]}
   def get_tuan
-    Tuan.all.detect {|t| t.tu_ngay.localtime <= ngay_day.localtime and t.den_ngay.localtime >= ngay_day.localtime }.stt
+    if loai != 2 or status != 3
+      Tuan.all.detect {|t| t.tu_ngay.localtime <= ngay_day.localtime and t.den_ngay.localtime >= ngay_day.localtime }.stt
+    else
+      Tuan.all.detect {|t| t.tu_ngay.localtime <= ngay_day_moi.localtime and t.den_ngay.localtime >= ngay_day_moi.localtime }.stt
+    end
   end
 
   def get_svvang
@@ -193,6 +197,23 @@ class LichTrinhGiangDay < ActiveRecord::Base
   end
   def self.to_zdatetime(str)
     DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
+  end
+  def svvangs
+    vangs = diem_danhs.where('so_tiet_vang > 0')
+    return "" if vangs.count == 0
+    res = ""
+    vangs.each do |v|
+      res = res + v.sinh_vien.ho + " " + v.sinh_vien.fullname + ", "
+    end
+    res[-2] = "."
+    return res
+  end  
+  def hienthingay
+    res = ngay_day.localtime.strftime("%Hh:%M %d/%m/%Y")
+    if loai == 2
+      res = res + " (dạy bù vào " + ngay_day_moi.localtime.strftime("%Hh:%M %d/%m/%Y") + ")"
+    end
+    res
   end
   protected
 

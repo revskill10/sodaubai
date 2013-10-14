@@ -60,6 +60,13 @@ class LopMonHoc < ActiveRecord::Base
   def to_s
     "#{ma_lop} #{ten_mon_hoc} #{ten_giang_vien}"
   end
+  def sotuan
+    return 0 if lich_trinh_giang_days.count == 0
+    lich_trinh_giang_days.pluck(:tuan).uniq.count
+  end
+  def getnoidung(tuan)
+    lich_trinh_giang_days.where(tuan: tuan).pluck(:noi_dung_day).join("\n")
+  end
   def convert_trucnhat
     result = []
     if trucnhat 

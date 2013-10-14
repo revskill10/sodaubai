@@ -6,15 +6,17 @@
     %td Thời gian        
     %td Nội dung
     %td Số tiết dạy
+    %td Phòng
     %td Sinh viên vắng
   %tbody        
     - @lichs.each_with_index do |lich, index|
       %tr        
         %td= (index+1).to_s
         %td= lich.tuan.to_s
-        %td= format_date2(lich.ngay_day)        
+        %td= raw(format_date2(lich.ngay_day) + (lich.loai == 2 ? "<br/> <i><strong>( dạy bù vào #{format_date2(lich.ngay_day_moi)} </strong></i>)" : "" ) )
         %td= (raw(lich.noi_dung_day.gsub(/\n/,'<br/>')) if lich.noi_dung_day ) || ""
         %td= lich.so_tiet_day_moi
+        %td= lich.phong_moi
         %td
           - if lich.diem_danhs.count > 0 
             %ol         

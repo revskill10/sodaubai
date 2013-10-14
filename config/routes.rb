@@ -54,6 +54,8 @@ Trytest::Application.routes.draw do
       get '/showdkbs' => 'lop_mon_hocs#showdkbs', :as => 'showdkbs'
       post '/dkbs' => 'lop_mon_hocs#dkbs', :as => 'dkbs'
       post '/qldkbs' => 'lop_mon_hocs#qldkbs', :as => 'qldkbs'
+      get '/lichtrinh' => 'lop_mon_hocs#lichtrinh', :as => 'lichtrinh'
+      get '/elichtrinh' => 'lop_mon_hocs#export_lichtrinh', :as => 'elichtrinh'
     end    
     resources :diem_chi_tiets      do  
       collection do        

@@ -93,6 +93,7 @@ class LopMonHocSinhVien < ActiveRecord::Base
     end
     return 0
   end
+  
   def conflict?
   	tkbs = sinh_vien.get_tkbs
   	mtkbs = lop_mon_hoc.get_tkbs

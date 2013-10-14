@@ -83,7 +83,7 @@ class TkbGiangVien < ActiveRecord::Base
     self.update_column(:ngay_bat_dau , self.get_ngay_bat_dau)
     self.update_column(:ngay_ket_thuc , self.get_ngay_ket_thuc)    
     self.update_column(:days , self.get_days)    
-    self.lop_mon_hoc.update_column(:so_tiet , self.lop_mon_hoc.tong_so_tiet)    
-    self.lop_mon_hoc.update_column(:so_tiet_phan_bo , self.lop_mon_hoc.tong_so_tiet)    
+    self.lop_mon_hoc.update_column(:so_tiet , self.lop_mon_hoc.khoi_luong_phan_bo)    
+    self.lop_mon_hoc.update_column(:so_tiet_phan_bo , self.lop_mon_hoc.khoi_luong_phan_bo)    
   end  
 end

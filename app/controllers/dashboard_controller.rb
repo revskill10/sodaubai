@@ -8,7 +8,7 @@ class DashboardController < ApplicationController
     @current_lich = @lich.select {|l| l["tuan"] == @current_week}.uniq if @lich
     @current_lich2 = @lich2.select {|l| l["tuan"] == @current_week}.uniq if @lich2
     
-   
+    @lichbus = @lichbosungs.select {|l| l.loai == 2 and l.status == 3 and l.tuan == @current_week}
   
   end
 
@@ -17,11 +17,10 @@ class DashboardController < ApplicationController
   def show
     
     @current_lich = @lich.select {|l| l["tuan"] == params[:id].to_i}.uniq if @lich 
-    @current_lich2 = @lich2.select {|l| l["tuan"] == @current_week}.uniq if @lich2
-    
+    @current_lich2 = @lich2.select {|l| l["tuan"] == @current_week}.uniq if @lich2    
   end
   def calendar
-      
+    @lichbus = @lichbosungs.select {|l| l.loai == 2 and l.status == 3}
   end
   def search
     @type = params[:type]
