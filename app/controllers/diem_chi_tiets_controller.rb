@@ -36,7 +36,7 @@ class DiemChiTietsController < ApplicationController
           sv.diem_chuyen_can ||= sv.diemcc  
           sv.diem_goc_tbkt = sv.diemtbkt1
           if sv.diem_chuyen_can == 0 
-            sv.note = "Mất tư cách"
+            sv.note = "TC"
           else
             sv.note = nil
           end
@@ -57,7 +57,7 @@ class DiemChiTietsController < ApplicationController
           sv.diem_goc_tbkt = sv.diemtbkt1
           sv.diem_chuyen_can ||= sv.diemcc
           if sv.diem_chuyen_can == 0 
-            sv.note = "Mất tư cách"
+            sv.note = "TC"
           else
             sv.note = nil
           end
