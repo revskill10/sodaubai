@@ -6,18 +6,10 @@ class DiemChiTietsController < ApplicationController
     @group_diem = JSON.parse(@lop_mon_hoc.group_diem || {}.to_json) 
     respond_to do |format|      
       format.html do 
-        if params[:loai] and params[:loai] == "2" then 
-          if request.headers['X-PJAX']
-            render :nhom, :layout => false 
-          else
-            render :nhom
-          end
-        else
-          if request.headers['X-PJAX']
-            render :index, :layout => false
-          else
-            render :index
-          end
+        if params[:loai] and params[:loai] == "2" then           
+          render :nhom          
+        else          
+          render :index          
         end
       end# index.html.erb        
       format.json { head :no_content }
@@ -39,6 +31,15 @@ class DiemChiTietsController < ApplicationController
           sv.lan3 = @msvs[sv.ma_sinh_vien][:lan3]
           sv.lan4 = @msvs[sv.ma_sinh_vien][:lan4]
           sv.lan5 = @msvs[sv.ma_sinh_vien][:lan5]
+          sv.diem_tbkt = sv.diemtbkt
+          sv.diem_qua_trinh = sv.diemqt
+          sv.diem_chuyen_can ||= sv.diemcc  
+          sv.diem_goc_tbkt = sv.diemtbkt1
+          if sv.diem_chuyen_can == 0 
+            sv.note = "Mất tư cách"
+          else
+            sv.note = nil
+          end
           sv.save! rescue puts "error"
         end
       end
@@ -52,6 +53,14 @@ class DiemChiTietsController < ApplicationController
         @svs.each do |sv|        
           diem_nhom = temp[sv.group_id.to_s]      
           sv.diem_thuc_hanh = diem_nhom
+          sv.diem_qua_trinh = sv.diemqt
+          sv.diem_goc_tbkt = sv.diemtbkt1
+          sv.diem_chuyen_can ||= sv.diemcc
+          if sv.diem_chuyen_can == 0 
+            sv.note = "Mất tư cách"
+          else
+            sv.note = nil
+          end
           sv.save! rescue "error update nhom"
         end
       end

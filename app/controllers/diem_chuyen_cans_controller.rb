@@ -28,6 +28,12 @@ class DiemChuyenCansController < ApplicationController
     @svs.each do |sv|
       if @msvs[sv.ma_sinh_vien] and @msvs[sv.ma_sinh_vien] >= 0 and @msvs[sv.ma_sinh_vien] <= 10
         sv.diem_chuyen_can = @msvs[sv.ma_sinh_vien]
+        sv.diem_qua_trinh = sv.diemqt
+        if sv.diem_chuyen_can == 0 
+          sv.note = "Mất tư cách"
+        else
+          sv.note = nil
+        end
         sv.save! rescue puts "error"
       else
         @error = "Đã có lỗi xảy ra, vui lòng kiểm tra lại dữ liệu"

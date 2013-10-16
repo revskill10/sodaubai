@@ -768,6 +768,27 @@ namespace :hpu do
       lich.save! rescue puts lich.id 
     end
   end
+  task :updatediemqt => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    LopMonHocSinhVien.all.each do |sv|
+      if sv.lop_mon_hoc
+        sv.diem_chuyen_can = sv.diemcc
+        sv.diem_tbkt = sv.diemtbkt
+        sv.diem_qua_trinh = sv.diemqt
+        sv.diem_goc_tbkt = sv.diemtbkt1
+        sv.ngay_sinh = sv.sinh_vien.ngay_sinh
+        if sv.diem_chuyen_can == 0 
+          sv.note = "TC"
+        else
+          sv.note = nil
+        end
+        sv.save!
+      else
+        puts sv.id
+      end
+    end
+  end
 end
 
 def titleize(str)

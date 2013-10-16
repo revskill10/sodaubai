@@ -19,7 +19,7 @@
                   - if @lop_mon_hoc.get_thuc_hanh
                     %li.active= link_to "Điểm nhóm thực hành", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id) + "/2"
                   %li= link_to "Điểm chuyên cần", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id)        
-                  %li= link_to "Điểm kiểm tra thực hành", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id)
+                  %li= link_to "Điểm kiểm tra", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id)
                   
               %li.dropdown
                 %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 

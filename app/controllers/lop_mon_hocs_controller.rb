@@ -7,11 +7,165 @@ class LopMonHocsController < ApplicationController
   before_filter :load_lop, :except => :index
   
   def tinhhinh
-    authorize! :manage, @lop_mon_hoc
+    authorize! :manage, @lop_mon_hoc  
+    sql = <<-eos  
+        select row_number() OVER(ORDER BY t.ten, t.ho_dem, t.ho) as "stt", t."msv",
+concat(t."ho" ,' ', t.ho_dem,' ', t.ten) as "hovaten",  to_char(t.ngay_sinh,'DD/MM/YYYY' ) as "ngaysinh",
+case when t."T1"=0 then NULL else t."T1" end as "T1", case when t."T2"=0 then NULL else t."T2" end as "T2", 
+case when t."T3"=0 then NULL else t."T3" end as "T3", case when t."T4"=0 then NULL else t."T4" end as "T4",
+case when t."T5"=0 then NULL else t."T5" end as "T5", case when t."T6"=0 then NULL else t."T6" end as "T6", 
+case when t."T7"=0 then NULL else t."T7" end as "T7", case when t."T8"=0 then NULL else t."T8" end as "T8", 
+case when t."T9"=0 then NULL else t."T9" end as "T9", case when t."T10"=0 then NULL else t."T10" end as "T10", 
+case when t."T11"=0 then NULL else t."T11" end as "T11", case when t."T12"=0 then NULL else t."T12" end as "T12",
+case when t."T13"=0 then NULL else t."T13" end as "T13", case when t."T14"=0 then NULL else t."T14" end as "T14",
+case when t."T15"=0 then NULL else t."T15" end as "T15", case when t."T16"=0 then NULL else t."T16" end as "T16",
+COALESCE("T1",0) + COALESCE("T2",0)+ COALESCE("T3",0)+ COALESCE("T4",0)
+    + COALESCE("T5",0)+ COALESCE("T6",0)+ COALESCE("T7",0)+ COALESCE("T8",0)+ COALESCE("T9",0)+ COALESCE("T10",0)
+    + COALESCE("T11",0)+ COALESCE("T12",0)+ COALESCE("T13",0)+ COALESCE("T14",0)+ COALESCE("T15",0)
+    + COALESCE("T16",0) as tonggiovang, t.diemchuyencan, t.diemthuchanh,
+    t.lan1 as lan1, t.lan2 as lan2, t.lan3 as lan3, t.diemtbkt,  t.diemquatrinh,
+    t.note as note
+ from 
+(SELECT "msv", sv1.ho, sv1.ho_dem, sv1.ten, sv1.ngay_sinh , "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11",
+    "T12", "T13", "T14", "T15", "T16",  COALESCE("T1",0) + COALESCE("T2",0)+ COALESCE("T3",0)+ COALESCE("T4",0)
+    + COALESCE("T5",0)+ COALESCE("T6",0)+ COALESCE("T7",0)+ COALESCE("T8",0)+ COALESCE("T9",0)+ COALESCE("T10",0)
+    + COALESCE("T11",0)+ COALESCE("T12",0)+ COALESCE("T13",0)+ COALESCE("T14",0)+ COALESCE("T15",0)
+    + COALESCE("T16",0) as tonggiovang, sv1.diem_chuyen_can as diemchuyencan, sv1.diem_thuc_hanh as diemthuchanh,
+    sv1.lan1 as lan1, sv1.lan2 as lan2, sv1.lan3 as lan3, sv1.diem_tbkt as diemtbkt,  sv1.diem_qua_trinh as diemquatrinh,
+    sv1.note as note
+    FROM crosstab(
+      'select dd.ma_sinh_vien, l.tuan, sum(so_tiet_vang) as so_vang
+    from t1.diem_danhs dd
+    inner join t1.lich_trinh_giang_days l on l.id = dd.lich_trinh_giang_day_id
+    where l.lop_mon_hoc_id = #{@lop_mon_hoc.id}
+    and dd.so_tiet_vang > 0
+    group by ma_sinh_vien, tuan
+    order by 1,2',
+    'select m from generate_series(1,16) m')
+    AS ("msv" text, "T1" int, "T2" int, "T3" int, "T4" int, "T5" int, "T6" int, "T7" int, "T8" int, "T9" int, "T10" int
+    , "T11" int, "T12" int, "T13" int, "T14" int, "T15" int, "T16" int)
+    inner join t1.lop_mon_hoc_sinh_viens sv1 on sv1.ma_sinh_vien = msv and sv1.lop_mon_hoc_id = 183
 
+    union all
+    select ma_sinh_vien as "msv", ho, ho_dem, ten, ngay_sinh, 0 as "T1", 0 as "T2", 
+    0 as "T3", 0 as "T4", 0 as "T5", 0 as "T6", 
+0 as "T7", 0 as "T8", 0 as "T9", 0 as "T10", 0 as "T11", 0 as "T12", 
+0 as "T13", 0 as "T14", 0 as "T15", 0 as "T16", 0 as tongiovang , diem_chuyen_can , diem_thuc_hanh as diemthuchanh,
+lan1, lan2, lan3, diem_tbkt as diemtbkt, diem_qua_trinh as diemquatrinh, note as note
+from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=183 and ma_sinh_vien not in (select dd.ma_sinh_vien
+    from t1.diem_danhs dd
+    inner join t1.lich_trinh_giang_days l on l.id = dd.lich_trinh_giang_day_id
+    where l.lop_mon_hoc_id = #{@lop_mon_hoc.id}
+    and dd.so_tiet_vang > 0)
+ ) as t
+ order by t.ten, t.ho_dem, t.ho, t.ngay_sinh
+    eos
+    @res = ActiveRecord::Base.connection.execute(sql)    
     respond_to do |format|
       format.pdf do 
+        pdf = Prawn::Document.new(:page_layout => :landscape,         
+        :page_size => 'A4')
+        #pdf.font "#{Rails.root}/app/assets/fonts/arial.ttf"
+        pdf.font_families.update(
+          'Arial' => { :normal => Rails.root.join('app/assets/fonts/arial2.ttf').to_s,
+                       :bold   => Rails.root.join('app/assets/fonts/arialbd.ttf').to_s,
+                       :italic => Rails.root.join('app/assets/fonts/arialbi.ttf').to_s}                       
+        )
+       # items = @res.map do |item|
+        #  [
+        #    item["stt"],
+        #    item["msv"],            
+        #    item["hovaten"],
+        #    item["ngaysinh"],
+        #    item["T1"],item["T2"],item["T3"],item["T4"],item["T5"],item["T6"],item["T7"],item["T8"],item["T9"],item["T10"],item["T11"],item["T12"],item["T13"],item["T14"],item["T15"],item["T16"],
+         #   item["tonggiovang"], item["diemchuyencan"], item["diemthuchanh"], item["lan1"], item["lan2"], item["lan3"], item["diemtbkt"], item["diemqt"], item["note"]
+        #  ]        
+        #end
+        m = @res.each_slice(20)
 
+        m.each do |m1|
+          pdf.font "Arial"
+          pdf.text "BẢNG THEO DÕI TÌNH HÌNH MÔN HỌC", :align => :center, :style => :bold
+          pdf.move_down(10)
+        items1 = m1.map {|i| [i["stt"], i["msv"], i["hovaten"], i["ngaysinh"]]}        
+        mtable01 = pdf.make_table [["Stt", "Mã SV", "Họ và tên", "Ngày sinh"]], :width => 180, :cell_style => {:align => :center, :valign => :center, :size => 6, :height => 40}, :column_widths => {1 => 45, 2 => 75, 3 => 40}, :header => true
+        mtable02 = pdf.make_table items1, :width => 180, :cell_style => {:align => :center, :valign => :center, :size => 6, :height => 20 }, :column_widths => {1 => 45, 2 => 75, 3 => 40}, :header => true do 
+          (0..items1.length).each do |l|
+            row(l).columns(2).align = :left
+          end
+        end
+
+        items2 = m1.map {|item| 
+          [item["T1"],item["T2"],item["T3"],item["T4"],item["T5"],item["T6"],item["T7"],item["T8"],item["T9"],item["T10"],item["T11"],item["T12"],item["T13"],item["T14"],item["T15"],item["T16"],
+            item["tonggiovang"], item["diemchuyencan"]]}
+        items3 = @res.map {|item| [item["lan1"], item["lan2"], item["lan3"], item["diemtbkt"]]}        
+        mytable0 = pdf.make_table [["Điểm danh"]], :width => 360, :cell_style => {:align => :center, :valign => :center, :size => 6, :height => 20}, :header => true
+        mytable01 = pdf.make_table [["T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11","T12","T13","T14","T15","T16","Tổng giờ vắng", "Điểm chuyên cần"]] + items2, :width => 360, :cell_style => {:align => :center, :valign => :center, :size => 6, :height => 20}, :header => true do 
+          (0..items2.length).each do |l|            
+            row(l).columns(16).width = 20
+            row(l).columns(17).width = 20
+          end
+          row(0).columns(16).size = 3.5
+          row(0).columns(17).size = 3.5
+        end
+
+        items3 = m1.map {|i| [i["diemthuchanh"]]}        
+        mtable11 = pdf.make_table [["Điểm TH, TN, BTL, ĐA"]] + items3, :width => 20, :cell_style => {:align => :center, :valign => :center, :size => 6, :height => 20} do           
+            row(0).columns(0).height = 40
+            row(0).columns(0).size = 3.5          
+        end
+
+        items4 = m1.map {|i| [i["lan1"], i["lan2"], i["lan3"], i["diemtbkt"]]}
+        mtable2 = pdf.make_table [["Điểm kiểm tra thường xuyên"]], :width => 80, :cell_style => {:align => :center, :valign => :center, :size => 3.5, :height => 20}
+        mtable21 = pdf.make_table [["Lần 1", "Lần 2", "Lần 3", "TB Kiểm tra"]] + items4, :width => 80, :cell_style => {:align => :center, :valign => :center, :size => 6, :height => 20} do 
+          (0..3).each do |i|
+            row(0).columns(i).size = 3.5
+          end
+        end
+        
+        items5 = m1.map {|i| [i["diemquatrinh"], i["note"]]}        
+        mtable31 = pdf.make_table [["Tổng điểm QT", "Ghi chú"]] + items5, :cell_style => {:align => :center, :valign => :center, :size => 6, :height => 20} do           
+            (0..1).each do |i|
+              row(0).columns(i).height = 40
+              row(0).columns(i).size = 3.5          
+            end
+            (0..items5.length).each do |t|
+              row(t).columns(0).width = 20
+              row(t).columns(1).width = 30
+            end
+        end
+        
+        #mytable1 = pdf.make_table [[mytable0],[mytable01]]
+
+        #mtable0 = pdf.make_table [["Điểm kiểm tra thường xuyên"]], :width => 80, :cell_style => {:align => :center, :size => 7}
+        #mtable01 = pdf.make_table [["Lần 1", "Lần 2", "Lần 3", "TB Kiểm tra"]] + items3, :width => 80, :cell_style => {:align => :center, :size => 7}
+        pdf.table [ 
+          [
+            [
+              [mtable01],[mtable02]
+            ],            
+            [
+              [mytable0],[mytable01]
+            ],
+            [
+              [mtable11]
+            ],
+            [
+              [mtable2],[mtable21]
+            ],
+            [
+              [mtable31]
+            ]
+          ]
+        ]
+        pdf.start_new_page
+      end
+        
+        #items.unshift ["Stt","Mã SV","Họ và tên","Ngày sinh",mytable1, "Điểm TH, TN, BTL, ĐA", mtable1, "Tổng điểm QT", "Ghi chú"]
+        
+                
+        send_data pdf.render, filename: "lich_trinh_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.pdf", 
+                          type: "application/pdf"
       end
     end
   end

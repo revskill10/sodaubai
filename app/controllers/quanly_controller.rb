@@ -28,7 +28,7 @@ class QuanlyController < ApplicationController
 				@msvs = @lop.lop_mon_hoc_sinh_viens.map {|t| t.ma_sinh_vien}
 				@goodsv = @svs.select {|m| !@msvs.include?(m.ma_sinh_vien);}
 				@goodsv.each do |sv|
-					@lop.lop_mon_hoc_sinh_viens.build(ma_sinh_vien: sv.ma_sinh_vien, ma_lop: @lop.ma_lop, ma_mon_hoc: @lop.ma_mon_hoc, lop_ghep: true, tin_chi: sv.tin_chi?, ma_lop_hanh_chinh: sv.lop_hc, ten_mon_hoc: @lop.ten_mon_hoc, ho_dem: sv.dem, ho: sv.ho, ten: sv.ten, ma_lop_ghep: @lop.ma_lop)
+					@lop.lop_mon_hoc_sinh_viens.build(ma_sinh_vien: sv.ma_sinh_vien, ma_lop: @lop.ma_lop, ma_mon_hoc: @lop.ma_mon_hoc, lop_ghep: true, tin_chi: sv.tin_chi?, ma_lop_hanh_chinh: sv.lop_hc, ten_mon_hoc: @lop.ten_mon_hoc, ho_dem: sv.dem, ho: sv.ho, ten: sv.ten, ma_lop_ghep: @lop.ma_lop, ngay_sinh: sv.ngay_sinh)
 					@lop.save!
 				end
 				@svs = @lop.lop_mon_hoc_sinh_viens

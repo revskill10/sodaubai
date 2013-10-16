@@ -40,11 +40,11 @@ class LichTrinhGiangDay < ActiveRecord::Base
     10 => [15, 5], 11 => [15, 55], 12 => [16, 45],
     13 => [18, 0], 14 => [18, 50], 15 => [19,40], 16 => [20,30]}
   CA = {1 => [6,30], 2 => [9,5], 3 => [12,30], 4 => [15,5], 5 => [18,0], 6 => [20,30]}
-  def get_tuan
-    if loai != 2 or status != 3
-      Tuan.all.detect {|t| t.tu_ngay.localtime <= ngay_day.localtime and t.den_ngay.localtime >= ngay_day.localtime }.stt
-    else
+  def get_tuan          
+    if loai == 2
       Tuan.all.detect {|t| t.tu_ngay.localtime <= ngay_day_moi.localtime and t.den_ngay.localtime >= ngay_day_moi.localtime }.stt
+    else
+      Tuan.all.detect {|t| t.tu_ngay.localtime <= ngay_day.localtime and t.den_ngay.localtime >= ngay_day.localtime }.stt
     end
   end
 
