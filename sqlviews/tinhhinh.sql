@@ -12,7 +12,7 @@ COALESCE("T1",0) + COALESCE("T2",0)+ COALESCE("T3",0)+ COALESCE("T4",0)
     + COALESCE("T5",0)+ COALESCE("T6",0)+ COALESCE("T7",0)+ COALESCE("T8",0)+ COALESCE("T9",0)+ COALESCE("T10",0)
     + COALESCE("T11",0)+ COALESCE("T12",0)+ COALESCE("T13",0)+ COALESCE("T14",0)+ COALESCE("T15",0)
     + COALESCE("T16",0) as tonggiovang, t.diemchuyencan, t.diemthuchanh,
-    t.lan1 as lan1, t.lan2 as lan2, t.lan3 as lan3, t.diemtbkt,  t.diemquatrinh,
+    t.lan1 as lan1, t.lan2 as lan2, t.lan3 as lan3, t.diemgoctbkt, t.diemtbkt,  t.diemquatrinh,
     t.note as note
  from 
 (SELECT "msv", sv1.ho, sv1.ho_dem, sv1.ten, sv1.ngay_sinh , "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11",
@@ -20,31 +20,31 @@ COALESCE("T1",0) + COALESCE("T2",0)+ COALESCE("T3",0)+ COALESCE("T4",0)
     + COALESCE("T5",0)+ COALESCE("T6",0)+ COALESCE("T7",0)+ COALESCE("T8",0)+ COALESCE("T9",0)+ COALESCE("T10",0)
     + COALESCE("T11",0)+ COALESCE("T12",0)+ COALESCE("T13",0)+ COALESCE("T14",0)+ COALESCE("T15",0)
     + COALESCE("T16",0) as tonggiovang, sv1.diem_chuyen_can as diemchuyencan, sv1.diem_thuc_hanh as diemthuchanh,
-    sv1.lan1 as lan1, sv1.lan2 as lan2, sv1.lan3 as lan3, sv1.diem_tbkt as diemtbkt,  sv1.diem_qua_trinh as diemquatrinh,
+    sv1.lan1 as lan1, sv1.lan2 as lan2, sv1.lan3 as lan3, sv1.diem_goc_tbkt as diemgoctbkt, sv1.diem_tbkt as diemtbkt,  sv1.diem_qua_trinh as diemquatrinh,
     sv1.note as note
     FROM crosstab(
       'select dd.ma_sinh_vien, l.tuan, sum(so_tiet_vang) as so_vang
     from t1.diem_danhs dd
     inner join t1.lich_trinh_giang_days l on l.id = dd.lich_trinh_giang_day_id
-    where l.lop_mon_hoc_id = 183
+    where l.lop_mon_hoc_id = #{@lop_mon_hoc.id}
     and dd.so_tiet_vang > 0
     group by ma_sinh_vien, tuan
     order by 1,2',
     'select m from generate_series(1,16) m')
     AS ("msv" text, "T1" int, "T2" int, "T3" int, "T4" int, "T5" int, "T6" int, "T7" int, "T8" int, "T9" int, "T10" int
     , "T11" int, "T12" int, "T13" int, "T14" int, "T15" int, "T16" int)
-    inner join t1.lop_mon_hoc_sinh_viens sv1 on sv1.ma_sinh_vien = msv and sv1.lop_mon_hoc_id = 183
+    inner join t1.lop_mon_hoc_sinh_viens sv1 on sv1.ma_sinh_vien = msv and sv1.lop_mon_hoc_id = #{@lop_mon_hoc.id}
 
     union all
     select ma_sinh_vien as "msv", ho, ho_dem, ten, ngay_sinh, 0 as "T1", 0 as "T2", 
     0 as "T3", 0 as "T4", 0 as "T5", 0 as "T6", 
 0 as "T7", 0 as "T8", 0 as "T9", 0 as "T10", 0 as "T11", 0 as "T12", 
 0 as "T13", 0 as "T14", 0 as "T15", 0 as "T16", 0 as tongiovang , diem_chuyen_can , diem_thuc_hanh as diemthuchanh,
-lan1, lan2, lan3, diem_tbkt as diemtbkt, diem_qua_trinh as diemquatrinh, note as note
-from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=183 and ma_sinh_vien not in (select dd.ma_sinh_vien
+lan1, lan2, lan3, diem_goc_tbkt as diemgoctbkt, diem_tbkt as diemtbkt, diem_qua_trinh as diemquatrinh, note as note
+from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=#{@lop_mon_hoc.id} and ma_sinh_vien not in (select dd.ma_sinh_vien
     from t1.diem_danhs dd
     inner join t1.lich_trinh_giang_days l on l.id = dd.lich_trinh_giang_day_id
-    where l.lop_mon_hoc_id = 183
+    where l.lop_mon_hoc_id = #{@lop_mon_hoc.id}
     and dd.so_tiet_vang > 0)
  ) as t
  order by t.ten, t.ho_dem, t.ho, t.ngay_sinh

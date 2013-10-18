@@ -231,19 +231,55 @@ from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=#{@lop_mon_hoc.id} and ma_si
   def lichtrinh
     authorize! :manage, @lop_mon_hoc    
     #output = LichReport.new(@lop_mon_hoc).to_pdf    
-    @lichs = @lop_mon_hoc.lich_trinh_giang_days.where('char_length(noi_dung_day) > 0').order('ngay_day, tuan')
+    #@lichs = @lop_mon_hoc.lich_trinh_giang_days.where('char_length(noi_dung_day) > 0').order('ngay_day, tuan')
+    sql = <<-eos  
+            
+select 'Tuần:' || tuan || tungay || denngay as tuan, noidung, sotiet, ngayday from (
+
+select tt2.tuan, tt2.noidung, tt2.sotiet, tt2.ngayday, to_char(tt1.tu_ngay,'\nTừ: DD/MM/YYYY\n') as tungay
+, to_char(tt1.den_ngay,'Đến: DD/MM/YYYY\n') as denngay
+from t1.tuans as tt1
+inner join (select tuan
+, string_agg(noi_dung_day, '\r\n ') as noidung, sum(so_tiet_day_moi) as sotiet, 
+
+replace(string_agg(to_char(ngay_day,'DD/MM/YYYY') ||
+  case when ngay_day_moi is not null then
+     '(' || to_char(ngay_day_moi,'DD/MM/YYYY') || ')'
+  else
+    ''
+  end
+ , '\n ') ,' ','')
+
+as ngayday
+
+from t1.lich_trinh_giang_days
+where lop_mon_hoc_id=#{@lop_mon_hoc.id}
+and destroyed_at is null
+group by tuan
+order by tuan)
+
+as tt2 
+on tt1.stt = tt2.tuan ) as ttt
+
+    eos
+    @lichs = ActiveRecord::Base.connection.execute(sql)
     respond_to do |format|
       format.pdf do
         pdf = Prawn::Document.new(:page_layout => :portrait,         
         :page_size => 'A4')
-        pdf.font "#{Rails.root}/app/assets/fonts/arial.ttf"
+        #pdf.font "#{Rails.root}/app/assets/fonts/arial2.ttf"
+        pdf.font_families.update(
+          'Arial' => { :normal => Rails.root.join('app/assets/fonts/arial2.ttf').to_s,
+                       :bold   => Rails.root.join('app/assets/fonts/arialbd.ttf').to_s,
+                       :italic => Rails.root.join('app/assets/fonts/arialbi.ttf').to_s}                       
+        )
         
         items = @lichs.map do |item|
           [
-            item.tuan,            
-            item.noi_dung_day,
-            item.so_tiet_day_moi,
-            item.hienthingay                    
+            item["tuan"],            
+            item["noidung"],
+            item["sotiet"],
+            item["ngayday"]
           ]
         end        
         items.unshift ["Tuần","NỘI DUNG GIẢNG DẠY","Số tiết","Thứ ngày thực hiện"]
@@ -260,17 +296,18 @@ from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=#{@lop_mon_hoc.id} and ma_si
                 pdf.image v, :width => 40
               else
                 #pdf.text v, :size => 10 unless v.blank?
+                pdf.font "Arial"
                 dd = [["BỘ GIÁO DỤC VÀ ĐÀO TẠO","","CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM"],["TRƯỜNG ĐẠI HỌC DÂN LẬP HẢI PHÒNG","","Độc lập - Tự do - Hạnh phúc"]]
-                pdf.table dd, :cell_style => {:borders => [], size: 12}, :column_widths => {1 => 50}  do
+                pdf.table dd, :cell_style => {:borders => [], size: 8, :valign => :center}, :column_widths => {0 => 270, 1 => 4, 2 => 300}  do
                   
-                  dd.count.times do |t|
-                    [0,1,2].each do |k|
-                      row(t).columns(k).valign = :center                      
-                      row(t).columns(k).align = :center                                 
-                    end                  
-                  end                                    
-                  row(0).columns(1).size = 12
-                  row(1).columns(1).size = 13
+                  dd.count.times do |t|                    
+                    row(0).columns(0).padding_left = 50
+                    #row(0).columns(2).padding_left = 2
+                    row(1).columns(0).padding_left = 20
+                    row(1).columns(2).padding_left = 28
+                  end                                                      
+                  row(1).columns(0).font_style = :bold
+                  row(0).columns(2).font_style = :bold
                 end
               end
             end
@@ -281,35 +318,36 @@ from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=#{@lop_mon_hoc.id} and ma_si
             pdf.move_down(80)
             pdf.text "LỊCH GIẢNG DẠY", :align => :center, :size => 16
             pdf.move_down(30)
+            pdf.font "Arial"
             data = [
               ["Số tuần lễ", "","#{@lop_mon_hoc.sotuan}","", "Môn học: #{@lop_mon_hoc.ten_mon_hoc}"],
-              ["Số tiết lý thuyết", "","...","", "CBGD phục trách: #{@lop_mon_hoc.ten_giang_vien}"],
+              ["Số tiết lý thuyết", "","...","", "CBGD phụ trách: #{@lop_mon_hoc.ten_giang_vien}"],
               ["Số tiết BT,TN,TH,TKMH ","","...","", "Ngành: ........... Khóa: .........."],
               ["Tổng số tiết","","#{@lop_mon_hoc.khoi_luong}","", "Lớp: #{@lop_mon_hoc.ma_lop} Học kỳ: #{@current_tenant.hoc_ky} Năm học: #{@current_tenant.nam_hoc}"]
             ]
-            pdf.table data, :cell_style => {:borders => [], :size => 13}, :column_widths => {0 => 200, 2 => 30, 3 => 30} do               
+            pdf.table data, :cell_style => {:borders => [], :size => 9}, :column_widths => {0 => 200, 2 => 30, 3 => 30} do               
               4.times do |t|
                 row(t).columns(2).align = :center
               end
               row(0).columns(0).borders = [:top, :left]
               row(0).columns(1).borders = [:top]
               row(0).columns(2).borders = [:top, :right]
-              row(0).columns(3).size = 13
+              row(0).columns(3).size = 11
 
               row(1).columns(0).borders = [:left]
               row(1).columns(1).borders = []
               row(1).columns(2).borders = [:right]
-              row(1).columns(3).size = 13
+              row(1).columns(3).size = 11
 
               row(2).columns(0).borders = [:left]
               row(2).columns(1).borders = []
               row(2).columns(2).borders = [:right]
-              row(2).columns(3).size = 13
+              row(2).columns(3).size = 11
 
               row(3).columns(0).borders = [:left, :bottom]
               row(3).columns(1).borders = [:bottom]
               row(3).columns(2).borders = [:right, :bottom]
-              row(3).columns(3).size = 13
+              row(3).columns(3).size = 11
               #row(0).columns(0).font_style = :bold
 
             end
@@ -317,11 +355,16 @@ from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=#{@lop_mon_hoc.id} and ma_si
         end
         pdf.move_down(20)
         
-        pdf.table(items, :header => true, :cell_style => {:size => 14}, :column_widths => {0 => 60,1 => 200, 2 => 60, 3 => 200}, :width => 520) do           
+        pdf.table(items, :header => true, :cell_style => {:size => 9}, :column_widths => {0 => 80,1 => 200, 2 => 40, 3 => 200}, :width => 520) do           
           items.count.times do |t|
-            [0,1,2,3].each do |k|
+            [0,2,3].each do |k|
               row(t).columns(k).valign = :center
               row(t).columns(k).align = :center
+            end
+            (0..3).each do |t|
+              row(0).columns(t).font_style = :bold
+              row(0).columns(t).align = :center
+              row(0).columns(t).valign = :center
             end
           end
           row(0).columns(2).valign = :center
@@ -332,8 +375,9 @@ from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=#{@lop_mon_hoc.id} and ma_si
         d = DateTime.now
         footer = [["","", "Hải phòng, ngày #{d.day} tháng #{d.month} năm #{d.year}"],
         ["CHỦ NHIỆM BỘ MÔN","","GIẢNG VIÊN"]]
-        pdf.table footer, :cell_style => {:borders => []}, :column_widths => {0 => 200, 1 => 100}, :width => 520 do 
+        pdf.table footer, :cell_style => {:borders => [], :size => 9}, :column_widths => {0 => 200, 1 => 100}, :width => 520 do 
           row(0).columns(2).align = :center
+          row(0).columns(2).font_style = :italic
           row(1).columns(0).align = :center
           row(1).columns(2).align = :center
         end
