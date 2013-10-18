@@ -48,6 +48,8 @@
       %span= "#{@lop_mon_hoc.khoi_luong} / #{@lop_mon_hoc.so_tiet_phan_bo || @lop_mon_hoc.khoi_luong_phan_bo}"
       %strong.offset1 Sĩ số:
       %span= @svs.count
+  .well.sidebar-nav{:style => "font-size: 12px;"}
+    = link_to "Xuất bảng theo dõi tình hình môn học", lop_mon_hoc_path(@lop_mon_hoc) + "/tinhhinh.pdf", :class => "btn btn-primary"
   %div#info
   %table{:class => "table table-condensed datatable"}
     %thead

@@ -23,7 +23,7 @@ COALESCE("T1",0) + COALESCE("T2",0)+ COALESCE("T3",0)+ COALESCE("T4",0)
     + COALESCE("T5",0)+ COALESCE("T6",0)+ COALESCE("T7",0)+ COALESCE("T8",0)+ COALESCE("T9",0)+ COALESCE("T10",0)
     + COALESCE("T11",0)+ COALESCE("T12",0)+ COALESCE("T13",0)+ COALESCE("T14",0)+ COALESCE("T15",0)
     + COALESCE("T16",0) as tonggiovang, t.diemchuyencan, t.diemthuchanh,
-    t.lan1 as lan1, t.lan2 as lan2, t.lan3 as lan3, t.diemtbkt,  t.diemquatrinh,
+    t.lan1 as lan1, t.lan2 as lan2, t.lan3 as lan3, t.diemgoctbkt, t.diemtbkt,  t.diemquatrinh,
     t.note as note
  from 
 (SELECT "msv", sv1.ho, sv1.ho_dem, sv1.ten, sv1.ngay_sinh , "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11",
@@ -31,7 +31,7 @@ COALESCE("T1",0) + COALESCE("T2",0)+ COALESCE("T3",0)+ COALESCE("T4",0)
     + COALESCE("T5",0)+ COALESCE("T6",0)+ COALESCE("T7",0)+ COALESCE("T8",0)+ COALESCE("T9",0)+ COALESCE("T10",0)
     + COALESCE("T11",0)+ COALESCE("T12",0)+ COALESCE("T13",0)+ COALESCE("T14",0)+ COALESCE("T15",0)
     + COALESCE("T16",0) as tonggiovang, sv1.diem_chuyen_can as diemchuyencan, sv1.diem_thuc_hanh as diemthuchanh,
-    sv1.lan1 as lan1, sv1.lan2 as lan2, sv1.lan3 as lan3, sv1.diem_tbkt as diemtbkt,  sv1.diem_qua_trinh as diemquatrinh,
+    sv1.lan1 as lan1, sv1.lan2 as lan2, sv1.lan3 as lan3, sv1.diem_goc_tbkt as diemgoctbkt, sv1.diem_tbkt as diemtbkt,  sv1.diem_qua_trinh as diemquatrinh,
     sv1.note as note
     FROM crosstab(
       'select dd.ma_sinh_vien, l.tuan, sum(so_tiet_vang) as so_vang
@@ -51,7 +51,7 @@ COALESCE("T1",0) + COALESCE("T2",0)+ COALESCE("T3",0)+ COALESCE("T4",0)
     0 as "T3", 0 as "T4", 0 as "T5", 0 as "T6", 
 0 as "T7", 0 as "T8", 0 as "T9", 0 as "T10", 0 as "T11", 0 as "T12", 
 0 as "T13", 0 as "T14", 0 as "T15", 0 as "T16", 0 as tongiovang , diem_chuyen_can , diem_thuc_hanh as diemthuchanh,
-lan1, lan2, lan3, diem_tbkt as diemtbkt, diem_qua_trinh as diemquatrinh, note as note
+lan1, lan2, lan3, diem_goc_tbkt as diemgoctbkt, diem_tbkt as diemtbkt, diem_qua_trinh as diemquatrinh, note as note
 from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=183 and ma_sinh_vien not in (select dd.ma_sinh_vien
     from t1.diem_danhs dd
     inner join t1.lich_trinh_giang_days l on l.id = dd.lich_trinh_giang_day_id
@@ -64,32 +64,67 @@ from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=183 and ma_sinh_vien not in 
     respond_to do |format|
       format.pdf do 
         pdf = Prawn::Document.new(:page_layout => :landscape,         
-        :page_size => 'A4')
+        :page_size => 'A4', :margin => 20)
         #pdf.font "#{Rails.root}/app/assets/fonts/arial.ttf"
         pdf.font_families.update(
           'Arial' => { :normal => Rails.root.join('app/assets/fonts/arial2.ttf').to_s,
                        :bold   => Rails.root.join('app/assets/fonts/arialbd.ttf').to_s,
                        :italic => Rails.root.join('app/assets/fonts/arialbi.ttf').to_s}                       
         )
-       # items = @res.map do |item|
-        #  [
-        #    item["stt"],
-        #    item["msv"],            
-        #    item["hovaten"],
-        #    item["ngaysinh"],
-        #    item["T1"],item["T2"],item["T3"],item["T4"],item["T5"],item["T6"],item["T7"],item["T8"],item["T9"],item["T10"],item["T11"],item["T12"],item["T13"],item["T14"],item["T15"],item["T16"],
-         #   item["tonggiovang"], item["diemchuyencan"], item["diemthuchanh"], item["lan1"], item["lan2"], item["lan3"], item["diemtbkt"], item["diemqt"], item["note"]
-        #  ]        
-        #end
-        m = @res.each_slice(20)
+        
+       cell_width = 40
+        row_height = 120
+        img_path = "#{Rails.root}/public/images/logo.png"
+        pieces = [[img_path, ""]]
+        pieces.each do |p|
+          #pdf.move_down 5 # a bit of padding
+          cursor = pdf.cursor 
+          p.each_with_index do |v,j|
+             pdf.bounding_box [cell_width*j, cursor], :height => 80, :width => ( j == 0 ? cell_width : 780) do
+              if j == 0
+                pdf.image v, :width => 40
+              else                
+                pdf.font "Arial"
+                t1 = pdf.make_table [["BỘ GIÁO DỤC VÀ ĐÀO TẠO"],["TRƯỜNG ĐẠI HỌC DÂN LẬP HẢI PHÒNG"],[""],[""]], :width => 260, :cell_style => {:align => :center, :valign => :center, :size => 10, :height => 20, :borders => []}
+                t2 = pdf.make_table [["      BẢNG THEO DÕI TÌNH HÌNH MÔN HỌC"]], :width => 480, :cell_style => {:valign => :center, :size => 10, :font_style => :bold, :height => 20, :borders => []} do 
+                  row(0).columns(0).padding_left = 40
+                end
+                t3 = pdf.make_table [
+                  ["Môn học: #{@lop_mon_hoc.ten_mon_hoc}","", "Tổng số tiết:....."],
+                  ["Giáo viên phụ trách: #{@lop_mon_hoc.ten_giang_vien}","", "Lý thuyết:....."],
+                  ["Lớp: #{@lop_mon_hoc.ma_lop} Kỳ: #{@current_tenant.hoc_ky} Năm học: #{@current_tenant.nam_hoc}","", "Thực hành, thí nghiệm:....."]
+                ], :cell_style => {:size => 9, :height => 20, :borders => []}, :width => 480, :column_widths => { 0 => 210, 1 => 100, 2 => 170} do 
+                  row(0).columns(0).font_style = :bold
+                end                
 
-        m.each do |m1|
-          pdf.font "Arial"
-          pdf.text "BẢNG THEO DÕI TÌNH HÌNH MÔN HỌC", :align => :center, :style => :bold
-          pdf.move_down(10)
+                t4 = pdf.make_table [[t2], [t3]], :cell_style => {:borders => []}
+                t0 = pdf.make_table [[""]], :width => 20, :cell_style => {:borders => []}
+                pdf.table [ 
+                  [     
+                    t0,
+                    t1,
+                    t0,              
+                    t4                   
+                  ]
+                ] , :cell_style => {:borders => []}
+              end
+            end
+          end
+        end
+        pdf.move_down(5)
+        @res = @res.to_a
+        m = @res.each_slice(19).to_a if @res.count <= 19
+        if @res.count > 19
+          m1 = @res[0..18]
+          m2 = @res[19..-1].each_slice(23).to_a
+          m = m2.unshift(m1)
+        end
+        page_count = m.count
+        m.each_with_index do |m1, index|
+        pdf.font "Arial"  
         items1 = m1.map {|i| [i["stt"], i["msv"], i["hovaten"], i["ngaysinh"]]}        
-        mtable01 = pdf.make_table [["Stt", "Mã SV", "Họ và tên", "Ngày sinh"]], :width => 180, :cell_style => {:align => :center, :valign => :center, :size => 6, :height => 40}, :column_widths => {1 => 45, 2 => 75, 3 => 40}, :header => true
-        mtable02 = pdf.make_table items1, :width => 180, :cell_style => {:align => :center, :valign => :center, :size => 6, :height => 20 }, :column_widths => {1 => 45, 2 => 75, 3 => 40}, :header => true do 
+        mtable01 = pdf.make_table [["Stt", "Mã SV", "Họ và tên", "Ngày sinh"]], :width => 210, :cell_style => {:align => :center, :valign => :center, :size => 7.5, :height => 50}, :column_widths => {1 => 55, 2 => 85, 3 => 50}
+        mtable02 = pdf.make_table items1, :width => 210, :cell_style => {:align => :center, :valign => :center, :size => 7.5, :height => 20}, :column_widths => {1 => 55, 2 => 85, 3 => 50} do 
           (0..items1.length).each do |l|
             row(l).columns(2).align = :left
           end
@@ -99,40 +134,42 @@ from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=183 and ma_sinh_vien not in 
           [item["T1"],item["T2"],item["T3"],item["T4"],item["T5"],item["T6"],item["T7"],item["T8"],item["T9"],item["T10"],item["T11"],item["T12"],item["T13"],item["T14"],item["T15"],item["T16"],
             item["tonggiovang"], item["diemchuyencan"]]}
         items3 = @res.map {|item| [item["lan1"], item["lan2"], item["lan3"], item["diemtbkt"]]}        
-        mytable0 = pdf.make_table [["Điểm danh"]], :width => 360, :cell_style => {:align => :center, :valign => :center, :size => 6, :height => 20}, :header => true
-        mytable01 = pdf.make_table [["T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11","T12","T13","T14","T15","T16","Tổng giờ vắng", "Điểm chuyên cần"]] + items2, :width => 360, :cell_style => {:align => :center, :valign => :center, :size => 6, :height => 20}, :header => true do 
+        mytable0 = pdf.make_table [["Điểm danh"]], :width => 380, :cell_style => {:align => :center, :valign => :center, :size => 7.5, :height => 20, :font_style => :bold}
+        mytable01 = pdf.make_table [["T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11","T12","T13","T14","T15","T16","Tổng giờ vắng", "Điểm chuyên cần"]] + items2, :width => 380, :cell_style => {:align => :center, :valign => :center, :size => 7, :height => 20}, :header => true do 
           (0..items2.length).each do |l|            
-            row(l).columns(16).width = 20
-            row(l).columns(17).width = 20
+            row(l).columns(16).width = 30
+            row(l).columns(17).width = 30
           end
-          row(0).columns(16).size = 3.5
-          row(0).columns(17).size = 3.5
+          row(0).columns(16).size = 5
+          row(0).columns(17).size = 5                    
+          (0..17).each do |t|
+            row(0).columns(t).height = 30            
+          end
+
         end
 
         items3 = m1.map {|i| [i["diemthuchanh"]]}        
-        mtable11 = pdf.make_table [["Điểm TH, TN, BTL, ĐA"]] + items3, :width => 20, :cell_style => {:align => :center, :valign => :center, :size => 6, :height => 20} do           
-            row(0).columns(0).height = 40
-            row(0).columns(0).size = 3.5          
+        mtable11 = pdf.make_table [["Điểm TH, TN, BTL, ĐA"]] + items3, :width => 22, :cell_style => {:align => :center, :valign => :center, :size => 7, :height => 20} do           
+            row(0).columns(0).height = 50
+            row(0).columns(0).size = 5      
         end
 
-        items4 = m1.map {|i| [i["lan1"], i["lan2"], i["lan3"], i["diemtbkt"]]}
-        mtable2 = pdf.make_table [["Điểm kiểm tra thường xuyên"]], :width => 80, :cell_style => {:align => :center, :valign => :center, :size => 3.5, :height => 20}
-        mtable21 = pdf.make_table [["Lần 1", "Lần 2", "Lần 3", "TB Kiểm tra"]] + items4, :width => 80, :cell_style => {:align => :center, :valign => :center, :size => 6, :height => 20} do 
-          (0..3).each do |i|
-            row(0).columns(i).size = 3.5
+        items4 = m1.map {|i| [i["lan1"], i["lan2"], i["lan3"], i["diemgoctbkt"], i["diemtbkt"]]}
+        mtable2 = pdf.make_table [["Điểm kiểm tra thường xuyên"]], :width => 110, :cell_style => {:align => :center, :valign => :center, :size => 7.5, :height => 20}
+        mtable21 = pdf.make_table [["Lần 1", "Lần 2", "Lần 3", "TB Kiểm tra", "Quy điểm QT"]] + items4, :width => 110, :cell_style => {:align => :center, :valign => :center, :size => 7, :height => 20} do 
+          (0..4).each do |i|
+            row(0).columns(i).size = 5
+            row(0).columns(i).height = 30
           end
         end
         
         items5 = m1.map {|i| [i["diemquatrinh"], i["note"]]}        
-        mtable31 = pdf.make_table [["Tổng điểm QT", "Ghi chú"]] + items5, :cell_style => {:align => :center, :valign => :center, :size => 6, :height => 20} do           
+        mtable31 = pdf.make_table [["Tổng điểm QT", "Ghi chú"]] + items5, :cell_style => {:align => :center, :valign => :center, :size => 7, :height => 20}, :column_widths => {0 => 30, 1 => 49} do           
             (0..1).each do |i|
-              row(0).columns(i).height = 40
-              row(0).columns(i).size = 3.5          
-            end
-            (0..items5.length).each do |t|
-              row(t).columns(0).width = 20
-              row(t).columns(1).width = 30
-            end
+              row(0).columns(i).height = 50
+              row(0).columns(i).size = 5        
+            end            
+            row(0).columns(1).size = 7.5
         end
         
         #mytable1 = pdf.make_table [[mytable0],[mytable01]]
@@ -157,14 +194,36 @@ from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=183 and ma_sinh_vien not in 
               [mtable31]
             ]
           ]
-        ]
-        pdf.start_new_page
+        ]                
+        #pdf.start_new_page(:margin => 20) unless index == page_count
       end
-        
+      pdf.move_down 2
+      d = DateTime.now
+      
+      #pdf.text "Duyệt #{@lop_mon_hoc.sosvtucach} sinh viên được dự thi kết thúc học phần", :style => :italic, :size => 8
+      pdf.table [["Duyệt #{@lop_mon_hoc.sosvtucach} sinh viên được dự thi kết thúc học phần","",""],["","", "Hải phòng, ngày #{d.day} tháng #{d.month} năm #{d.year}"]], :cell_style => {:font_style => :italic, :size => 8, :borders => []}, :column_widths => {0 => 270, 1 => 270, 2 => 260} do 
+        row(1).columns(2).padding_left = 20
+      end
+      pdf.move_down 2
+      str = "Ghi chú:\n- Khi SV vắng đề nghị Thầy, Cô ghi cụ thể số tiết vắng.\nVí dụ V: có nghĩa SV vắng 3 tiết\n-Trước khi thi 7 ngày, giáo viên dạy môn học nộp bảng theo dõi cho Chủ nhiệm Bộm môn để duyệt tư cách dự thi cho sinh viên."
+      pdf.table [[str, "CHỦ NHIỆM BỘ MÔN","GIÁO VIÊN PHỤ TRÁCH MÔN HỌC"]], :cell_style => {:borders => []}, :column_widths => {0 => 270, 1=> 270, 2 => 260} do 
+        row(0).columns(0).font_style = :italic
+        row(0).columns(0).size = 8
+        row(0).columns(1).font_style = :bold
+        row(0).columns(1).size = 12
+        row(0).columns(2).font_style = :bold
+        row(0).columns(2).size = 12
+        row(0).columns(1).padding_left = 50
+        #row(0).columns(2).padding_left = 0
+      end
+      pdf.repeat(:all) do 
+        pdf.draw_text "QC07-B10", :at => [10, -10]
+        #pdf.stamp "approved" 
+      end
         #items.unshift ["Stt","Mã SV","Họ và tên","Ngày sinh",mytable1, "Điểm TH, TN, BTL, ĐA", mtable1, "Tổng điểm QT", "Ghi chú"]
         
                 
-        send_data pdf.render, filename: "lich_trinh_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.pdf", 
+        send_data pdf.render, filename: "theo_doi_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.pdf", 
                           type: "application/pdf"
       end
     end

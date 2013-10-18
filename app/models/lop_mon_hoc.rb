@@ -134,6 +134,9 @@ class LopMonHoc < ActiveRecord::Base
     end
     return sum
   end
+  def sosvtucach
+    lop_mon_hoc_sinh_viens.where("diem_chuyen_can > 0").count
+  end
   protected
   def update_trogiang
     if user 
