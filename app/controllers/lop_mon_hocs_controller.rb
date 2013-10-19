@@ -23,7 +23,7 @@ COALESCE("T1",0) + COALESCE("T2",0)+ COALESCE("T3",0)+ COALESCE("T4",0)
     + COALESCE("T5",0)+ COALESCE("T6",0)+ COALESCE("T7",0)+ COALESCE("T8",0)+ COALESCE("T9",0)+ COALESCE("T10",0)
     + COALESCE("T11",0)+ COALESCE("T12",0)+ COALESCE("T13",0)+ COALESCE("T14",0)+ COALESCE("T15",0)
     + COALESCE("T16",0) as tonggiovang, t.diemchuyencan, t.diemthuchanh,
-    t.lan1 as lan1, t.lan2 as lan2, t.lan3 as lan3, t.diemgoctbkt, t.diemtbkt,  t.diemquatrinh,
+    t.lan1 as lan1, t.lan2 as lan2, t.lan3 as lan3, round(t.diemgoctbkt, 2) as diemgoctbkt, t.diemtbkt,  t.diemquatrinh,
     t.note as note
  from 
 (SELECT "msv", sv1.ho, sv1.ho_dem, sv1.ten, sv1.ngay_sinh , "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11",
@@ -123,8 +123,8 @@ from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=#{@lop_mon_hoc.id} and ma_si
         m.each_with_index do |m1, index|
         pdf.font "Arial"  
         items1 = m1.map {|i| [i["stt"], i["msv"], i["hovaten"], i["ngaysinh"]]}        
-        mtable01 = pdf.make_table [["Stt", "Mã SV", "Họ và tên", "Ngày sinh"]], :width => 210, :cell_style => {:align => :center, :valign => :center, :size => 7.5, :height => 50}, :column_widths => {1 => 55, 2 => 85, 3 => 50}
-        mtable02 = pdf.make_table items1, :width => 210, :cell_style => {:align => :center, :valign => :center, :size => 7.5, :height => 20}, :column_widths => {1 => 55, 2 => 85, 3 => 50} do 
+        mtable01 = pdf.make_table [["Stt", "Mã SV", "Họ và tên", "Ngày sinh"]], :width => 210, :cell_style => {:align => :center, :valign => :center, :size => 7.5, :height => 50}, :column_widths => {1 => 52, 2 => 85, 3 => 50}
+        mtable02 = pdf.make_table items1, :width => 210, :cell_style => {:align => :center, :valign => :center, :size => 7.5, :height => 20}, :column_widths => {1 => 52, 2 => 85, 3 => 50} do 
           (0..items1.length).each do |l|
             row(l).columns(2).align = :left
           end
