@@ -277,7 +277,7 @@ on tt1.stt = tt2.tuan ) as ttt
         items = @lichs.map do |item|
           [
             item["tuan"],            
-            item["noidung"],
+            item["noidung"].gsub('\r',''),
             item["sotiet"],
             item["ngayday"]
           ]
@@ -322,7 +322,7 @@ on tt1.stt = tt2.tuan ) as ttt
             data = [
               ["Số tuần lễ", "","#{@lop_mon_hoc.sotuan}","", "Môn học: #{@lop_mon_hoc.ten_mon_hoc}"],
               ["Số tiết lý thuyết", "","...","", "CBGD phụ trách: #{@lop_mon_hoc.ten_giang_vien}"],
-              ["Số tiết BT,TN,TH,TKMH ","","...","", "Ngành: ........... Khóa: .........."],
+              ["Số tiết BT,TN,TH,TKMH ","","...","", "Ngành: .................. Khóa: ..............."],
               ["Tổng số tiết","","#{@lop_mon_hoc.khoi_luong}","", "Lớp: #{@lop_mon_hoc.ma_lop} Học kỳ: #{@current_tenant.hoc_ky} Năm học: #{@current_tenant.nam_hoc}"]
             ]
             pdf.table data, :cell_style => {:borders => [], :size => 9}, :column_widths => {0 => 200, 2 => 30, 3 => 30} do               
@@ -357,6 +357,7 @@ on tt1.stt = tt2.tuan ) as ttt
         
         pdf.table(items, :header => true, :cell_style => {:size => 9}, :column_widths => {0 => 80,1 => 200, 2 => 40, 3 => 200}, :width => 520) do           
           items.count.times do |t|
+            row(t).columns(0).font_style = :italic
             [0,2,3].each do |k|
               row(t).columns(k).valign = :center
               row(t).columns(k).align = :center
@@ -371,7 +372,7 @@ on tt1.stt = tt2.tuan ) as ttt
           row(0).columns(2).align = :center          
         end
         pdf.move_down(20)        
-        pdf.text "Ghi chú: Lập thành 02 bản - Bộ môn và CBGD thực hiện - Kết thúc học kỳ nộp lại cho phòng ĐT"
+        pdf.text "Ghi chú: Lập thành 02 bản - Bộ môn và CBGD thực hiện - Kết thúc học kỳ nộp lại cho phòng ĐT", :size => 7
         d = DateTime.now
         footer = [["","", "Hải phòng, ngày #{d.day} tháng #{d.month} năm #{d.year}"],
         ["CHỦ NHIỆM BỘ MÔN","","GIẢNG VIÊN"]]
@@ -382,26 +383,15 @@ on tt1.stt = tt2.tuan ) as ttt
           row(1).columns(2).align = :center
         end
         pdf.move_down(20)
-        pdf.text "KÝ DUYỆT KẾ HOẠCH"
+        pdf.text "KÝ DUYỆT KẾ HOẠCH", :size => 7
         pdf.move_down(60)
-        pdf.text "KÝ XÁC NHẬN ĐÃ HOÀN THÀNH KẾ HOẠCH"        
-        pdf.create_stamp("approved") do
-          pdf.rotate(30, :origin => [-5, -5]) do
-            pdf.stroke_color "FF3333"
-            pdf.stroke_ellipse [0, 0], 29, 15
-            pdf.stroke_color "000000"
-          
-            pdf.fill_color "993333"
-            
-            pdf.draw_text "Đã xác nhận", :at => [-23, -3]            
-            pdf.fill_color "000000"
-          end
-        end              
+        pdf.text "KÝ XÁC NHẬN ĐÃ HOÀN THÀNH KẾ HOẠCH"        , :size => 7
+        
         pdf.repeat(:all) do 
-          pdf.draw_text "QC07-B04/1", :at => [10, -10]
-          pdf.stamp "approved" 
+          pdf.draw_text "QC07-B04/1", :at => [10, -10], :size => 8
+
         end
-        pdf.number_pages "Trang <page>", :at => [400, -10], :page_filter => :all
+        #pdf.number_pages "Trang <page>", :at => [400, -10], :page_filter => :all
         send_data pdf.render, filename: "lich_trinh_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.pdf", 
                           type: "application/pdf"
       end
