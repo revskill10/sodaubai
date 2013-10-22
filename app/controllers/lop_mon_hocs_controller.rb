@@ -254,6 +254,7 @@ as ngayday
 
 from t1.lich_trinh_giang_days
 where lop_mon_hoc_id=#{@lop_mon_hoc.id}
+and noi_dung_day is not null
 and destroyed_at is null
 group by tuan
 order by tuan)
@@ -397,6 +398,12 @@ on tt1.stt = tt2.tuan ) as ttt
       end
     end
   end  
+  def phieudiem
+
+    respond_to do |format|
+      format.pdf 
+    end
+  end
   def index
     authorize! :read, @lop_mon_hoc
     @lops = LopMonHoc.find(:all, :order => "id desc", :limit => 3)
