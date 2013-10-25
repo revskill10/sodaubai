@@ -391,7 +391,6 @@ on tt1.stt = tt2.tuan ) as ttt
         
         pdf.repeat(:all) do 
           pdf.draw_text "QC07-B04/1", :at => [10, -10], :size => 8
-
         end
         #pdf.number_pages "Trang <page>", :at => [400, -10], :page_filter => :all
         send_data pdf.render, filename: "lich_trinh_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.pdf", 
@@ -539,6 +538,8 @@ on tt1.stt = tt2.tuan ) as ttt
                     h311
                   ]
                 ]
+            
+          end
             pdf.move_down 3
             pdf.text "Nơi gửi: Phòng Đào tạo", :size => 7
             pdf.table [["","Hải Phòng, ngày         tháng        năm"],["Chủ nhiệm bộ môn", "Giảng viên"]], :cell_style => {:size => 8, :borders => [], :align => :center}, :column_widths => {0 => 250, 1 => 250} do 
@@ -547,9 +548,9 @@ on tt1.stt = tt2.tuan ) as ttt
                 row(1).columns(0).font_style = :bold
                 row(1).columns(1).font_style = :bold
             end
-          end
-            
-          
+            pdf.repeat(:all) do 
+              pdf.draw_text "HD01-B02", :at => [10, -10], :size => 8
+            end
           
           end
 
@@ -654,7 +655,8 @@ on tt1.stt = tt2.tuan ) as ttt
                     h2,
                     h311
                   ]
-                ]
+                ]            
+          end
             pdf2.move_down 3
             pdf2.text "Nơi gửi: Phòng Đào tạo", :size => 7
             pdf2.table [["","Hải Phòng, ngày         tháng        năm"],["Chủ nhiệm bộ môn", "Giảng viên"]], :cell_style => {:size => 8, :borders => [], :align => :center}, :column_widths => {0 => 250, 1 => 250} do 
@@ -663,8 +665,9 @@ on tt1.stt = tt2.tuan ) as ttt
                 row(1).columns(0).font_style = :bold
                 row(1).columns(1).font_style = :bold
             end
-          end
-            
+            pdf2.repeat(:all) do 
+              pdf2.draw_text "HD01-B02", :at => [10, -10], :size => 8
+            end
           
           
           end
