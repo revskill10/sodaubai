@@ -21,7 +21,7 @@
     %td Ghi chú
   %tbody      
     - @svs.each_with_index do |sv, index|
-      %tr{:id => sv.ma_sinh_vien, :style => "color: #{'blue' if @nhomtruc.include?(sv.ma_sinh_vien)}; font-weight: #{'bold' if @nhomtruc.include?(sv.ma_sinh_vien)}"}
+      %tr{:id => sv.ma_sinh_vien, :style => "color: #{'blue' if @nhomtruc and @nhomtruc.include?(sv.ma_sinh_vien)}; font-weight: #{'bold' if @nhomtruc and @nhomtruc.include?(sv.ma_sinh_vien)}"}
         %td= (index+1).to_s
         %td= sv.ma_sinh_vien
         %td= sv.hodemdaydu

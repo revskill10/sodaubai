@@ -1,31 +1,11 @@
-- unless @lop_mon_hoc.da_duyet_bo_sung == true
-  .well.sidebar-nav{:style => "font-size: 12px;"}
-    = form_tag dkbs_lop_mon_hoc_path(@lop_mon_hoc.id), :method => :post, :remote => true do 
-      = submit_tag "Cập nhật", :class => "btn btn-primary"  
-      %br
-      %span Số buổi đăng ký bổ sung: 
-      = text_field_tag "sobuoibs", @lop_mon_hoc.so_buoi_bo_sung
-      %br
-      %span Số tiết đăng ký bổ sung:
-      = text_field_tag "sotietbs", @sotietbs.to_i, :readonly => true
+.well.sidebar-nav{:style => "font-size: 12px;"}
+  = form_tag dkbs_lop_mon_hoc_path(@lop_mon_hoc.id), :method => :post, :remote => true do 
+    = submit_tag "Cập nhật", :class => "btn btn-primary"  
     %br
-    #dkbsinfo
-      - if @lop_mon_hoc.da_duyet_bo_sung == false
-        %span Đang chờ xét duyệt
-- else
-  .well.sidebar-nav{:style => "font-size: 12px;"}
-    %h5 Vui lòng chọn buổi đăng ký (Số buổi: #{@sobuoibs}, số tiết: #{@sotietbs})
-    = form_tag qldkbs_lop_mon_hoc_path(@lop_mon_hoc.id), :method => :post, :remote => true do
-      %table.table-bordered
-        %thead        
-          %td STT
-          %td Ngày
-          %td Tiết bắt đầu
-          %td Số tiết              
-        %tbody
-          %td Stt
-          %td Ngày
-          %td Tiết bắt đầu
-          %td Số tiết          
+    %span Số buổi đăng ký bổ sung: 
+    = text_field_tag "sobuoibs", @lop_mon_hoc.so_buoi_bo_sung
     %br
-    #dkbsinfo      
+    %span Số tiết đăng ký bổ sung:
+    = text_field_tag "sotietbs", @sotietbs.to_i, :readonly => true
+  %br    
+

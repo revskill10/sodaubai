@@ -56,7 +56,8 @@ Trytest::Application.routes.draw do
       post '/qldkbs' => 'lop_mon_hocs#qldkbs', :as => 'qldkbs'
       get '/lichtrinh' => 'lop_mon_hocs#lichtrinh', :as => 'lichtrinh'
       get '/tinhhinh' => 'lop_mon_hocs#tinhhinh', :as => 'tinhhinh'
-      get '/elichtrinh' => 'lop_mon_hocs#export_lichtrinh', :as => 'elichtrinh'
+      #get '/elichtrinh' => 'lop_mon_hocs#export_lichtrinh', :as => 'elichtrinh'
+      get 'phieudiem'
     end    
     resources :diem_chi_tiets      do  
       collection do        
@@ -97,7 +98,7 @@ Trytest::Application.routes.draw do
         get 'quanly' => 'buoihoc#get_quanly'
         get 'lichtrinh'
         get 'lichtrinh_edit' => 'buoihoc#lichtrinh_edit'
-        post 'lichtrinh' => 'buoihoc#syllabus'
+        post 'lichtrinh' => 'buoihoc#syllabus'        
       end        
     end
   end

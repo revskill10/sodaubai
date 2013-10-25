@@ -42,17 +42,17 @@
 .container-fluid{:style=>"margin-top: 4%;"}   
   
   .row-fluid
-    .span7
+    .span5
       = form_tag lop_mon_hoc_path(@lop_mon_hoc.id), :method => :put, :remote => true do 
 
         .well.sidebar-nav.of{:style => "font-size: 12px;"}    
           %h4 Thiết lập thông số lớp môn học
           
-          = text_field_tag :so_nhom, @lop_mon_hoc.group, :placeholder => 'Số nhóm thực hành'
+          = text_field_tag :so_nhom, @lop_mon_hoc.group, :placeholder => 'Số nhóm thực hành', :style => "width: 10%"
           %span  nhóm thực hành, bài tập lớn, đồ án môn học
           %br
           
-          = text_field_tag :so_lan_kt, @lop_mon_hoc.so_lan_kt, :placeholder => 'Số lần kiểm tra thường xuyên'     
+          = text_field_tag :so_lan_kt, @lop_mon_hoc.so_lan_kt, :placeholder => 'Số lần kiểm tra thường xuyên', :style => "width: 10%" 
 
           %span lần kiểm tra thường xuyên (Tối đa 5 đầu điểm)
           %br
@@ -63,7 +63,10 @@
           %br
           %span Khối lượng giảng dạy theo đề cương chi tiết:
           %br
-          %span= text_field_tag :so_tiet_phan_bo, @lop_mon_hoc.so_tiet_phan_bo, :placeholder => 'Khối lượng theo đề cương chi tiết'                 
+          - if @lop_mon_hoc.bosung
+            = @lop_mon_hoc.so_tiet_phan_bo
+          - else
+            %span= text_field_tag :so_tiet_phan_bo, @lop_mon_hoc.so_tiet_phan_bo, :placeholder => 'Khối lượng theo đề cương chi tiết'                           
           %br
           %br Khối lượng được phân bổ theo thời khóa biểu: #{@lop_mon_hoc.khoi_luong_phan_bo}.
           #formdkbs 
@@ -77,8 +80,9 @@
             %ul.nav.pull-right
               %li
                 = link_to 'Thêm sinh viên vào lớp', new_lop_mon_hoc_lop_mon_hoc_sinh_vien_path(@lop_mon_hoc), :class => 'btn'
-    .span5
+    .span7
       #dkbs
+      #qldkbs
   = form_tag groupupdate_lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id), :method => :post, :remote => true do         
     %ul.nav.pull-right
       %li= submit_tag "Cập nhật danh sách nhóm thực hành", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."} 

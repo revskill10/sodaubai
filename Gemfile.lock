@@ -487,6 +487,7 @@ DEPENDENCIES
   resque
   resque-scheduler
   rspec-rails
+  rubyzip
   sass-rails (~> 3.2.3)
   savon
   shoulda-matchers

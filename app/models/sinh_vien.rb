@@ -73,6 +73,9 @@ class SinhVien < ActiveRecord::Base
       self.ten
     end
   end 
+  def hovaten
+    ho + " " + fullname
+  end
   def to_s
     ho + " " + fullname + ": " + ma_sinh_vien
   end

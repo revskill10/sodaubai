@@ -1,0 +1,19 @@
+.well.sidebar-nav{:style => "font-size: 12px;"}
+  %h5 Vui lòng chọn buổi đăng ký (Số buổi: #{@sobuoibs}, số tiết: #{@sotietbs})
+  = form_tag qldkbs_lop_mon_hoc_path(@lop_mon_hoc.id), :method => :post, :remote => true do      
+    = submit_tag "Cập nhật", :class => "btn btn-primary"    
+    %table.table.table-bordered
+      %thead        
+        %td STT
+        %td Ngày (dd/mm/yyyy)
+        %td Tiết bắt đầu
+        %td Số tiết              
+      %tbody
+        - @sobuoibs.times do |b|
+          %tr
+            %td{:align => :center}= (b+1)
+            %td{:align => :center}= text_field_tag "dkbs[#{b}][day]", nil, :style => "width:80%;"
+            %td{:align => :center}= text_field_tag "dkbs[#{b}][tietbatdau]", nil, :style => "width:20%;"
+            %td{:align => :center}= text_field_tag "dkbs[#{b}][sotiet]", nil, :style => "width:20%;"
+  %br
+  #dkbsinfo   

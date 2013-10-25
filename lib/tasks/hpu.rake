@@ -789,6 +789,28 @@ namespace :hpu do
       end
     end
   end
+
+  task :update_tin_chi  => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    @client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
+    response = @client.call(:lop_quan_ly)    
+    res_hash = response.body.to_hash    
+    ls = res_hash[:lop_quan_ly_response][:lop_quan_ly_result][:diffgram][:document_element]
+    ls = ls[:lop_quan_ly]
+    LopMonHocSinhVien.all.each do |lop|
+      l = ls.select {|li| lop.lop_mon_hoc and li[:ma_lop].strip.upcase == lop.ma_lop_hanh_chinh }.first
+      if l 
+        puts lop.id
+        lop.lop_tin_chi = l[:dao_tao_theo_tin_chi]
+        lop.save!
+      end
+    end
+  end
+=begin    
+    
+  end
+=end
 end
 
 def titleize(str)
