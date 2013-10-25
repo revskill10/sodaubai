@@ -402,7 +402,7 @@ on tt1.stt = tt2.tuan ) as ttt
   def phieudiem
     authorize! :manage, @lop_mon_hoc    
     respond_to do |format|
-      format.pdf do
+      format.zip do
         
         svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
         tinchi = @lop_mon_hoc.lop_mon_hoc_sinh_viens.where(lop_tin_chi: true)
@@ -429,17 +429,19 @@ on tt1.stt = tt2.tuan ) as ttt
           end                            
         end
         if tinchi.count > 0
-          tis = [tinchi[0..24]] + (tinchi[24..-1]||[]).each_slice(30).to_a          
+          tis = [tinchi[0..27]] + (tinchi[27..-1]||[]).each_slice(35).to_a          
         end
-        
+        if nienche.count > 0
+          tis2 = [nienche[0..27]] + (nienche[27..-1]||[]).each_slice(35).to_a          
+        end
 
 
         
         #stringio = Zip::ZipOutputStream::write_buffer do |zio|
-          if tinchi.count > 0
+          if tis
          #   zio.put_next_entry("phieudiem_tinchi.pdf")
             pdf = Prawn::Document.new(:page_layout => :portrait,         
-            :page_size => 'A4', :margin => 20)
+            :page_size => 'A4', :margin => 30)
             #pdf.font "#{Rails.root}/app/assets/fonts/arial2.ttf"
             pdf.font_families.update(
               'Arial' => { :normal => Rails.root.join('app/assets/fonts/arial2.ttf').to_s,
@@ -498,12 +500,12 @@ on tt1.stt = tt2.tuan ) as ttt
             end   
             tinchiitems3 = ti.each_with_index.map do |item,i|
               [              
-                item.lop_ghep.to_s
+                (item.lop_ghep ? "Ghép lớp" : "")
               ]
             end
 
-            h1 = pdf.make_table [["STT","Mã SV","Họ và tên","Ngày sinh","Lớp"]], :width => 270, :cell_style => {:size => 6.5, :align => :center, :valign => :center, :height => 60}, :column_widths => {0 => 30, 1 => 60, 2 => 90, 3 => 50, 4 => 40}
-            h11 = pdf.make_table tinchiitems, :cell_style => {:size => 6.5, :align => :center, :height => 17}, :column_widths => {0 => 30, 1 => 60, 2 => 90, 3 => 50, 4 => 40}, :width => 270 do 
+            h1 = pdf.make_table [["STT","Mã SV","Họ và tên","Ngày sinh","Lớp"]], :width => 280, :cell_style => {:size => 6.5, :align => :center, :valign => :center, :height => 60}, :column_widths => {0 => 30, 1 => 60, 2 => 90, 3 => 50, 4 => 50}
+            h11 = pdf.make_table tinchiitems, :cell_style => {:size => 6.5, :align => :center, :height => 17}, :column_widths => {0 => 30, 1 => 60, 2 => 90, 3 => 50, 4 => 50}, :width => 280 do 
               tinchiitems.length.times do |i|
                 row(i).columns(2).align = :left
               end
@@ -512,9 +514,9 @@ on tt1.stt = tt2.tuan ) as ttt
               [h1],
               [h11]
             ]
-            h21 = pdf.make_table [["Nội dung"]], :cell_style => {:size => 6.5, :align => :center, :height => 20}, :width => 220
-            h22 = pdf.make_table [["Chuyên cần 4/10","Thực hành, TN, Tiểu luận 3/10","Kiểm tra thường xuyên 3/10","Tổng điểm"]], :cell_style => {:height => 40, :size => 7}, :width => 220
-            h221 = pdf.make_table tinchiitems2, :cell_style => {:size => 6.5, :height => 17}, :width => 220
+            h21 = pdf.make_table [["Nội dung"]], :cell_style => {:size => 6.5, :align => :center, :height => 20}, :width => 200
+            h22 = pdf.make_table [["Chuyên cần 4/10","Thực hành, TN, Tiểu luận 3/10","Kiểm tra thường xuyên 3/10","Tổng điểm"]], :cell_style => {:height => 40, :size => 7, :align => :center}, :column_widths => {0 => 50, 1 => 50, 2 => 50, 3 => 50}, :width => 200
+            h221 = pdf.make_table tinchiitems2, :cell_style => {:size => 6.5, :height => 17, :align => :center}, :width => 200, :column_widths => {0 => 50, 1 => 50, 2 => 50, 3 => 50}
             h222 = pdf.make_table [
               [h22],
               [h221]
@@ -524,8 +526,8 @@ on tt1.stt = tt2.tuan ) as ttt
               [h222]                
             ]                
               
-            h3 = pdf.make_table [["Ghi chú"]], :cell_style => {:size => 7, :height => 60}, :width => 60
-            h31 = pdf.make_table tinchiitems3, :cell_style => {:size => 6.5, :height => 17}, :width => 60
+            h3 = pdf.make_table [["Ghi chú"]], :cell_style => {:size => 7, :height => 60, :align => :center, :valign => :center}, :width => 50
+            h31 = pdf.make_table tinchiitems3, :cell_style => {:size => 6.5, :height => 17, :align => :center}, :width => 50
             h311 = pdf.make_table [
               [h3],
               [h31]
@@ -537,13 +539,145 @@ on tt1.stt = tt2.tuan ) as ttt
                     h311
                   ]
                 ]
-            
+            pdf.move_down 3
+            pdf.text "Nơi gửi: Phòng Đào tạo", :size => 7
+            pdf.table [["","Hải Phòng, ngày         tháng        năm"],["Chủ nhiệm bộ môn", "Giảng viên"]], :cell_style => {:size => 8, :borders => [], :align => :center}, :column_widths => {0 => 250, 1 => 250} do 
+                row(0).columns(1).font_style = :italic
+                row(0).columns(1).size = 7
+                row(1).columns(0).font_style = :bold
+                row(1).columns(1).font_style = :bold
+            end
           end
             
           
-          #  zio.write pdf.render
+          
           end
 
+       
+         if tis2
+         #   zio.put_next_entry("phieudiem_tinchi.pdf")
+            pdf2 = Prawn::Document.new(:page_layout => :portrait,         
+            :page_size => 'A4', :margin => 30)
+            #pdf.font "#{Rails.root}/app/assets/fonts/arial2.ttf"
+            pdf.font_families.update(
+              'Arial' => { :normal => Rails.root.join('app/assets/fonts/arial2.ttf').to_s,
+                           :bold   => Rails.root.join('app/assets/fonts/arialbd.ttf').to_s,
+                           :italic => Rails.root.join('app/assets/fonts/arialbi.ttf').to_s}                       
+            )                        
+            cell_width = 50
+            row_height = 120
+            img_path = "#{Rails.root}/public/images/logo.png"
+            tab1 = pdf.make_table [["TRƯỜNG ĐẠI HỌC DÂN LẬP HẢI PHÒNG"],["PHÒNG ĐÀO TẠO"]], :width => 250, :cell_style => { :font_style => :bold, :size => 11, :borders => [], :align => :center, :valign => :center }
+            tab2 = pdf.make_table [["PHIẾU ĐIỂM QUÁ TRÌNH"],["Lớp: #{@lop_mon_hoc.ma_lop} Học kỳ: #{@current_tenant.hoc_ky} Năm học: #{@current_tenant.nam_hoc}\n\nMôn học: #{@lop_mon_hoc.ten_mon_hoc}\n\nGiảng viên: #{@lop_mon_hoc.ten_giang_vien} "]], :width => 210, :cell_style => {:borders => []} do 
+              row(0).columns(0).font_style = :bold
+              row(0).columns(0).padding_left = 20
+              row(0).columns(0).valign = :center
+              row(0).columns(0).size = 11
+              row(1).columns(0).size = 9
+            end
+
+            pieces = [[img_path, ""]]
+            pieces.each do |p|
+            #pdf.move_down 5 # a bit of padding
+            cursor = pdf.cursor 
+            p.each_with_index do |v,j|
+               pdf.bounding_box [cell_width*j, cursor], :height => row_height, :width => ( j == 0 ? cell_width : 460) do
+                if j == 0
+                  pdf.image v, :width => 40
+                else
+                  #pdf.text v, :size => 10 unless v.blank?
+                  pdf.font "Arial"
+                  pdf.table [
+                    [tab1, tab2]
+                  ], :cell_style => {:borders => []}, :width => 460
+
+                end
+              end
+            end
+          end
+          tis.each do |ti|
+
+            niencheitems = ti.each_with_index.map do |item,i|
+              [
+                i+1,
+                item.ma_sinh_vien,            
+                item.sinh_vien.hovaten,
+                item.ngay_sinh.strftime("%d/%m/%Y"),              
+                item.ma_lop_hanh_chinh              
+              ]  
+            end      
+            niencheitems2 = ti.each_with_index.map do |item,i|
+              [              
+                item.diemcc,
+                item.diemth.to_s,
+                item.diemtbkt,
+                item.diemqt                
+              ]  
+            end   
+            niencheitems3 = ti.each_with_index.map do |item,i|
+              [              
+                (item.lop_ghep ? "Ghép lớp" : "")
+              ]
+            end
+
+            h1 = pdf2.make_table [["STT","Mã SV","Họ và tên","Ngày sinh","Lớp"]], :width => 280, :cell_style => {:size => 6.5, :align => :center, :valign => :center, :height => 60}, :column_widths => {0 => 30, 1 => 60, 2 => 90, 3 => 50, 4 => 50}
+            h11 = pdf2.make_table tinchiitems, :cell_style => {:size => 6.5, :align => :center, :height => 17}, :column_widths => {0 => 30, 1 => 60, 2 => 90, 3 => 50, 4 => 50}, :width => 280 do 
+              tinchiitems.length.times do |i|
+                row(i).columns(2).align = :left
+              end
+            end
+            h111 = pdf2.make_table [
+              [h1],
+              [h11]
+            ]
+            h21 = pdf2.make_table [["Nội dung"]], :cell_style => {:size => 6.5, :align => :center, :height => 20}, :width => 200
+            h22 = pdf2.make_table [["Chuyên cần 4/10","Thực hành, TN, Tiểu luận 3/10","Kiểm tra thường xuyên 3/10","Tổng điểm"]], :cell_style => {:height => 40, :size => 7, :align => :center}, :column_widths => {0 => 50, 1 => 50, 2 => 50, 3 => 50}, :width => 200
+            h221 = pdf2.make_table tinchiitems2, :cell_style => {:size => 6.5, :height => 17, :align => :center}, :width => 200, :column_widths => {0 => 50, 1 => 50, 2 => 50, 3 => 50}
+            h222 = pdf2.make_table [
+              [h22],
+              [h221]
+            ]
+            h2 = pdf2.make_table [ 
+              [h21],            
+              [h222]                
+            ]                
+              
+            h3 = pdf2.make_table [["Ghi chú"]], :cell_style => {:size => 7, :height => 60, :align => :center, :valign => :center}, :width => 50
+            h31 = pdf2.make_table tinchiitems3, :cell_style => {:size => 6.5, :height => 17, :align => :center}, :width => 50
+            h311 = pdf2.make_table [
+              [h3],
+              [h31]
+            ]
+            pdf2.table [
+                  [
+                    h111,
+                    h2,
+                    h311
+                  ]
+                ]
+            pdf2.move_down 3
+            pdf2.text "Nơi gửi: Phòng Đào tạo", :size => 7
+            pdf2.table [["","Hải Phòng, ngày         tháng        năm"],["Chủ nhiệm bộ môn", "Giảng viên"]], :cell_style => {:size => 8, :borders => [], :align => :center}, :column_widths => {0 => 250, 1 => 250} do 
+                row(0).columns(1).font_style = :italic
+                row(0).columns(1).size = 7
+                row(1).columns(0).font_style = :bold
+                row(1).columns(1).font_style = :bold
+            end
+          end
+            
+          
+          
+          end
+        stringio = Zip::ZipOutputStream::write_buffer do |zio|         
+          if pdf 
+           zio.put_next_entry("phieudiem_tinchi.pdf")
+           zio.write pdf.render 
+          end
+          if pdf2
+           zio.put_next_entry("phieudiem_nienche.pdf")
+           zio.write pdf2.render
+         end
+        end
 =begin          
           if nienche.count > 0
             zio.put_next_entry("phieudiem_nienche.pdf")
@@ -583,11 +717,14 @@ on tt1.stt = tt2.tuan ) as ttt
             zio.write pdf.render
           end
         end
+        
+=end      
         stringio.rewind
         binary_data = stringio.sysread
-=end      
-        send_data pdf.render, filename: "phieudiem_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.pdf", 
-                          type: "application/pdf"
+        send_data binary_data, filename: "phieudiem_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.zip", 
+                          type: "application/zip"
+         #send_data pdf.render, filename: "phieudiem_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.pdf", 
+          #                type: "application/pdf"
       end
     end
   end
