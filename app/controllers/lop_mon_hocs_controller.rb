@@ -413,7 +413,7 @@ on tt1.stt = tt2.tuan ) as ttt
               i+1,
               item.ma_sinh_vien,            
               item.sinh_vien.hovaten,
-              item.ngay_sinh.strftime("%d/%m/%Y"),              
+              (item.ngay_sinh ? item.ngay_sinh.strftime("%d/%m/%Y") : ""),
               item.ma_lop_hanh_chinh
             ]            
           end   
@@ -486,7 +486,7 @@ on tt1.stt = tt2.tuan ) as ttt
                 (index * prev) + i+1,
                 item.ma_sinh_vien,            
                 item.sinh_vien.hovaten,
-                item.ngay_sinh.strftime("%d/%m/%Y"),              
+                (item.ngay_sinh ? item.ngay_sinh.strftime("%d/%m/%Y") : ""),
                 item.ma_lop_hanh_chinh              
               ]  
             end      
