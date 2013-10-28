@@ -56,3 +56,27 @@
             %td= lich['so_tiet']
             %td= (lich['phong'] || "") 
             %td= lich['ten_giang_vien']
+  .row-fluid
+    %h3 Lịch dạy bù:
+    %table#monitor{:class => "table table-bordered table-condensed"}    
+      %thead
+        %td STT
+        %td Mã lớp
+        %td Tên môn
+        %td Ca
+        %td Giờ dạy      
+        %td Số tiết dạy
+        %td Phòng     
+        %td Giảng viên
+      %tbody
+        - if @lichdaybus and @lichdaybus.count > 0
+          - @lichdaybus.each_with_index do |lich, index|
+            %tr{:class => (index % 2 == 0 ? "warning" : "info")}        
+              %td= so(index+1)            
+              %td= link_to lich.lop_mon_hoc.ma_lop, showmonitordaybu_path(lich.lop_mon_hoc.id, lich.ngay_day_moi.localtime.strftime("%Y-%m-%d-%H-%M")), :remote => true
+              %td= lich.lop_mon_hoc.ten_mon_hoc
+              %td= "Ca" + (LichTrinhGiangDay.ca(lich.ngay_day_moi.localtime.to_datetime).to_s || "")
+              %td= lich.ngay_day_moi.localtime.strftime("%Hh:%M")
+              %td= lich.so_tiet_day_moi
+              %td= (lich.phong_moi || "") 
+              %td= lich.lop_mon_hoc.ten_giang_vien

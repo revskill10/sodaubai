@@ -25,6 +25,17 @@ class MonitorController < ActionController::Base
       format.js
     end
   end
+  def showdaybu
+    @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])
+    @ngay = str_to_ngay(params[:id])
+    @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day_moi: get_ngay(@ngay)).first    
+    @trucnhat = JSON.parse(@lop_mon_hoc.trucnhat) if @lop_mon_hoc.trucnhat
+    @nhomtruc = @trucnhat[from_zdate(params[:id])] if @trucnhat
+    @svs = SinhVien.where(ma_sinh_vien: @nhomtruc) if @nhomtruc
+    respond_to do |format|
+      format.js
+    end
+  end
   def thanhtra
     authorize! :quanly, GiangVien
     dt = Date.today.to_datetime.change(:offset => Rational(7,24))
@@ -142,10 +153,10 @@ class MonitorController < ActionController::Base
     
     dt = Date.today.to_datetime.change(:offset => Rational(7,24))
     #@tiet = LichTrinhGiangDay.xac_dinh_gio(dt).change(:offset => Rational(7,24))
-    @lichs = LichTrinhGiangDay.where("ngay_day > timestamp ? and ngay_day < timestamp ?", dt, DateTime.now).order('ngay_day asc, created_at asc')
+    @lichs = LichTrinhGiangDay.where("ngay_day > timestamp ? and ngay_day < timestamp ? and loai <> 2", dt, DateTime.now).order('ngay_day asc, created_at asc')
     @lichs2 = LichTrinhGiangDay.where("ngay_day > timestamp ? and ngay_day < timestamp ?", dt, DateTime.now).order('ngay_day asc, created_at asc').map {|l| "#{l.lop_mon_hoc.ma_lop}_#{l.lop_mon_hoc.ma_mon_hoc}"}
     #@currents = LichTrinhGiangDay.current.map {|l| l and "#{l.lop_mon_hoc.ma_lop}_#{l.lop_mon_hoc.ma_mon_hoc}"}
-    
+    @lichdaybus = LichTrinhGiangDay.where("ngay_day_moi > timestamp ? and loai = 2 and status = 3", dt).order('ngay_day_moi asc, created_at asc')
     #@res2 = @res.select {|n| to_zdate(n["time"][0]) == Date.today}
     #.map {|tkb| tkb and JSON.parse(tkb.days)["ngay"] }
     #.select {|n| to_zdate(n["time"][0]) == Date.today}
