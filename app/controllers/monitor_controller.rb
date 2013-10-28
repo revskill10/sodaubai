@@ -154,8 +154,8 @@ class MonitorController < ActionController::Base
     dt = Date.today.to_datetime.change(:offset => Rational(7,24))
     tomorrow = dt + 1.day
     #@tiet = LichTrinhGiangDay.xac_dinh_gio(dt).change(:offset => Rational(7,24))
-    @lichs = LichTrinhGiangDay.where("ngay_day > timestamp ? and ngay_day < timestamp ? and loai <> 2", dt, DateTime.now).order('ngay_day asc, created_at asc')
-    @lichs2 = LichTrinhGiangDay.where("ngay_day > timestamp ? and ngay_day < timestamp ? and loai <> 2", dt, DateTime.now).order('ngay_day asc, created_at asc').map {|l| "#{l.lop_mon_hoc.ma_lop}_#{l.lop_mon_hoc.ma_mon_hoc}"}
+    @lichs = LichTrinhGiangDay.where("ngay_day > timestamp ? and ngay_day < timestamp ? and loai != 2", dt, DateTime.now).order('ngay_day asc, created_at asc')
+    @lichs2 = LichTrinhGiangDay.where("ngay_day > timestamp ? and ngay_day < timestamp ? and loai != 2", dt, DateTime.now).order('ngay_day asc, created_at asc').map {|l| "#{l.lop_mon_hoc.ma_lop}_#{l.lop_mon_hoc.ma_mon_hoc}"}
     #@currents = LichTrinhGiangDay.current.map {|l| l and "#{l.lop_mon_hoc.ma_lop}_#{l.lop_mon_hoc.ma_mon_hoc}"}
     @lichdaybus = LichTrinhGiangDay.where("ngay_day_moi > timestamp ? and loai = 2 and status = 3 and ngay_day_moi < timestamp ?", dt, tomorrow).order('ngay_day_moi asc, created_at asc')
     #@res2 = @res.select {|n| to_zdate(n["time"][0]) == Date.today}
