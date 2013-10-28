@@ -24,7 +24,7 @@ COALESCE("T1",0) + COALESCE("T2",0)+ COALESCE("T3",0)+ COALESCE("T4",0)
     + COALESCE("T5",0)+ COALESCE("T6",0)+ COALESCE("T7",0)+ COALESCE("T8",0)+ COALESCE("T9",0)+ COALESCE("T10",0)
     + COALESCE("T11",0)+ COALESCE("T12",0)+ COALESCE("T13",0)+ COALESCE("T14",0)+ COALESCE("T15",0)
     + COALESCE("T16",0) as tonggiovang, t.diemchuyencan, t.diemthuchanh,
-    t.lan1 as lan1, t.lan2 as lan2, t.lan3 as lan3, round(t.diemgoctbkt, 2) as diemgoctbkt, t.diemtbkt,  t.diemquatrinh,
+    t.lan1 as lan1, t.lan2 as lan2, t.lan3 as lan3, round(t.diemgoctbkt, 2) as diemgoctbkt, t.diemtbkt,  case when t.diemchuyencan=0 then 0 else t.diemquatrinh end as diemquatrinh,
     t.note as note
  from 
 (SELECT "msv", sv1.ho, sv1.ho_dem, sv1.ten, sv1.ngay_sinh , "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11",
@@ -478,11 +478,12 @@ on tt1.stt = tt2.tuan ) as ttt
               end
             end
           end
-          tis.each do |ti|
+          prev = 0
+          tis.each_with_index do |ti, index|
 
             tinchiitems = ti.each_with_index.map do |item,i|
               [
-                i+1,
+                (index * prev) + i+1,
                 item.ma_sinh_vien,            
                 item.sinh_vien.hovaten,
                 item.ngay_sinh.strftime("%d/%m/%Y"),              
@@ -538,7 +539,8 @@ on tt1.stt = tt2.tuan ) as ttt
                     h311
                   ]
                 ]
-            
+            pdf.move_down 50
+            prev = ti.count
           end
             pdf.move_down 3
             pdf.text "Nơi gửi: Phòng Đào tạo", :size => 7
@@ -560,7 +562,7 @@ on tt1.stt = tt2.tuan ) as ttt
             pdf2 = Prawn::Document.new(:page_layout => :portrait,         
             :page_size => 'A4', :margin => 30)
             #pdf.font "#{Rails.root}/app/assets/fonts/arial2.ttf"
-            pdf.font_families.update(
+            pdf2.font_families.update(
               'Arial' => { :normal => Rails.root.join('app/assets/fonts/arial2.ttf').to_s,
                            :bold   => Rails.root.join('app/assets/fonts/arialbd.ttf').to_s,
                            :italic => Rails.root.join('app/assets/fonts/arialbi.ttf').to_s}                       
@@ -568,8 +570,8 @@ on tt1.stt = tt2.tuan ) as ttt
             cell_width = 50
             row_height = 120
             img_path = "#{Rails.root}/public/images/logo.png"
-            tab1 = pdf.make_table [["TRƯỜNG ĐẠI HỌC DÂN LẬP HẢI PHÒNG"],["PHÒNG ĐÀO TẠO"]], :width => 250, :cell_style => { :font_style => :bold, :size => 11, :borders => [], :align => :center, :valign => :center }
-            tab2 = pdf.make_table [["PHIẾU ĐIỂM QUÁ TRÌNH"],["Lớp: #{@lop_mon_hoc.ma_lop} Học kỳ: #{@current_tenant.hoc_ky} Năm học: #{@current_tenant.nam_hoc}\n\nMôn học: #{@lop_mon_hoc.ten_mon_hoc}\n\nGiảng viên: #{@lop_mon_hoc.ten_giang_vien} "]], :width => 210, :cell_style => {:borders => []} do 
+            tab1 = pdf2.make_table [["TRƯỜNG ĐẠI HỌC DÂN LẬP HẢI PHÒNG"],["PHÒNG ĐÀO TẠO"]], :width => 250, :cell_style => { :font_style => :bold, :size => 11, :borders => [], :align => :center, :valign => :center }
+            tab2 = pdf2.make_table [["PHIẾU ĐIỂM QUÁ TRÌNH"],["Lớp: #{@lop_mon_hoc.ma_lop} Học kỳ: #{@current_tenant.hoc_ky} Năm học: #{@current_tenant.nam_hoc}\n\nMôn học: #{@lop_mon_hoc.ten_mon_hoc}\n\nGiảng viên: #{@lop_mon_hoc.ten_giang_vien} "]], :width => 210, :cell_style => {:borders => []} do 
               row(0).columns(0).font_style = :bold
               row(0).columns(0).padding_left = 20
               row(0).columns(0).valign = :center
@@ -580,15 +582,15 @@ on tt1.stt = tt2.tuan ) as ttt
             pieces = [[img_path, ""]]
             pieces.each do |p|
             #pdf.move_down 5 # a bit of padding
-            cursor = pdf.cursor 
+            cursor = pdf2.cursor 
             p.each_with_index do |v,j|
-               pdf.bounding_box [cell_width*j, cursor], :height => row_height, :width => ( j == 0 ? cell_width : 460) do
+               pdf2.bounding_box [cell_width*j, cursor], :height => row_height, :width => ( j == 0 ? cell_width : 460) do
                 if j == 0
-                  pdf.image v, :width => 40
+                  pdf2.image v, :width => 40
                 else
                   #pdf.text v, :size => 10 unless v.blank?
-                  pdf.font "Arial"
-                  pdf.table [
+                  pdf2.font "Arial"
+                  pdf2.table [
                     [tab1, tab2]
                   ], :cell_style => {:borders => []}, :width => 460
 
@@ -596,11 +598,11 @@ on tt1.stt = tt2.tuan ) as ttt
               end
             end
           end
-          tis.each do |ti|
-
+          prev2 = 0
+          tis2.each_with_index do |ti, index|            
             niencheitems = ti.each_with_index.map do |item,i|
               [
-                i+1,
+                (index * prev) + i+1,
                 item.ma_sinh_vien,            
                 item.sinh_vien.hovaten,
                 item.ngay_sinh.strftime("%d/%m/%Y"),              
@@ -622,8 +624,8 @@ on tt1.stt = tt2.tuan ) as ttt
             end
 
             h1 = pdf2.make_table [["STT","Mã SV","Họ và tên","Ngày sinh","Lớp"]], :width => 280, :cell_style => {:size => 6.5, :align => :center, :valign => :center, :height => 60}, :column_widths => {0 => 30, 1 => 60, 2 => 90, 3 => 50, 4 => 50}
-            h11 = pdf2.make_table tinchiitems, :cell_style => {:size => 6.5, :align => :center, :height => 17}, :column_widths => {0 => 30, 1 => 60, 2 => 90, 3 => 50, 4 => 50}, :width => 280 do 
-              tinchiitems.length.times do |i|
+            h11 = pdf2.make_table niencheitems, :cell_style => {:size => 6.5, :align => :center, :height => 17}, :column_widths => {0 => 30, 1 => 60, 2 => 90, 3 => 50, 4 => 50}, :width => 280 do 
+              niencheitems.length.times do |i|
                 row(i).columns(2).align = :left
               end
             end
@@ -633,7 +635,7 @@ on tt1.stt = tt2.tuan ) as ttt
             ]
             h21 = pdf2.make_table [["Nội dung"]], :cell_style => {:size => 6.5, :align => :center, :height => 20}, :width => 200
             h22 = pdf2.make_table [["Chuyên cần 4/10","Thực hành, TN, Tiểu luận 3/10","Kiểm tra thường xuyên 3/10","Tổng điểm"]], :cell_style => {:height => 40, :size => 7, :align => :center}, :column_widths => {0 => 50, 1 => 50, 2 => 50, 3 => 50}, :width => 200
-            h221 = pdf2.make_table tinchiitems2, :cell_style => {:size => 6.5, :height => 17, :align => :center}, :width => 200, :column_widths => {0 => 50, 1 => 50, 2 => 50, 3 => 50}
+            h221 = pdf2.make_table niencheitems2, :cell_style => {:size => 6.5, :height => 17, :align => :center}, :width => 200, :column_widths => {0 => 50, 1 => 50, 2 => 50, 3 => 50}
             h222 = pdf2.make_table [
               [h22],
               [h221]
@@ -644,7 +646,7 @@ on tt1.stt = tt2.tuan ) as ttt
             ]                
               
             h3 = pdf2.make_table [["Ghi chú"]], :cell_style => {:size => 7, :height => 60, :align => :center, :valign => :center}, :width => 50
-            h31 = pdf2.make_table tinchiitems3, :cell_style => {:size => 6.5, :height => 17, :align => :center}, :width => 50
+            h31 = pdf2.make_table niencheitems3, :cell_style => {:size => 6.5, :height => 17, :align => :center}, :width => 50
             h311 = pdf2.make_table [
               [h3],
               [h31]
@@ -655,7 +657,9 @@ on tt1.stt = tt2.tuan ) as ttt
                     h2,
                     h311
                   ]
-                ]            
+                ]                  
+              pdf2.move_down 50        
+              prev2 = ti.count
           end
             pdf2.move_down 3
             pdf2.text "Nơi gửi: Phòng Đào tạo", :size => 7

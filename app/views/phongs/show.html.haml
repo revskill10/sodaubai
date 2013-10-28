@@ -22,6 +22,8 @@
       %button.btn{:type => "submit"} Tra cứu
   %h4{:style => "text-align:center;"}= "Sổ đầu bài theo phòng học #{@id}"
   %hr
+  = link_to "Thời khóa biểu", "http://hpu.edu.vn/thoikhoabieu/Tkb_PhongHoc/Tkb_PhongHoc_#{@id}.html" 
+  %hr
   %table#monitor{:class => "table table-bordered"}
     %colgroup
       %col{:style => "width: 3%"}

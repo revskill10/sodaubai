@@ -26,14 +26,14 @@
       %strong Môn học: 
       %span= @lop_mon_hoc.ten_mon_hoc 
       %strong.offset1 Giảng viên: 
-      %span= @lop_mon_hoc.ten_giang_vien    
+      %span= link_to "#{@lop_mon_hoc.ten_giang_vien}", "http://hpu.edu.vn/thoikhoabieu/Tkb_GiaoVien/Tkb_GiaoVien_#{@lop_mon_hoc.ma_giang_vien}.html", :target => "_blank"
       %strong.offset1 Lớp:
-      %span= @lop_mon_hoc.ma_lop  
+      %span= link_to @lop_mon_hoc.ma_lop, "http://hpu.edu.vn/thoikhoabieu/Tkb_Lop/Tkb_Lop_#{@lop_mon_hoc.ma_lop}.html", :target => "_blank"
       %strong.offset1 Số tiết thực hiện: 
       %span= "#{@lop_mon_hoc.khoi_luong} / #{@lop_mon_hoc.khoi_luong_phan_bo}"
       %strong.offset1 Sĩ số:
       %span= @svs.count
-  %hr  
+  %hr
   %table{:class => "table table-condensed datatable"}
     %thead
       %td STT
