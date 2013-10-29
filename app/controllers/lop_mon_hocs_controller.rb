@@ -866,11 +866,13 @@ on tt1.stt = tt2.tuan ) as ttt
     @sotietbs = params[:sotietbs].to_i
 
     if @sobuoibs > 0 and @sobuoibs < @sotietbs
-      @lop_mon_hoc.bosung = true
+      #@lop_mon_hoc.bosung = true
       @lop_mon_hoc.da_duyet_bo_sung = false
       @lop_mon_hoc.so_tiet_bo_sung = @sotietbs
       @lop_mon_hoc.so_buoi_bo_sung = @sobuoibs
       @lop_mon_hoc.save!
+    else 
+      @error = 1
     end
 
     respond_to do |format|
@@ -880,17 +882,26 @@ on tt1.stt = tt2.tuan ) as ttt
   def qldkbs    
     authorize! :manage, @lop_mon_hoc
     #begin
-      @dkbs = params[:dkbs]
-      if @dkbs and @dkbs.keys.count > 0 and !(@lop_mon_hoc.bosung == true)
-        @dkbs.each do |k,v|
-          @day = v["day"].split("/").to_a
-          @sotiet = v["sotiet"].to_i
-          @tietbatdau = LichTrinhGiangDay::TIET[v[:tietbatdau].to_i]
-          ngay_day = DateTime.new(@day[2].to_i, @day[1].to_i, @day[0].to_i, @tietbatdau[0], @tietbatdau[1])
-          @lop_mon_hoc.lich_trinh_giang_days.create!(ngay_day: ngay_day, so_tiet_day: @sotiet, loai: 5, status: 6)
-        end
-        @lop_mon_hoc.bosung = true
+    @dkbs = params[:dkbs]
+    if @dkbs and @dkbs.keys.count > 0 and !(@lop_mon_hoc.bosung == true)
+      sotiet = 0
+      @dkbs.each do |k,v|
+        sotiet += v["sotiet"].to_i
       end
+      if @lop_mon_hoc.so_tiet_bo_sung != sotiet then @error = 1 end        
+    end
+    if @dkbs and @dkbs.keys.count > 0 and !(@lop_mon_hoc.bosung == true) and @error.nil?
+      @dkbs.each do |k,v|
+        @day = v["day"].split("/").to_a
+        @sotiet = v["sotiet"].to_i
+        @tietbatdau = LichTrinhGiangDay::TIET[v[:tietbatdau].to_i]
+        ngay_day = DateTime.new(@day[2].to_i, @day[1].to_i, @day[0].to_i, @tietbatdau[0], @tietbatdau[1])
+        @lop_mon_hoc.lich_trinh_giang_days.create!(ngay_day: ngay_day, so_tiet_day: @sotiet, loai: 5, status: 6)
+      end
+      @lop_mon_hoc.bosung = true
+      @lop_mon_hoc.save!
+      @lichdkbs = @lop_mon_hoc.lich_trinh_giang_days.where(loai: 5)
+    end
     #rescue
      # @error = 1
     #end

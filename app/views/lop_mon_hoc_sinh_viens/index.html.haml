@@ -70,8 +70,8 @@
           %br
           %br Khối lượng được phân bổ theo thời khóa biểu: #{@lop_mon_hoc.khoi_luong_phan_bo}.
           #formdkbs 
-            - if @lop_mon_hoc.so_tiet_phan_bo > @lop_mon_hoc.khoi_luong_phan_bo
-              = render 'formdkbs'
+            - if @lop_mon_hoc.so_tiet_phan_bo > @lop_mon_hoc.khoi_luong_phan_bo and !@lop_mon_hoc.bosung
+              = render 'formdkbs'            
           %br          
           %br
           = submit_tag "Thiết lập", :class => "btn",  :data => {disable_with: "Submitting..."} 
@@ -80,9 +80,13 @@
             %ul.nav.pull-right
               %li
                 = link_to 'Thêm sinh viên vào lớp', new_lop_mon_hoc_lop_mon_hoc_sinh_vien_path(@lop_mon_hoc), :class => 'btn'
-    .span7
-      #dkbs
-      #qldkbs
+    .span7            
+      - if @lop_mon_hoc.bosung and @lichdkbs and @lichdkbs.count > 0
+        #statusdkbs
+          = render "statusdkbs"
+      - else
+        #dkbs
+        #qldkbs
   = form_tag groupupdate_lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id), :method => :post, :remote => true do         
     %ul.nav.pull-right
       %li= submit_tag "Cập nhật danh sách nhóm thực hành", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."} 

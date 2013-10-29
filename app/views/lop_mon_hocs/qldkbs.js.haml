@@ -1,4 +1,10 @@
 - if @error == 1
-  alert("Đã có lỗi xảy ra");
+  alert("Số tiết bổ sung không phù hợp");
 - else
-  alert("#{@day}, #{@sotiet}, #{@tietbatdau}");
+  $("#dkbs").html("");
+  $("#qldkbs").html("");  
+  s = $("#dkbs");  
+  s.html("#{escape_javascript(render 'lop_mon_hoc_sinh_viens/statusdkbs')}");
+  $("#formdkbs").html("");
+  $("#so_tiet_phan_bo").prop('disabled', true);
+  alert("Đăng ký thành công");  

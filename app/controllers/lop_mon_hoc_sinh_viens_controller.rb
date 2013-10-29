@@ -34,7 +34,9 @@ class LopMonHocSinhViensController < ApplicationController
   def index
     #@lop_mon_hoc_sinh_viens = LopMonHocSinhVien.all
     @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens
-
+    if @lop_mon_hoc.bosung
+      @lichdkbs = @lop_mon_hoc.lich_trinh_giang_days.where(loai: 5)
+    end
     if @lop_mon_hoc.group.nil? then 
       @lop_mon_hoc.group = 1
       @lop_mon_hoc.save!
