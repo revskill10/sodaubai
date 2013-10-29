@@ -357,7 +357,7 @@ on tt1.stt = tt2.tuan ) as ttt
         end
         pdf.move_down(20)
         
-        pdf.table(items, :header => true, :cell_style => {:size => 9}, :column_widths => {0 => 80,1 => 200, 2 => 40, 3 => 200}, :width => 520) do           
+        pdf.table(items, :header => true, :cell_style => {:size => 9}, :column_widths => {0 => 80,1 => 300, 2 => 40, 3 => 100}, :width => 520) do           
           items.count.times do |t|
             row(t).columns(0).font_style = :italic
             [0,2,3].each do |k|
