@@ -15,6 +15,10 @@ class LichTrinhGiangDay < ActiveRecord::Base
   scope :daybukoduyet, -> {daybu.where(status: 4)}
   scope :daybudaduyet, -> {daybu.where(status: 3)}
   scope :daybuquakhu, -> {daybu.where("status != 6")}
+
+  scope :dkbs, -> {where(loai: 5)}
+  scope :dkbschoduyet, -> {dkbs.where(status: 6)}
+  scope :dkbsquakhu, -> {dkbs.where("status != 6")}
   scope :choduyet, -> {where(status: 6)}
 
   scope :between, lambda {|time1, time2| {:conditions => ["ngay_day = timestamp ? or ngay_day = timestamp ? ", time1.utc, time2.utc]}}  

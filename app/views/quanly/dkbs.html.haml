@@ -18,7 +18,8 @@
               %ul.dropdown-menu                        
                 %li= link_to "Nghỉ dạy", quanlynghiday_path  
                 %li= link_to "Đăng ký nghỉ dạy cho giảng viên", nghidayhangloat_path      
-                %li.active= link_to "Dạy bù", quanlydaybu_path   
+                %li= link_to "Dạy bù", quanlydaybu_path   
+                %li.active= link_to "Dạy bổ sung", quanlydkbs_path   
                 %li= link_to "Tra cứu phòng trống", phongtrong_path  
             %li.dropdown
               %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
@@ -35,19 +36,19 @@
             %li= link_to 'Đăng xuất', destroy_user_session_path
               
 
-.container-fluid{:style=>"margin-top: 4%;"}  
-  
-  
+.container-fluid{:style=>"margin-top: 4%;"}      
   - if @lichs.count > 0
-    = form_tag qldaybu_path, :method => :post, :remote => true do                                 
+    = form_tag qldkbs_path, :method => :post, :remote => true do
       = submit_tag "Cập nhật", :class => "btn btn-primary"
       %br
-      = render "daybu"
+      #dkbs
+        = render "dkbs"
   - else
     %h5 Hiện giờ chưa có giảng viên đăng ký dạy bù
     %hr
   %br
   - if @lichs2.count > 0
-    %h5 Các lịch dạy bù trước đây
-    = render "daybu2"
+    %h5 Các lịch đăng ký bổ sung trước đây
+    #dkbs2
+      = render "dkbs2"
             

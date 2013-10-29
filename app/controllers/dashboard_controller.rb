@@ -21,6 +21,7 @@ class DashboardController < ApplicationController
   end
   def calendar
     @lichbus = @lichbosungs.select {|l| l.loai == 2 and l.status == 3}
+    @lichdkbs = @lichbosungs.select {|l| l.loai == 5 and l.status == 3}
   end
   def search
     @type = params[:type]
@@ -96,7 +97,7 @@ class DashboardController < ApplicationController
 
     
     @current_lops2 = current_user.lop_mon_hocs
-    @lichbosungs = current_user.lich_trinh_giang_days.select {|l| [1,2,3,4].include?(l.loai)}
+    @lichbosungs = current_user.lich_trinh_giang_days.select {|l| [1,2,3,4,5].include?(l.loai)}
     @lich2 = current_user.get_days[:ngay].uniq if current_user.get_days
     
     generator = ColorGenerator.new saturation: 0.2, lightness: 0.8

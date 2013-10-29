@@ -297,12 +297,45 @@ class QuanlyController < ApplicationController
   end
 
   def dkbs
-    
+    #authorize! :manage, LichTrinhGiangDay
+
+    @lichs = LichTrinhGiangDay.dkbschoduyet
+    @lichs2 = LichTrinhGiangDay.dkbsquakhu
     respond_to do |format|
       format.html
     end
   end
   def qldkbs
+    authorize! :manage, LichTrinhGiangDay
+    dkbss = params[:dkbs]
+    
+    if dkbss and dkbss.keys.count > 0
+      @lichs = LichTrinhGiangDay.where(id: dkbss.keys)
+      dkbss.each do |k,v|
+        phong = v[:phong]
+        qd = v[:qd]
+        lich = @lichs.select {|l| l.id == k.to_i }.first
+        if qd == "true"          
+          if lich 
+            lich.status = 3
+            lich.phong = phong
+            lich.nguoi_duyet = current_user
+            lich.tuan = lich.get_tuan
+            lich.save!
+          end
+        elsif qd == "false"
+          if lich 
+            lich.status = 4
+            lich.nguoi_duyet = current_user
+            lich.tuan = lich.get_tuan
+            lich.save!
+          end
+        end
+
+      end
+    end
+    @lichs = LichTrinhGiangDay.dkbschoduyet
+    @lichs2 = LichTrinhGiangDay.dkbsquakhu
     respond_to do |format|
       format.js
     end
