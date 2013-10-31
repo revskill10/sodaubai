@@ -66,6 +66,12 @@ class LopMonHocSinhVien < ActiveRecord::Base
   def hodemdaydu
     (ho || "") + " " + (ho_dem || "")
   end
+  def phieudiem
+    "GL, TC" if lop_ghep == true and diem_chuyen_can == 0
+    "GL" if lop_ghep == true and diem_chuyen_can > 0
+    "TC" if !(lop_ghep == true) and diem_chuyen_can == 0
+    ""
+  end
   def tong_so_tiet    
     lop_mon_hoc.so_tiet_phan_bo || lop_mon_hoc.khoi_luong_phan_bo || 1
   end  
