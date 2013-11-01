@@ -7,12 +7,12 @@ class LopMonHocSinhVien < ActiveRecord::Base
   default_scope :conditions => 'status is null or status = false'
   
 
-  attr_accessible :ma_lop, :ma_lop_ghep, :ma_sinh_vien, :ma_mon_hoc, :ma_lop_hanh_chinh, :ten_mon_hoc, :loai, :ho_dem, :ten, :ho, :lop_ghep, :tin_chi
+  attr_accessible :ma_lop, :ma_lop_ghep, :ma_sinh_vien, :ma_mon_hoc, :ma_lop_hanh_chinh, :ten_mon_hoc, :loai, :ho_dem, :ten, :ho, :lop_ghep, :tin_chi, :creator, :ngay_sinh
 
   belongs_to :lop_mon_hoc
   
   belongs_to :sinh_vien, :foreign_key => 'ma_sinh_vien', :primary_key => 'ma_sinh_vien'
-  
+  belongs_to :nguoi_tao, :class_name => "User", :foreign_key => :creator, :primary_key => :id
   
   has_many :lich_trinh_giang_days, :dependent => :nullify
   has_many :thong_bao_lop_hocs, :dependent => :nullify

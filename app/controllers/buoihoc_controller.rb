@@ -58,6 +58,7 @@ class BuoihocController < ApplicationController
       if @sotietday and @sotietday > 0 and @buoihoc and @sotietday <= @buoihoc["so_tiet"]
         @lich.so_tiet_day_moi = @sotietday
         @lich.phong_moi = @phong if @phong
+        @lich.nguoi_tao = current_user
         @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
         @ids = @svs.map {|k| k.ma_sinh_vien}
 
@@ -166,6 +167,7 @@ class BuoihocController < ApplicationController
       if @sotietday > 0 and @buoihoc and @sotietday <= @buoihoc["so_tiet"]
         @lich.so_tiet_day_moi = @sotietday if @sotietday
         @lich.phong_moi = @phong if @phong
+        @lich.nguoi_tao = current_user
         params[:msv].each do |k,v|
           dd = @lich.diem_danhs.where(ma_sinh_vien: k).first
           dd = @lich.diem_danhs.where(ma_sinh_vien: k).create if !dd and (v[:sotiet].to_i > 0 or !v[:note].blank?)
@@ -409,6 +411,7 @@ class BuoihocController < ApplicationController
         @lich.so_tiet_day = @buoihoc["so_tiet"] if @buoihoc 
         @lich.so_tiet_day_moi = @buoihoc["so_tiet"] if @buoihoc      
         @lich.phong_moi = @lop_mon_hoc.phong_hoc
+        @lich.nguoi_tao = current_user
         @lich.save!
       end
       @nhomtruc = @trucnhat[from_zdate(@pid)] if @trucnhat
@@ -423,6 +426,7 @@ class BuoihocController < ApplicationController
         @lich.so_tiet_day = @buoihoc["so_tiet"] if @buoihoc 
         @lich.so_tiet_day_moi = @buoihoc["so_tiet"] if @buoihoc      
         @lich.phong_moi = @lop_mon_hoc.phong_hoc
+        @lich.nguoi_tao = current_user
         @lich.save!
       end
       @nhomtruc = @trucnhat[from_zdate(@pid)] if @trucnhat

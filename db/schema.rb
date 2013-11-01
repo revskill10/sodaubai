@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131022014058) do
+ActiveRecord::Schema.define(:version => 20131101065629) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(:version => 20131022014058) do
     t.integer  "user_id"
     t.datetime "destroyed_at"
     t.boolean  "nghile"
+    t.integer  "creator_id"
   end
 
   add_index "lich_trinh_giang_days", ["lop_mon_hoc_id"], :name => "index_lich_trinh_giang_days_on_lop_mon_hoc_id"
@@ -187,6 +188,7 @@ ActiveRecord::Schema.define(:version => 20131022014058) do
     t.datetime "ngay_sinh"
     t.decimal  "diem_goc_tbkt"
     t.boolean  "lop_tin_chi"
+    t.integer  "creator"
   end
 
   add_index "lop_mon_hoc_sinh_viens", ["group_id"], :name => "index_lop_mon_hoc_sinh_viens_on_group_id"

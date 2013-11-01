@@ -36,6 +36,7 @@ class LichTrinhGiangDay < ActiveRecord::Base
     end    
   end
   belongs_to :nguoi_duyet, :class_name => "User", :foreign_key => :user_id, :primary_key => :id
+  belongs_to :nguoi_tao, :class_name => "User", :foreign_key => :creator_id, :primary_key => :id
   after_create :update_siso_and_tuan
 
   TIET = {1 => [6,30], 2 => [7,20], 3 => [8,10],
