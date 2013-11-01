@@ -395,9 +395,10 @@ on tt1.stt = tt2.tuan ) as ttt
   def phieudiem(tenant)    
     svs = object.lop_mon_hoc_sinh_viens
     tinchi = object.lop_mon_hoc_sinh_viens.where(lop_tin_chi: true)
-    nienche = (svs - tinchi).sort_by{|x| [x.ma_lop_hanh_chinh, x.ten, x.ho_dem, x.ho, x.ngay_sinh]}
+    nienche = (svs - tinchi)
 
     if nienche.count > 0
+      nienche = nienche.sort_by{|x| [x.ma_lop_hanh_chinh, x.ten, x.ho_dem, x.ho, x.ngay_sinh]}
       niencheitems = nienche.each_with_index.map do |item, i|
         [
           i+1,
