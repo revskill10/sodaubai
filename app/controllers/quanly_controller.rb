@@ -355,7 +355,7 @@ class QuanlyController < ApplicationController
   def report2
     authorize! :quanly, SinhVien  	
   	@tuan = params[:tuan] || @current_week  	
-  	sql = "Select l1.id, l1.ma_giang_vien, d.ma_sinh_vien,s.ho,s.ho_dem,s.ten,l1.ma_lop,l1.ma_mon_hoc,l1.ten_mon_hoc,l1.ten_giang_vien,d.so_tiet_vang,l.ngay_day from t1.diem_danhs d inner join t1.lich_trinh_giang_days l on d.lich_trinh_giang_day_id=l.id inner join t1.lop_mon_hocs l1 on l.lop_mon_hoc_id=l1.id inner join t1.sinh_viens s on d.ma_sinh_vien=s.ma_sinh_vien Where d.lich_trinh_giang_day_id in (Select id From t1.Lich_trinh_giang_days where tuan= #{@tuan} ) and d.so_tiet_vang>0 Order by l.ngay_day,l1.ma_lop,d.ma_sinh_vien"
+  	sql = "Select l1.id, l1.ma_giang_vien, d.ma_sinh_vien,s.ho,s.ho_dem,s.ten,l1.ma_lop,l1.ma_mon_hoc,l1.ten_mon_hoc,l1.ten_giang_vien,d.so_tiet_vang,l.ngay_day from t1.diem_danhs d inner join t1.lich_trinh_giang_days l on d.lich_trinh_giang_day_id=l.id inner join t1.lop_mon_hocs l1 on l.lop_mon_hoc_id=l1.id inner join t1.sinh_viens s on d.ma_sinh_vien=s.ma_sinh_vien Where d.lich_trinh_giang_day_id in (Select id From t1.Lich_trinh_giang_days where tuan= #{@tuan} ) and d.so_tiet_vang>0 and l.destroyed_at is null Order by l.ngay_day,l1.ma_lop,d.ma_sinh_vien"
   	#@res = DiemDanh.paginate_by_sql(sql, :page => params[:page] || 1, :per_page => 50)
     @res = ActiveRecord::Base.connection.execute(sql)
     respond_to do |format|
@@ -375,6 +375,7 @@ inner join t1.lich_trinh_giang_days l on d.lich_trinh_giang_day_id=l.id
 inner join t1.lop_mon_hocs l1 on l.lop_mon_hoc_id=l1.id
 inner join t1.sinh_viens s on d.ma_sinh_vien=s.ma_sinh_vien
 where l1.so_tiet_phan_bo>0
+and l.destroyed_at is null
 Group by d.ma_sinh_vien,s.ho,s.ho_dem,s.ten,s.lop_hc,l1.ma_lop,l1.id,l1.ma_mon_hoc,l1.ten_mon_hoc,l1.ten_giang_vien,l1.so_tiet
 having sum(d.so_tiet_vang)>0
 ) as S
