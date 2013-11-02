@@ -185,7 +185,7 @@ class LopMonHocsController < ApplicationController
         @day = v["day"].split("/").to_a
         @sotiet = v["sotiet"].to_i
         @tietbatdau = LichTrinhGiangDay::TIET[v[:tietbatdau].to_i]
-        ngay_day = DateTime.new(@day[2].to_i, @day[1].to_i, @day[0].to_i, @tietbatdau[0], @tietbatdau[1])
+        ngay_day = DateTime.new(@day[2].to_i, @day[1].to_i, @day[0].to_i, @tietbatdau[0], @tietbatdau[1]).change(:offset => Rational(7,24))
         @lop_mon_hoc.lich_trinh_giang_days.create!(ngay_day: ngay_day, so_tiet_day: @sotiet, loai: 5, status: 6)
       end
       @lop_mon_hoc.bosung = true
