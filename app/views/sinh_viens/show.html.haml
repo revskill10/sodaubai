@@ -22,5 +22,7 @@
       %button.btn{:type => "submit"} Tra cứu
   %h4{:style => "text-align:center;"}= "Tiến trình học tập của sinh viên: #{@sinh_vien.raw_name}"
   %hr
+    = link_to "Xuất", sinh_vien_path(@sinh_vien.ma_sinh_vien) + ".pdf", :class => "btn btn-primary"
+  %hr
   - if @lichs.count > 0
     = render "lich"
