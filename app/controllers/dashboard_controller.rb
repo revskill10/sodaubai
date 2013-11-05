@@ -70,7 +70,7 @@ class DashboardController < ApplicationController
       
       @lich = @type.get_days[:ngay].uniq if @type.get_days
 
-      @lichbosungs = @type.lich_trinh_giang_days.select {|l| [1,2,3,4].include?(l.loai)}
+      @lichbosungs = @type.lich_trinh_giang_days.select {|l| [1,2,3,4,5].include?(l.loai)}
 
       generator = ColorGenerator.new saturation: 0.3, lightness: 0.75
       @color = [] 
@@ -97,7 +97,7 @@ class DashboardController < ApplicationController
 
     
     @current_lops2 = current_user.lop_mon_hocs
-    @lichbosungs = current_user.lich_trinh_giang_days.select {|l| [1,2,3,4,5].include?(l.loai)}
+    @lichbosungs2 = current_user.lich_trinh_giang_days.select {|l| [1,2,3,4,5].include?(l.loai)}
     @lich2 = current_user.get_days[:ngay].uniq if current_user.get_days
     
     generator = ColorGenerator.new saturation: 0.2, lightness: 0.8
@@ -112,8 +112,8 @@ class DashboardController < ApplicationController
         @color_map2["#{l.ma_lop}-#{l.ma_mon_hoc}"] = @color2[i] if l 
       end           
     end
-    unless @lichbosungs.empty?
-      @lichbosungs.each_with_index do |l,i|
+    unless @lichbosungs2.empty?
+      @lichbosungs2.each_with_index do |l,i|
         @color_map2["#{l.ngay_day.localtime.strftime('%Y-%m-%d-%H:%M')}"] = "A00000"
         @info2["#{l.ngay_day.localtime.strftime('%Y-%m-%d-%H:%M')}"] = l.info
       end
