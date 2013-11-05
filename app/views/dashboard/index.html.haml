@@ -42,7 +42,7 @@
         %i
           %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.localtime.mday}/#{@week.tu_ngay.localtime.mon}, đến ngày #{@week.den_ngay.localtime.mday}/#{@week.den_ngay.localtime.mon}"     
 
-  - if @lichbus.count > 0
+  - if @lichbus and @lichbus.count > 0
     %h5 Lịch dạy bù
     %table{:class => "table table-bordered"}
       %thead    
