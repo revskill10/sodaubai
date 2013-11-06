@@ -34,6 +34,8 @@
       %strong.offset1 Sĩ số:
       %span= @svs.count
   %hr
+
+  %h5 Danh sách sinh viên
   %table{:class => "table table-condensed datatable"}
     %thead
       %td STT
@@ -61,3 +63,37 @@
             %td= sv.convert_grade(sv.diem_thuc_hanh)
           %td= sv.diemtbkt
           %td= sv.diemqt
+  %hr
+  %h5 Lịch trình thực hiện
+  %table.table.table-bordered.table-condensed.table-hover.table-striped#monitor  
+    %thead        
+      %td STT
+      %td Tuần
+      %td Thời gian
+      %td Phòng
+      %td Lớp
+      %td Môn    
+      %td Nội dung
+      %td Số tiết
+      %td Sinh viên vắng
+    %tbody    
+      - @lichs.each_with_index do |lich, index|
+        - if lich.lop_mon_hoc
+          %tr        
+            %td= (index+1).to_s
+            %td= lich.tuan.to_s
+            %td= format_date2(lich.ngay_day)
+            %td= (link_to(lich.phong_moi, phong_path(lich.phong_moi)) if lich.phong_moi) || ""
+            %td= link_to lich.lop_mon_hoc.ma_lop, report_lop_mon_hoc_path(lich.lop_mon_hoc)
+            %td= lich.lop_mon_hoc.ten_mon_hoc
+            %td= (raw(lich.noi_dung_day.gsub(/\n/,'<br/>')) if lich.noi_dung_day ) || ""
+            %td= (lich.so_tiet_day_moi || 0)
+            %td
+              - if lich.diem_danhs.count > 0 
+                %ol         
+                  - lich.diem_danhs.vang.each do |dd|
+                    %li= link_to(dd.sinh_vien.to_s, sinh_vien_path(dd.sinh_vien.ma_sinh_vien)) + ", "
+
+
+
+  
