@@ -47,7 +47,7 @@ class LopMonHocsController < ApplicationController
   def report
 
     raise ActiveRecord::RecordNotFound unless @lop_mon_hoc
-    #@lichs = @lop_mon_hoc.lich_trinh_giang_days.order('ngay_day, tuan')
+    @lichs = @lop_mon_hoc.lich_trinh_giang_days.order('ngay_day, tuan')
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     respond_to do |format|
       format.html
@@ -84,7 +84,7 @@ class LopMonHocsController < ApplicationController
     authorize! :manage, @lop_mon_hoc
     @sn = params[:so_nhom].to_s.empty? ? 1 : params[:so_nhom].to_i
     @sl = params[:so_lan_kt].to_s.empty? ? 0 : params[:so_lan_kt].to_i
-    @st = params[:so_tiet_phan_bo].empty? ? @lop_mon_hoc.so_tiet : params[:so_tiet_phan_bo].to_f
+    @st = (params[:so_tiet_phan_bo] and params[:so_tiet_phan_bo].empty?) ? @lop_mon_hoc.so_tiet : params[:so_tiet_phan_bo].to_f
     th = params[:thuc_hanh]
     if @sn <= 0 then @sn = 1 end
     @lop_mon_hoc.update_attributes(group: @sn, so_lan_kt: @sl, so_tiet_phan_bo: @st) if @sl >= 0 and @sl <= 5 and @sn >= 1 
