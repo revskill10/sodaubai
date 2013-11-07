@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131101065629) do
+ActiveRecord::Schema.define(:version => 20131107073941) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20131101065629) do
     t.text     "days"
     t.integer  "topics_count"
     t.integer  "posts_count"
+    t.string   "ten_khoa"
   end
 
   add_index "giang_viens", ["ma_giang_vien"], :name => "index_giang_viens_on_ma_giang_vien"
@@ -221,9 +222,10 @@ ActiveRecord::Schema.define(:version => 20131101065629) do
     t.decimal  "so_tiet_phan_bo"
     t.datetime "destroyed_at"
     t.boolean  "bosung"
-    t.integer  "so_tiet_bo_sung"
+    t.decimal  "so_tiet_bo_sung"
     t.integer  "so_buoi_bo_sung"
     t.boolean  "da_duyet_bo_sung"
+    t.integer  "siso"
   end
 
   add_index "lop_mon_hocs", ["da_duyet_bo_sung"], :name => "index_lop_mon_hocs_on_da_duyet_bo_sung"

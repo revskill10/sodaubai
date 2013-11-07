@@ -811,6 +811,30 @@ namespace :hpu do
     
   end
 =end
+  task :update_giangvien  => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    @client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")
+    response = @client.call(:danh_sach_can_bo_giang_vien)    
+    res_hash = response.body.to_hash    
+    ls = res_hash[:danh_sach_can_bo_giang_vien_response][:danh_sach_can_bo_giang_vien_result][:diffgram][:document_element]
+    ls = ls[:danh_sach_can_bo_giang_vien]
+    ls.each do |l|
+      gv = GiangVien.where(ma_giang_vien: l[:ma_giao_vien].strip.upcase).first
+      if gv
+        gv.ten_khoa = l[:ten_khoa]
+        gv.save!
+      end
+    end
+  end
+  task :update_sisolop  => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    LopMonHoc.all.each do |lop|
+      lop.siso = lop.lop_mon_hoc_sinh_viens.count
+      lop.save!
+    end
+  end
 end
 
 def titleize(str)
