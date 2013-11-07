@@ -20,8 +20,8 @@ class DashboardController < ApplicationController
     @current_lich2 = @lich2.select {|l| l["tuan"] == @current_week}.uniq if @lich2    
   end
   def calendar
-    @lichbus = @lichbosungs.select {|l| l.loai == 2 and l.status == 3}
-    @lichdkbs = @lichbosungs.select {|l| l.loai == 5 and l.status == 3}
+    @lichbus = @lichbosungs.select {|l| l.loai == 2 and l.status == 3} if @lichbosungs
+    @lichdkbs = @lichbosungs.select {|l| l.loai == 5 and l.status == 3} if @lichbosungs
   end
   def search
     @type = params[:type]

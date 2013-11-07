@@ -59,7 +59,7 @@
             %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["phong"]                 
             %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
             %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to lich["ma_lop"], lop_mon_hoc_path(lich["lop"])
-  - if @lichdkbs.count > 0
+  - if @lichdkbs and @lichdkbs.count > 0
     %h5 Lịch dạy bổ sung
     %table{:class => "table table-bordered"}
       %thead    
@@ -79,7 +79,7 @@
             %td= lich.lop_mon_hoc.ten_mon_hoc
             %td= link_to lich.lop_mon_hoc.ma_lop, lop_mon_hoc_path(lich.lop_mon_hoc.id)
 
-  - if @lichbus.count > 0
+  - if @lichbus and @lichbus.count > 0
     %h5 Lịch dạy bù
     %table{:class => "table table-bordered"}
       %thead    
