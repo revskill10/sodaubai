@@ -153,9 +153,9 @@ class LopMonHocsController < ApplicationController
   def dkbs
     authorize! :manage, @lop_mon_hoc
     @sobuoibs = params[:sobuoibs].to_i
-    @sotietbs = params[:sotietbs].to_i
+    @sotietbs = params[:sotietbs].to_f.round(0).to_i
 
-    if @sobuoibs > 0 and @sobuoibs < @sotietbs
+    if @sobuoibs > 0 and @sobuoibs <= @sotietbs
       #@lop_mon_hoc.bosung = true
       @lop_mon_hoc.da_duyet_bo_sung = false
       @lop_mon_hoc.so_tiet_bo_sung = @sotietbs
@@ -178,7 +178,7 @@ class LopMonHocsController < ApplicationController
       @dkbs.each do |k,v|
         sotiet += v["sotiet"].to_i
       end
-      if @lop_mon_hoc.so_tiet_bo_sung != sotiet then @error = 1 end        
+      if @lop_mon_hoc.so_tiet_bo_sung.round(0).to_i != sotiet then @error = 1 end        
     end
     if @dkbs and @dkbs.keys.count > 0 and !(@lop_mon_hoc.bosung == true) and @error.nil?
       @dkbs.each do |k,v|
