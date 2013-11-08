@@ -55,7 +55,7 @@ class BuoihocController < ApplicationController
         @lich.tiet_nghi = nil
         @sotietday = @lich.so_tiet_day
       end
-      if @sotietday and @sotietday > 0 and @buoihoc and @sotietday <= @buoihoc["so_tiet"]
+      if (@sotietday and @sotietday > 0 and @buoihoc and @sotietday <= @buoihoc["so_tiet"]) or (@sotietday and @sotietday > 0 and @lich and @lich.loai == 5 and @lich.status == 3)
         @lich.so_tiet_day_moi = @sotietday
         @lich.phong_moi = @phong if @phong
         @lich.nguoi_tao = current_user
