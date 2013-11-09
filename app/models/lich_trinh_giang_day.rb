@@ -52,7 +52,13 @@ class LichTrinhGiangDay < ActiveRecord::Base
       Tuan.all.detect {|t| t.tu_ngay.localtime <= ngay_day.localtime and t.den_ngay.localtime >= ngay_day.localtime }.stt
     end
   end
-
+  def wday
+    if ngay_day.localtime.wday == 0 then
+      8
+    else
+      ngay_day.localtime.wday + 1 
+    end
+  end
   def get_svvang
     diem_danhs.vang
   end

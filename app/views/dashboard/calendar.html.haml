@@ -63,17 +63,17 @@
     %h5 Lịch dạy bổ sung
     %table{:class => "table table-bordered"}
       %thead    
-        %td Tuần    
-        %td Thời gian         
+        %td Tuần                  
         %td Số tiết      
+        %td Thời gian  
         %td Phòng    
         %td Môn
         %td Mã lớp
       %tbody
-        - @lichdkbs.each_with_index do |lich, index|
-          %tr
+        - @lichdkbs.each_with_index do |lich, index|                  
+          %tr            
             %td= link_to "T"  + (("0" if lich.tuan < 10) || "") +lich.tuan.to_s, tuan_path(lich.tuan.to_s)
-            %td= link_to TkbGiangVien::THU2[lich.ngay_day.localtime.wday + 1] + ", ngày " +lich.ngay_day.localtime.strftime("%d/%m") + ", " + lich.ngay_day.localtime.strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich.lop_mon_hoc_id, lich.ngay_day.localtime.strftime("%Y-%m-%d-%H-%M"))
+            %td= link_to TkbGiangVien::THU2[lich.wday] + ", ngày " +lich.ngay_day.localtime.strftime("%d/%m") + ", " + lich.ngay_day.localtime.strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich.lop_mon_hoc_id, lich.ngay_day.localtime.strftime("%Y-%m-%d-%H-%M"))
             %td= lich.so_tiet_day
             %td= lich.phong
             %td= lich.lop_mon_hoc.ten_mon_hoc

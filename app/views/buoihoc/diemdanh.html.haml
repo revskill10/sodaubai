@@ -30,6 +30,10 @@
           %i
             %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.localtime.mday}/#{@week.tu_ngay.localtime.mon}, đến ngày #{@week.den_ngay.localtime.mday}/#{@week.den_ngay.localtime.mon}"    
     %ul.nav.pull-right
+      - if @lich.loai == 5        
+        %li
+          %i
+            %strong{:style => "font-size: 10px;"}= "Dạy bổ sung:  " +  TkbGiangVien::THU2[@lich.wday] + ", ngày " + @lich.ngay_day.localtime.strftime("%d/%m") + ", " + @lich.ngay_day.localtime.strftime("%Hh:%M") 
       - if @buoihoc
         %li
           %i
@@ -45,16 +49,27 @@
           %td{:style => 'font-weight: bold;'} Giảng viên
           %td{:style => 'font-weight: bold;'} Lớp
           %td{:style => 'font-weight: bold;'} Số tiết thực hiện
-        %tbody    
-          %tr
-            %td
-              %span= @buoihoc["ten_mon_hoc"] if @buoihoc
-            %td
-              %span= @lop_mon_hoc.ten_giang_vien    
-            %td
-              %span= @buoihoc["ma_lop"] if @buoihoc    
-            %td
-              %span= "#{@lop_mon_hoc.khoi_luong} / #{@lop_mon_hoc.so_tiet_phan_bo || @lop_mon_hoc.khoi_luong_phan_bo}"
+        %tbody   
+          - if @lich.loai == 5
+            %tr
+              %td
+                %span= @lop_mon_hoc.ten_mon_hoc
+              %td
+                %span= @lop_mon_hoc.ten_giang_vien    
+              %td
+                %span= @lop_mon_hoc.ma_lop   
+              %td
+                %span= "#{@lop_mon_hoc.khoi_luong} / #{@lop_mon_hoc.so_tiet_phan_bo || @lop_mon_hoc.khoi_luong_phan_bo}"
+          - else 
+            %tr
+              %td
+                %span= @buoihoc["ten_mon_hoc"] if @buoihoc
+              %td
+                %span= @lop_mon_hoc.ten_giang_vien    
+              %td
+                %span= @buoihoc["ma_lop"] if @buoihoc    
+              %td
+                %span= "#{@lop_mon_hoc.khoi_luong} / #{@lop_mon_hoc.so_tiet_phan_bo || @lop_mon_hoc.khoi_luong_phan_bo}"
     .well.sidebar-nav{:style => "font-size: 12px;"}        
       %table{:class => "table table-bordered"}            
         %thead
