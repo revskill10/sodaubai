@@ -379,7 +379,22 @@ namespace :hpu do
     puts "loading ... sinh viens"
     ls.each do |l|
       sv = SinhVien.where(ma_sinh_vien: (l[:ma_sinh_vien].strip.upcase if l[:ma_sinh_vien])).first
-      unless sv 
+      if sv and sv.ngay_sinh.nil?
+        sv.gioi_tinh = (l[:gioi_tinh] if l[:gioi_tinh] and l[:gioi_tinh])        
+        sv.lop_hc = (l[:lop].strip.upcase if  l[:lop] and l[:lop].is_a?(String) )
+        sv.ma_he_dao_tao = ( titleize(l[:ten_he_dao_tao].strip.downcase) if l[:ten_he_dao_tao] and l[:ten_he_dao_tao].is_a?(String) )
+        sv.ma_khoa_hoc = ( titleize(l[:ten_khoa_hoc].strip.downcase) if l[:ten_khoa_hoc] and l[:ten_khoa_hoc].is_a?(String) )        
+        sv.ngay_sinh = (l[:ngay_sinh].new_offset(Rational(7, 24)) if l[:ngay_sinh])        
+        sv.trang_thai = (l[:trang_thai] if l[:trang_thai])
+        sv.ten_nganh = ( titleize(l[:ten_nganh].strip.downcase) if l[:ten_nganh] and l[:ten_nganh].is_a?(String))
+        sv.ten = ( titleize(l[:ten].strip.downcase) if l[:ten] and l[:ten].is_a?(String) )
+        ho_dem = titleize(l[:hodem].strip.downcase) if l[:hodem] and l[:hodem].is_a?(String)
+        h = ho_dem.split(" ").to_a
+        sv.ho = h[0]
+        sv.ho_dem = h[1..-1].join(" ")        
+        sv.save!        
+      end
+      if sv.nil?
         sv = SinhVien.new(ma_sinh_vien: l[:ma_sinh_vien].strip.upcase)
         sv.gioi_tinh = (l[:gioi_tinh] if l[:gioi_tinh] and l[:gioi_tinh])        
         sv.lop_hc = (l[:lop].strip.upcase if  l[:lop] and l[:lop].is_a?(String) )
