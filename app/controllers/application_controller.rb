@@ -2,6 +2,7 @@ require 'pg_tools'
 class ApplicationController < ActionController::Base
   protect_from_forgery
   include ApplicationHelper
+  include PublicActivity::StoreController 
   before_filter :load_tenant
   skip_authorization_check :unless => :current_admin?
   before_filter :authenticate_user!  

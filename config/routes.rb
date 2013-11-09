@@ -35,7 +35,7 @@ Trytest::Application.routes.draw do
   
   
   
-
+  resources :users
   resources :giang_viens do 
     member do 
       get '/report' => 'giang_viens#report'
@@ -127,6 +127,7 @@ Trytest::Application.routes.draw do
   get "quanly/report4/(:tuan)" => 'quanly#report4', :as => 'report4'
   get "quanly/report5/(:tuan)" => 'quanly#report5', :as => 'report5'
   get "monitor" => 'monitor#index', :as => 'monitor'
+  get "monitor/activity" => 'monitor#activity', :as => 'activity'
   get "monitor/:lop_mon_hoc_id/:id" => 'monitor#show', :as => 'showmonitor'
   get "monitor/daybu/:lop_mon_hoc_id/:id" => 'monitor#showdaybu', :as => 'showmonitordaybu'
   get "admin" => 'admin#index', :as => 'admin'

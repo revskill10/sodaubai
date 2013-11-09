@@ -3,7 +3,8 @@ class LichTrinhGiangDay < ActiveRecord::Base
   
   include DestroyedAt
   # Danh sach lich dang ky nghi day
-
+  include PublicActivity::Model
+  tracked owner: Proc.new{ |controller, model| controller.current_user }
 
   scope :nghiday, -> {where(loai: 1)}
   scope :nghidaychoduyet, -> {nghiday.where(status: 6)}

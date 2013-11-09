@@ -1,5 +1,7 @@
 class LopMonHoc < ActiveRecord::Base  
   include DestroyedAt
+  include PublicActivity::Model
+  tracked owner: Proc.new{ |controller, model| controller.current_user }
   attr_accessible :hoc_ky, :ma_giang_vien, :ma_lop, :ma_mon_hoc, :nam_hoc, :ngay_bat_dau, :ngay_ket_thuc, :phong_hoc, :so_tiet, :so_tuan_hoc, :ten_giang_vien, :ten_mon_hoc, :dssv, :group, :user_id, :so_lan_kt, :thuc_hanh, :so_tiet_phan_bo
 
 

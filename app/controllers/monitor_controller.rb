@@ -13,7 +13,12 @@ class MonitorController < ActionController::Base
       format.html {render :index, :layout => 'application'}
     end
   end
-
+  def activity
+    @activities = PublicActivity::Activity.order('updated_at desc').take(50)
+    respond_to do |format|
+      format.html {render :activity, :layout => 'application'}
+    end
+  end
   def show
     @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])
     @ngay = str_to_ngay(params[:id])
