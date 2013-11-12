@@ -1,4 +1,4 @@
-- if @error
-  alert("#{@error}");
+- if @error and @error.length > 0
+  alert("Vui lòng kiểm tra lại những sinh viên sau: #{@error[0..-1]}");
 - else
   alert("Đã cập nhật thành công");

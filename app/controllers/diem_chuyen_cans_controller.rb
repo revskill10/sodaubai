@@ -25,9 +25,10 @@ class DiemChuyenCansController < ApplicationController
     authorize! :manage, @lop_mon_hoc
     @msvs = params[:msv]
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
+    @error = ""
     @svs.each do |sv|
-      if @msvs[sv.ma_sinh_vien] and @msvs[sv.ma_sinh_vien] >= 0 and @msvs[sv.ma_sinh_vien] <= 10
-        sv.diem_chuyen_can = @msvs[sv.ma_sinh_vien]
+      if @msvs[sv.ma_sinh_vien] and @msvs[sv.ma_sinh_vien].to_i >= 0 and @msvs[sv.ma_sinh_vien].to_i <= 4
+        sv.diem_chuyen_can = @msvs[sv.ma_sinh_vien].to_i
         sv.diem_qua_trinh = sv.diemqt
         if sv.diem_chuyen_can == 0 
           sv.note = "Mất tư cách"
@@ -36,8 +37,8 @@ class DiemChuyenCansController < ApplicationController
         end
         sv.save! rescue puts "error"
       else
-        @error = "Đã có lỗi xảy ra, vui lòng kiểm tra lại dữ liệu"
-      end
+        @error +=  sv.ma_sinh_vien + ", "
+      end      
     end
 
     respond_to do |format|

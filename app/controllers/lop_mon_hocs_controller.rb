@@ -6,7 +6,11 @@ class LopMonHocsController < ApplicationController
   include LopMonHocsHelper  
   before_filter :authenticate_user!
   before_filter :load_lop, :except => :index
-  
+  def ngay_day_xong
+    authorize! :manage, @lop_mon_hoc
+    #@ngay_day_xong = params[:ngay_day_xong].split("/")
+
+  end
   def tinhhinh
     authorize! :manage, @lop_mon_hoc  
     @ld = @lop_mon_hoc.decorate
