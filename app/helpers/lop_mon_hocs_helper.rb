@@ -7,6 +7,6 @@ module LopMonHocsHelper
 		return d.localtime.strftime("%Hh:%M ngày %d/%m/%Y")
 	end
 	def format_date3(d)
-		return d.localtime.strftime("%Hh:%M %d/%m/%Y")
+		return d.localtime.strftime("%H:%M-%d/%m/%Y")
 	end
 end
