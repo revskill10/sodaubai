@@ -1,0 +1,5 @@
+- if activity.trackable
+  %li
+    = activity.owner.username    
+    đã cập nhật lớp môn học #{activity.trackable.ten_mon_hoc} (#{activity.trackable.ma_lop})
+    = activity.trackable.updated_at.localtime.strftime("%Hh: %M %d/%m/%y")
