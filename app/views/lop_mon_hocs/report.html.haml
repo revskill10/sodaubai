@@ -92,7 +92,7 @@
               - if lich.diem_danhs.count > 0 
                 %ol         
                   - lich.diem_danhs.vang.each do |dd|
-                    %li= link_to(dd.sinh_vien.to_s, sinh_vien_path(dd.sinh_vien.ma_sinh_vien)) + ", "
+                    %li= link_to(dd.sinh_vien.hovaten + " - #{dd.so_tiet_vang} tiết", sinh_vien_path(dd.sinh_vien.ma_sinh_vien)) + ", "
 
 
 
