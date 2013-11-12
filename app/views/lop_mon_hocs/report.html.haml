@@ -82,7 +82,7 @@
           %tr        
             %td= (index+1).to_s
             %td= lich.tuan.to_s
-            %td= (lich.loai == 2 and lich.status == 3) ? format_date2(lich.ngay_day_moi) + "(#{format_date2(lich.ngay_day)})" : format_date2(lich.ngay_day)
+            %td= (lich.loai == 2 and lich.status == 3) ? format_date3(lich.ngay_day_moi) + " ( bù #{format_date3(lich.ngay_day)})" : format_date3(lich.ngay_day)
             %td= (link_to(lich.phong_moi, phong_path(lich.phong_moi)) if lich.phong_moi) || ""
             %td= link_to lich.lop_mon_hoc.ma_lop, report_lop_mon_hoc_path(lich.lop_mon_hoc)
             %td= lich.lop_mon_hoc.ten_mon_hoc
