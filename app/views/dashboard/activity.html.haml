@@ -11,7 +11,7 @@
           - if can? :read, SinhVien
             %ul.nav.pull-left#urls
               %li= link_to "Thời khóa biểu", "/calendar"
-              %li.active= link_to "Activity", "/activity"
+              %li.active= link_to "Nhật ký", "/activity"
               %li= link_to "Theo dõi", "/monitor"
               %li= link_to "Thăm dò", "http://thamdo.hpu.edu.vn"
               - if (can? :manage, LopMonHocSinhVien and can? :manage, LichTrinhGiangDay) or (can? :quanly, SinhVien) or (can? :qlthanhtra, GiangVien)
@@ -42,31 +42,6 @@
         %i
           %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.localtime.mday}/#{@week.tu_ngay.localtime.mon}, đến ngày #{@week.den_ngay.localtime.mday}/#{@week.den_ngay.localtime.mon}"     
   
-  - if current_user.imageable.is_a?(SinhVien)
-    - if @activities and @activities.count > 0
-      %ul
-      - @activities.each_with_index do |activity, index|
-        - lich = activity.trackable.lich_trinh_giang_day
-        %li
-          = "#{activity.owner.username} đã đánh vắng bạn vào buổi học"
-          = link_to TkbGiangVien::THU2[lich.wday] + ", ngày " + lich.ngay_day.localtime.strftime("%d/%m") + ", " + lich.ngay_day.localtime.strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich.lop_mon_hoc_id, lich.ngay_day.localtime.strftime("%Y-%m-%d-%H-%M"))
-          = vào #{lich.updated_at.localtime.strftime("%Hh:%M %d/%m/%y")}"
-  - elsif current_user.imageable and current_user.imageable.is_a?(GiangVien)
-    - if @activities and @activities.count > 0
-      %ul
-      - @activities.each_with_index do |activity, index|
-        - if activity.trackable.is_a?(DiemDanh)
-          - lich = activity.trackable.lich_trinh_giang_day
-          %li
-            = "#{activity.owner.username} đã đánh vắng #{activity.recipient.hovaten || ""} vào học"
-            = link_to TkbGiangVien::THU2[lich.wday] + ", ngày " + lich.ngay_day.localtime.strftime("%d/%m") + ", " + lich.ngay_day.localtime.strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich.lop_mon_hoc_id, lich.ngay_day.localtime.strftime("%Y-%m-%d-%H-%M")) 
-            = "vào #{lich.updated_at.localtime.strftime("%Hh:%M %d/%m/%y")}"
-        - if activity.trackable.is_a?(LichTrinhGiangDay)
-          %li 
-            = "#{activity.owner.username} đã cập nhật sổ đầu bài"
-            = link_to TkbGiangVien::THU2[activity.trackable.wday] + ", ngày " + activity.trackable.ngay_day.localtime.strftime("%d/%m") + ", " + activity.trackable.ngay_day.localtime.strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(activity.trackable.lop_mon_hoc_id, activity.trackable.ngay_day.localtime.strftime("%Y-%m-%d-%H-%M"))
-            = "vào #{activity.trackable.updated_at.localtime.strftime("%Hh:%M %d/%m/%y")}"
-  - else
-    - if @activities and @activities.count > 0
-      %ul
-        = render_activities(@activities)            
+    %h5 Nhật ký sử dụng hệ thống
+    %ul    
+      = render_activities(@activities)            
