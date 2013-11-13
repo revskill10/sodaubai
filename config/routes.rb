@@ -25,6 +25,7 @@ Trytest::Application.routes.draw do
   match '/rate' => 'rater#create', :as => 'rate'
 
   get "dashboard/index"
+  match '/activity' => "dashboard#activity"
   match '/calendar' => 'dashboard#calendar', :as => "calendar"
   match 'tuan/:id' => 'dashboard#show', :as => "tuan"
   get "dashboard/access_denied", :as => "access_denied"

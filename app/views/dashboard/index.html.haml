@@ -11,7 +11,8 @@
         .container.nav-collapse
           - if can? :read, SinhVien
             %ul.nav.pull-left#urls
-              %li= link_to "Thời khóa biểu", "/calendar"
+              %li= link_to "Thời khóa biểu", "/calendar"              
+              %li= link_to "Activity", "/activity"
               %li= link_to "Theo dõi", "/monitor"
               %li= link_to "Thăm dò", "http://thamdo.hpu.edu.vn"
               - if (can? :manage, LopMonHocSinhVien and can? :manage, LichTrinhGiangDay) or (can? :quanly, SinhVien) or (can? :qlthanhtra, GiangVien)

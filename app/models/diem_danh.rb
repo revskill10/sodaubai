@@ -1,5 +1,7 @@
 class DiemDanh < ActiveRecord::Base  
   include DestroyedAt
+  include PublicActivity::Common
+  #tracked owner: Proc.new{ |controller, model| controller.current_user }
   attr_accessible :ma_sinh_vien, :so_tiet_vang, :lich_trinh_giang_day_id
 
   delegate :lop_mon_hoc, :to => :lich_trinh_giang_day, :allow_nil => false

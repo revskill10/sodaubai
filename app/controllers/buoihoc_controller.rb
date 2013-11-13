@@ -68,10 +68,14 @@ class BuoihocController < ApplicationController
                
             if dd.so_tiet_vang.nil? or (dd.so_tiet_vang and dd.so_tiet_vang == 0)
               dd.so_tiet_vang = @sotietday
-              dd.phep = false              
+              dd.phep = false                   
             else              
-              dd.so_tiet_vang = @sotietday if dd.so_tiet_vang and dd.so_tiet_vang > @sotietday
+              if dd.so_tiet_vang and dd.so_tiet_vang > @sotietday then
+                dd.so_tiet_vang = @sotietday 
+                #dd.create_activity key: 'diem_danh.update', owner: dd.sinh_vien                
+              end
             end
+            dd.create_activity key: 'diem_danh.diemdanh', params: {sotietvang: dd.so_tiet_vang, phep: dd.phep, note: dd.note}, recipient: dd.sinh_vien, owner: current_user
             dd.save! 
           end
           @kovang = @ids - params[:msv].keys
@@ -104,6 +108,7 @@ class BuoihocController < ApplicationController
           @lichtrinh = params[:buoihoc]                
           @lich.noi_dung_day = @lichtrinh[:noidung]
           @lich.so_vang = @svvang.count
+          @lich.create_activity key: "lich_trinh_giang_day.update", params: {sovang: @lich.so_vang}, owner: current_user
           @lich.save! rescue "error save lich trinh"
         end
         
@@ -179,6 +184,7 @@ class BuoihocController < ApplicationController
               
               dd.phep = (v[:phep] and st > 0) ? true : false
               dd.note = v[:note] unless v[:note].blank?
+              dd.create_activity key: 'diem_danh.diemdanh', recipient: dd.sinh_vien, owner: current_user
               dd.save! rescue "Error save"
             else
               @errorsv ||= []

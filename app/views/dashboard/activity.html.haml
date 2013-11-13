@@ -1,0 +1,72 @@
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/" } HPU
+        .container.nav-collapse
+          - if can? :read, SinhVien
+            %ul.nav.pull-left#urls
+              %li= link_to "Thời khóa biểu", "/calendar"
+              %li.active= link_to "Activity", "/activity"
+              %li= link_to "Theo dõi", "/monitor"
+              %li= link_to "Thăm dò", "http://thamdo.hpu.edu.vn"
+              - if (can? :manage, LopMonHocSinhVien and can? :manage, LichTrinhGiangDay) or (can? :quanly, SinhVien) or (can? :qlthanhtra, GiangVien)
+                %li= link_to "Quản lý", "/quanly"  
+              - if (can? :thanhtra, GiangVien)
+                %li= link_to "Thanh tra", "/thanhtra"
+              - if (can? :quanly, SinhVien)
+                %li= link_to "Trực nhật", "/trucnhat"
+              - if can? :manage, :all
+                %li= link_to "Quản trị", "/admin"
+          %ul.nav.pull-right
+            %li= link_to 'Đăng xuất', destroy_user_session_path  
+
+.container-fluid{:style=>"margin-top: 4%;"}
+  .row-fluid    
+    = form_tag search_path, :method => :get, :class => "form-search" do    
+      = select_tag "type", "<option value='1' selected=#{'selected' if params[:type]=='1'}>Sinh viên</option><option value='2' selected=#{'selected' if params[:type]=='2'}>Lớp môn học</option>".html_safe, :class => "multiselect", :placeholder => "Tìm theo sinh viên, giảng viên, lớp học,..."   
+      %input.input-large.search-query{:type => "text", :name => "search"}
+      %button.btn{:type => "submit"} Tra cứu
+  .row-fluid
+    %ul.nav.pull-right
+      %li
+        %i
+          %strong
+            %span= current_user.fullname
+
+      %li
+        %i
+          %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.localtime.mday}/#{@week.tu_ngay.localtime.mon}, đến ngày #{@week.den_ngay.localtime.mday}/#{@week.den_ngay.localtime.mon}"     
+  
+  - if current_user.imageable.is_a?(SinhVien)
+    - if @activities and @activities.count > 0
+      %ul
+      - @activities.each_with_index do |activity, index|
+        - lich = activity.trackable.lich_trinh_giang_day
+        %li
+          = "#{activity.owner.username} đã đánh vắng bạn vào buổi học"
+          = link_to TkbGiangVien::THU2[lich.wday] + ", ngày " + lich.ngay_day.localtime.strftime("%d/%m") + ", " + lich.ngay_day.localtime.strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich.lop_mon_hoc_id, lich.ngay_day.localtime.strftime("%Y-%m-%d-%H-%M"))
+          = vào #{lich.updated_at.localtime.strftime("%Hh:%M %d/%m/%y")}"
+  - elsif current_user.imageable and current_user.imageable.is_a?(GiangVien)
+    - if @activities and @activities.count > 0
+      %ul
+      - @activities.each_with_index do |activity, index|
+        - if activity.trackable.is_a?(DiemDanh)
+          - lich = activity.trackable.lich_trinh_giang_day
+          %li
+            = "#{activity.owner.username} đã đánh vắng #{activity.recipient.hovaten || ""} vào học"
+            = link_to TkbGiangVien::THU2[lich.wday] + ", ngày " + lich.ngay_day.localtime.strftime("%d/%m") + ", " + lich.ngay_day.localtime.strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich.lop_mon_hoc_id, lich.ngay_day.localtime.strftime("%Y-%m-%d-%H-%M")) 
+            = "vào #{lich.updated_at.localtime.strftime("%Hh:%M %d/%m/%y")}"
+        - if activity.trackable.is_a?(LichTrinhGiangDay)
+          %li 
+            = "#{activity.owner.username} đã cập nhật sổ đầu bài"
+            = link_to TkbGiangVien::THU2[activity.trackable.wday] + ", ngày " + activity.trackable.ngay_day.localtime.strftime("%d/%m") + ", " + activity.trackable.ngay_day.localtime.strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(activity.trackable.lop_mon_hoc_id, activity.trackable.ngay_day.localtime.strftime("%Y-%m-%d-%H-%M"))
+            = "vào #{activity.trackable.updated_at.localtime.strftime("%Hh:%M %d/%m/%y")}"
+  - else
+    - if @activities and @activities.count > 0
+      %ul
+        = render_activities(@activities)            
