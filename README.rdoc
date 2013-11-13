@@ -1,16 +1,24 @@
-== Rollcall attendance for HPU
+== Hệ thống quản lý giảng đường HPU
 
-= Authentication and Authorization use Devise and Cancan
+1. Đối với giảng viên:
+  - Hỗ trợ quá trình điểm danh
+  - Hỗ trợ quá trình cho điểm quá trình
+  - Hỗ trợ quá trình ghi sổ đầu bài
+  - Hỗ trợ xuất báo cáo vào cuối kỳ
 
-= As a teacher:
-  
-  1. In dashboard context:
-    - It shows current week with classes and groups to teach
-    - It shows all students' feedbacks
-    - The menu consists of timetables of all periods
+2. Đối với sinh viên:
+  - Giúp sinh viên theo dõi tình hình vắng
 
-  2. In class context:
-    - It shows all announcements
-    - It shows all students with grade details and attendance details
+3. Đối với lãnh đạo:
+  - Giúp lãnh đạo theo dõi quá trình lên lớp và vắng mặt của sinh viên
+  - Giúp lãnh đạo theo dõi quá trình ghi sổ đầu bài của giảng viên
 
-  
+4. Đối với ban quản lý sinh viên:
+  - Giúp ban tra cứu và quản lý các lớp hành chính của sinh viên
+
+5. Đối với ban thanh tra:
+  - Giúp ban theo dõi quá trình thực hiện sổ đầu bài của giảng viên
+  - Ghi chép vi phạm của giảng viên
+
+6. Đối với phụ huynh học sinh:
+  - Giúp phụ huynh tra cứu tình hình đi học của con em
