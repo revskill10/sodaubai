@@ -94,8 +94,8 @@
         - @lichbus.each_with_index do |lich, index|
           %tr
             %td= link_to "T"  + (("0" if lich.tuan < 10) || "") +lich.tuan.to_s, tuan_path(lich.tuan.to_s)
-            %td= link_to TkbGiangVien::THU2[lich.ngay_day_moi.localtime.wday + 1] + ", ngày " +lich.ngay_day_moi.localtime.strftime("%d/%m") + ", " + lich.ngay_day_moi.localtime.strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich.lop_mon_hoc_id, lich.ngay_day.localtime.strftime("%Y-%m-%d-%H-%M"))
-            %td= TkbGiangVien::THU2[lich.ngay_day.localtime.wday + 1] + ", ngày " +lich.ngay_day.localtime.strftime("%d/%m") + ", " + lich.ngay_day.localtime.strftime("%Hh:%M")
+            %td= link_to TkbGiangVien::THU2[lich.wday] + ", ngày " +lich.ngay_day_moi.localtime.strftime("%d/%m") + ", " + lich.ngay_day_moi.localtime.strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich.lop_mon_hoc_id, lich.ngay_day.localtime.strftime("%Y-%m-%d-%H-%M"))
+            %td= TkbGiangVien::THU2[lich.wday] + ", ngày " +lich.ngay_day.localtime.strftime("%d/%m") + ", " + lich.ngay_day.localtime.strftime("%Hh:%M")
             %td= lich.so_tiet_day
             %td= lich.phong_moi
             %td= lich.lop_mon_hoc.ten_mon_hoc

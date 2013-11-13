@@ -54,10 +54,18 @@ class LichTrinhGiangDay < ActiveRecord::Base
     end
   end
   def wday
-    if ngay_day.localtime.wday == 0 then
-      8
+    if loai == 2 and status == 3
+      if ngay_day_moi.localtime.wday == 0 then
+        8
+      else
+        ngay_day_moi.localtime.wday + 1 
+      end
     else
-      ngay_day.localtime.wday + 1 
+      if ngay_day.localtime.wday == 0 then
+        8
+      else
+        ngay_day.localtime.wday + 1 
+      end
     end
   end
   def get_svvang
