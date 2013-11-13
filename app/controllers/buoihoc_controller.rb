@@ -184,7 +184,7 @@ class BuoihocController < ApplicationController
               
               dd.phep = (v[:phep] and st > 0) ? true : false
               dd.note = v[:note] unless v[:note].blank?
-              dd.create_activity key: 'diem_danh.diemdanh', recipient: dd.sinh_vien, owner: current_user
+              dd.create_activity key: 'diem_danh.diemdanh', params: {sotietvang: dd.so_tiet_vang, phep: dd.phep}, recipient: dd.sinh_vien, owner: current_user
               dd.save! rescue "Error save"
             else
               @errorsv ||= []

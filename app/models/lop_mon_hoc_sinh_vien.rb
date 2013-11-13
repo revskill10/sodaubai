@@ -1,5 +1,5 @@
 class LopMonHocSinhVien < ActiveRecord::Base
-
+  include PublicActivity::Common
   
   
 
@@ -73,7 +73,7 @@ class LopMonHocSinhVien < ActiveRecord::Base
     ""
   end
   def tong_so_tiet    
-    lop_mon_hoc.so_tiet_phan_bo || lop_mon_hoc.khoi_luong_phan_bo || 1
+    (lop_mon_hoc.so_tiet_phan_bo if lop_mon_hoc.so_tiet_phan_bo and lop_mon_hoc.so_tiet_phan_bo.to_i > 0) || lop_mon_hoc.khoi_luong_phan_bo || 1
   end  
   def diemth
     if lop_mon_hoc.get_thuc_hanh

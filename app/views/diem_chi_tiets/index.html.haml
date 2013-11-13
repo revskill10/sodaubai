@@ -37,7 +37,7 @@
   .container-fluid{:style=>"margin-top: 100px;"}     
     - if can? :manage, @lop_mon_hoc
       = submit_tag "Cập nhật", :class => "btn btn-primary" ,  :data => {disable_with: "Submitting..."}   
-    %table{:class => "table datatable"}      
+    %table{:class => "table"}      
       %thead
         %td STT
         %td Mã sinh viên

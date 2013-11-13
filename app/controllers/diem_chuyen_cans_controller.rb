@@ -35,6 +35,7 @@ class DiemChuyenCansController < ApplicationController
         else
           sv.note = nil
         end
+        sv.create_activity key: "lop_mon_hoc_sinh_vien.updatediemchuyencan", params: {dcc1: sv.diemcc, dcc2: sv.diem_chuyen_can}, owner: current_user, recipient: sv.sinh_vien
         sv.save! rescue puts "error"
       else
         @error +=  sv.ma_sinh_vien + ", "

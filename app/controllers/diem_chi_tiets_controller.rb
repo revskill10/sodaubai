@@ -40,6 +40,7 @@ class DiemChiTietsController < ApplicationController
           else
             sv.note = nil
           end
+          sv.create_activity key: "lop_mon_hoc_sinh_vien.updatediemchitiet", params: {lan1: sv.lan1, lan2: sv.lan2, lan3: sv.lan3, lan4: sv.lan4, lan5: sv.lan5}, owner: current_user, recipient: sv.sinh_vien
           sv.save! rescue puts "error"
         end
       end
@@ -61,6 +62,7 @@ class DiemChiTietsController < ApplicationController
           else
             sv.note = nil
           end
+          sv.create_activity key: "lop_mon_hoc_sinh_vien.updatediemthuchanh", params: {diemthuchanh: sv.diem_thuc_hanh}, owner: current_user, recipent: sv.sinh_vien
           sv.save! rescue "error update nhom"
         end
       end

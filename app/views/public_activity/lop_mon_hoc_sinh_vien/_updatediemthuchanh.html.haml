@@ -1,0 +1,8 @@
+- if current_user.imageable.is_a?(SinhVien)
+  - lsv = activity.trackable
+  %li
+    = "#{activity.owner.username} đã cho bạn điểm thực hành ở lớp #{lsv.lop_mon_hoc.ma_lop}"    
+- elsif current_user.imageable and current_user.imageable.is_a?(GiangVien) or current_user.is_admin?
+  - lsv = activity.trackable
+  %li
+    = "#{activity.owner.username} đã cho điểm thực hành sinh viên #{activity.recipient.hovaten || ""} ở lớp #{lsv.lop_mon_hoc.ma_lop}"
