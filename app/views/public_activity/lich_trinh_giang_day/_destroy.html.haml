@@ -1,0 +1,5 @@
+- if activity.trackable
+  %li
+    = activity.owner.username    
+    đã xóa sổ đầu bài #{link_to TkbGiangVien::THU2[activity.trackable.wday] + ", ngày " + activity.trackable.ngay_day.localtime.strftime("%d/%m") + ", " + activity.trackable.ngay_day.localtime.strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(activity.trackable.lop_mon_hoc_id, activity.trackable.ngay_day.localtime.strftime("%Y-%m-%d-%H-%M"))} vào
+    = activity.trackable.updated_at.localtime.strftime("%Hh: %M %d/%m/%y")
