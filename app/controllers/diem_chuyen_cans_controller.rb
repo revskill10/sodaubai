@@ -31,7 +31,7 @@ class DiemChuyenCansController < ApplicationController
         sv.diem_chuyen_can = @msvs[sv.ma_sinh_vien].to_i
         sv.diem_qua_trinh = sv.diemqt
         if sv.diem_chuyen_can == 0 
-          sv.note = "Mất tư cách"
+          sv.note = "TC"
         else
           sv.note = nil
         end
