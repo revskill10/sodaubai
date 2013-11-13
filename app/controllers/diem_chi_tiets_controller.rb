@@ -62,7 +62,7 @@ class DiemChiTietsController < ApplicationController
           else
             sv.note = nil
           end
-          sv.create_activity key: "lop_mon_hoc_sinh_vien.updatediemthuchanh", params: {diemthuchanh: sv.diem_thuc_hanh}, owner: current_user, recipent: sv.sinh_vien
+          sv.create_activity key: "lop_mon_hoc_sinh_vien.updatediemthuchanh", params: {diemthuchanh: sv.diem_thuc_hanh}, owner: current_user, recipient: sv.sinh_vien
           sv.save! rescue "error update nhom"
         end
       end

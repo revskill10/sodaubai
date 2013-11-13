@@ -5,4 +5,4 @@
 - elsif current_user.imageable and current_user.imageable.is_a?(GiangVien) or current_user.is_admin?
   - lsv = activity.trackable
   %li
-    = "#{activity.owner.username} đã cho điểm thực hành sinh viên #{activity.recipient.hovaten || ""} ở lớp #{lsv.lop_mon_hoc.ma_lop}"
+    = "#{activity.owner.username} đã cho điểm thực hành sinh viên #{(activity.recipient.hovaten if activity.recipient) || ""} ở lớp #{lsv.lop_mon_hoc.ma_lop}"
