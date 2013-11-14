@@ -14,11 +14,11 @@ class DashboardController < ApplicationController
 
   def activity
     if current_user.imageable.is_a?(SinhVien)      
-      @activities = PublicActivity::Activity.where(recipient_id: current_user.imageable.id).order('updated_at desc').take(50)
+      @activities = PublicActivity::Activity.where(recipient_id: current_user.imageable.id).order('updated_at desc').page(params[:page]).per_page(50)
     elsif current_user.imageable and current_user.imageable.is_a?(GiangVien)
-      @activities = PublicActivity::Activity.where(owner_id: current_user.id).order('updated_at desc').take(50)
-    else
-      @activities = PublicActivity::Activity.order('updated_at desc').take(50)
+      @activities = PublicActivity::Activity.where(owner_id: current_user.id).order('updated_at desc').page(params[:page]).per_page(50)
+    elsif current_user.is_admin?
+      @activities = PublicActivity::Activity.order('updated_at desc').page(params[:page]).per_page(50)
     end
   end
 

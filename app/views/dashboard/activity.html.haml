@@ -44,4 +44,5 @@
   
     %h5 Nhật ký sử dụng hệ thống
     %ul    
-      = render_activities(@activities)            
+      = render_activities(@activities)
+      = paginate @activities
