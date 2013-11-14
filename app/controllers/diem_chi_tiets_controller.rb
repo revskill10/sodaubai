@@ -4,6 +4,7 @@ class DiemChiTietsController < ApplicationController
     
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
     @group_diem = JSON.parse(@lop_mon_hoc.group_diem || {}.to_json) 
+    Resque.enqueue(GoogleAnalytic, {:category => "Diemchitiet", :action => "Index", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|      
       format.html do 
         if params[:loai] and params[:loai] == "2" then           
@@ -68,6 +69,7 @@ class DiemChiTietsController < ApplicationController
         end
       end
     end
+    Resque.enqueue(GoogleAnalytic, {:category => "Diemchitiet", :action => "Create", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|      
         format.js      
     end

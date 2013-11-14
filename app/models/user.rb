@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   			self.role = 'trogiang'
   		end
     end
+    Resque.enqueue(GoogleAnalytic, {:category => "Authentication", :action => "Login", :label => "#{username}", :value => "1"}.to_json)
   end
   def to_s
     "#{ho_dem} #{ten}"

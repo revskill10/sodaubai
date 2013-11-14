@@ -27,6 +27,7 @@ class LopMonHocSinhViensController < ApplicationController
       #end
     #end
     #puts params.inspect
+    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHocSinhVien", :action => "Groupdate", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.js
     end
@@ -47,6 +48,7 @@ class LopMonHocSinhViensController < ApplicationController
       @groups_arrays[(g+1).to_s] = "Nhóm #{g+1}"
     end
     #@groups_arrays = @groups.map {|gr| ["Group #{gr.id}", gr.id] }
+    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHocSinhVien", :action => "Index", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.html      
     end
@@ -62,6 +64,7 @@ class LopMonHocSinhViensController < ApplicationController
       @groups_arrays[(g+1).to_s] = "Nhóm #{g+1}"
     end
     #@groups_arrays = @groups.map {|gr| ["Group #{gr.id}", gr.id] }
+    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHocSinhVien", :action => "Group", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.html { render :layout => false if request.headers['X-PJAX']}
       format.json { render json: @lop_mon_hoc_sinh_viens }
@@ -74,7 +77,7 @@ class LopMonHocSinhViensController < ApplicationController
   def show
     authorize! :read, @lop_mon_hoc
     @lop_mon_hoc_sinh_vien = @lop_mon_hoc.get_sinh_viens.find(params[:id])
-
+    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHocSinhVien", :action => "Show", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.html { render :layout => false if request.headers['X-PJAX']}
       format.json { render json: @lop_mon_hoc_sinh_vien }

@@ -27,7 +27,7 @@ class BuoihocController < ApplicationController
       
 
     end
-    
+    Resque.enqueue(GoogleAnalytic, {:category => "Buoihoc", :action => "Show", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|     
       if can? :manage, @lich
         format.html {render :show}        
@@ -116,7 +116,7 @@ class BuoihocController < ApplicationController
         @error = true
         @msg = "Số tiết dạy không hợp lệ"  
       end
-    
+      Resque.enqueue(GoogleAnalytic, {:category => "Buoihoc", :action => "Update", :label => "#{current_user.username}", :value => "1"}.to_json)
       respond_to do |format|     
         format.js      
       end
@@ -146,6 +146,7 @@ class BuoihocController < ApplicationController
         @error = "Đã có lỗi xảy ra"
       end
     end
+    Resque.enqueue(GoogleAnalytic, {:category => "Buoihoc", :action => "Rate", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.js
     end
@@ -204,7 +205,7 @@ class BuoihocController < ApplicationController
       
       @lich.so_vang =  @svvang.count
       @lich.save!
-      
+      Resque.enqueue(GoogleAnalytic, {:category => "Buoihoc", :action => "Diemdanh", :label => "#{current_user.username}", :value => "1"}.to_json)
       respond_to do |format|
         format.js
       end
@@ -219,6 +220,7 @@ class BuoihocController < ApplicationController
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens    
     @idv = @lich.diem_danhs.vang.map { |k| k.ma_sinh_vien}
     @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}
+    Resque.enqueue(GoogleAnalytic, {:category => "Buoihoc", :action => "Get_diemdanh", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       
       if can? :manage, @lich
@@ -245,6 +247,7 @@ class BuoihocController < ApplicationController
       @lich.note = nil
       @lich.save!
     end
+    Resque.enqueue(GoogleAnalytic, {:category => "Buoihoc", :action => "Nghiday", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.js
     end
@@ -278,7 +281,7 @@ class BuoihocController < ApplicationController
         @lich.note = nil
         @lich.save!
       end
-      
+      Resque.enqueue(GoogleAnalytic, {:category => "Buoihoc", :action => "Daybu", :label => "#{current_user.username}", :value => "1"}.to_json)
       respond_to do |format|
         format.js
       end
@@ -361,7 +364,7 @@ class BuoihocController < ApplicationController
     authorize! :manage, @lich
     @lops = LopMonHoc.where(ma_lop: @lop_mon_hoc.ma_lop).reject {|it| it.id == @lop_mon_hoc.id or it.ma_giang_vien == @lop_mon_hoc.ma_giang_vien}
     @gvs = GiangVien.all.uniq {|gv| gv.ma_giang_vien }.reject {|it| it.ma_giang_vien == @lop_mon_hoc.ma_giang_vien}
-    
+    Resque.enqueue(GoogleAnalytic, {:category => "Buoihoc", :action => "Get_quanly", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.html {render :quanly}
     end

@@ -8,13 +8,14 @@ class MonitorController < ActionController::Base
   before_filter :load_phongs
 
   def index
-    @today = @days.select {|d| to_zdate(d["time"][0]) == Date.today }.sort_by {|k| to_zdatetime(k['time'][0])}
+    @today = @days.select {|d| to_zdate(d["time"][0]) == Date.today }.sort_by {|k| to_zdatetime(k['time'][0])}    
     respond_to do |format|
       format.html {render :index, :layout => 'application'}
     end
   end
   def activity
     @activities = PublicActivity::Activity.order('updated_at desc').take(50)
+    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "activity", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.html {render :activity, :layout => 'application'}
     end
@@ -26,6 +27,7 @@ class MonitorController < ActionController::Base
     @trucnhat = JSON.parse(@lop_mon_hoc.trucnhat) if @lop_mon_hoc.trucnhat
     @nhomtruc = @trucnhat[from_zdate(params[:id])] if @trucnhat
     @svs = SinhVien.where(ma_sinh_vien: @nhomtruc) if @nhomtruc
+
     respond_to do |format|
       format.js
     end
@@ -37,6 +39,7 @@ class MonitorController < ActionController::Base
     @trucnhat = JSON.parse(@lop_mon_hoc.trucnhat) if @lop_mon_hoc.trucnhat
     @nhomtruc = @trucnhat[from_zdate(params[:id])] if @trucnhat
     @svs = SinhVien.where(ma_sinh_vien: @nhomtruc) if @nhomtruc
+    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "showdaybu", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.js
     end
@@ -47,6 +50,7 @@ class MonitorController < ActionController::Base
     @today = @days.select {|d| to_zdate(d["time"][0]) == Date.today }.select {|k| k['phong']}.sort_by {|k| k['phong']}
     @today += @days.select {|d| to_zdate(d["time"][0]) == Date.today }.select {|k| k['phong'].nil?}
     @lichs2 = LichTrucNhat.where("ngay_truc > timestamp ? and ngay_truc < timestamp ?", dt, DateTime.now).order('ngay_truc asc, created_at asc').map {|l| "#{l.lop_mon_hoc.ma_lop}_#{l.lop_mon_hoc.ma_mon_hoc}"}
+    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "thanhtra", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.html {render :thanhtra, :layout => 'application'}
     end
@@ -61,7 +65,7 @@ class MonitorController < ActionController::Base
     @ngay = str_to_ngay(params[:ngay_vi_pham])
     @lich_vi_pham = @lop_mon_hoc.lich_vi_phams.where(ngay_vi_pham: get_ngay(@ngay)).first_or_create!
     @lich_vi_pham.update_attributes(tuan: @current_week, user_id: current_user.id, phong: @phong, lenmuon: @lenmuon, vesom: @vesom, bogio: @bogio, note1: params[:note1])
-    
+    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "qlthanhtra", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.js
     end
@@ -78,6 +82,7 @@ class MonitorController < ActionController::Base
     #if @lich_vi_pham
     #  @lich_vi_pham.upadte_attributes(tuan: @current_week, user_id: current_user.id, phong: @phong)
     @end        
+    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "showthanhtra", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.js
     end
@@ -88,6 +93,7 @@ class MonitorController < ActionController::Base
     @today = @days.select {|d| to_zdate(d["time"][0]) == Date.today }.select {|k| k['phong']}.sort_by {|k| k['phong']}
     @today += @days.select {|d| to_zdate(d["time"][0]) == Date.today }.select {|k| k['phong'].nil?}
     @lichs2 = LichTrucNhat.where("ngay_truc > timestamp ? and ngay_truc < timestamp ?", dt, DateTime.now).order('ngay_truc asc, created_at asc').map {|l| "#{l.lop_mon_hoc.ma_lop}_#{l.lop_mon_hoc.ma_mon_hoc}"}
+    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "trucnhat", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.html {render :trucnhat, :layout => 'application'}
     end
@@ -110,6 +116,7 @@ class MonitorController < ActionController::Base
         sv1.update_attributes(status: true)
       end
     end
+    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "qltrucnhat", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.js
     end
@@ -133,6 +140,7 @@ class MonitorController < ActionController::Base
     if @lich 
       @svvangs = @lich.diem_danhs.vang
     end
+    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "showtrucnhat", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.js
     end

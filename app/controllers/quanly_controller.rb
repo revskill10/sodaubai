@@ -2,7 +2,7 @@ class QuanlyController < ApplicationController
 	include BuoihocHelper
 
 	def index
-		
+		Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "index", :label => "#{current_user.username}", :value => "1"}.to_json)
 		respond_to do |format|
 			format.html
 		end
@@ -13,6 +13,7 @@ class QuanlyController < ApplicationController
 		@lophcsv = @allsv.uniq {|k| k.lop_hc }
 		@loptinchi = LopMonHoc.all.uniq {|k| k.to_s }
 		@msvs = @allsv.uniq {|k| k.ma_sinh_vien}
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "lopghep", :label => "#{current_user.username}", :value => "1"}.to_json)
 		respond_to do |format|
 			format.html
 		end
@@ -35,6 +36,7 @@ class QuanlyController < ApplicationController
 			end
 
 		end
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "movelopghep", :label => "#{current_user.username}", :value => "1"}.to_json)
 		respond_to do |format|
 			format.js
 		end
@@ -61,6 +63,7 @@ class QuanlyController < ApplicationController
 				@goodsv = @sinhviens - @dupcalendar - @dupsv
 			end
 		end
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "checklopghep", :label => "#{current_user.username}", :value => "1"}.to_json)
 		respond_to do |format|
 			format.js
 		end
@@ -80,6 +83,7 @@ class QuanlyController < ApplicationController
 		rescue Exception => e 
 			@error = e
 		end
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "updatelopghep", :label => "#{current_user.username}", :value => "1"}.to_json)
 		respond_to do |format|
 			format.js
 		end
@@ -88,6 +92,7 @@ class QuanlyController < ApplicationController
 		authorize! :manage, LopMonHocSinhVien
 		lophc = params[:sv][:lophanhchinh]
 		@svs = SinhVien.where(lop_hc: lophc)
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "filterlophc", :label => "#{current_user.username}", :value => "1"}.to_json)
 		respond_to do |format|
 			format.js
 		end
@@ -98,6 +103,7 @@ class QuanlyController < ApplicationController
 		if @loptc
 			@svs = @loptc.lop_mon_hoc_sinh_viens
 		end
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "filterloptc", :label => "#{current_user.username}", :value => "1"}.to_json)
 		respond_to do |format|
 			format.js
 		end
@@ -105,7 +111,7 @@ class QuanlyController < ApplicationController
 	def filtersv
 		authorize! :manage, LopMonHocSinhVien
 		@svs = SinhVien.where(ma_sinh_vien: params[:sv][:masinhvien])
-		
+		Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "filtersv", :label => "#{current_user.username}", :value => "1"}.to_json)
 		respond_to do |format|
 			format.js
 		end
@@ -117,6 +123,7 @@ class QuanlyController < ApplicationController
 
 		@lichs = LichTrinhGiangDay.nghidaychoduyet
 		@lichs2 = LichTrinhGiangDay.nghidayquakhu
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "nghiday", :label => "#{current_user.username}", :value => "1"}.to_json)
 		respond_to do |format|
 			format.html
 		end
@@ -127,6 +134,7 @@ class QuanlyController < ApplicationController
       LichTrinhGiangDay.update_all({:status => nil, :loai => nil, :note => nil},{:id => @lichs3.keys})
     end    
     @lichs2 = LichTrinhGiangDay.nghidayquakhu
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "huynghiday", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.js
     end
@@ -134,17 +142,18 @@ class QuanlyController < ApplicationController
 	def qlnghiday
 		authorize! :manage, LichTrinhGiangDay
 
-	    dongy = params[:nghiday].select {|k,v| v == "true" }
-	    kodongy = params[:nghiday].select {|k,v| v == "false" }
-	    @dongys = LichTrinhGiangDay.where(id: dongy.keys)    
-	    @kodongys = LichTrinhGiangDay.where(id: kodongy.keys)
+    dongy = params[:nghiday].select {|k,v| v == "true" }
+    kodongy = params[:nghiday].select {|k,v| v == "false" }
+    @dongys = LichTrinhGiangDay.where(id: dongy.keys)    
+    @kodongys = LichTrinhGiangDay.where(id: kodongy.keys)
 
-	    if @dongys.count > 0      
-	      @dongys.update_all(:status => 3, :user_id => current_user.id)
-	    end
-			if @kodongys.count > 0
-	      @kodongys.update_all(:status => 4, :user_id => current_user.id)
-	    end
+    if @dongys.count > 0      
+      @dongys.update_all(:status => 3, :user_id => current_user.id)
+    end
+		if @kodongys.count > 0
+      @kodongys.update_all(:status => 4, :user_id => current_user.id)
+    end
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "qlnghiday", :label => "#{current_user.username}", :value => "1"}.to_json)  
 		respond_to do |format|
 			format.js
 		end
@@ -155,6 +164,7 @@ class QuanlyController < ApplicationController
 
     @lichs = LichTrinhGiangDay.daybuchoduyet
     @lichs2 = LichTrinhGiangDay.daybuquakhu
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "daybu", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.html
     end
@@ -188,14 +198,14 @@ class QuanlyController < ApplicationController
 
       end
     end
-    
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "qldaybu", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.js
     end
   end
 
   def phongtrong
-  	
+  	Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "phongtrong", :label => "#{current_user.username}", :value => "1"}.to_json)
   	respond_to do |format|
   		format.html
   	end
@@ -203,6 +213,7 @@ class QuanlyController < ApplicationController
   def getphongtrong
   	@ngay = str_to_date(params[:ngay])  	
   	@phongtrong = LichTrinhGiangDay.phong_trong(@ngay)
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "getphongtrong", :label => "#{current_user.username}", :value => "1"}.to_json)
   	respond_to do |format|
   		format.js  		
   	end
@@ -213,10 +224,12 @@ class QuanlyController < ApplicationController
   	if params[:ngay]
   	  @ngay = str_to_date(params[:ngay])  	
   	  @today = LichTrinhGiangDay.lich_day_phan_bo(@ngay)
+      Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "nghidayhangloat", :label => "#{current_user.username}", :value => "1"}.to_json)
   	  respond_to do |format|
   		  format.js
   	  end
   	else
+      Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "nghidayhangloat", :label => "#{current_user.username}", :value => "1"}.to_json)
       respond_to do |format|
         format.html
       end
@@ -255,6 +268,7 @@ class QuanlyController < ApplicationController
 
       end
     end
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "post_nghidayhangloat", :label => "#{current_user.username}", :value => "1"}.to_json)
   	respond_to do |format|
   		format.js
   	end
@@ -263,6 +277,7 @@ class QuanlyController < ApplicationController
   def vipham
 
     @lichs = LichViPham.order('ngay_vi_pham, tuan')
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "vipham", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.html
     end
@@ -290,6 +305,7 @@ class QuanlyController < ApplicationController
     #if @lenmuons_keys then 
     #  LichViPham.update_all({:lenmuon => true}, {:id => @lenmuons_keys})
     #end
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "qlvipham", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.js
       format.html { render 'vipham' }
@@ -301,6 +317,7 @@ class QuanlyController < ApplicationController
 
     @lichs = LichTrinhGiangDay.dkbschoduyet
     @lichs2 = LichTrinhGiangDay.dkbsquakhu
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "dkbs", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.html
     end
@@ -336,6 +353,7 @@ class QuanlyController < ApplicationController
     end
     @lichs = LichTrinhGiangDay.dkbschoduyet
     @lichs2 = LichTrinhGiangDay.dkbsquakhu
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "qldkbs", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.js
     end
@@ -346,6 +364,7 @@ class QuanlyController < ApplicationController
     sql = "SELECT l1.id, l1.ma_giang_vien,l1.ten_giang_vien,l1.ma_lop,l1.ten_mon_hoc,l.phong_moi,l.tuan,l.ngay_day,l.so_tiet_day,Case when l.status=3 then 'Duyet' when l.status=6 then 'Chua duyet' when l.status=4 then 'Khong duyet' END  as TrangThai  FROM t1.lich_trinh_giang_days l inner join t1.lop_mon_hocs l1 on l.lop_mon_hoc_id=l1.id where l.loai=1 and l.tuan=4 Order by l.ngay_day"
     #@res = LichTrinhGiangDay.paginate_by_sql(sql, :page => params[:page] || 1, :per_page => 50)
     @res = ActiveRecord::Base.connection.execute(sql)
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "report1", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.html
     end
@@ -358,6 +377,7 @@ class QuanlyController < ApplicationController
   	sql = "Select l1.id, l1.ma_giang_vien, d.ma_sinh_vien,s.ho,s.ho_dem,s.ten,l1.ma_lop,l1.ma_mon_hoc,l1.ten_mon_hoc,l1.ten_giang_vien,d.so_tiet_vang,l.ngay_day from t1.diem_danhs d inner join t1.lich_trinh_giang_days l on d.lich_trinh_giang_day_id=l.id inner join t1.lop_mon_hocs l1 on l.lop_mon_hoc_id=l1.id inner join t1.sinh_viens s on d.ma_sinh_vien=s.ma_sinh_vien Where d.lich_trinh_giang_day_id in (Select id From t1.Lich_trinh_giang_days where tuan= #{@tuan} ) and d.so_tiet_vang>0 and l.destroyed_at is null Order by l.ngay_day,l1.ma_lop,d.ma_sinh_vien"
   	#@res = DiemDanh.paginate_by_sql(sql, :page => params[:page] || 1, :per_page => 50)
     @res = ActiveRecord::Base.connection.execute(sql)
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "report2", :label => "#{current_user.username}", :value => "1"}.to_json)
     respond_to do |format|
       format.html
     end
@@ -384,6 +404,7 @@ Order by Tile DESC
   	eos
   	#@res = DiemDanh.paginate_by_sql(sql,  :page => params[:page] || 1, :per_page => 50)
   	@res = ActiveRecord::Base.connection.execute(sql)
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "report3", :label => "#{current_user.username}", :value => "1"}.to_json)
   	respond_to do |format|
   		format.html
   	end
@@ -409,6 +430,7 @@ ORDER BY SUM(d.so_tiet_vang) DESC
   	#@res = DiemDanh.paginate_by_sql(sql,  :page => params[:page] || 1, :per_page => 50)
   	
   	@res = ActiveRecord::Base.connection.execute(sql)
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "report4", :label => "#{current_user.username}", :value => "1"}.to_json)
   	respond_to do |format|
   		format.html
   	end
@@ -430,6 +452,7 @@ Order by ma_giang_vien
   	#@res = LichTrinhGiangDay.paginate_by_sql(sql, :page => params[:page] || 1, :per_page => 50)
   	
   	@res = ActiveRecord::Base.connection.execute(sql)
+    Resque.enqueue(GoogleAnalytic, {:category => "Quanly", :action => "report5", :label => "#{current_user.username}", :value => "1"}.to_json)
   	respond_to do |format|
   		format.html
   	end
