@@ -1,9 +1,9 @@
-- if current_user.imageable.is_a?(SinhVien)    
+- if current_user.imageable.is_a?(SinhVien)
   - lich = activity.trackable.lich_trinh_giang_day
   %li
     = "#{activity.owner.username} đã đánh vắng bạn vào buổi học"
     = link_to TkbGiangVien::THU2[lich.wday] + ", ngày " + lich.ngay_day.localtime.strftime("%d/%m") + ", " + lich.ngay_day.localtime.strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich.lop_mon_hoc_id, lich.ngay_day.localtime.strftime("%Y-%m-%d-%H-%M"))
-    = vào #{lich.updated_at.localtime.strftime("%Hh:%M %d/%m/%y")}"
+    = "vào #{lich.updated_at.localtime.strftime("%Hh:%M %d/%m/%y")} (#{activity.parameters[:sotietvang]} tiết)"
 - elsif current_user.imageable and current_user.imageable.is_a?(GiangVien)
   - lich = activity.trackable.lich_trinh_giang_day
   %li

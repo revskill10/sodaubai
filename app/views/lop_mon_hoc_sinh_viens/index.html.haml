@@ -70,7 +70,7 @@
           %br
           %br Khối lượng được phân bổ theo thời khóa biểu: #{@lop_mon_hoc.khoi_luong_phan_bo}.
           #formdkbs 
-            - if @lop_mon_hoc.so_tiet_phan_bo > @lop_mon_hoc.khoi_luong_phan_bo and !@lop_mon_hoc.bosung
+            - if @lop_mon_hoc.so_tiet_phan_bo > @lop_mon_hoc.khoi_luong_phan_bo and @lop_mon_hoc.bosung != true
               = render 'formdkbs'            
           %br          
           %br
