@@ -37,7 +37,7 @@
   .container-fluid{:style=>"margin-top: 100px;"}     
     - if can? :manage, @lop_mon_hoc
       = submit_tag "Cập nhật", :class => "btn btn-primary" ,  :data => {disable_with: "Submitting..."}   
-    %table{:class => "table"}      
+    %table{:class => "table table-bordered table-condensed"}      
       %thead
         %td STT
         %td Mã sinh viên
@@ -45,7 +45,7 @@
         %td Tên     
         %td Nhóm
         - if @lop_mon_hoc.get_thuc_hanh     
-          %td Điểm thực hành
+          %td Điểm thực hành (Thang 10)
         - if @lop_mon_hoc.so_lan_kt and @lop_mon_hoc.so_lan_kt > 0
           - @lop_mon_hoc.so_lan_kt.times do |t|
             %td= "Điểm lần #{t+1}"

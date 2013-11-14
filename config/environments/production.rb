@@ -72,4 +72,5 @@ Trytest::Application.configure do
       metastore:   "redis://localhost:6381/1/metastore",
       entitystore: "redis://localhost:6381/1/entitystore"
   }
+  GA.tracker = "UA-45746322-1"
 end

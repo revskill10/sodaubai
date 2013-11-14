@@ -27,7 +27,7 @@ class DiemChuyenCansController < ApplicationController
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
     @error = ""
     @svs.each do |sv|
-      if @msvs[sv.ma_sinh_vien] and @msvs[sv.ma_sinh_vien].to_i >= 0 and @msvs[sv.ma_sinh_vien].to_i <= 4
+      if @msvs[sv.ma_sinh_vien].present? and @msvs[sv.ma_sinh_vien].to_i >= 0 and @msvs[sv.ma_sinh_vien].to_i <= 4
         sv.diem_chuyen_can = @msvs[sv.ma_sinh_vien].to_i
         sv.diem_qua_trinh = sv.diemqt
         if sv.diem_chuyen_can == 0 
