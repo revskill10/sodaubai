@@ -83,6 +83,7 @@ class LopMonHocSinhVien < ActiveRecord::Base
     end
   end
   def diemqt
+    return 0 if diem_chuyen_can == 0
     return 0 if diemcc == 0
     (diem_chuyen_can || diemcc || 0) + diemtbkt + convert_grade((diem_thuc_hanh.round(0).to_i if diem_thuc_hanh) || 0)
   end
