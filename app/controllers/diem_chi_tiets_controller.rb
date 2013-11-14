@@ -25,6 +25,7 @@ class DiemChiTietsController < ApplicationController
       @msvs = params[:msv]
       @svs.each do   |sv|      
         if @msvs[sv.ma_sinh_vien]
+          test = (@msvs[sv.ma_sinh_vien][:thuchanh].present? or @msvs[sv.ma_sinh_vien][:lan1].present? or @msvs[sv.ma_sinh_vien][:lan2].present? or @msvs[sv.ma_sinh_vien][:lan3].present? or @msvs[sv.ma_sinh_vien][:lan4].present? or @msvs[sv.ma_sinh_vien][:lan5].present?)
           sv.diem_thuc_hanh = @msvs[sv.ma_sinh_vien][:thuchanh].to_f if @msvs[sv.ma_sinh_vien][:thuchanh].present? and @msvs[sv.ma_sinh_vien][:thuchanh].to_f >= 0 and @msvs[sv.ma_sinh_vien][:thuchanh].to_f <= 10
           sv.lan1 = @msvs[sv.ma_sinh_vien][:lan1].to_f if @msvs[sv.ma_sinh_vien][:lan1].present? and @msvs[sv.ma_sinh_vien][:lan1].to_f >=0 and @msvs[sv.ma_sinh_vien][:lan1].to_f <= 10
           sv.lan2 = @msvs[sv.ma_sinh_vien][:lan2].to_f if @msvs[sv.ma_sinh_vien][:lan2].present? and @msvs[sv.ma_sinh_vien][:lan2].to_f >= 0 and @msvs[sv.ma_sinh_vien][:lan2].to_f <= 10
@@ -40,7 +41,7 @@ class DiemChiTietsController < ApplicationController
           else
             sv.note = nil
           end
-          sv.create_activity key: "lop_mon_hoc_sinh_vien.updatediemchitiet", params: {lan1: sv.lan1, lan2: sv.lan2, lan3: sv.lan3, lan4: sv.lan4, lan5: sv.lan5}, owner: current_user, recipient: sv.sinh_vien
+          sv.create_activity key: "lop_mon_hoc_sinh_vien.updatediemchitiet", params: {lan1: sv.lan1, lan2: sv.lan2, lan3: sv.lan3, lan4: sv.lan4, lan5: sv.lan5}, owner: current_user, recipient: sv.sinh_vien if test == true
           sv.save! rescue puts "error"
         end
       end
