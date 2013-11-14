@@ -17,23 +17,13 @@ class LopMonHocSinhViensController < ApplicationController
         sv.diem_thuc_hanh = diem_nhom
       end
       sv.save! rescue "error update nhom"
-    end
-    
-    #params["nhom"].each do |k,v|
-     # sv = @svs.select {|s| s.ma_sinh_vien == k}.first
-      #if sv then 
-       # sv.group_id = v.to_i
-        #sv.save! rescue "Save group error"
-      #end
-    #end
-    #puts params.inspect
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHocSinhVien", :action => "Groupdate", :label => "#{current_user.username}", :value => "1"}.to_json)
+    end            
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHocSinhVien", :action => "groupupdate", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.js
     end
   end
-  def index
-    #@lop_mon_hoc_sinh_viens = LopMonHocSinhVien.all
+  def index    
     @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     if @lop_mon_hoc.bosung
       @lichdkbs = @lop_mon_hoc.lich_trinh_giang_days.where(loai: 5)
@@ -46,25 +36,23 @@ class LopMonHocSinhViensController < ApplicationController
     @groups_arrays = {}
     @group.times do |g|
       @groups_arrays[(g+1).to_s] = "Nhóm #{g+1}"
-    end
-    #@groups_arrays = @groups.map {|gr| ["Group #{gr.id}", gr.id] }
+    end    
     Resque.enqueue(GoogleAnalytic, {:category => "LopMonHocSinhVien", :action => "Index", :label => "#{current_user.username}", :value => "1"}.to_json)
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHocSinhVien", :action => "index", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.html      
     end
     
   end
 
-  def group
-    #@lop_mon_hoc_sinh_viens = LopMonHocSinhVien.all
+  def group    
     @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     @group = @lop_mon_hoc.group || 1
     @groups_arrays = {}
     @group.times do |g|
       @groups_arrays[(g+1).to_s] = "Nhóm #{g+1}"
     end
-    #@groups_arrays = @groups.map {|gr| ["Group #{gr.id}", gr.id] }
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHocSinhVien", :action => "Group", :label => "#{current_user.username}", :value => "1"}.to_json)
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHocSinhVien", :action => "group", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.html { render :layout => false if request.headers['X-PJAX']}
       format.json { render json: @lop_mon_hoc_sinh_viens }
@@ -76,8 +64,8 @@ class LopMonHocSinhViensController < ApplicationController
   # GET /lop_mon_hoc_sinh_viens/1.json
   def show
     authorize! :read, @lop_mon_hoc
-    @lop_mon_hoc_sinh_vien = @lop_mon_hoc.get_sinh_viens.find(params[:id])
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHocSinhVien", :action => "Show", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @lop_mon_hoc_sinh_vien = @lop_mon_hoc.get_sinh_viens.find(params[:id])    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHocSinhVien", :action => "show", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.html { render :layout => false if request.headers['X-PJAX']}
       format.json { render json: @lop_mon_hoc_sinh_vien }

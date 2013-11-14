@@ -6,9 +6,7 @@ class DiemChuyenCansController < ApplicationController
   def index
     authorize! :read, @lop_mon_hoc
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
-    
-    
-    Resque.enqueue(GoogleAnalytic, {:category => "Diemchuyencan", :action => "Index", :label => "#{current_user.username}", :value => "1"}.to_json)
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Diemchuyencan", :action => "index", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       if can? :manage, @lop_mon_hoc
         format.html {render :index}             
@@ -40,8 +38,8 @@ class DiemChuyenCansController < ApplicationController
       else
         @error +=  sv.ma_sinh_vien + ", "
       end      
-    end
-    Resque.enqueue(GoogleAnalytic, {:category => "Diemchuyencan", :action => "Create", :label => "#{current_user.username}", :value => "1"}.to_json)
+    end    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Diemchuyencan", :action => "create", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.js
     end

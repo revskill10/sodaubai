@@ -13,29 +13,29 @@ class LopMonHocsController < ApplicationController
   end
   def tinhhinh
     authorize! :manage, @lop_mon_hoc  
-    @ld = @lop_mon_hoc.decorate
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHoc", :action => "tinhhinh", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @ld = @lop_mon_hoc.decorate    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "tinhhinh", :label => "#{current_user.username}", :value => "1"}.to_json
     send_data @ld.tinhhinh(@current_tenant).render, filename: "theo_doi_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.pdf", 
                       type: "application/pdf"
   end
   def lichtrinh
     authorize! :manage, @lop_mon_hoc        
-    @ld = @lop_mon_hoc.decorate
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHoc", :action => "lichtrinh", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @ld = @lop_mon_hoc.decorate    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "lichtrinh", :label => "#{current_user.username}", :value => "1"}.to_json
     send_data @ld.lichtrinh(@current_tenant).render, filename: "lich_trinh_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.pdf", 
                           type: "application/pdf"
   end  
   def phieudiem
     authorize! :manage, @lop_mon_hoc    
-    @ld = @lop_mon_hoc.decorate
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHoc", :action => "phieudiem", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @ld = @lop_mon_hoc.decorate    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "phieudiem", :label => "#{current_user.username}", :value => "1"}.to_json
     send_data @ld.phieudiem(@current_tenant), filename: "phieudiem_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.zip", 
                           type: "application/zip"
   end
   def index
     authorize! :read, @lop_mon_hoc
-    @lops = LopMonHoc.find(:all, :order => "id desc", :limit => 3)
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHoc", :action => "Index", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @lops = LopMonHoc.find(:all, :order => "id desc", :limit => 3)    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "index", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|    
       format.xlsx {
         p = Axlsx::Package.new        
@@ -56,8 +56,8 @@ class LopMonHocsController < ApplicationController
 
     raise ActiveRecord::RecordNotFound unless @lop_mon_hoc
     @lichs = @lop_mon_hoc.lich_trinh_giang_days.order('tuan, ngay_day_moi, ngay_day')
-    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHoc", :action => "report", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "report", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.html
     end
@@ -67,8 +67,8 @@ class LopMonHocsController < ApplicationController
     authorize! :read, @lop_mon_hoc
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     
-    @lichs = @lop_mon_hoc.lich_trinh_giang_days.where('char_length(noi_dung_day) > 0').order('ngay_day, tuan')
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHoc", :action => "show", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @lichs = @lop_mon_hoc.lich_trinh_giang_days.where('char_length(noi_dung_day) > 0').order('ngay_day, tuan')    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "show", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|      
       format.html {render :show}
       #format.pdf { render_lichtrinh(@lichs) }
@@ -77,8 +77,8 @@ class LopMonHocsController < ApplicationController
   def export_lichtrinh
     authorize! :manage, @lop_mon_hoc
     @lichs = @lop_mon_hoc.lich_trinh_giang_days.where('char_length(noi_dung_day) > 0').order('ngay_day, tuan')
-    @sotuan = @lichs.pluck(:tuan).uniq.count
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHoc", :action => "export_lichtrinh", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @sotuan = @lichs.pluck(:tuan).uniq.count    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "export_lichtrinh", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.html
     end
@@ -87,7 +87,7 @@ class LopMonHocsController < ApplicationController
     @lop_mon_hoc = LopMonHoc.find(params[:id])
     @lichlop = @lop_mon_hoc.get_days
     @lich = @lichlop.select {|l| l["tuan"] == params[:tuan_id].to_i}.uniq if @lichlop
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHoc", :action => "tuan", :label => "#{current_user.username}", :value => "1"}.to_json)
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "tuan", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.html { render 'calendar'}
     end
@@ -115,8 +115,8 @@ class LopMonHocsController < ApplicationController
       @groups_arrays = {}
       @group.times do |g|
         @groups_arrays[(g+1).to_s] = "Nhóm #{g+1}"
-      end
-      Resque.enqueue(GoogleAnalytic, {:category => "LopMonHoc", :action => "update", :label => "#{current_user.username}", :value => "1"}.to_json)
+      end      
+      QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "update", :label => "#{current_user.username}", :value => "1"}.to_json
       respond_to do |format|
         format.js
       end
@@ -128,8 +128,8 @@ class LopMonHocsController < ApplicationController
     authorize! :search, LopMonHoc
 
     @lop = LopMonHoc.find(params[:id])    
-    @lichtrucnhat = @lop.convert_trucnhat if @lop.trucnhat
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHoc", :action => "search", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @lichtrucnhat = @lop.convert_trucnhat if @lop.trucnhat    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "search", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.js
       format.xlsx {
@@ -152,8 +152,8 @@ class LopMonHocsController < ApplicationController
   end  
   def calendar
     authorize! :read, @lop_mon_hoc
-    @lich = @lop_mon_hoc.get_days
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHoc", :action => "calendar", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @lich = @lop_mon_hoc.get_days    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "calendar", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|          
       format.html {render :calendar}            
     end
@@ -164,8 +164,8 @@ class LopMonHocsController < ApplicationController
 
     if @lop_mon_hoc.da_duyet_bo_sung == true
       @sobuoibs = @lop_mon_hoc.so_buoi_bo_sung
-    end    
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHoc", :action => "showdkbs", :label => "#{current_user.username}", :value => "1"}.to_json)
+    end        
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "showdkbs", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.js
     end
@@ -183,8 +183,8 @@ class LopMonHocsController < ApplicationController
       @lop_mon_hoc.save!
     else 
       @error = 1
-    end
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHoc", :action => "dkbs", :label => "#{current_user.username}", :value => "1"}.to_json)
+    end    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "dkbs", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.js
     end
@@ -211,11 +211,8 @@ class LopMonHocsController < ApplicationController
       @lop_mon_hoc.bosung = true
       @lop_mon_hoc.save!
       @lichdkbs = @lop_mon_hoc.lich_trinh_giang_days.where(loai: 5)
-    end
-    #rescue
-     # @error = 1
-    #end
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHoc", :action => "qldkbs", :label => "#{current_user.username}", :value => "1"}.to_json)
+    end      
+    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "qldkbs", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.js
     end

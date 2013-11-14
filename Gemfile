@@ -111,3 +111,4 @@ gem 'draper', '~> 1.3'
 gem 'public_activity'
 gem 'gabba'
 gem 'google-analytics-rails'
+gem "queue_classic", "2.2.1"

@@ -8,8 +8,8 @@ class DashboardController < ApplicationController
     @current_lich = @lich.select {|l| l["tuan"] == @current_week}.uniq if @lich
     @current_lich2 = @lich2.select {|l| l["tuan"] == @current_week}.uniq if @lich2
     
-    @lichbus = @lichbosungs.select {|l| l.loai == 2 and l.status == 3 and l.tuan == @current_week} if @lichbosungs
-    Resque.enqueue(GoogleAnalytic, {:category => "Dashboard", :action => "Index", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @lichbus = @lichbosungs.select {|l| l.loai == 2 and l.status == 3 and l.tuan == @current_week} if @lichbosungs    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Dashboard", :action => "index", :label => "#{current_user.username}", :value => "1"}.to_json
   end
 
   def activity
@@ -19,14 +19,14 @@ class DashboardController < ApplicationController
       @activities = PublicActivity::Activity.where(owner_id: current_user.id).order('updated_at desc').page(params[:page]).per_page(50)
     elsif current_user.is_admin?
       @activities = PublicActivity::Activity.order('updated_at desc').page(params[:page]).per_page(50)
-    end
-    Resque.enqueue(GoogleAnalytic, {:category => "Dashboard", :action => "Activity", :label => "#{current_user.username}", :value => "1"}.to_json)
+    end    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Dashboard", :action => "activity", :label => "#{current_user.username}", :value => "1"}.to_json
   end
 
   def show
-    
     @current_lich = @lich.select {|l| l["tuan"] == params[:id].to_i}.uniq if @lich 
-    @current_lich2 = @lich2.select {|l| l["tuan"] == @current_week}.uniq if @lich2Resque.enqueue(GoogleAnalytic, {:category => "Dashboard", :action => "Show", :label => "#{current_user.username}", :value => "1"}.to_json)    
+    @current_lich2 = @lich2.select {|l| l["tuan"] == @current_week}.uniq if @lich2
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Dashboard", :action => "show", :label => "#{current_user.username}", :value => "1"}.to_json
   end
   def calendar
     @lichbus = []
@@ -34,8 +34,8 @@ class DashboardController < ApplicationController
     @lichbus += @lichbosungs.select {|l| l.loai == 2 and l.status == 3} if @lichbosungs
     @lichdkbs += @lichbosungs.select {|l| l.loai == 5 and l.status == 3} if @lichbosungs
     @lichbus += @lichbosungs2.select {|l| l.loai == 2 and l.status == 3} if @lichbosungs2
-    @lichdkbs += @lichbosungs2.select {|l| l.loai == 5 and l.status == 3} if @lichbosungs2
-    Resque.enqueue(GoogleAnalytic, {:category => "Dashboard", :action => "Calendar", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @lichdkbs += @lichbosungs2.select {|l| l.loai == 5 and l.status == 3} if @lichbosungs2    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Dashboard", :action => "calendar", :label => "#{current_user.username}", :value => "1"}.to_json
   end
   def search
     @type = params[:type]
@@ -66,8 +66,8 @@ class DashboardController < ApplicationController
         paginate(:page => params[:page] || 1, :per_page => 50)
       end
       @results = @search.results
-    end
-    Resque.enqueue(GoogleAnalytic, {:category => "Dashboard", :action => "Search", :label => "#{current_user.username}", :value => "1"}.to_json)
+    end    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Dashboard", :action => "search", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|      
       format.html      
     end

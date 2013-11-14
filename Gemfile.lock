@@ -288,6 +288,8 @@ GEM
       activerecord (>= 3.0)
       i18n (>= 0.5.0)
       railties (>= 3.0.0)
+    queue_classic (2.2.1)
+      pg (~> 0.15.1)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -506,6 +508,7 @@ DEPENDENCIES
   prawn
   progress_bar
   public_activity
+  queue_classic (= 2.2.1)
   rails (= 3.2.13)
   rb-notifu
   redis-rack-cache

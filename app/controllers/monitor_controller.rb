@@ -14,8 +14,8 @@ class MonitorController < ActionController::Base
     end
   end
   def activity
-    @activities = PublicActivity::Activity.order('updated_at desc').take(50)
-    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "activity", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @activities = PublicActivity::Activity.order('updated_at desc').take(50)    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Monitor", :action => "activity", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.html {render :activity, :layout => 'application'}
     end
@@ -38,8 +38,8 @@ class MonitorController < ActionController::Base
     @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day_moi: get_ngay(@ngay)).first    
     @trucnhat = JSON.parse(@lop_mon_hoc.trucnhat) if @lop_mon_hoc.trucnhat
     @nhomtruc = @trucnhat[from_zdate(params[:id])] if @trucnhat
-    @svs = SinhVien.where(ma_sinh_vien: @nhomtruc) if @nhomtruc
-    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "showdaybu", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @svs = SinhVien.where(ma_sinh_vien: @nhomtruc) if @nhomtruc    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Monitor", :action => "showdaybu", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.js
     end
@@ -49,8 +49,8 @@ class MonitorController < ActionController::Base
     dt = Date.today.to_datetime.change(:offset => Rational(7,24))
     @today = @days.select {|d| to_zdate(d["time"][0]) == Date.today }.select {|k| k['phong']}.sort_by {|k| k['phong']}
     @today += @days.select {|d| to_zdate(d["time"][0]) == Date.today }.select {|k| k['phong'].nil?}
-    @lichs2 = LichTrucNhat.where("ngay_truc > timestamp ? and ngay_truc < timestamp ?", dt, DateTime.now).order('ngay_truc asc, created_at asc').map {|l| "#{l.lop_mon_hoc.ma_lop}_#{l.lop_mon_hoc.ma_mon_hoc}"}
-    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "thanhtra", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @lichs2 = LichTrucNhat.where("ngay_truc > timestamp ? and ngay_truc < timestamp ?", dt, DateTime.now).order('ngay_truc asc, created_at asc').map {|l| "#{l.lop_mon_hoc.ma_lop}_#{l.lop_mon_hoc.ma_mon_hoc}"}    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Monitor", :action => "thanhtra", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.html {render :thanhtra, :layout => 'application'}
     end
@@ -64,8 +64,8 @@ class MonitorController < ActionController::Base
     @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])
     @ngay = str_to_ngay(params[:ngay_vi_pham])
     @lich_vi_pham = @lop_mon_hoc.lich_vi_phams.where(ngay_vi_pham: get_ngay(@ngay)).first_or_create!
-    @lich_vi_pham.update_attributes(tuan: @current_week, user_id: current_user.id, phong: @phong, lenmuon: @lenmuon, vesom: @vesom, bogio: @bogio, note1: params[:note1])
-    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "qlthanhtra", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @lich_vi_pham.update_attributes(tuan: @current_week, user_id: current_user.id, phong: @phong, lenmuon: @lenmuon, vesom: @vesom, bogio: @bogio, note1: params[:note1])    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Monitor", :action => "qlthanhtra", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.js
     end
@@ -78,11 +78,8 @@ class MonitorController < ActionController::Base
     @phong = params[:phong]
     @ngay = str_to_ngay(@ngay_vi_pham)
     @lich = @lop_mon_hoc.lich_trinh_giang_days.where(ngay_day: get_ngay(@ngay)).first    
-    @lich_vi_pham = @lop_mon_hoc.lich_vi_phams.where(ngay_vi_pham: get_ngay(@ngay)).first
-    #if @lich_vi_pham
-    #  @lich_vi_pham.upadte_attributes(tuan: @current_week, user_id: current_user.id, phong: @phong)
-    @end        
-    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "showthanhtra", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @lich_vi_pham = @lop_mon_hoc.lich_vi_phams.where(ngay_vi_pham: get_ngay(@ngay)).first        
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Monitor", :action => "showthanhtra", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.js
     end
@@ -92,8 +89,8 @@ class MonitorController < ActionController::Base
     dt = Date.today.to_datetime.change(:offset => Rational(7,24))
     @today = @days.select {|d| to_zdate(d["time"][0]) == Date.today }.select {|k| k['phong']}.sort_by {|k| k['phong']}
     @today += @days.select {|d| to_zdate(d["time"][0]) == Date.today }.select {|k| k['phong'].nil?}
-    @lichs2 = LichTrucNhat.where("ngay_truc > timestamp ? and ngay_truc < timestamp ?", dt, DateTime.now).order('ngay_truc asc, created_at asc').map {|l| "#{l.lop_mon_hoc.ma_lop}_#{l.lop_mon_hoc.ma_mon_hoc}"}
-    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "trucnhat", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @lichs2 = LichTrucNhat.where("ngay_truc > timestamp ? and ngay_truc < timestamp ?", dt, DateTime.now).order('ngay_truc asc, created_at asc').map {|l| "#{l.lop_mon_hoc.ma_lop}_#{l.lop_mon_hoc.ma_mon_hoc}"}    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Monitor", :action => "trucnhat", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.html {render :trucnhat, :layout => 'application'}
     end
@@ -115,8 +112,8 @@ class MonitorController < ActionController::Base
         sv1 = @lich.truc_nhats.where(ma_sinh_vien: sv).first_or_create!
         sv1.update_attributes(status: true)
       end
-    end
-    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "qltrucnhat", :label => "#{current_user.username}", :value => "1"}.to_json)
+    end    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Monitor", :action => "qltrucnhat", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.js
     end
@@ -139,8 +136,8 @@ class MonitorController < ActionController::Base
     @phong = params[:phong]
     if @lich 
       @svvangs = @lich.diem_danhs.vang
-    end
-    Resque.enqueue(GoogleAnalytic, {:category => "Monitor", :action => "showtrucnhat", :label => "#{current_user.username}", :value => "1"}.to_json)
+    end    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Monitor", :action => "showtrucnhat", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.js
     end

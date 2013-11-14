@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131109065921) do
+ActiveRecord::Schema.define(:version => 20131114072257) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -244,6 +244,7 @@ ActiveRecord::Schema.define(:version => 20131109065921) do
     t.boolean  "da_duyet_bo_sung"
     t.integer  "siso"
     t.text     "tiet_thay_doi"
+    t.datetime "ngay_day_xong"
   end
 
   add_index "lop_mon_hocs", ["da_duyet_bo_sung"], :name => "index_lop_mon_hocs_on_da_duyet_bo_sung"

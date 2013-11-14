@@ -84,9 +84,11 @@ class SinhVien < ActiveRecord::Base
   end
   def lich_trinh_giang_days
     res = []
-    lop_mon_hocs.each do |l|
-      res = res + l.lich_trinh_giang_days
-    end    
+    if lop_mon_hocs.count > 0
+      lop_mon_hocs.each do |l|
+        res = res + l.lich_trinh_giang_days
+      end
+    end
     return res
   end
   def lich_vangs

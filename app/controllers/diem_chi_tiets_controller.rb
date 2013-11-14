@@ -1,10 +1,9 @@
 class DiemChiTietsController < ApplicationController
   before_filter :load_lop
-  def index    
-    
+  def index        
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
-    @group_diem = JSON.parse(@lop_mon_hoc.group_diem || {}.to_json) 
-    Resque.enqueue(GoogleAnalytic, {:category => "Diemchitiet", :action => "Index", :label => "#{current_user.username}", :value => "1"}.to_json)
+    @group_diem = JSON.parse(@lop_mon_hoc.group_diem || {}.to_json)     
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Diemchitiet", :action => "index", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|      
       format.html do 
         if params[:loai] and params[:loai] == "2" then           
@@ -68,8 +67,8 @@ class DiemChiTietsController < ApplicationController
           sv.save! rescue "error update nhom"
         end
       end
-    end
-    Resque.enqueue(GoogleAnalytic, {:category => "Diemchitiet", :action => "Create", :label => "#{current_user.username}", :value => "1"}.to_json)
+    end    
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Diemchitiet", :action => "create", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|      
         format.js      
     end
