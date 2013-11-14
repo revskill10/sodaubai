@@ -113,3 +113,4 @@ gem 'gabba'
 gem 'google-analytics-rails'
 gem "queue_classic", "2.2.1"
 gem 'devise_marketable'
+gem 'newrelic_rpm'
