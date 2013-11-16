@@ -107,7 +107,7 @@ class DashboardController < ApplicationController
     	@current_lops = @type.lop_mon_hocs
       @lop_xongs = @current_lops.select {|t| t.da_day_xong == true}.map {|k| k and k.id}
       @lich = @type.get_days[:ngay].uniq if @type.get_days
-      @lichthua = @type.get_thua[:ngay].uniq if @type.get_thua
+      @lichthua = @type.get_thua[:ngay].uniq if @type.get_thua and @type.is_a?(GiangVien)
       @lichbosungs = @type.lich_trinh_giang_days.select {|l| [1,2,3,4,5].include?(l.loai)}
 
       generator = ColorGenerator.new saturation: 0.3, lightness: 0.75
