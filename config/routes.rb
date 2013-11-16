@@ -67,7 +67,11 @@ Trytest::Application.routes.draw do
         post '/:loai'  => 'diem_chi_tiets#create'
       end
     end
-    resources :diem_chuyen_cans
+    resources :diem_chuyen_cans do 
+      collection do 
+        post '/update' => 'diem_chuyen_cans#update'
+      end
+    end    
     resources :lop_mon_hoc_sinh_viens  do 
       collection do 
         post '/groupupdate' => 'lop_mon_hoc_sinh_viens#groupupdate'

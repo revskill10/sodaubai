@@ -21,7 +21,21 @@ class DiemChuyenCansController < ApplicationController
       end
     end   
   end
-  
+  def update
+    authorize! :manage, @lop_mon_hoc
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
+    if @svs and @svs.count > 0
+      @svs.each do |sv|
+        sv.diem_chuyen_can = sv.diemcc
+        sv.diem_qua_trinh = sv.diemqt
+        sv.save!
+      end
+    end
+    QC.enqueue "GoogleAnalytic.perform", {:category => "Diemchuyencan", :action => "update", :label => "#{current_user.username}", :value => "1"}.to_json
+    respond_to do |format|
+      format.js
+    end
+  end
   # POST /diem_chuyen_cans
   # POST /diem_chuyen_cans.json
   def create

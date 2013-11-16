@@ -1,78 +1,59 @@
-= form_tag lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id), :method => :post, :remote => true do 
-  .container-fluid
-    .navbar.navbar-fixed-top
-      .navbar-inner
-        .container-fluid
-          %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          %a.brand{:href => "/" } HPU
-          .container.nav-collapse
-            %ul.nav.pull-left#urls            
-              %li= link_to "Thông tin chung", lop_mon_hoc_path(@lop_mon_hoc.id)  
-              %li.dropdown
-                %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
-                  Điểm
-                  %b.caret
-                %ul.dropdown-menu
-                  - if @lop_mon_hoc.get_thuc_hanh
-                    %li= link_to "Điểm nhóm thực hành", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id) + "/2"
-                  %li.active= link_to "Điểm chuyên cần", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id) 
-                  %li= link_to "Điểm kiểm tra", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id)
-              %li.dropdown
-                %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
-                  - if can? :manage, @lop_mon_hoc
-                    Quản lý
-                  - else
-                    Tiện ích
-                  %b.caret
-                %ul.dropdown-menu
-                  %li= link_to "Thông báo", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id)  
-                  %li= link_to "Diễn đàn", lop_mon_hoc_topics_path(@lop_mon_hoc.id)
-                  - if can? :manage, @lop_mon_hoc
-                    %li= link_to "Quản lý lớp học", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id)
-                  %li= link_to "Thời khóa biểu", lop_mon_hoc_path(@lop_mon_hoc.id)+'/calendar'
-            %ul.nav.pull-right              
-              %li
-                %a{:href => "#myModal", :role => "button", :"data-toggle" => "modal"} Trợ giúp
-              %li= link_to 'Đăng xuất',destroy_user_session_path                          
-              
-  .container-fluid{:style=>"margin-top: 100px;"}  
+ 
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/" } HPU
+        .container.nav-collapse
+          %ul.nav.pull-left#urls            
+            %li= link_to "Thông tin chung", lop_mon_hoc_path(@lop_mon_hoc.id)  
+            %li.dropdown
+              %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
+                Điểm
+                %b.caret
+              %ul.dropdown-menu
+                - if @lop_mon_hoc.get_thuc_hanh
+                  %li= link_to "Điểm nhóm thực hành", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id) + "/2"
+                %li.active= link_to "Điểm chuyên cần", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id) 
+                %li= link_to "Điểm kiểm tra", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id)
+            %li.dropdown
+              %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
+                - if can? :manage, @lop_mon_hoc
+                  Quản lý
+                - else
+                  Tiện ích
+                %b.caret
+              %ul.dropdown-menu
+                %li= link_to "Thông báo", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id)  
+                %li= link_to "Diễn đàn", lop_mon_hoc_topics_path(@lop_mon_hoc.id)
+                - if can? :manage, @lop_mon_hoc
+                  %li= link_to "Quản lý lớp học", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id)
+                %li= link_to "Thời khóa biểu", lop_mon_hoc_path(@lop_mon_hoc.id)+'/calendar'
+          %ul.nav.pull-right              
+            %li
+              %a{:href => "#myModal", :role => "button", :"data-toggle" => "modal"} Hướng dẫn
+            %li= link_to 'Đăng xuất',destroy_user_session_path                          
+                
+.container-fluid{:style=>"margin-top: 100px;"}
+  #myModal.modal.hide.fade{:tabindex => "-1", :role => "dialog", :"aria-labelledby" => "myModalLabel", :"aria-hidden" => "true"}
+    .modal-header
+      %button.close{:type => "button", :"data-dismiss" => "modal", :"aria-hidden" => "true"} ×
+      %h3#myModalLabel Hướng dẫn sử dụng
+    .modal-body        
+      %p - Bạn có thể trực tiếp thay đổi điểm chuyên cần ở đây.
+      %p - Khi cần bạn có thể tính toán lại điểm chuyên cần bằng cách nhấn vào nút tính toán lại điểm chuyên cần
+    .modal-footer
+      %button.btn{:"data-dismiss" => "modal", :"aria-hidden" => "true"} Close
+      %button.btn.btn-primary Save changes
+
+  = form_tag lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id) + "/update", :method => :post, :remote => true do
+    = submit_tag "Tính toán lại điểm chuyên cần", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}    
+  = form_tag lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id), :method => :post, :remote => true do
     - if can? :manage, @lop_mon_hoc
-      = submit_tag "Cập nhật", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}    
-    %table{:class => "table table-bordered table-condensed"}
-      %colgroup
-        %col{:style => "width: 3%"}
-        %col{:style => "width: 10%"}
-        %col{:style => "width: 17%"}
-        %col{:style => "width: 10%"}
-        %col{:style => "width: 10%"}
-        %col{:style => "width: 15%"}
-        %col{:style => "width: 12%"}
-        %col{:style => "width: 8%"}
-        %col{:style => "width: 15%"}
-      %thead
-        %td STT
-        %td Mã sinh viên
-        %td Họ đệm
-        %td Tên   
-        %td Lớp                  
-        %td Tình hình vắng
-        %td Có phép
-        %td Tổng số vắng        
-        %td Điểm chuyên cần (Thang 4) 
-      %tbody
-        - @svs.each_with_index do |sv, index|
-          %tr
-            %td= (index+1).to_s
-            %td= sv.ma_sinh_vien            
-            %td= sv.hodemdaydu
-            %td= sv.ten  
-            %td= sv.ma_lop_hanh_chinh
-            %td.progress  
-              .bar.bar-danger{:style => "width: #{dc(@lop_mon_hoc, sv)}%"}                                        
-              .bar.bar-success{:style => "width: #{100-dc(@lop_mon_hoc, sv)}%"}= (100 - dc(@lop_mon_hoc, sv).round(2)).to_s + "%"                               
-            %td= sv.so_vang_co_phep || 0
-            %td= sv.so_tiet_vang ||0            
-            %td= text_field_tag "msv[#{sv.ma_sinh_vien}", nil, :value => sv.diem_chuyen_can || sv.diemcc || "", :style => "width: 20px;"
+      = submit_tag "Cập nhật", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}
+    #diemcc
+      = render "diemcc"
