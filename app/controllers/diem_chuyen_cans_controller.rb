@@ -8,6 +8,9 @@ class DiemChuyenCansController < ApplicationController
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
     QC.enqueue "GoogleAnalytic.perform", {:category => "Diemchuyencan", :action => "index", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
+      if @lop_mon_hoc.da_day_xong
+        format.html {render :index2}
+      end
       if can? :manage, @lop_mon_hoc
         format.html {render :index}             
       elsif can? :read, @lop_mon_hoc

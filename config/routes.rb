@@ -27,6 +27,7 @@ Trytest::Application.routes.draw do
   get "dashboard/index"
   match '/activity' => "dashboard#activity"
   match '/calendar' => 'dashboard#calendar', :as => "calendar"
+  match '/post_calendar' => 'dashboard#post_calendar', :as => "post_calendar"
   match 'tuan/:id' => 'dashboard#show', :as => "tuan"
   get "dashboard/access_denied", :as => "access_denied"
    root :to => 'dashboard#index'

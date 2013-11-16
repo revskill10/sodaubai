@@ -1,7 +1,5 @@
 #encoding: utf-8
-
 class GiangViensController < ApplicationController
-
   def show  	
   	@gv = GiangVien.where(ma_giang_vien: params[:id]).first
   	@id = params[:id]
@@ -12,5 +10,4 @@ class GiangViensController < ApplicationController
       format.html
     end
   end
-
 end

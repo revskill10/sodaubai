@@ -23,7 +23,7 @@
                 %li= link_to "Điểm kiểm tra", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id)
             %li.dropdown.active
               %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
-                - if can? :manage, @lop_mon_hoc
+                - if can? :quanly, @lop_mon_hoc
                   Quản lý
                 - elsif can? :read, @lop_mon_hoc
                   Tiện ích
@@ -31,7 +31,7 @@
               %ul.dropdown-menu
                 %li= link_to "Thông báo", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id)   
                 %li= link_to "Diễn đàn", lop_mon_hoc_topics_path(@lop_mon_hoc.id)
-                - if can? :manage, @lop_mon_hoc
+                - if can? :quanly, @lop_mon_hoc
                   %li.active= link_to "Quản lý lớp học", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id)
                 %li= link_to "Thời khóa biểu", lop_mon_hoc_path(@lop_mon_hoc.id)+'/calendar'
             
@@ -40,60 +40,56 @@
               
 
 .container-fluid{:style=>"margin-top: 4%;"}   
-  
-  .row-fluid
-    .span5
-      = form_tag lop_mon_hoc_path(@lop_mon_hoc.id), :method => :put, :remote => true do 
+  #main
+    .row-fluid
+      .span5
+        = form_tag lop_mon_hoc_path(@lop_mon_hoc.id), :method => :put, :remote => true do 
 
-        .well.sidebar-nav.of{:style => "font-size: 12px;"}    
-          %h4 Thiết lập thông số lớp môn học
+          .well.sidebar-nav.of{:style => "font-size: 12px;"}    
+            %h4 Thiết lập thông số lớp môn học
+            
+            = text_field_tag :so_nhom, @lop_mon_hoc.group, :placeholder => 'Số nhóm thực hành', :style => "width: 10%"
+            %span  nhóm thực hành, bài tập lớn, đồ án môn học
+            %br
+            
+            = text_field_tag :so_lan_kt, @lop_mon_hoc.so_lan_kt, :placeholder => 'Số lần kiểm tra thường xuyên', :style => "width: 10%" 
+
+            %span lần kiểm tra thường xuyên (Tối đa 5 đầu điểm)
+            %br
           
-          = text_field_tag :so_nhom, @lop_mon_hoc.group, :placeholder => 'Số nhóm thực hành', :style => "width: 10%"
-          %span  nhóm thực hành, bài tập lớn, đồ án môn học
-          %br
-          
-          = text_field_tag :so_lan_kt, @lop_mon_hoc.so_lan_kt, :placeholder => 'Số lần kiểm tra thường xuyên', :style => "width: 10%" 
-
-          %span lần kiểm tra thường xuyên (Tối đa 5 đầu điểm)
-          %br
-        
-          = check_box_tag :thuc_hanh, nil, @lop_mon_hoc.get_thuc_hanh
-          %span Có đầu điểm thực hành? 
-          %br
-          %hr
-          %span Khối lượng giảng dạy theo đề cương chi tiết:
-          %br
-          - if @lop_mon_hoc.bosung
-            = @lop_mon_hoc.so_tiet_phan_bo
-          - else
-            %span= text_field_tag :so_tiet_phan_bo, @lop_mon_hoc.so_tiet_phan_bo, :placeholder => 'Khối lượng theo đề cương chi tiết'                           
-          %br
-          %br Khối lượng được phân bổ theo thời khóa biểu: #{@lop_mon_hoc.khoi_luong_phan_bo}.
-          #formdkbs 
-            - if @lop_mon_hoc.so_tiet_phan_bo > @lop_mon_hoc.khoi_luong_phan_bo and @lop_mon_hoc.bosung != true
-              = render 'formdkbs'            
-          %br          
-          %br
-          = submit_tag "Thiết lập", :class => "btn",  :data => {disable_with: "Submitting..."} 
-
-          - if can? :manage, LopMonHocSinhVien
-            %ul.nav.pull-right
-              %li
-                = link_to 'Thêm sinh viên vào lớp', new_lop_mon_hoc_lop_mon_hoc_sinh_vien_path(@lop_mon_hoc), :class => 'btn'
-    .span7            
-      - if @lop_mon_hoc.bosung and @lichdkbs and @lichdkbs.count > 0
-        #statusdkbs
-          = render "statusdkbs"
-      - else
-        #dkbs
-        #qldkbs
-  = form_tag groupupdate_lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id), :method => :post, :remote => true do         
-    %ul.nav.pull-right
-      %li= submit_tag "Cập nhật danh sách nhóm thực hành", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."} 
-    %table#dssv{:class => "table datatable"}    
-      = render 'table1'
-
-    %br
-
-  %table#dssv{:class => "table datatable"}    
-    = render 'table2'
+            = check_box_tag :thuc_hanh, nil, @lop_mon_hoc.get_thuc_hanh
+            %span Có đầu điểm thực hành? 
+            %br
+            %hr
+            %span Khối lượng giảng dạy theo đề cương chi tiết:
+            %br
+            - if @lop_mon_hoc.bosung
+              = @lop_mon_hoc.so_tiet_phan_bo
+            - else
+              %span= text_field_tag :so_tiet_phan_bo, @lop_mon_hoc.so_tiet_phan_bo, :placeholder => 'Khối lượng theo đề cương chi tiết'                           
+            %br
+            %br Khối lượng được phân bổ theo thời khóa biểu: #{@lop_mon_hoc.khoi_luong_phan_bo}.
+            %br 
+            = check_box_tag :da_day_xong, nil, @lop_mon_hoc.da_day_xong
+            %span 
+              %strong Đã dạy xong (Bạn không thể cập nhật thông số và thông tin điểm danh lớp môn này nữa)
+            %br
+            #formdkbs 
+              - if @lop_mon_hoc.so_tiet_phan_bo > @lop_mon_hoc.khoi_luong_phan_bo and @lop_mon_hoc.bosung != true
+                = render 'formdkbs'            
+            %br          
+            %br
+            = submit_tag "Thiết lập", :class => "btn",  :data => {disable_with: "Submitting..."} 
+            
+      .span7            
+        - if @lop_mon_hoc.bosung and @lichdkbs and @lichdkbs.count > 0
+          #statusdkbs
+            = render "statusdkbs"
+        - else
+          #dkbs
+          #qldkbs
+    = form_tag groupupdate_lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id), :method => :post, :remote => true do         
+      %ul.nav.pull-right
+        %li= submit_tag "Cập nhật danh sách nhóm thực hành", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."} 
+      %table#dssv{:class => "table datatable"}    
+        = render 'table1'    

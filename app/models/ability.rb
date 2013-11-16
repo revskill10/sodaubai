@@ -14,8 +14,14 @@ class Ability
         can :read, GiangVien do |gv|
             can :manage, :all or (gv.ma_giang_vien == user.imageable.ma_giang_vien and !user.is_admin?)
         end
+        can :quanly, LopMonHoc do |lop|
+          (user.code == lop.ma_giang_vien or user.id == lop.user_id)
+        end                
         can :manage, LopMonHoc do |lop|
-          user.code == lop.ma_giang_vien or user.id == lop.user_id
+          (user.code == lop.ma_giang_vien or user.id == lop.user_id) and lop.da_day_xong != true
+        end        
+        can :report, LopMonHoc do |lop|
+          (user.code == lop.ma_giang_vien or user.id == lop.user_id)
         end
         can :manage, LichTrinhGiangDay do |lich|
             can? :manage, lich.lop_mon_hoc or (user.code == lich.ma_giang_vien_moi and lich.status == 3)

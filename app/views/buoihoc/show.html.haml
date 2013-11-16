@@ -44,7 +44,7 @@
               %strong{:style => "font-size: 10px;"}= "Dạy bù vào: #{@lich.ngay_day_moi.localtime.strftime('%Hh:%M ngày %d/%m')}" 
 
 
-  = form_tag update_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do 
+  = form_tag update_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do
     - if can? :diemdanh, @lich
       = submit_tag "Cập nhật", :class =>"btn btn-primary",  :data => {disable_with: "Submitting..."}
     .well.sidebar-nav{:style => "font-size: 12px;"}

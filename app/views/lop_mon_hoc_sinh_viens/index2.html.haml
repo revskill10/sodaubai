@@ -1,0 +1,76 @@
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/" } HPU
+        .container.nav-collapse
+          %ul.nav.pull-left#urls            
+            %li= link_to "Thông tin chung", lop_mon_hoc_path(@lop_mon_hoc.id)           
+            %li.dropdown
+              %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
+                Điểm
+                %b.caret
+              %ul.dropdown-menu
+                - if @lop_mon_hoc.get_thuc_hanh
+                  %li= link_to "Điểm nhóm thực hành", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id) + "/2"
+                %li= link_to "Điểm chuyên cần", lop_mon_hoc_diem_chuyen_cans_path(@lop_mon_hoc.id)         
+                %li= link_to "Điểm kiểm tra", lop_mon_hoc_diem_chi_tiets_path(@lop_mon_hoc.id)
+            %li.dropdown.active
+              %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
+                - if can? :quanly, @lop_mon_hoc
+                  Quản lý
+                - elsif can? :read, @lop_mon_hoc
+                  Tiện ích
+                %b.caret
+              %ul.dropdown-menu
+                %li= link_to "Thông báo", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id)   
+                %li= link_to "Diễn đàn", lop_mon_hoc_topics_path(@lop_mon_hoc.id)
+                - if can? :quanly, @lop_mon_hoc
+                  %li.active= link_to "Quản lý lớp học", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id)
+                %li= link_to "Thời khóa biểu", lop_mon_hoc_path(@lop_mon_hoc.id)+'/calendar'            
+          %ul.nav.pull-right            
+            %li= link_to 'Đăng xuất', destroy_user_session_path            
+.container-fluid{:style=>"margin-top: 4%;"}     
+  .row-fluid
+    .span5    
+      .well.sidebar-nav.of{:style => "font-size: 12px;"}    
+        %h4 Thông số lớp môn học                    
+        %span #{@lop_mon_hoc.group} nhóm thực hành, bài tập lớn, đồ án môn học
+        %br
+        %span #{@lop_mon_hoc.so_lan_kt} lần kiểm tra thường xuyên (Tối đa 5 đầu điểm)
+        %br
+      
+        = check_box_tag :thuc_hanh, nil, @lop_mon_hoc.get_thuc_hanh, disabled: true
+        %span Có đầu điểm thực hành? 
+        %br
+        %hr
+          %span Khối lượng giảng dạy theo đề cương chi tiết:
+          %br
+          %span= @lop_mon_hoc.so_tiet_phan_bo
+                                     
+          %br
+          %br Khối lượng được phân bổ theo thời khóa biểu: #{@lop_mon_hoc.khoi_luong_phan_bo}.
+          %br 
+          = check_box_tag :da_day_xong, nil, @lop_mon_hoc.da_day_xong, disabled: true
+          %span 
+            %strong Đã dạy xong          
+    
+      %hr
+    %table#dssv{:class => "table datatable"}    
+      %thead
+        %td STT
+        %td Mã sinh viên        
+        %td Họ đệm
+        %td Tên
+        %td Nhóm        
+      - @lop_mon_hoc_sinh_viens.each_with_index do |lop_mon_hoc_sinh_vien, index|
+        %tr{:id => lop_mon_hoc_sinh_vien.ma_sinh_vien}
+          %td= (index+1).to_s
+          %td= lop_mon_hoc_sinh_vien.ma_sinh_vien
+          %td= (lop_mon_hoc_sinh_vien.ho || "") + " " + (lop_mon_hoc_sinh_vien.ho_dem || "")
+          %td= lop_mon_hoc_sinh_vien.ten
+          %td= (lop_mon_hoc_sinh_vien.group_id || "")

@@ -1,0 +1,73 @@
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/" } HPU
+        .container.nav-collapse
+          %ul.nav#urls
+            %li= link_to "Sổ đầu bài", lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
+            %li.active= link_to "Điểm danh chi tiết", diemdanh_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M"))
+            %li= link_to "Thông tin lớp", lop_mon_hoc_path(@lop_mon_hoc.id)
+          %ul.nav.pull-right             
+            %li= link_to "Đăng xuất", destroy_user_session_path
+
+.container-fluid{:style => "margin-top:4%;"}   
+  .row-fluid
+    %ul.nav.pull-right
+      %li
+        %i
+          %strong
+            %span= current_user.fullname
+
+      %li
+        %i
+          %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.mday}/#{@week.tu_ngay.mon}, đến ngày #{@week.den_ngay.mday}/#{@week.den_ngay.mon}"  
+  %ul.nav.pull-right
+    - if @buoihoc
+      %li
+        %i
+          %strong= "Thứ " + @buoihoc["thu"].to_s + ", ngày " + DateTime.parse(@buoihoc["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(@buoihoc["time"][0]).strftime("%Hh:%M")      
+  %h4 Thông tin lớp môn: 
+  .well.sidebar-nav{:style => "font-size: 12px;"}
+    %strong Môn học:  
+    %span= @buoihoc["ten_mon_hoc"] if @buoihoc
+    %strong.offset1 Giảng viên: 
+    %span= @lop_mon_hoc.ten_giang_vien    
+    %strong.offset1 Lớp: 
+    %span= @buoihoc["ma_lop"] if @buoihoc
+    %strong.offset1 Số tiết thực hiện: 
+    %span= "#{@lop_mon_hoc.khoi_luong} / #{@lop_mon_hoc.so_tiet_phan_bo || @lop_mon_hoc.khoi_luong_phan_bo}"
+  %table{:class => "table datatable"}
+    %colgroup
+      %col{:style => "width: 3%"}
+      %col{:style => "width: 12%"}
+      %col{:style => "width: 20%"}
+      %col{:style => "width: 15%"}
+      %col{:style => "width: 10%"}
+      %col{:style => "width: 15%"}
+      %col{:style => "width: 10%"}
+      %col{:style => "width: 20%"}
+    %thead
+      %td STT
+      %td Mã sinh viên
+      %td Họ đệm
+      %td Tên
+      %td Vắng
+      %td Số tiết vắng
+      %td Phép
+      %td Ghi chú
+    %tbody
+      - @svs.each_with_index do |sv, index|
+        %tr
+          %td= (index+1).to_s
+          %td= sv.ma_sinh_vien
+          %td= sv.hodemdaydu
+          %td= sv.ten
+          %td= check_box_tag "msv[#{sv.ma_sinh_vien}][status]",nil, get_status(@lich, sv), :disabled => "disabled"
+          %td= get_vang(@lich,sv)
+          %td= check_box_tag "msv[#{sv.ma_sinh_vien}][phep]",nil, get_phep(@lich,sv), :disabled =>  "disabled" 
+          %td=  get_note(@lich,sv)  

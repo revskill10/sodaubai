@@ -23,4 +23,10 @@ module DashboardHelper
 	def convert_to_brightness_value(hex_color)
 	  (hex_color.scan(/../).map {|color| color.hex}).sum
 	end
+	def check_thua?(co, t)
+		co.include?(t)
+	end
+	def check_day_xong?(co, l)
+		co.include?(l)
+	end
 end

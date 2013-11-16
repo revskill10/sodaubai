@@ -5,28 +5,23 @@ class LopMonHocsController < ApplicationController
   include DashboardHelper
   include LopMonHocsHelper  
   before_filter :authenticate_user!
-  before_filter :load_lop, :except => :index
-  def ngay_day_xong
-    authorize! :manage, @lop_mon_hoc
-    #@ngay_day_xong = params[:ngay_day_xong].split("/")
-
-  end
+  before_filter :load_lop, :except => :index  
   def tinhhinh
-    authorize! :manage, @lop_mon_hoc  
+    authorize! :report, @lop_mon_hoc  
     @ld = @lop_mon_hoc.decorate    
     QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "tinhhinh", :label => "#{current_user.username}", :value => "1"}.to_json
     send_data @ld.tinhhinh(@current_tenant).render, filename: "theo_doi_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.pdf", 
                       type: "application/pdf"
   end
   def lichtrinh
-    authorize! :manage, @lop_mon_hoc        
+    authorize! :report, @lop_mon_hoc        
     @ld = @lop_mon_hoc.decorate    
     QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "lichtrinh", :label => "#{current_user.username}", :value => "1"}.to_json
     send_data @ld.lichtrinh(@current_tenant).render, filename: "lich_trinh_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.pdf", 
                           type: "application/pdf"
   end  
   def phieudiem
-    authorize! :manage, @lop_mon_hoc    
+    authorize! :report, @lop_mon_hoc    
     @ld = @lop_mon_hoc.decorate    
     QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "phieudiem", :label => "#{current_user.username}", :value => "1"}.to_json
     send_data @ld.phieudiem(@current_tenant), filename: "phieudiem_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.zip", 
@@ -53,7 +48,6 @@ class LopMonHocsController < ApplicationController
         
   end
   def report
-
     raise ActiveRecord::RecordNotFound unless @lop_mon_hoc
     @lichs = @lop_mon_hoc.lich_trinh_giang_days.order('tuan, ngay_day_moi, ngay_day')
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens    
@@ -106,7 +100,7 @@ class LopMonHocsController < ApplicationController
     @lop_mon_hoc.update_attributes(group: @sn, so_lan_kt: @sl) if @sl >= 0 and @sl <= 5 and @sn >= 1 and @lop_mon_hoc.bosung == true
     @lop_mon_hoc.thuc_hanh = true if th
     @lop_mon_hoc.thuc_hanh = false unless th
-    
+    @lop_mon_hoc.da_day_xong = params[:da_day_xong]
 
     if @lop_mon_hoc.save! then 
       @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens
@@ -118,7 +112,11 @@ class LopMonHocsController < ApplicationController
       end      
       QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "update", :label => "#{current_user.username}", :value => "1"}.to_json
       respond_to do |format|
-        format.js
+        if @lop_mon_hoc.da_day_xong then 
+          format.js { render :update2 }
+        else
+          format.js
+        end
       end
     end
   end

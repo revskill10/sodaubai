@@ -24,6 +24,26 @@ class GiangVien < ActiveRecord::Base
     "#{ho_ten}"
   end
   
+  def mdays
+    ngays = []
+    thuas = []
+    if lop_mon_hocs.count > 0
+      lop_mon_hocs.all.each do |l|
+        if l.ngay_thua
+          n = JSON.parse(l.ngay_thua)["ngay"] 
+          thuas = thuas + n if n
+        end
+      end
+    end
+    thuas = thuas.uniq
+    if tkb_giang_viens.count > 0 
+      tkb_giang_viens.all.each do |tkb|
+        ngay = JSON.parse(tkb.days)["ngay"].select {|t| !thuas.include?(t["time"][0])}.map {|k| {:time => k["time"][0], :so_tiet => k["so_tiet"]}}
+        ngays = ngays + ngay if ngay
+      end      
+    end
+    return ngays
+  end  
   def get_days
     ngays = []
     if tkb_giang_viens.count > 0 
@@ -34,21 +54,18 @@ class GiangVien < ActiveRecord::Base
       ngays = ngays.sort_by {|h| [h["tuan"], h["time"]]}
     end
     return {:ngay => ngays}
-  end
-
+  end  
   def get_time(str)
     DateTime.strptime(str.gsub("T","-").gsub("Z",""), "%Y-%m-%d-%H:%M").change(:offset => Rational(7,24))
   end
   def check_conflict(dt)
-    days = get_days[:ngay]
+    days = mdays
     td = dt.to_i
     days.each do |d|
-      day = get_time(d["time"][0]).to_i
-      sogiay = d["so_tiet"] * 3000
+      day = get_time(d[:time]).to_i
+      sogiay = d[:so_tiet] * 3000
       r1 = day
-      r2 = day + sogiay
-      #s1 = td - sogiay
-      #s2 = td + sogiay
+      r2 = day + sogiay      
       r = r1..r2
       s = td..td
       if r.overlaps?(s) then return true end

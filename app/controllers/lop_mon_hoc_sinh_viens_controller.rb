@@ -40,11 +40,13 @@ class LopMonHocSinhViensController < ApplicationController
     Resque.enqueue(GoogleAnalytic, {:category => "LopMonHocSinhVien", :action => "Index", :label => "#{current_user.username}", :value => "1"}.to_json)
     QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHocSinhVien", :action => "index", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
-      format.html      
-    end
-    
+      if @lop_mon_hoc.da_day_xong        
+        format.html {render :index2}
+      else
+        format.html
+      end
+    end    
   end
-
   def group    
     @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     @group = @lop_mon_hoc.group || 1
@@ -56,10 +58,8 @@ class LopMonHocSinhViensController < ApplicationController
     respond_to do |format|
       format.html { render :layout => false if request.headers['X-PJAX']}
       format.json { render json: @lop_mon_hoc_sinh_viens }
-    end
-    
+    end    
   end
-
   # GET /lop_mon_hoc_sinh_viens/1
   # GET /lop_mon_hoc_sinh_viens/1.json
   def show
@@ -71,24 +71,20 @@ class LopMonHocSinhViensController < ApplicationController
       format.json { render json: @lop_mon_hoc_sinh_vien }
     end
   end
-
   # GET /lop_mon_hoc_sinh_viens/new
   # GET /lop_mon_hoc_sinh_viens/new.json
   def new
     authorize! :manage, LopMonHocSinhVien
     @lop_mon_hoc_sinh_vien = @lop_mon_hoc.lop_mon_hoc_sinh_viens.build
-
     respond_to do |format|
       format.html { render :layout => (request.headers['X-PJAX'] ? false : true)}
       format.json { render json: @lop_mon_hoc_sinh_vien }
     end
   end
-
   # GET /lop_mon_hoc_sinh_viens/1/edit
   def edit
     @lop_mon_hoc_sinh_vien = @lop_mon_hoc.get_sinh_viens.find(params[:id])
-  end
-  
+  end  
   # POST /lop_mon_hoc_sinh_viens
   # POST /lop_mon_hoc_sinh_viens.json
   def create    
@@ -130,7 +126,6 @@ class LopMonHocSinhViensController < ApplicationController
       end
     end
   end
-
   # PUT /lop_mon_hoc_sinh_viens/1
   # PUT /lop_mon_hoc_sinh_viens/1.json
   def update
@@ -149,7 +144,6 @@ class LopMonHocSinhViensController < ApplicationController
       end
     end
   end
-
   # DELETE /lop_mon_hoc_sinh_viens/1
   # DELETE /lop_mon_hoc_sinh_viens/1.json
   def destroy
@@ -164,7 +158,6 @@ class LopMonHocSinhViensController < ApplicationController
       format.json { head :no_content }
     end
   end
-
   protected
   def load_lop
     @lop_mon_hoc = LopMonHoc.find(params[:lop_mon_hoc_id])      

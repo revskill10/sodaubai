@@ -29,6 +29,9 @@ class BuoihocController < ApplicationController
     end    
     QC.enqueue "GoogleAnalytic.perform", {:category => "Buoihoc", :action => "show", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|     
+      if @lop_mon_hoc.da_day_xong
+        format.html {render :show2}        
+      end
       if can? :manage, @lich
         format.html {render :show}        
       elsif can? :read, @lich 
@@ -222,7 +225,9 @@ class BuoihocController < ApplicationController
     @svvang = @svs.select {|k| @idv.include?(k.ma_sinh_vien)}    
     QC.enqueue "GoogleAnalytic.perform", {:category => "Buoihoc", :action => "get_diemdanh", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
-      
+      if @lop_mon_hoc.da_day_xong
+        format.html {render :diemdanh2}
+      end
       if can? :manage, @lich
         format.html {render :diemdanh}        
       elsif can? :read, @lich
@@ -258,10 +263,10 @@ class BuoihocController < ApplicationController
       raise ActiveRecord::RecordNotFound unless @lich
       authorize! :manage, @lich
       authorize! :quanly, @lich
-      if params[:buoihoc][:thoigian]
+      if params[:buoihoc][:ngay] and params[:buoihoc][:thang] and params[:buoihoc][:nam]
         @tiet = params[:buoihoc][:tiet]
         t = LichTrinhGiangDay::TIET[@tiet.to_i]
-        thoigian = params[:buoihoc][:thoigian] + "-" + t[0].to_s + "-" + t[1].to_s
+        thoigian = params[:buoihoc][:nam] + "-" + params[:buoihoc][:thang] + "-" + params[:buoihoc][:ngay] + "-" + t[0].to_s + "-" + t[1].to_s
         @ngaybu = str_to_ngay(thoigian) 
         @lich.ngay_day_moi = get_ngay(@ngaybu)      
         @lich.tuan_moi = LichTrinhGiangDay.current_tuan(@lich.ngay_day_moi.localtime)

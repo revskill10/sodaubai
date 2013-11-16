@@ -1,0 +1,110 @@
+.container-fluid
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.brand{:href => "/" } HPU
+        .container.nav-collapse
+          %ul.nav.pull-left#urls           
+            - if can? :quanly, @lop_mon_hoc 
+              %li.active= link_to "Thời khóa biểu", "/calendar"
+            %li= link_to "Thăm dò", "http://thamdo.hpu.edu.vn"
+          %ul.nav.pull-right            
+            %li= link_to 'Đăng xuất', destroy_user_session_path  
+.container-fluid{:style=>"margin-top: 4%;"}
+  .row-fluid
+    %ul.nav.pull-right
+      %li
+        %i
+          %strong
+            %span= current_user.fullname
+
+      %li
+        %i
+          %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.localtime.mday}/#{@week.tu_ngay.localtime.mon}, đến ngày #{@week.den_ngay.localtime.mday}/#{@week.den_ngay.localtime.mon}"    
+  
+  - if @lich
+    %h5 Lớp chính
+    %table#monitor{:class => "table table-bordered"}      
+      %thead    
+        %td Tuần    
+        %td Thời gian 
+        %td Số tiết      
+        %td Phòng    
+        %td Môn
+        %td Mã lớp
+        %td Giờ thừa?
+      %tbody        
+        - @lich.each_with_index do |lich, index|
+          %tr                                    
+            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to "T"  + (("0" if lich["tuan"] < 10) || "") +lich["tuan"].to_s, tuan_path(lich["tuan"].to_s)
+            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to TkbGiangVien::THU2[lich["thu"]] + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M")), :style => "color: ##{@color_map[DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H:%M")]}", :rel => "tooltip", :'data-original-title' => "#{@info2[DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H:%M")]}"
+            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["so_tiet"]             
+            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["phong"]                 
+            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
+            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to lich["ma_lop"], lop_mon_hoc_path(lich["lop"])            
+  %br
+  - if @lich2
+    %h5 Lớp trợ giảng
+    %table#monitor{:class => "table table-bordered"}      
+      %thead    
+        %td Tuần    
+        %td Thời gian 
+        %td Số tiết      
+        %td Phòng    
+        %td Môn
+        %td Mã lớp
+        %td Giờ thừa?
+      %tbody            
+        - @lich2.each_with_index do |lich, index|
+          %tr        
+            %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to "T" + (("0" if lich["tuan"] < 10) || "") + lich["tuan"].to_s, tuan_path(lich["tuan"].to_s)
+            %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to TkbGiangVien::THU2[lich["thu"]] + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M")), :style => "color: ##{@color_map2[DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H:%M")]}", :rel => "tooltip", :'data-original-title' => "#{@info2[DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H:%M")]}"
+            %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["so_tiet"]             
+            %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["phong"]                 
+            %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
+            %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to lich["ma_lop"], lop_mon_hoc_path(lich["lop"])            
+  - if @lichdkbs and @lichdkbs.count > 0
+    %h5 Lịch dạy bổ sung
+    %table{:class => "table table-bordered"}
+      %thead    
+        %td Tuần                  
+        %td Số tiết      
+        %td Thời gian  
+        %td Phòng    
+        %td Môn
+        %td Mã lớp
+      %tbody
+        - @lichdkbs.each_with_index do |lich, index|                  
+          %tr            
+            %td= link_to "T"  + (("0" if lich.tuan < 10) || "") +lich.tuan.to_s, tuan_path(lich.tuan.to_s)
+            %td= link_to TkbGiangVien::THU2[lich.wday] + ", ngày " +lich.ngay_day.localtime.strftime("%d/%m") + ", " + lich.ngay_day.localtime.strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich.lop_mon_hoc_id, lich.ngay_day.localtime.strftime("%Y-%m-%d-%H-%M"))
+            %td= lich.so_tiet_day
+            %td= lich.phong
+            %td= lich.lop_mon_hoc.ten_mon_hoc
+            %td= link_to lich.lop_mon_hoc.ma_lop, lop_mon_hoc_path(lich.lop_mon_hoc.id)
+
+  - if @lichbus and @lichbus.count > 0
+    %h5 Lịch dạy bù
+    %table{:class => "table table-bordered"}
+      %thead    
+        %td Tuần    
+        %td Thời gian 
+        %td Ngày gốc
+        %td Số tiết      
+        %td Phòng    
+        %td Môn
+        %td Mã lớp
+      %tbody
+        - @lichbus.each_with_index do |lich, index|
+          %tr
+            %td= link_to "T"  + (("0" if lich.tuan < 10) || "") +lich.tuan.to_s, tuan_path(lich.tuan.to_s)
+            %td= link_to TkbGiangVien::THU2[lich.wday] + ", ngày " +lich.ngay_day_moi.localtime.strftime("%d/%m") + ", " + lich.ngay_day_moi.localtime.strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich.lop_mon_hoc_id, lich.ngay_day.localtime.strftime("%Y-%m-%d-%H-%M"))
+            %td= TkbGiangVien::THU2[lich.wday] + ", ngày " +lich.ngay_day.localtime.strftime("%d/%m") + ", " + lich.ngay_day.localtime.strftime("%Hh:%M")
+            %td= lich.so_tiet_day
+            %td= lich.phong_moi
+            %td= lich.lop_mon_hoc.ten_mon_hoc
+            %td= link_to lich.lop_mon_hoc.ma_lop, lop_mon_hoc_path(lich.lop_mon_hoc.id)

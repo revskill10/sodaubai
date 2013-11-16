@@ -8,12 +8,9 @@
           %span.icon-bar
         %a.brand{:href => "/" } HPU
         .container.nav-collapse
-          %ul.nav.pull-left#urls                        
-            
+          %ul.nav.pull-left#urls                                    
           %ul.nav.pull-right            
-            %li= link_to 'Đăng xuất', destroy_user_session_path
-              
-
+            %li= link_to 'Đăng xuất', destroy_user_session_path              
 .container-fluid{:style=>"margin-top: 4%;"}  
   .row-fluid    
     = form_tag search_path, :method => :get, :class => "form-search" do    
@@ -34,7 +31,6 @@
       %strong.offset1 Sĩ số:
       %span= @svs.count
   %hr
-
   %h5 Danh sách sinh viên
   %table{:class => "table table-condensed datatable"}
     %thead
@@ -93,7 +89,3 @@
                 %ol         
                   - lich.diem_danhs.vang.each do |dd|
                     %li= link_to(dd.sinh_vien.hovaten + " - #{dd.so_tiet_vang} tiết", sinh_vien_path(dd.sinh_vien.ma_sinh_vien)) + ", "
-
-
-
-  

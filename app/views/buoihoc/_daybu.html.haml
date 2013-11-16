@@ -4,17 +4,19 @@
     %span.label.label-important Đề xuất không được chấp nhận
 
 
-- if can? :quanly, @lich    
+- if can? :quanly, @lich and @lich.status != 3
   %h5 Đăng kí dạy bù:
-  .well.sidebar-nav{:style => "font-size: 12px;"}
-    
-    %h5 Ngày dạy bù (năm-tháng-ngày)
-    #dung.input-append
-      %input{:"data-format" => "yyyy-MM-dd", :type=>"text", :name => "buoihoc[thoigian]"}
-      %span.add-on
-        %i{:"data-time-icon"=>"icon-time",:"data-date-icon"=>"icon-calendar"}
+  .well.sidebar-nav{:style => "font-size: 12px;"}    
+    %span.strong Ngày:
+    %span= select_tag "buoihoc[ngay]", "<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option>".html_safe
     %br
-    %h5 Tiết bắt đầu
+    %span.strong Tháng: 
+    %span= select_tag "buoihoc[thang]", "<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option>".html_safe
+    %br
+    %span.strong Năm:
+    %span= select_tag "buoihoc[nam]", "<option>2013</option><option>2014</option>".html_safe
+    %br
+    %span.strong Tiết bắt đầu
     %span= select_tag "buoihoc[tiet]", "<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option>".html_safe 
     %br    
     %input#giohoc{:type=>"hidden", :name => "lop_mon_hoc_id", :value => @lop_mon_hoc.id }

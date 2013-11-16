@@ -10,7 +10,7 @@
         %a.brand{:href => "/" } HPU
         .container.nav-collapse
           %ul.nav.pull-left#urls           
-            - if can? :manage, @lop_mon_hoc 
+            - if can? :quanly, @lop_mon_hoc 
               %li.active= link_to "Thời khóa biểu", "/calendar"
             %li= link_to "Thăm dò", "http://thamdo.hpu.edu.vn"
           %ul.nav.pull-right            
@@ -25,40 +25,55 @@
 
       %li
         %i
-          %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.localtime.mday}/#{@week.tu_ngay.localtime.mon}, đến ngày #{@week.den_ngay.localtime.mday}/#{@week.den_ngay.localtime.mon}"    
-
-  %table#monitor{:class => "table table-bordered"}
-    %div#loading
-    %thead    
-      %td Tuần    
-      %td Thời gian 
-      %td Số tiết      
-      %td Phòng    
-      %td Môn
-      %td Mã lớp
-    %tbody
-      - if @lich
-        %h5 Lớp chính
-        - @lich.each_with_index do |lich, index|
-          %tr        
-            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to "T"  + (("0" if lich["tuan"] < 10) || "") +lich["tuan"].to_s, tuan_path(lich["tuan"].to_s)
-            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to TkbGiangVien::THU2[lich["thu"]] + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M")), :style => "color: ##{@color_map[DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H:%M")]}", :rel => "tooltip", :'data-original-title' => "#{@info2[DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H:%M")]}"
-            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["so_tiet"]             
-            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["phong"]                 
-            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
-            %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to lich["ma_lop"], lop_mon_hoc_path(lich["lop"])
-      %br
-      
-      - if @lich2
-        %h5 Lớp trợ giảng
-        - @lich2.each_with_index do |lich, index|
-          %tr        
-            %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to "T" + (("0" if lich["tuan"] < 10) || "") + lich["tuan"].to_s, tuan_path(lich["tuan"].to_s)
-            %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to TkbGiangVien::THU2[lich["thu"]] + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M")), :style => "color: ##{@color_map2[DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H:%M")]}", :rel => "tooltip", :'data-original-title' => "#{@info2[DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H:%M")]}"
-            %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["so_tiet"]             
-            %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["phong"]                 
-            %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
-            %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to lich["ma_lop"], lop_mon_hoc_path(lich["lop"])
+          %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.localtime.mday}/#{@week.tu_ngay.localtime.mon}, đến ngày #{@week.den_ngay.localtime.mday}/#{@week.den_ngay.localtime.mon}"
+  .row-fluid
+    .well.sidebar-nav{:style => "font-size: 12px; font-weight: bold;"}
+      Đối với các lớp được phân bổ thừa giờ, bạn có thể bỏ các tiết thừa bằng cách chọn và nhấn cập nhật ở thời khóa biểu
+  = form_tag post_calendar_path, :method => :post, :remote => true do
+    = submit_tag "Cập nhật", :class =>"btn btn-primary",  :data => {disable_with: "Submitting..."}
+    - if @lich
+      %h5 Lớp chính
+      %table#monitor{:class => "table table-bordered"}      
+        %thead    
+          %td Tuần    
+          %td Thời gian 
+          %td Số tiết      
+          %td Phòng    
+          %td Môn
+          %td Mã lớp
+          %td Giờ thừa?
+        %tbody        
+          - @lich.each_with_index do |lich, index|
+            %tr                                    
+              %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to "T"  + (("0" if lich["tuan"] < 10) || "") +lich["tuan"].to_s, tuan_path(lich["tuan"].to_s)
+              %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to TkbGiangVien::THU2[lich["thu"]] + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M")), :style => "color: ##{@color_map[DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H:%M")]}", :rel => "tooltip", :'data-original-title' => "#{@info2[DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H:%M")]}"
+              %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["so_tiet"]             
+              %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["phong"]                 
+              %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
+              %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to lich["ma_lop"], lop_mon_hoc_path(lich["lop"])
+              %td{:style => "background: ##{@color_map["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= check_box_tag "lich[#{lich["lop"]}][]", lich["time"][0], check_thua?(@lichthua, lich["time"][0]), :disabled => check_day_xong?(@lop_xongs, lich["lop"])
+    %br
+    - if @lich2
+      %h5 Lớp trợ giảng
+      %table#monitor{:class => "table table-bordered"}      
+        %thead    
+          %td Tuần    
+          %td Thời gian 
+          %td Số tiết      
+          %td Phòng    
+          %td Môn
+          %td Mã lớp
+          %td Giờ thừa?
+        %tbody            
+          - @lich2.each_with_index do |lich, index|
+            %tr        
+              %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to "T" + (("0" if lich["tuan"] < 10) || "") + lich["tuan"].to_s, tuan_path(lich["tuan"].to_s)
+              %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to TkbGiangVien::THU2[lich["thu"]] + ", ngày " + DateTime.parse(lich["time"][0]).strftime("%d/%m") + ", " + DateTime.parse(lich["time"][0]).strftime("%Hh:%M") , lop_mon_hoc_buoihoc_path(lich["lop"], DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H-%M")), :style => "color: ##{@color_map2[DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H:%M")]}", :rel => "tooltip", :'data-original-title' => "#{@info2[DateTime.parse(lich["time"][0]).strftime("%Y-%m-%d-%H:%M")]}"
+              %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["so_tiet"]             
+              %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["phong"]                 
+              %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
+              %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to lich["ma_lop"], lop_mon_hoc_path(lich["lop"])
+              %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= check_box_tag "lich[#{lich["lop"]}][]", lich["time"][0], check_thua?(@lichthua2, lich["time"][0]), :disabled => check_day_xong?(@lop_xongs2, lich["lop"])
   - if @lichdkbs and @lichdkbs.count > 0
     %h5 Lịch dạy bổ sung
     %table{:class => "table table-bordered"}

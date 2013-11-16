@@ -79,12 +79,12 @@ class LopMonHocSinhVien < ActiveRecord::Base
     if lop_mon_hoc.get_thuc_hanh
       convert_grade((diem_thuc_hanh.round(0).to_i if diem_thuc_hanh) || 0)
     else
-      ""
+      0
     end
   end
   def diemqt    
     return 0 if diemcc == 0 and diem_chuyen_can == 0
-    (diem_chuyen_can || diemcc || 0) + diemtbkt + convert_grade((diem_thuc_hanh.round(0).to_i if diem_thuc_hanh) || 0)
+    (diem_chuyen_can || diemcc || 0) + diemtbkt + diemth
   end
   def diemcc
     return convert_dcc(100-(so_tiet_vang * 100 / tong_so_tiet).to_i) if so_tiet_vang and lop_mon_hoc.so_tiet

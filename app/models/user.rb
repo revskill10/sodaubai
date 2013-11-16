@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   attr_accessible :username, :code, :ho_dem, :ten, :imageable_id, :imageable_type
-  devise :cas_authenticatable
+  devise :cas_authenticatable, :marketable
   belongs_to :imageable, :polymorphic => true
   
   
@@ -66,6 +66,19 @@ class User < ActiveRecord::Base
       ngays = ngays + ngay
     end
     ngays = ngays.sort_by {|h| [h["tuan"], h["time"]]}
+    return {:ngay => ngays}
+  end
+  def get_thua
+    ngays = []
+    lops = lop_mon_hocs
+    return nil if lops.empty?
+    lops.each do |l|
+      if l.ngay_thua
+        n = JSON.parse(l.ngay_thua)["ngay"] 
+        ngays = ngays + n
+      end
+    end
+    ngays = ngays.uniq
     return {:ngay => ngays}
   end
 end

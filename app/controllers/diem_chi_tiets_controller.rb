@@ -6,12 +6,20 @@ class DiemChiTietsController < ApplicationController
     QC.enqueue "GoogleAnalytic.perform", {:category => "Diemchitiet", :action => "index", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|      
       format.html do 
-        if params[:loai] and params[:loai] == "2" then           
-          render :nhom          
-        else          
-          render :index          
+        if params[:loai] and params[:loai] == "2" then        
+          if @lop_mon_hoc.da_day_xong   
+            render :nhom2
+          else
+            render :nhom
+          end
+        else
+          if @lop_mon_hoc.da_day_xong
+            render :index2
+          else
+            render :index
+          end
         end
-      end# index.html.erb        
+      end     
       format.json { head :no_content }
     end
   end
@@ -19,8 +27,8 @@ class DiemChiTietsController < ApplicationController
 
   def create
     # @diem_chi_tiet = DiemChiTiet.new(params[:diem_chi_tiet])
+    authorize! :manage, @lop_mon_hoc
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
-    
     if @loai == 1 or @loai.nil?
       @msvs = params[:msv]
       @svs.each do   |sv|      
@@ -46,10 +54,8 @@ class DiemChiTietsController < ApplicationController
         end
       end
     elsif @loai.to_s == "2"
-      
       @lop_mon_hoc.group_diem = params[:group].to_json
       @lop_mon_hoc.save! rescue "Error ggrouporup diem"
-
       if @lop_mon_hoc.group_diem
         temp = JSON.parse(@lop_mon_hoc.group_diem) 
         @svs.each do |sv|        

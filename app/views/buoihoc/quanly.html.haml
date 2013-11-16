@@ -66,6 +66,9 @@
                 %br
                 %h5 Lí do nghỉ dạy:
                 = text_area_tag "buoihoc[note]", (@lich.note || ""), rows: 10, cols: 25
+                - if @lich.loai == 1 and @lich.status == 6
+                  %br
+                  %span.label.label-important Đề xuất nghỉ dạy đã được gởi đi
                 - if @lich.loai == 1 and @lich.status == 4
                   %br
                   %span.label.label-important Đề xuất nghỉ dạy không được chấp nhận

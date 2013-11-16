@@ -1,0 +1,26 @@
+.row-fluid
+  .span5    
+    .well.sidebar-nav.of{:style => "font-size: 12px;"}    
+      %h4 Thông số lớp môn học                    
+      %span #{@lop_mon_hoc.group} nhóm thực hành, bài tập lớn, đồ án môn học
+      %br
+      %span #{@lop_mon_hoc.so_lan_kt} lần kiểm tra thường xuyên (Tối đa 5 đầu điểm)
+      %br
+    
+      = check_box_tag :thuc_hanh, nil, @lop_mon_hoc.get_thuc_hanh, disabled: true
+      %span Có đầu điểm thực hành? 
+      %br
+      %hr
+        %span Khối lượng giảng dạy theo đề cương chi tiết:
+        %br
+        %span= @lop_mon_hoc.so_tiet_phan_bo
+                                   
+        %br
+        %br Khối lượng được phân bổ theo thời khóa biểu: #{@lop_mon_hoc.khoi_luong_phan_bo}.
+        %br 
+        = check_box_tag :da_day_xong, nil, @lop_mon_hoc.da_day_xong, disabled: true
+        %span 
+          %strong Đã dạy xong          
+  %hr
+  %table#dssv{:class => "table datatable"}    
+    = render 'lop_mon_hoc_sinh_viens/table2'

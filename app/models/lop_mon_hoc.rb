@@ -2,7 +2,7 @@ class LopMonHoc < ActiveRecord::Base
   include DestroyedAt
   include PublicActivity::Model
   tracked owner: Proc.new{ |controller, model| controller.current_user }
-  attr_accessible :hoc_ky, :ma_giang_vien, :ma_lop, :ma_mon_hoc, :nam_hoc, :ngay_bat_dau, :ngay_ket_thuc, :phong_hoc, :so_tiet, :so_tuan_hoc, :ten_giang_vien, :ten_mon_hoc, :dssv, :group, :user_id, :so_lan_kt, :thuc_hanh, :so_tiet_phan_bo
+  attr_accessible :hoc_ky, :ma_giang_vien, :ma_lop, :ma_mon_hoc, :nam_hoc, :ngay_bat_dau, :ngay_ket_thuc, :phong_hoc, :so_tiet, :so_tuan_hoc, :ten_giang_vien, :ten_mon_hoc, :dssv, :group, :user_id, :so_lan_kt, :thuc_hanh, :so_tiet_phan_bo, :da_day_xong
 
 
   # Associations
@@ -62,13 +62,14 @@ class LopMonHoc < ActiveRecord::Base
   def to_s
     "#{ma_lop} #{ten_mon_hoc} #{ten_giang_vien}"
   end
+  
   def sotuan
     return 0 if lich_trinh_giang_days.count == 0
     lich_trinh_giang_days.pluck(:tuan).uniq.count
   end
   def getnoidung(tuan)
     lich_trinh_giang_days.where(tuan: tuan).pluck(:noi_dung_day).join("\n")
-  end
+  end  
   def convert_trucnhat
     result = []
     if trucnhat 

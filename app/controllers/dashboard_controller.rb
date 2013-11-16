@@ -34,8 +34,31 @@ class DashboardController < ApplicationController
     @lichbus += @lichbosungs.select {|l| l.loai == 2 and l.status == 3} if @lichbosungs
     @lichdkbs += @lichbosungs.select {|l| l.loai == 5 and l.status == 3} if @lichbosungs
     @lichbus += @lichbosungs2.select {|l| l.loai == 2 and l.status == 3} if @lichbosungs2
-    @lichdkbs += @lichbosungs2.select {|l| l.loai == 5 and l.status == 3} if @lichbosungs2    
+    @lichdkbs += @lichbosungs2.select {|l| l.loai == 5 and l.status == 3} if @lichbosungs2
+
     QC.enqueue "GoogleAnalytic.perform", {:category => "Dashboard", :action => "calendar", :label => "#{current_user.username}", :value => "1"}.to_json
+    respond_to do |format|
+      if @type.is_a?(GiangVien) or current_user.role == 'trogiang'
+        format.html { render :calendar }
+      else
+        format.html { render :calendar_sv }
+      end
+    end
+  end
+  def post_calendar
+    if @type.is_a?(GiangVien) or current_user.role == 'trogiang'
+      lops = params[:lich]
+      unless lops.empty?
+        lops.each do |k,v|
+          lop = LopMonHoc.find(k)
+          if lop 
+            authorize! :manage, lop
+            lop.ngay_thua = {:ngay => v}.to_json
+            lop.save!
+          end
+        end
+      end
+    end
   end
   def search
     @type = params[:type]
@@ -82,9 +105,9 @@ class DashboardController < ApplicationController
     @type = current_user.imageable
     if @type        	
     	@current_lops = @type.lop_mon_hocs
-      
+      @lop_xongs = @current_lops.where("da_day_xong = true").pluck(:id)
       @lich = @type.get_days[:ngay].uniq if @type.get_days
-
+      @lichthua = @type.get_thua[:ngay].uniq if @type.get_thua
       @lichbosungs = @type.lich_trinh_giang_days.select {|l| [1,2,3,4,5].include?(l.loai)}
 
       generator = ColorGenerator.new saturation: 0.3, lightness: 0.75
@@ -112,9 +135,10 @@ class DashboardController < ApplicationController
 
     
     @current_lops2 = current_user.lop_mon_hocs
+    @lop_xongs2 = @current_lops2.where("da_day_xong = true").pluck(:id)
     @lichbosungs2 = current_user.lich_trinh_giang_days.select {|l| [1,2,3,4,5].include?(l.loai)}
     @lich2 = current_user.get_days[:ngay].uniq if current_user.get_days
-    
+    @lichthua2 = current_user.get_thua[:ngay].uniq if current_user.get_thua
     generator = ColorGenerator.new saturation: 0.2, lightness: 0.8
     @color2 = [] 
     20.times do |i|

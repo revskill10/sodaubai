@@ -14,6 +14,7 @@ ActiveAdmin.register LopMonHoc do
       f.input :ten_mon_hoc, :label => "Tên môn học"  
       f.input :ma_giang_vien, :label => "Mã giảng viên"            
       f.input :ten_giang_vien, :label => "Tên giảng viên"  
+      f.input :user_id, :label => "Trợ giảng", :as => :select, :collection => User.all
     end
     f.actions
   end  
