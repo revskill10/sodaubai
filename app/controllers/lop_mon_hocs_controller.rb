@@ -5,7 +5,56 @@ class LopMonHocsController < ApplicationController
   include DashboardHelper
   include LopMonHocsHelper  
   before_filter :authenticate_user!
-  before_filter :load_lop, :except => :index  
+  before_filter :load_lop, :except => :index
+
+  def update_hoten
+    authorize! :manage, @lop_mon_hoc
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
+    if @svs and @svs.count > 0
+      @svs.each do |lsv|
+        sv = lsv.sinh_vien if lsv        
+        if sv 
+          lsv.ho = sv.ho
+          lsv.ho_dem = sv.ho_dem
+          lsv.ten = sv.ten
+          lsv.save!
+        end
+      end
+    end
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
+    respond_to do |format|
+      format.js
+    end
+  end  
+  def update_diemqt
+    authorize! :manage, @lop_mon_hoc
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
+    if @svs and @svs.count > 0
+      @svs.each do |sv|
+        sv.diem_qua_trinh = sv.diemqt
+        sv.save!
+      end
+    end
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
+    respond_to do |format|
+      format.js
+    end
+  end  
+  def update_diemcc
+    authorize! :manage, @lop_mon_hoc
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
+    if @svs and @svs.count > 0
+      @svs.each do |sv|
+        sv.diem_chuyen_can = sv.diemcc
+        sv.diem_qua_trinh = sv.diemqt
+        sv.save!
+      end
+    end
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
+    respond_to do |format|
+      format.js
+    end
+  end  
   def tinhhinh
     authorize! :report, @lop_mon_hoc  
     @ld = @lop_mon_hoc.decorate    

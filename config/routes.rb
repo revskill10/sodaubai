@@ -46,9 +46,12 @@ Trytest::Application.routes.draw do
   resources :mon_hocs
   resources :sinh_viens
   resources :phongs
-  resources :lop_mon_hocs do       
+  resources :lop_mon_hocs do           
     resources :tkb_giang_viens      
     member do 
+      post '/update_hoten' => 'lop_mon_hocs#update_hoten'
+      post '/update_diemqt' => 'lop_mon_hocs#update_diemqt'
+      post '/update_diemcc' => 'lop_mon_hocs#update_diemcc'
       get '/calendar' => 'lop_mon_hocs#calendar'        
       get '/search' => 'lop_mon_hocs#search'
       get '/report' => 'lop_mon_hocs#report'
@@ -212,3 +215,4 @@ Trytest::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 end
+

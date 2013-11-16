@@ -24,11 +24,11 @@ module DashboardHelper
 	  (hex_color.scan(/../).map {|color| color.hex}).sum
 	end
 	def check_thua?(co, t)
-		return false unless co
+		return false if co.nil?
 		co.include?(t)
 	end
 	def check_day_xong?(co, l)
-		return false unless co
+		return false if co.nil?
 		co.include?(l)
 	end
 end
