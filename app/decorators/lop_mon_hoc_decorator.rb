@@ -242,7 +242,7 @@ inner join (select tuan
 
 replace(string_agg(to_char(ngay_day,'DD/MM/YYYY') ||
   case when ngay_day_moi is not null then
-     '(' || to_char(ngay_day_moi,'DD/MM/YYYY') || ')'
+     '\r\n (bù' || to_char(ngay_day_moi,'DD/MM/YYYY') || ')'
   else
     ''
   end
