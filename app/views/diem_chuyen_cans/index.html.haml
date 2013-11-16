@@ -34,6 +34,8 @@
                     %li= link_to "Quản lý lớp học", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id)
                   %li= link_to "Thời khóa biểu", lop_mon_hoc_path(@lop_mon_hoc.id)+'/calendar'
             %ul.nav.pull-right              
+              %li=
+                %a.btn{:href => "#myModal", :role => "button", :"data-toggle" => "modal"} Trợ giúp
               %li= link_to 'Đăng xuất',destroy_user_session_path                          
               
   .container-fluid{:style=>"margin-top: 100px;"}  
