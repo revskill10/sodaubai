@@ -11,11 +11,12 @@ class DiemChuyenCansController < ApplicationController
       format.html do 
         if @lop_mon_hoc.da_day_xong
           render :index2
-        end
-        if can? :manage, @lop_mon_hoc
-          render :index
-        elsif can? :read, @lop_mon_hoc
-          render :index_sv
+        else
+          if can? :manage, @lop_mon_hoc
+            render :index
+          elsif can? :read, @lop_mon_hoc
+            render :index_sv
+          end
         end
       end
     end   
