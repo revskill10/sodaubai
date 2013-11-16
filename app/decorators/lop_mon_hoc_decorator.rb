@@ -250,7 +250,7 @@ replace(string_agg(to_char(ngay_day,'DD/MM/YYYY') ||
 
 as ngayday
 
-from (select * from t1.lich_trinh_giang_days order by tuan, ngay_day_moi, ngay_day) as tt
+from (select * from t1.lich_trinh_giang_days order by tuan, case ngay_day_moi is null when true then ngay_day else ngay_day_moi end) as tt
 where lop_mon_hoc_id=#{object.id}
 and noi_dung_day is not null
 and destroyed_at is null
