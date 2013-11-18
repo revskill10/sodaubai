@@ -105,7 +105,7 @@ class DashboardController < ApplicationController
     @type = current_user.imageable
     if @type        	
     	@current_lops = @type.lop_mon_hocs
-      @lop_xongs = @current_lops.select {|t| t.da_day_xong == true}.map {|k| k and k.id}
+      @lop_xongs = @current_lops.select {|t| t and t.da_day_xong == true}.map {|k| k and k.id}
       @lich = @type.get_days[:ngay].uniq if @type.get_days
       @lichthua = []
       if @current_lops.count > 0
@@ -143,7 +143,7 @@ class DashboardController < ApplicationController
 
     
     @current_lops2 = current_user.lop_mon_hocs
-    @lop_xongs2 = @current_lops2.select {|t| t.da_day_xong == true}.map {|k| k and k.id}
+    @lop_xongs2 = @current_lops2.select {|t| t and t.da_day_xong == true}.map {|k| k and k.id}
     @lichbosungs2 = current_user.lich_trinh_giang_days.select {|l| [1,2,3,4,5].include?(l.loai)}
     @lich2 = current_user.get_days[:ngay].uniq if current_user.get_days
     #@lichthua2 = current_user.get_thua[:ngay].uniq if current_user.get_thua
