@@ -1,0 +1,5 @@
+$('.activities').append('#{escape_javascript(render partial: "activity", :locals => { :activities => @activities })}');
+$('a.load-more-posts').attr('href', '#{activity_path page: @activities.next_page}');
+ 
+- unless @activities.next_page
+  $('a.load-more-posts').remove();

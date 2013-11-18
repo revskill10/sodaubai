@@ -855,6 +855,22 @@ namespace :hpu do
       lop.save!
     end
   end
+
+  task :capnhatghichudiemcc => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    lsvs = LopMonHocSinhVien.all
+    if lsvs and lsvs.count > 0
+      lsvs.each do |sv|
+        if sv.diem_chuyen_can == 0 
+          sv.note = "TC"
+        else
+          sv.note = nil
+        end
+        sv.save!
+      end
+    end
+  end
 end
 
 def titleize(str)

@@ -32,6 +32,11 @@ class LopMonHocsController < ApplicationController
     if @svs and @svs.count > 0
       @svs.each do |sv|
         sv.diem_qua_trinh = sv.diemqt
+        if sv.diem_chuyen_can == 0 
+          sv.note = "TC"
+        else
+          sv.note = nil
+        end
         sv.save!
       end
     end
@@ -47,6 +52,11 @@ class LopMonHocsController < ApplicationController
       @svs.each do |sv|
         sv.diem_chuyen_can = sv.diemcc
         sv.diem_qua_trinh = sv.diemqt
+        if sv.diem_chuyen_can == 0 
+          sv.note = "TC"
+        else
+          sv.note = nil
+        end
         sv.save!
       end
     end

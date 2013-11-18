@@ -25,7 +25,7 @@ Trytest::Application.routes.draw do
   match '/rate' => 'rater#create', :as => 'rate'
 
   get "dashboard/index"
-  match '/activity' => "dashboard#activity"
+  match '/activity' => "dashboard#activity", :as => "activity"
   match '/calendar' => 'dashboard#calendar', :as => "calendar"
   match '/post_calendar' => 'dashboard#post_calendar', :as => "post_calendar"
   match 'tuan/:id' => 'dashboard#show', :as => "tuan"

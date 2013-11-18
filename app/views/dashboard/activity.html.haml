@@ -43,6 +43,6 @@
           %span= "Tuần #{@current_week}: Từ ngày #{@week.tu_ngay.localtime.mday}/#{@week.tu_ngay.localtime.mon}, đến ngày #{@week.den_ngay.localtime.mday}/#{@week.den_ngay.localtime.mon}"     
   
     %h5 Nhật ký sử dụng hệ thống
-    %ul    
-      = render_activities(@activities)
-      = paginate @activities
+    %ul.activities    
+      = render :partial => 'activity', :locals => { :activities => @activities }
+      = paginate @activities      
