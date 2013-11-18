@@ -404,6 +404,17 @@ namespace :hpu do
         sv.ho_dem = h[1..-1].join(" ")        
         sv.save!        
       end
+      if sv and sv.lop_hc.nil?
+        sv.lop_hc = (l[:lop].strip.upcase if  l[:lop] and l[:lop].is_a?(String) )
+        sv.save!
+        lsvs = sv.lop_mon_hoc_sinh_viens
+        if lsvs.count > 0 then
+          lsvs.each do |lsv|          
+            lsv.ngay_sinh = (l[:ngay_sinh].new_offset(Rational(7, 24)) if l[:ngay_sinh])                
+            lsv.save!        
+          end
+        end
+      end
     end
   end  
   task :update_ho_sinhvien => :environment do 
