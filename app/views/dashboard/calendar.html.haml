@@ -73,7 +73,7 @@
               %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["phong"]                 
               %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= lich["ten_mon_hoc"]
               %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= link_to lich["ma_lop"], lop_mon_hoc_path(lich["lop"])
-              %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= check_box_tag "lich[#{lich["lop"]}][]", lich["time"][0], @lop_mon_hoc.thua?(lich["time"][0]), :disabled => check_day_xong?(@lop_xongs2, lich["lop"])
+              %td{:style => "background: ##{@color_map2["#{lich["ma_lop"]}-#{lich["ma_mon_hoc"]}"]}" }= check_box_tag "lich[#{lich["lop"]}][]", lich["time"][0], check_thua?(@lichthua2, lich["time"][0]), :disabled => check_day_xong?(@lop_xongs2, lich["lop"])
   - if @lichdkbs and @lichdkbs.count > 0
     %h5 Lịch dạy bổ sung
     %table{:class => "table table-bordered"}
