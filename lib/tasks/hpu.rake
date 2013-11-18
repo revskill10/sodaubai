@@ -862,6 +862,7 @@ namespace :hpu do
     lsvs = LopMonHocSinhVien.all
     if lsvs and lsvs.count > 0
       lsvs.each do |sv|
+        sv.diem_chuyen_can = sv.diemcc
         sv.diem_qua_trinh = sv.diemqt
         if sv.diem_chuyen_can == 0 
           sv.note = "TC"
