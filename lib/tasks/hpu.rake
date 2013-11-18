@@ -859,17 +859,22 @@ namespace :hpu do
   task :capnhatghichudiemcc => :environment do 
     tenant = Tenant.last
     PgTools.set_search_path tenant.scheme, false
-    lsvs = LopMonHocSinhVien.all
-    if lsvs and lsvs.count > 0
-      lsvs.each do |sv|
-        sv.diem_chuyen_can = sv.diemcc
-        sv.diem_qua_trinh = sv.diemqt
-        if sv.diem_chuyen_can == 0 
-          sv.note = "TC"
-        else
-          sv.note = nil
+    lops = LopMonHoc.all
+    if lops and lops.count > 0
+      lops.each do |lop|
+        lsvs = lop.lop_mon_hoc_sinh_viens
+        if lsvs and lsvs.count > 0
+          lsvs.each do |sv|
+            sv.diem_chuyen_can = sv.diemcc
+            sv.diem_qua_trinh = sv.diemqt
+            if sv.diem_chuyen_can == 0 
+              sv.note = "TC"
+            else
+              sv.note = nil
+            end
+            sv.save!
+          end
         end
-        sv.save!
       end
     end
   end
