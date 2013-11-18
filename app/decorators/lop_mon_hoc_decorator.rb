@@ -417,11 +417,11 @@ on tt1.stt = tt2.tuan ) as ttt
           item.lop_ghep.to_s
         ]            
       end            
-      tis2 = [nienche[0..27]] + (nienche[27..-1]||[]).each_slice(35).to_a                          
+      tis2 = [nienche[0..27]] + (nienche[28..-1]||[]).each_slice(35).to_a                          
     end
 
     if tinchi.count > 0                
-      tis = [tinchi[0..27]] + (tinchi[27..-1]||[]).each_slice(35).to_a          
+      tis = [tinchi[0..27]] + (tinchi[28..-1]||[]).each_slice(35).to_a          
     end
               
         

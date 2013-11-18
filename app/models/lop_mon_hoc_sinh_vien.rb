@@ -3,7 +3,7 @@ class LopMonHocSinhVien < ActiveRecord::Base
   
   
 
-  default_scope order('ten, ho_dem, ho')
+  default_scope order('ten, ho_dem, ho, ngay_sinh')
   default_scope :conditions => 'status is null or status = false'
   
 
