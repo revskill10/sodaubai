@@ -37,7 +37,7 @@ COALESCE("T1",0) + COALESCE("T2",0)+ COALESCE("T3",0)+ COALESCE("T4",0)
     sv1.lan1 as lan1, sv1.lan2 as lan2, sv1.lan3 as lan3, sv1.diem_goc_tbkt as diemgoctbkt, sv1.diem_tbkt as diemtbkt,  sv1.diem_qua_trinh as diemquatrinh,
     sv1.note as note
     FROM crosstab(
-      'select dd.ma_sinh_vien, l.tuan, sum(so_tiet_vang) as so_vang
+      'select dd.ma_sinh_vien, l.tuan, sum(CASE WHEN phep THEN 0 ELSE so_tiet_vang END ) as so_vang
     from t1.diem_danhs dd
     inner join t1.lich_trinh_giang_days l on l.id = dd.lich_trinh_giang_day_id
     where l.lop_mon_hoc_id = #{object.id}
@@ -242,7 +242,7 @@ inner join (select tuan
 
 replace(string_agg(to_char(ngay_day,'DD/MM/YYYY') ||
   case when ngay_day_moi is not null then
-     '\r\n (bù ' || to_char(ngay_day_moi,'DD/MM/YYYY') || ')'
+     '\r\n (|| to_char(ngay_day_moi,'DD/MM/YYYY') || ')'
   else
     ''
   end

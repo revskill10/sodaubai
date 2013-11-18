@@ -53,6 +53,7 @@
       = link_to "Xuất bảng theo dõi tình hình môn học", lop_mon_hoc_path(@lop_mon_hoc) + "/tinhhinh.pdf", :class => "btn btn-primary"
       = link_to "Xuất lịch giảng dạy", lop_mon_hoc_path(@lop_mon_hoc) + "/lichtrinh.pdf", :class => "btn btn-primary"
       = link_to "Xuất phiếu điểm quá trình", lop_mon_hoc_path(@lop_mon_hoc) + "/phieudiem.zip", :class => "btn btn-primary"
+  - if can? :manage, @lop_mon_hoc
     .well.sidebar-nav{:style => "font-size: 12px;"}
       = form_tag lop_mon_hoc_path(@lop_mon_hoc.id) + "/update_hoten", :method => :post, :remote => true do
         = submit_tag "Cập nhật họ tên sinh viên", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."}

@@ -62,7 +62,12 @@ class LopMonHoc < ActiveRecord::Base
   def to_s
     "#{ma_lop} #{ten_mon_hoc} #{ten_giang_vien}"
   end
-  
+  def thua?(t)
+    thua = JSON.parse(ngay_thua)
+    return false if thua.nil?
+    return true if thua.include?(t)
+    return false
+  end
   def sotuan
     return 0 if lich_trinh_giang_days.count == 0
     lich_trinh_giang_days.pluck(:tuan).uniq.count

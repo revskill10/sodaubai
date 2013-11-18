@@ -107,7 +107,15 @@ class DashboardController < ApplicationController
     	@current_lops = @type.lop_mon_hocs
       @lop_xongs = @current_lops.select {|t| t.da_day_xong == true}.map {|k| k and k.id}
       @lich = @type.get_days[:ngay].uniq if @type.get_days
-      @lichthua = current_user.get_thua[:ngay].uniq if current_user.get_thua and @type.is_a?(GiangVien)
+      @lichthua = []
+      if @current_lops.count > 0
+        @current_lops.each do |lop|
+          if lop.ngay_thua
+            thua = JSON.parse(lop.ngay_thua)
+            @lichthua += thua["ngay"] if thua and thua["ngay"]
+          end
+        end
+      end
       @lichbosungs = @type.lich_trinh_giang_days.select {|l| [1,2,3,4,5].include?(l.loai)}
 
       generator = ColorGenerator.new saturation: 0.3, lightness: 0.75
@@ -138,7 +146,17 @@ class DashboardController < ApplicationController
     @lop_xongs2 = @current_lops2.select {|t| t.da_day_xong == true}.map {|k| k and k.id}
     @lichbosungs2 = current_user.lich_trinh_giang_days.select {|l| [1,2,3,4,5].include?(l.loai)}
     @lich2 = current_user.get_days[:ngay].uniq if current_user.get_days
-    @lichthua2 = current_user.get_thua[:ngay].uniq if current_user.get_thua
+    #@lichthua2 = current_user.get_thua[:ngay].uniq if current_user.get_thua
+    @lichthua2 = []
+    if @current_lops2.count > 0
+      @current_lops2.each do |lop|
+        if lop.ngay_thua
+          thua = JSON.parse(lop.ngay_thua)
+          @lichthua2 += thua["ngay"] if thua and thua["ngay"]
+        end
+      end
+    end
+
     generator = ColorGenerator.new saturation: 0.2, lightness: 0.8
     @color2 = [] 
     20.times do |i|

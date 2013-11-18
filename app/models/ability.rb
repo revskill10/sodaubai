@@ -16,7 +16,7 @@ class Ability
         end
         can :quanly, LopMonHoc do |lop|
           (user.code == lop.ma_giang_vien or user.id == lop.user_id)
-        end                
+        end
         can :manage, LopMonHoc do |lop|
           (user.code == lop.ma_giang_vien or user.id == lop.user_id) and lop.da_day_xong != true
         end        

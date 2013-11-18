@@ -37,7 +37,7 @@ class LopMonHocSinhViensController < ApplicationController
     @group.times do |g|
       @groups_arrays[(g+1).to_s] = "Nhóm #{g+1}"
     end    
-    Resque.enqueue(GoogleAnalytic, {:category => "LopMonHocSinhVien", :action => "Index", :label => "#{current_user.username}", :value => "1"}.to_json)
+    #Resque.enqueue(GoogleAnalytic, {:category => "LopMonHocSinhVien", :action => "Index", :label => "#{current_user.username}", :value => "1"}.to_json)
     QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHocSinhVien", :action => "index", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       if @lop_mon_hoc.da_day_xong        

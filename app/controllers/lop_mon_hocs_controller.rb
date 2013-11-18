@@ -107,7 +107,7 @@ class LopMonHocsController < ApplicationController
 
   end
   def show
-    authorize! :read, @lop_mon_hoc
+    authorize! :quanly, @lop_mon_hoc
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     
     @lichs = @lop_mon_hoc.lich_trinh_giang_days.where('char_length(noi_dung_day) > 0').order('ngay_day, tuan')    
@@ -127,6 +127,7 @@ class LopMonHocsController < ApplicationController
     end
   end
   def tuan
+    authorize! :quanly, @lop_mon_hoc
     @lop_mon_hoc = LopMonHoc.find(params[:id])
     @lichlop = @lop_mon_hoc.get_days
     @lich = @lichlop.select {|l| l["tuan"] == params[:tuan_id].to_i}.uniq if @lichlop
@@ -198,7 +199,7 @@ class LopMonHocsController < ApplicationController
     end
   end  
   def calendar
-    authorize! :read, @lop_mon_hoc
+    authorize! :quanly, @lop_mon_hoc
     @lich = @lop_mon_hoc.get_days    
     QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "calendar", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|          
