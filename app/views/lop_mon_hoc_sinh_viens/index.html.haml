@@ -75,7 +75,7 @@
               %strong Đã dạy xong (Bạn không thể cập nhật thông số và thông tin điểm danh lớp môn này nữa)
             %br
             #formdkbs 
-              - if @lop_mon_hoc.so_tiet_phan_bo > @lop_mon_hoc.khoi_luong_phan_bo and @lop_mon_hoc.bosung != true
+              - if @lop_mon_hoc.da_day_xong != true
                 = render 'formdkbs'            
             %br          
             %br

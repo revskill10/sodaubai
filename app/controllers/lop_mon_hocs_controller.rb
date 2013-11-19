@@ -218,12 +218,12 @@ class LopMonHocsController < ApplicationController
   end
   def showdkbs
     authorize! :manage, @lop_mon_hoc
-    @sotietbs = @lop_mon_hoc.so_tiet_phan_bo - @lop_mon_hoc.khoi_luong_phan_bo
+    #@sotietbs = @lop_mon_hoc.so_tiet_phan_bo - @lop_mon_hoc.khoi_luong_phan_bo
 
-    if @lop_mon_hoc.da_duyet_bo_sung == true
-      @sobuoibs = @lop_mon_hoc.so_buoi_bo_sung
-    end        
-    QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "showdkbs", :label => "#{current_user.username}", :value => "1"}.to_json
+    #if @lop_mon_hoc.da_duyet_bo_sung == true
+    #  @sobuoibs = @lop_mon_hoc.so_buoi_bo_sung
+    #end        
+    #QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "showdkbs", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|
       format.js
     end
@@ -231,12 +231,12 @@ class LopMonHocsController < ApplicationController
   def dkbs
     authorize! :manage, @lop_mon_hoc
     @sobuoibs = params[:sobuoibs].to_i
-    @sotietbs = params[:sotietbs].to_f.round(0).to_i
+    #@sotietbs = params[:sotietbs].to_f.round(0).to_i
 
-    if @sobuoibs > 0 and @sobuoibs <= @sotietbs
+    if @sobuoibs > 0
       #@lop_mon_hoc.bosung = true
-      @lop_mon_hoc.da_duyet_bo_sung = false
-      @lop_mon_hoc.so_tiet_bo_sung = @sotietbs
+      #@lop_mon_hoc.da_duyet_bo_sung = false
+      #@lop_mon_hoc.so_tiet_bo_sung = @sotietbs
       @lop_mon_hoc.so_buoi_bo_sung = @sobuoibs
       @lop_mon_hoc.save!
     else 
@@ -250,23 +250,18 @@ class LopMonHocsController < ApplicationController
   def qldkbs    
     authorize! :manage, @lop_mon_hoc
     #begin
-    @dkbs = params[:dkbs]
-    if @dkbs and @dkbs.keys.count > 0 and !(@lop_mon_hoc.bosung == true)
-      sotiet = 0
-      @dkbs.each do |k,v|
-        sotiet += v["sotiet"].to_i
-      end
-      if @lop_mon_hoc.so_tiet_bo_sung.round(0).to_i != sotiet then @error = 1 end        
-    end
-    if @dkbs and @dkbs.keys.count > 0 and !(@lop_mon_hoc.bosung == true) and @error.nil?     
+    @dkbs = params[:dkbs]    
+    if @dkbs and @dkbs.keys.count > 0
       @dkbs.each do |k,v|
         @day = v["day"].split("/").to_a
         @sotiet = v["sotiet"].to_i
+        @phong = v["phong"]
         @tietbatdau = LichTrinhGiangDay::TIET[v[:tietbatdau].to_i]
-        ngay_day = DateTime.new(@day[2].to_i, @day[1].to_i, @day[0].to_i, @tietbatdau[0], @tietbatdau[1]).change(:offset => Rational(7,24))
-        @lop_mon_hoc.lich_trinh_giang_days.create!(ngay_day: ngay_day, so_tiet_day: @sotiet, loai: 5, status: 6)        
+        ngay_day = DateTime.new(@day[2].to_i, @day[1].to_i, @day[0].to_i, @tietbatdau[0], @tietbatdau[1]).change(:offset => Rational(7,24))        
+        @lop_mon_hoc.lich_trinh_giang_days.create!(ngay_day: ngay_day, so_tiet_day: @sotiet, phong_moi: @phong, loai: 5, status: 6) if @sotiet > 0        
       end    
-      @lop_mon_hoc.bosung = true
+      #@lop_mon_hoc.bosung = true      
+      @lop_mon_hoc.so_tiet_bo_sung = 0
       @lop_mon_hoc.save!
       @lichdkbs = @lop_mon_hoc.lich_trinh_giang_days.where(loai: 5)
     end      

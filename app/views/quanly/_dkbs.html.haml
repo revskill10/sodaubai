@@ -17,6 +17,6 @@
           %td= lich.lop_mon_hoc.ma_lop
           %td= lich.lop_mon_hoc.ten_mon_hoc
           %td= lich.lop_mon_hoc.giang_vien
-          %td= text_field_tag "dkbs[#{lich.id}][phong]", ""
+          %td= text_field_tag "dkbs[#{lich.id}][phong]", lich.phong_moi
           %td= radio_button_tag "dkbs[#{lich.id}][qd]", true, false
           %td= radio_button_tag "dkbs[#{lich.id}][qd]", false, false

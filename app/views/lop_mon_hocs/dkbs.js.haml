@@ -1,6 +1,4 @@
-- if @sobuoibs > @sotietbs
-  alert("Số buổi bổ sung không hợp lệ");
-- else
-  s = $("#qldkbs");
-  s.html("");
-  s.html("#{escape_javascript(render 'qldkbs')}");
+$("#sobuoibs").prop('disabled', true);
+s = $("#qldkbs");
+s.html("");
+s.html("#{escape_javascript(render 'qldkbs')}");
