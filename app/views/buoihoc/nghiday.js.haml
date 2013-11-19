@@ -1,9 +1,3 @@
-- if @lich.loai == 1
-  $("#daybu").html("#{escape_javascript(render :partial => 'daybu')}");
+- if @lich.loai == 1  
   $("input#buoihoc_nghiday").val("1");  
-  :plain
-    $('#datetimepicker1').datetimepicker({
-    	pickSeconds: false,
-    	startDate: new Date(2013, 8, 12),
-      endDate: new Date(2014, 8, 12)
-    });
+  alert("Đăng ký nghỉ dạy đang chờ xét duyệt");

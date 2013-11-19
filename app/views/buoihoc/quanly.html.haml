@@ -74,14 +74,7 @@
                   %span.label.label-important Đề xuất nghỉ dạy không được chấp nhận
                 - if @lich.loai == 1 and @lich.status == 3
                   %br
-                  %span.label.label-success Yêu cầu nghỉ dạy đã được chấp nhận. Bạn có thể đề xuất giờ dạy bù ở phần kế bên.
-            
-          .span5.offset1
-            = form_tag daybu_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do  
-              %input{:type => "hidden", :name => "buoihoc[nghiday]", :id => "buoihoc_nghiday"}
-              #daybu
-                - if @lich.loai == 1 or @lich.loai == 2
-                  = render 'daybu'
+                  %span.label.label-success Yêu cầu nghỉ dạy đã được chấp nhận. Bạn có thể đề xuất giờ dạy bù ở phần quản lý lớp môn học.                    
                 
                       
     .tab-pane#daythay
