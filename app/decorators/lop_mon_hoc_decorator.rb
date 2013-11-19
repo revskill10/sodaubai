@@ -125,8 +125,8 @@ from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=#{object.id} and ma_sinh_vie
     m.each_with_index do |m1, index|
     pdf.font "Arial"  
     items1 = m1.map {|i| [i["stt"], i["msv"], i["hovaten"], i["ngaysinh"]]}        
-    mtable01 = pdf.make_table [["Stt", "Mã SV", "Họ và tên", "Ngày sinh"]], :width => 210, :cell_style => {:align => :center, :valign => :center, :size => 7.5, :height => 50}, :column_widths => {1 => 52, 2 => 85, 3 => 50}
-    mtable02 = pdf.make_table items1, :width => 210, :cell_style => {:align => :center, :valign => :center, :size => 7.5, :height => 20}, :column_widths => {1 => 52, 2 => 85, 3 => 50} do 
+    mtable01 = pdf.make_table [["Stt", "Mã SV", "Họ và tên", "Ngày sinh"]], :width => 240, :cell_style => {:align => :center, :valign => :center, :size => 7.5, :height => 50}, :column_widths => {1 => 52, 2 => 115, 3 => 50}
+    mtable02 = pdf.make_table items1, :width => 240, :cell_style => {:align => :center, :valign => :center, :size => 7.5, :height => 20}, :column_widths => {1 => 52, 2 => 115, 3 => 50} do 
       (0..items1.length).each do |l|
         row(l).columns(2).align = :left
       end
@@ -136,11 +136,11 @@ from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=#{object.id} and ma_sinh_vie
       [item["T1"],item["T2"],item["T3"],item["T4"],item["T5"],item["T6"],item["T7"],item["T8"],item["T9"],item["T10"],item["T11"],item["T12"],item["T13"],item["T14"],item["T15"],item["T16"],
         item["tonggiovang"], item["diemchuyencan"]]}
     items3 = @res.map {|item| [item["lan1"], item["lan2"], item["lan3"], item["diemtbkt"]]}        
-    mytable0 = pdf.make_table [["Điểm danh"]], :width => 380, :cell_style => {:align => :center, :valign => :center, :size => 7.5, :height => 20, :font_style => :bold}
-    mytable01 = pdf.make_table [["T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11","T12","T13","T14","T15","T16","Tổng giờ vắng", "Điểm chuyên cần"]] + items2, :width => 380, :cell_style => {:align => :center, :valign => :center, :size => 7, :height => 20}, :header => true do 
+    mytable0 = pdf.make_table [["Điểm danh"]], :width => 370, :cell_style => {:align => :center, :valign => :center, :size => 7.5, :height => 20, :font_style => :bold}
+    mytable01 = pdf.make_table [["T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11","T12","T13","T14","T15","T16","Tổng giờ vắng", "Điểm chuyên cần"]] + items2, :width => 370, :cell_style => {:align => :center, :valign => :center, :size => 7, :height => 20}, :header => true do 
       (0..items2.length).each do |l|            
-        row(l).columns(16).width = 30
-        row(l).columns(17).width = 30
+        row(l).columns(16).width = 25
+        row(l).columns(17).width = 25
       end
       row(0).columns(16).size = 5
       row(0).columns(17).size = 5                    
@@ -166,7 +166,7 @@ from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=#{object.id} and ma_sinh_vie
     end
     
     items5 = m1.map {|i| [i["diemquatrinh"], i["note"]]}        
-    mtable31 = pdf.make_table [["Tổng điểm QT", "Ghi chú"]] + items5, :cell_style => {:align => :center, :valign => :center, :size => 7, :height => 20}, :column_widths => {0 => 30, 1 => 49} do           
+    mtable31 = pdf.make_table [["Tổng điểm QT", "Ghi chú"]] + items5, :cell_style => {:align => :center, :valign => :center, :size => 7, :height => 20}, :column_widths => {0 => 20, 1 => 39} do           
         (0..1).each do |i|
           row(0).columns(i).height = 50
           row(0).columns(i).size = 5        
