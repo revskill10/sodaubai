@@ -86,8 +86,13 @@ class LopMonHocSinhVien < ActiveRecord::Base
     return 0 if diemcc == 0 and diem_chuyen_can == 0
     (diem_chuyen_can || diemcc || 0) + diemtbkt + diemth
   end
+  def percent
+    sovang = so_tiet_vang - so_vang_co_phep
+    sv = (tong_so_tiet - sovang) / tong_so_tiet.to_f
+    (sv * 100 ).round(2)
+  end
   def diemcc
-    return convert_dcc(100-((so_tiet_vang - so_vang_co_phep) * 100 / tong_so_tiet).to_i) if so_tiet_vang and lop_mon_hoc.so_tiet
+    return convert_dcc(percent.to_i) if so_tiet_vang and lop_mon_hoc.so_tiet
     #return self.so_tiet_vang
     return 4 unless so_tiet_vang
   end

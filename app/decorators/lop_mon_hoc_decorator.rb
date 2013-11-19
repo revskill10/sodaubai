@@ -393,28 +393,39 @@ on tt1.stt = tt2.tuan ) as ttt
   end
 
   def phieudiem(tenant)    
-    svs = object.lop_mon_hoc_sinh_viens
-    tinchi = object.lop_mon_hoc_sinh_viens.where(lop_tin_chi: true)
-    nienche = (svs - tinchi)
-
+    #svs = object.lop_mon_hoc_sinh_viens
+    #tinchi = object.lop_mon_hoc_sinh_viens.where(lop_tin_chi: true)
+    #nienche = (svs - tinchi)
+    sql_nienche = <<-eos  
+select row_number() OVER(ORDER BY t.ten, t.ho_dem, t.ho) as "stt", t."msv",
+concat(t."ho" ,' ', t.ho_dem,' ', t.ten) as "hovaten",  to_char(t.ngay_sinh,'DD/MM/YYYY' ) as "ngaysinh", ma_lop_hanh_chinh, diem_chuyen_can, diem_thuc_hanh, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id = #{object.id}
+and lop_tin_chi is NULL or lop_tin_chi = false order by ten, ho_dem, ho, ngay_sinh 
+    eos
+    nienche = ActiveRecord::Base.connection.execute(sql_nienche)
+    sql_tinchi = <<-eos  
+select row_number() OVER(ORDER BY t.ten, t.ho_dem, t.ho) as "stt", t."msv",
+concat(t."ho" ,' ', t.ho_dem,' ', t.ten) as "hovaten",  to_char(t.ngay_sinh,'DD/MM/YYYY' ) as "ngaysinh", ma_lop_hanh_chinh, diem_chuyen_can, diem_thuc_hanh, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id = #{object.id}
+and lop_tin_chi = true order by ten, ho_dem, ho, ngay_sinh 
+    eos
+    tinchi = ActiveRecord::Base.connection.execute(sql_tinchi)
     if nienche.count > 0
-      nienche = nienche.sort_by{|x| [x.ma_lop_hanh_chinh, x.ten, x.ho_dem, x.ho, x.ngay_sinh]}
+      #nienche = nienche.sort_by{|x| [x.ma_lop_hanh_chinh, x.ten, x.ho_dem, x.ho, x.ngay_sinh]}
       niencheitems = nienche.each_with_index.map do |item, i|
         [
-          i+1,
-          item.ma_sinh_vien,            
-          item.sinh_vien.hovaten,
-          (item.ngay_sinh ? item.ngay_sinh.strftime("%d/%m/%Y") : ""),
-          item.ma_lop_hanh_chinh
+          item["stt"],
+          item["msv"],            
+          item["hovaten"],
+          item["ngaysinh"],
+          item["ma_lop_hanh_chinh"]
         ]            
       end   
       niencheitems2 = nienche.each_with_index.map do |item, i|
         [              
-          item.diemcc,
-          item.diemth.to_s,
-          item.diemtbkt,
-          item.diemqt,
-          item.lop_ghep.to_s
+          item["diem_chuyen_can"],
+          item["diem_thuc_hanh"],
+          item["diem_tbkt"],
+          item["diem_qua_trinh"],
+          item["lop_ghep"]
         ]            
       end            
       tis2 = [nienche[0..27]] + (nienche[28..-1]||[]).each_slice(35).to_a                          
