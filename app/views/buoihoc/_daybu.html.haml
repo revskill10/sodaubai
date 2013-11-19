@@ -4,7 +4,7 @@
     %span.label.label-important Đề xuất không được chấp nhận
 
 
-- if can? :quanly, @lich and @lich.status != 3
+- if can? :quanly, @lich and @lich.loai == 1
   %h5 Đăng kí dạy bù:
   .well.sidebar-nav{:style => "font-size: 12px;"}    
     %span.strong Ngày:
