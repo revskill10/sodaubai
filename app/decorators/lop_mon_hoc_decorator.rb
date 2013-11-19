@@ -399,7 +399,7 @@ on tt1.stt = tt2.tuan ) as ttt
     sql_nienche = <<-eos  
 select row_number() OVER(ORDER BY ten, ho, ho_dem, ngay_sinh) as "stt", ma_sinh_vien as "msv",
 concat(ho ,' ', ho_dem,' ', ten) as "hovaten",  to_char(ngay_sinh,'DD/MM/YYYY' ) as "ngaysinh", ma_lop_hanh_chinh, diem_chuyen_can, diem_thuc_hanh, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens  where lop_mon_hoc_id = #{object.id}
-and lop_tin_chi is NULL or lop_tin_chi = false order by ten, ho, ho_dem, ngay_sinh 
+and lop_tin_chi != true order by ten, ho, ho_dem, ngay_sinh 
     eos
     nienche = ActiveRecord::Base.connection.execute(sql_nienche).to_a
     sql_tinchi = <<-eos  
@@ -562,7 +562,7 @@ and lop_tin_chi = true order by ten, ho, ho_dem, ngay_sinh
         p.each_with_index do |v,j|
           pdf2.bounding_box [cell_width*j, cursor], :height => row_height, :width => ( j == 0 ? cell_width : 460) do
             if j == 0
-              pdf.image v, :width => 40
+              pdf2.image v, :width => 40
             else            
               pdf2.font "Arial"
               pdf2.table [
