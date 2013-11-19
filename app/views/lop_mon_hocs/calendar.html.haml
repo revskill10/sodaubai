@@ -26,7 +26,8 @@
               %ul.dropdown-menu
                 %li= link_to "Thông báo", lop_mon_hoc_thong_bao_lop_hocs_path(@lop_mon_hoc.id)
                 %li= link_to "Diễn đàn", lop_mon_hoc_topics_path(@lop_mon_hoc.id)
-                %li= link_to "Quản lý lớp học", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id)
+                - if can? :manage, @lop_mon_hoc
+                  %li= link_to "Quản lý lớp học", lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id)
                 %li.active= link_to "Thời khóa biểu", lop_mon_hoc_path(@lop_mon_hoc.id)+'/calendar'                        
 .container-fluid{:style=>"margin-top: 4%;"}
   .well.sidebar-nav{:style => "font-size: 12px;"}

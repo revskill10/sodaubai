@@ -5,6 +5,7 @@ class LopMonHocSinhViensController < ApplicationController
   before_filter :load_lop
 
   def groupupdate
+    authorize! :manage, @lop_mon_hoc    
     @msvs = params[:nhom].keys
     #puts msvs.inspect
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.select {|k| @msvs.include?(k.ma_sinh_vien)}
@@ -24,6 +25,8 @@ class LopMonHocSinhViensController < ApplicationController
     end
   end
   def index    
+    authorize! :quanly, @lop_mon_hoc
+    
     @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     if @lop_mon_hoc.bosung
       @lichdkbs = @lop_mon_hoc.lich_trinh_giang_days.where(loai: 5)
@@ -48,6 +51,8 @@ class LopMonHocSinhViensController < ApplicationController
     end    
   end
   def group    
+    authorize! :quanly, @lop_mon_hoc if current_user.is_a?(GiangVien)
+    authorize! :read, @lop_mon_hoc if current_user.is_a?(SinhVien)
     @lop_mon_hoc_sinh_viens = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     @group = @lop_mon_hoc.group || 1
     @groups_arrays = {}
@@ -63,7 +68,8 @@ class LopMonHocSinhViensController < ApplicationController
   # GET /lop_mon_hoc_sinh_viens/1
   # GET /lop_mon_hoc_sinh_viens/1.json
   def show
-    authorize! :read, @lop_mon_hoc
+    authorize! :quanly, @lop_mon_hoc if current_user.is_a?(GiangVien)
+    authorize! :read, @lop_mon_hoc if current_user.is_a?(SinhVien)
     @lop_mon_hoc_sinh_vien = @lop_mon_hoc.get_sinh_viens.find(params[:id])    
     QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHocSinhVien", :action => "show", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|

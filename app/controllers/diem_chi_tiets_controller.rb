@@ -1,6 +1,8 @@
 class DiemChiTietsController < ApplicationController
   before_filter :load_lop
-  def index        
+  def index    
+    authorize! :quanly, @lop_mon_hoc if current_user.is_a?(GiangVien)
+    authorize! :read, @lop_mon_hoc if current_user.is_a?(SinhVien)    
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens.order('ten asc')
     @group_diem = JSON.parse(@lop_mon_hoc.group_diem || {}.to_json)     
     QC.enqueue "GoogleAnalytic.perform", {:category => "Diemchitiet", :action => "index", :label => "#{current_user.username}", :value => "1"}.to_json
