@@ -210,7 +210,8 @@ class LopMonHocsController < ApplicationController
   end  
   def calendar
     authorize! :quanly, @lop_mon_hoc
-    @lich = @lop_mon_hoc.get_days    
+    @lich = @lop_mon_hoc.get_days  
+    @lichbs = @lop_mon_hoc.lich_trinh_giang_days.where(loai: [2,5]).order("tuan")
     QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "calendar", :label => "#{current_user.username}", :value => "1"}.to_json
     respond_to do |format|          
       format.html {render :calendar}            
