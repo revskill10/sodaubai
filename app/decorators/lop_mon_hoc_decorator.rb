@@ -397,37 +397,18 @@ on tt1.stt = tt2.tuan ) as ttt
     #tinchi = object.lop_mon_hoc_sinh_viens.where(lop_tin_chi: true)
     #nienche = (svs - tinchi)
     sql_nienche = <<-eos  
-select row_number() OVER(ORDER BY t.ten, t.ho_dem, t.ho) as "stt", t."msv",
-concat(t."ho" ,' ', t.ho_dem,' ', t.ten) as "hovaten",  to_char(t.ngay_sinh,'DD/MM/YYYY' ) as "ngaysinh", ma_lop_hanh_chinh, diem_chuyen_can, diem_thuc_hanh, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id = #{object.id}
-and lop_tin_chi is NULL or lop_tin_chi = false order by ten, ho_dem, ho, ngay_sinh 
+select row_number() OVER(ORDER BY ten, ho, ho_dem, ngay_sinh) as "stt", ma_sinh_vien as "msv",
+concat(ho ,' ', ho_dem,' ', ten) as "hovaten",  to_char(ngay_sinh,'DD/MM/YYYY' ) as "ngaysinh", ma_lop_hanh_chinh, diem_chuyen_can, diem_thuc_hanh, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens  where lop_mon_hoc_id = #{object.id}
+and lop_tin_chi is NULL or lop_tin_chi = false order by ten, ho, ho_dem, ngay_sinh 
     eos
-    nienche = ActiveRecord::Base.connection.execute(sql_nienche)
+    nienche = ActiveRecord::Base.connection.execute(sql_nienche).to_a
     sql_tinchi = <<-eos  
-select row_number() OVER(ORDER BY t.ten, t.ho_dem, t.ho) as "stt", t."msv",
-concat(t."ho" ,' ', t.ho_dem,' ', t.ten) as "hovaten",  to_char(t.ngay_sinh,'DD/MM/YYYY' ) as "ngaysinh", ma_lop_hanh_chinh, diem_chuyen_can, diem_thuc_hanh, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id = #{object.id}
-and lop_tin_chi = true order by ten, ho_dem, ho, ngay_sinh 
+select row_number() OVER(ORDER BY ten, ho, ho_dem, ngay_sinh) as "stt", ma_sinh_vien as "msv",
+concat(ho ,' ', ho_dem,' ', ten) as "hovaten",  to_char(ngay_sinh,'DD/MM/YYYY' ) as "ngaysinh", ma_lop_hanh_chinh, diem_chuyen_can, diem_thuc_hanh, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens  where lop_mon_hoc_id = #{object.id}
+and lop_tin_chi = true order by ten, ho, ho_dem, ngay_sinh 
     eos
-    tinchi = ActiveRecord::Base.connection.execute(sql_tinchi)
-    if nienche.count > 0
-      #nienche = nienche.sort_by{|x| [x.ma_lop_hanh_chinh, x.ten, x.ho_dem, x.ho, x.ngay_sinh]}
-      niencheitems = nienche.each_with_index.map do |item, i|
-        [
-          item["stt"],
-          item["msv"],            
-          item["hovaten"],
-          item["ngaysinh"],
-          item["ma_lop_hanh_chinh"]
-        ]            
-      end   
-      niencheitems2 = nienche.each_with_index.map do |item, i|
-        [              
-          item["diem_chuyen_can"],
-          item["diem_thuc_hanh"],
-          item["diem_tbkt"],
-          item["diem_qua_trinh"],
-          item["lop_ghep"]
-        ]            
-      end            
+    tinchi = ActiveRecord::Base.connection.execute(sql_tinchi).to_a
+    if nienche.count > 0              
       tis2 = [nienche[0..27]] + (nienche[28..-1]||[]).each_slice(35).to_a                          
     end
 
@@ -479,25 +460,25 @@ and lop_tin_chi = true order by ten, ho_dem, ho, ngay_sinh
       tis.each_with_index do |ti, index|
 
         tinchiitems = ti.each_with_index.map do |item,i|
-          [
-            (index * prev) + i+1,
-            item.ma_sinh_vien,            
-            item.sinh_vien.hovaten,
-            (item.ngay_sinh ? item.ngay_sinh.strftime("%d/%m/%Y") : ""),
-            item.ma_lop_hanh_chinh              
-          ]  
+         [
+          item["stt"],
+          item["msv"],            
+          item["hovaten"],
+          item["ngaysinh"],
+          item["ma_lop_hanh_chinh"]
+        ]  
         end      
         tinchiitems2 = ti.each_with_index.map do |item,i|
-          [              
-            item.diemcc,
-            item.diemth.to_s,
-            item.diemtbkt,
-            item.diemqt                
-          ]  
+           [              
+          item["diem_chuyen_can"],
+          item["diem_thuc_hanh"],
+          item["diem_tbkt"],
+          item["diem_qua_trinh"]          
+        ]  
         end   
         tinchiitems3 = ti.each_with_index.map do |item,i|
           [              
-            (item.lop_ghep == true and item.diem_chuyen_can == 0 ?  "GL, TC" : "") || (item.lop_ghep == true and item.diem_chuyen_can > 0 ? "GL" : "") || (!(item.lop_ghep == true) and item.diem_chuyen_can == 0 ? "TC" : "" )
+            (item["lop_ghep"] == true and item["diem_chuyen_can"] == 0 ?  "GL, TC" : "") || (item["lop_ghep"] == true and item["diem_chuyen_can"] > 0 ? "GL" : "") || (!(item["lop_ghep"] == true) and item["diem_chuyen_can"] == 0 ? "TC" : "" )
           ]
         end
 
@@ -554,7 +535,6 @@ and lop_tin_chi = true order by ten, ho_dem, ho, ngay_sinh
 
    
     if tis2
-     #   zio.put_next_entry("phieudiem_tinchi.pdf")
       pdf2 = Prawn::Document.new(:page_layout => :portrait,         
         :page_size => 'A4', :margin => 30)
         #pdf.font "#{Rails.root}/app/assets/fonts/arial2.ttf"
@@ -577,12 +557,12 @@ and lop_tin_chi = true order by ten, ho_dem, ho, ngay_sinh
 
       pieces = [[img_path, ""]]
       pieces.each do |p|
-      #pdf.move_down 5 # a bit of padding
+      
         cursor = pdf2.cursor 
         p.each_with_index do |v,j|
           pdf2.bounding_box [cell_width*j, cursor], :height => row_height, :width => ( j == 0 ? cell_width : 460) do
             if j == 0
-              pdf2.image v, :width => 40
+              pdf.image v, :width => 40
             else            
               pdf2.font "Arial"
               pdf2.table [
@@ -591,29 +571,31 @@ and lop_tin_chi = true order by ten, ho_dem, ho, ngay_sinh
       end
           end
         end
-      end    
-      prev2 = 0
-      tis2.each_with_index do |ti, index|            
+      end
+     
+      prev = 0
+      tis2.each_with_index do |ti, index|
+
         niencheitems = ti.each_with_index.map do |item,i|
-          [
-            (index * prev2) + i+1,
-            item.ma_sinh_vien,            
-            item.sinh_vien.hovaten,
-            item.sinh_vien.ngay_sinh.strftime("%d/%m/%Y"),              
-            item.ma_lop_hanh_chinh              
-          ]  
+         [
+          item["stt"],
+          item["msv"],            
+          item["hovaten"],
+          item["ngaysinh"],
+          item["ma_lop_hanh_chinh"]
+        ]  
         end      
         niencheitems2 = ti.each_with_index.map do |item,i|
-          [              
-            item.diemcc,
-            item.diemth.to_s,
-            item.diemtbkt,
-            item.diemqt                
-          ]  
+           [              
+          item["diem_chuyen_can"],
+          item["diem_thuc_hanh"],
+          item["diem_tbkt"],
+          item["diem_qua_trinh"]          
+        ]  
         end   
         niencheitems3 = ti.each_with_index.map do |item,i|
           [              
-            (item.lop_ghep == true and item.diem_chuyen_can == 0 ?  "GL, TC" : "") || (item.lop_ghep == true and item.diem_chuyen_can > 0 ? "GL" : "") || (!(item.lop_ghep == true) and item.diem_chuyen_can == 0 ? "TC" : "" )
+            (item["lop_ghep"] == true and item["diem_chuyen_can"] == 0 ?  "GL, TC" : "") || (item["lop_ghep"] == true and item["diem_chuyen_can"] > 0 ? "GL" : "") || (!(item["lop_ghep"] == true) and item["diem_chuyen_can"] == 0 ? "TC" : "" )
           ]
         end
 
@@ -651,9 +633,9 @@ and lop_tin_chi = true order by ten, ho_dem, ho, ngay_sinh
                 h2,
                 h311
               ]
-            ]                  
-        pdf2.move_down 10        
-        prev2 = ti.count
+            ]
+        pdf2.move_down 10
+        prev = ti.count
       end
       pdf2.move_down 1
       pdf2.text "Nơi gửi: Phòng Đào tạo", :size => 7
@@ -665,7 +647,7 @@ and lop_tin_chi = true order by ten, ho_dem, ho, ngay_sinh
       end
       pdf2.repeat(:all) do 
         pdf2.draw_text "HD01-B02", :at => [10, -10], :size => 8
-      end          
+      end    
     end
 
     stringio = Zip::ZipOutputStream::write_buffer do |zio|         

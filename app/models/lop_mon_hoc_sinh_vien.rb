@@ -87,6 +87,7 @@ class LopMonHocSinhVien < ActiveRecord::Base
     (diem_chuyen_can || diemcc || 0) + diemtbkt + diemth
   end
   def percent
+    return 100 if so_tiet_vang.nil?
     sovang = so_tiet_vang - so_vang_co_phep
     sv = (tong_so_tiet - sovang) / tong_so_tiet.to_f
     (sv * 100 ).round(2)
