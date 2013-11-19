@@ -80,7 +80,7 @@
             = form_tag daybu_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do  
               %input{:type => "hidden", :name => "buoihoc[nghiday]", :id => "buoihoc_nghiday"}
               #daybu
-                - if (@lich.loai == 1 and @lich.status != 4) or @lich.loai == 2
+                - if @lich.loai == 1 or @lich.loai == 2
                   = render 'daybu'
                 
                       
