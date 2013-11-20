@@ -403,7 +403,7 @@ select ma_sinh_vien, ho_dem, ho, ten,  to_char(ngay_sinh,'DD/MM/YYYY' ) as "ngay
 and lop_tin_chi != true order by ten, ho_dem, ho, ngay_sinh 
     eos
     nienche = ActiveRecord::Base.connection.execute(sql_nienche).to_a
-    nienche = nienche.map {|t| t and LSVCompare.new(t)}.sort
+    nienche = nienche.map {|t| t and LSVCompareLienche.new(t)}.sort
     sql_tinchi = <<-eos  
 select ma_sinh_vien, ho_dem, ho, ten ,  to_char(ngay_sinh,'DD/MM/YYYY' ) as "ngay_sinh", ma_lop_hanh_chinh, diem_chuyen_can, diem_thuc_hanh, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens  where lop_mon_hoc_id = #{object.id}
 and lop_tin_chi = true order by ten, ho_dem,  ho,ngay_sinh 
