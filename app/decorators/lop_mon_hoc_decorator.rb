@@ -1,7 +1,9 @@
 # encoding: utf-8
+require 'hpu'
+
 class LopMonHocDecorator < Draper::Decorator
   delegate_all
-
+  include HPU
   # Define presentation-specific methods here. Helpers are accessed through
   # `helpers` (aka `h`). You can override attributes, for example:
   #
@@ -397,17 +399,17 @@ on tt1.stt = tt2.tuan ) as ttt
     #tinchi = object.lop_mon_hoc_sinh_viens.where(lop_tin_chi: true)
     #nienche = (svs - tinchi)
     sql_nienche = <<-eos  
-select row_number() OVER(ORDER BY ten, ho_dem, ho, ngay_sinh) as "stt", ma_sinh_vien as "msv",
-concat(ho ,' ', ho_dem,' ', ten) as "hovaten",  to_char(ngay_sinh,'DD/MM/YYYY' ) as "ngaysinh", ma_lop_hanh_chinh, diem_chuyen_can, diem_thuc_hanh, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens  where lop_mon_hoc_id = #{object.id}
+select ma_sinh_vien, ho_dem, ho, ten,  to_char(ngay_sinh,'DD/MM/YYYY' ) as "ngay_sinh", ma_lop_hanh_chinh, diem_chuyen_can, diem_thuc_hanh, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens  where lop_mon_hoc_id = #{object.id}
 and lop_tin_chi != true order by ten, ho_dem, ho, ngay_sinh 
     eos
     nienche = ActiveRecord::Base.connection.execute(sql_nienche).to_a
+    nienche = nienche.map {|t| t and LSVCompare.new(t)}.sort
     sql_tinchi = <<-eos  
-select row_number() OVER(ORDER BY ten,  ho_dem, ho,ngay_sinh) as "stt", ma_sinh_vien as "msv",
-concat(ho ,' ', ho_dem,' ', ten) as "hovaten",  to_char(ngay_sinh,'DD/MM/YYYY' ) as "ngaysinh", ma_lop_hanh_chinh, diem_chuyen_can, diem_thuc_hanh, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens  where lop_mon_hoc_id = #{object.id}
+select ma_sinh_vien, ho_dem, ho, ten ,  to_char(ngay_sinh,'DD/MM/YYYY' ) as "ngay_sinh", ma_lop_hanh_chinh, diem_chuyen_can, diem_thuc_hanh, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens  where lop_mon_hoc_id = #{object.id}
 and lop_tin_chi = true order by ten, ho_dem,  ho,ngay_sinh 
     eos
     tinchi = ActiveRecord::Base.connection.execute(sql_tinchi).to_a
+    tinchi = tinchi.map {|t| t and LSVCompare.new(t)}.sort
     if nienche.count > 0              
       tis2 = [nienche[0..27]] + (nienche[28..-1]||[]).each_slice(35).to_a                          
     end
@@ -461,24 +463,24 @@ and lop_tin_chi = true order by ten, ho_dem,  ho,ngay_sinh
 
         tinchiitems = ti.each_with_index.map do |item,i|
          [
-          item["stt"],
-          item["msv"],            
-          item["hovaten"],
-          item["ngaysinh"],
-          item["ma_lop_hanh_chinh"]
+          (index * prev) + i+1,
+          item.msv,            
+          item.hovaten,
+          item.ngaysinh,
+          item.ma_lop_hanh_chinh
         ]  
         end      
         tinchiitems2 = ti.each_with_index.map do |item,i|
            [              
-          item["diem_chuyen_can"],
-          item["diem_thuc_hanh"],
-          item["diem_tbkt"],
-          item["diem_qua_trinh"]          
+          item.diem_chuyen_can,
+          item.diem_thuc_hanh,
+          item.diem_tbkt,
+          item.diem_qua_trinh
         ]  
         end   
         tinchiitems3 = ti.each_with_index.map do |item,i|
           [              
-            (item["lop_ghep"] == true and item["diem_chuyen_can"] == 0 ?  "GL, TC" : "") || (item["lop_ghep"] == true and item["diem_chuyen_can"] > 0 ? "GL" : "") || (!(item["lop_ghep"] == true) and item["diem_chuyen_can"] == 0 ? "TC" : "" )
+            (item.lop_ghep == true and item.diem_chuyen_can == 0 ?  "GL, TC" : "") || (item.lop_ghep == true and item.diem_chuyen_can > 0 ? "GL" : "") || (!(item.lop_ghep == true) and item.diem_chuyen_can == 0 ? "TC" : "" )
           ]
         end
 
@@ -573,29 +575,29 @@ and lop_tin_chi = true order by ten, ho_dem,  ho,ngay_sinh
         end
       end
      
-      prev = 0
+      prev2 = 0
       tis2.each_with_index do |ti, index|
-
+        
         niencheitems = ti.each_with_index.map do |item,i|
          [
-          item["stt"],
-          item["msv"],            
-          item["hovaten"],
-          item["ngaysinh"],
-          item["ma_lop_hanh_chinh"]
+          (index * prev2) + i+1,
+          item.msv,            
+          item.hovaten,
+          item.ngaysinh,
+          item.ma_lop_hanh_chinh
         ]  
         end      
         niencheitems2 = ti.each_with_index.map do |item,i|
            [              
-          item["diem_chuyen_can"],
-          item["diem_thuc_hanh"],
-          item["diem_tbkt"],
-          item["diem_qua_trinh"]          
+          item.diem_chuyen_can,
+          item.diem_thuc_hanh,
+          item.diem_tbkt,
+          item.diem_qua_trinh          
         ]  
         end   
         niencheitems3 = ti.each_with_index.map do |item,i|
           [              
-            (item["lop_ghep"] == true and item["diem_chuyen_can"] == 0 ?  "GL, TC" : "") || (item["lop_ghep"] == true and item["diem_chuyen_can"] > 0 ? "GL" : "") || (!(item["lop_ghep"] == true) and item["diem_chuyen_can"] == 0 ? "TC" : "" )
+            (item.lop_ghep == true and item.diem_chuyen_can == 0 ?  "GL, TC" : "") || (item.lop_ghep == true and item.diem_chuyen_can > 0 ? "GL" : "") || (!(item.lop_ghep == true) and item.diem_chuyen_can == 0 ? "TC" : "" )
           ]
         end
 
@@ -635,7 +637,7 @@ and lop_tin_chi = true order by ten, ho_dem,  ho,ngay_sinh
               ]
             ]
         pdf2.move_down 10
-        prev = ti.count
+        prev2 = ti.count
       end
       pdf2.move_down 1
       pdf2.text "Nơi gửi: Phòng Đào tạo", :size => 7

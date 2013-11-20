@@ -1,7 +1,8 @@
+require 'hpu'
 class LopMonHocSinhVien < ActiveRecord::Base
   include PublicActivity::Common
-  
-  
+  include Comparable
+  include HPU
 
   default_scope order('ten, ho_dem, ho, ngay_sinh')
   default_scope :conditions => 'status is null or status = false'
@@ -131,3 +132,4 @@ class LopMonHocSinhVien < ActiveRecord::Base
   end
 
 end
+
