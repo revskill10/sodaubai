@@ -453,7 +453,7 @@ and lop_tin_chi = true order by ten, ho_dem,  ho,ngay_sinh
               pdf.table [
                 [tab1, tab2]
               ], :cell_style => {:borders => []}, :width => 460
-      end
+            end
           end
         end
       end
@@ -463,7 +463,7 @@ and lop_tin_chi = true order by ten, ho_dem,  ho,ngay_sinh
 
         tinchiitems = ti.each_with_index.map do |item,i|
          [
-          (index * prev) + i+1,
+          prev + i+1,
           item.msv,            
           item.hovaten,
           item.ngaysinh,
@@ -520,7 +520,7 @@ and lop_tin_chi = true order by ten, ho_dem,  ho,ngay_sinh
               ]
             ]
         pdf.move_down 10
-        prev = ti.count
+        prev = prev + ti.count
       end
       pdf.move_down 1
       pdf.text "Nơi gửi: Phòng Đào tạo", :size => 7
@@ -580,7 +580,7 @@ and lop_tin_chi = true order by ten, ho_dem,  ho,ngay_sinh
         
         niencheitems = ti.each_with_index.map do |item,i|
          [
-          (index * prev2) + i+1,
+          prev2 + i+1,
           item.msv,            
           item.hovaten,
           item.ngaysinh,
@@ -637,7 +637,7 @@ and lop_tin_chi = true order by ten, ho_dem,  ho,ngay_sinh
               ]
             ]
         pdf2.move_down 10
-        prev2 = ti.count
+        prev2 = prev2 + ti.count
       end
       pdf2.move_down 1
       pdf2.text "Nơi gửi: Phòng Đào tạo", :size => 7

@@ -7,6 +7,45 @@ class LopMonHocsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_lop, :except => :index
 
+  def nhapdiemthang3
+    authorize! :manage, @lop_mon_hoc
+    respond_to do |format|
+      format.html
+    end
+  end
+  def postnhapdiemthang3
+    authorize! :manage, @lop_mon_hoc
+    if @lop_mon_hoc.thang3 == true
+      @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
+      
+      @msvs = params[:msv]
+      @svs.each do   |sv|      
+        if @msvs[sv.ma_sinh_vien]        
+          sv.diem_chuyen_can = @msvs[sv.ma_sinh_vien][:diemcc].to_i if @msvs[sv.ma_sinh_vien][:diemcc].present? and @msvs[sv.ma_sinh_vien][:diemcc].to_i >= 0 and @msvs[sv.ma_sinh_vien][:diemcc].to_f <= 4
+          if @lop_mon_hoc.get_thuc_hanh == true
+            sv.diem_thuc_hanh = @msvs[sv.ma_sinh_vien][:thuchanh].to_i if @msvs[sv.ma_sinh_vien][:thuchanh].present? and @msvs[sv.ma_sinh_vien][:thuchanh].to_i >= 0 and @msvs[sv.ma_sinh_vien][:thuchanh].to_f <= 3
+          end
+          sv.diem_tbkt = @msvs[sv.ma_sinh_vien][:diemtbkt].to_i if @msvs[sv.ma_sinh_vien][:diemtbkt].present? and @msvs[sv.ma_sinh_vien][:diemtbkt].to_i >= 0 and @msvs[sv.ma_sinh_vien][:diemtbkt].to_i <= (@lop_mon_hoc.get_thuc_hanh == true ? 3 : 6)
+          sv.diem_qua_trinh = ( @msvs[sv.ma_sinh_vien][:diemqt].to_i if @msvs[sv.ma_sinh_vien][:diemqt] and @msvs[sv.ma_sinh_vien][:diemqt].to_i >= 0 and @msvs[sv.ma_sinh_vien][:diemqt].to_i <= 10 || sv.diemqt )
+          if sv.diem_chuyen_can == 0 
+            sv.note = "TC"
+          else
+            sv.note = nil
+          end
+          sv.create_activity key: "lop_mon_hoc_sinh_vien.updatediemthinhgiang", params: {diemcc: sv.diem_chuyen_can, thuchanh: sv.diem_thuc_hanh, kttx: sv.diem_tbkt}, owner: current_user, recipient: sv.sinh_vien if test == true
+          sv.save! rescue puts "error"
+        end
+      end
+      respond_to do |format|
+        format.js
+      end
+    else
+      @error = 1
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
   def update_hoten
     authorize! :manage, @lop_mon_hoc
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
