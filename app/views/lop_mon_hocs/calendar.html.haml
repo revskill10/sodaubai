@@ -40,16 +40,17 @@
     %colgroup
       %col{:style => "width: 10%"}
       %col{:style => "width: 35%"}
-      %col{:style => "width: 35%"}
+      %col{:style => "width: 25%"}
       %col{:style => "width: 10%"}            
       %col{:style => "width: 10%"}      
+      %col{:style => "width: 10%"}
     %thead      
       %td Tuần    
       %td Thời gian 
       %td Môn học
       %td Số tiết    
       %td Phòng   
-      %td Loại     
+      %td Trạng thái     
     %tbody
       - @lichbs.each_with_index do |lich, index|
         %tr        
@@ -58,7 +59,7 @@
           %td= lich.lop_mon_hoc.ten_mon_hoc
           %td= lich.so_tiet_day
           %td= lich.phong_moi
-          %td= lich.loai
+          %td= lich.trangthai
 
   %h5 Lịch chính
   %table{:class => "table table-bordered datatable"}

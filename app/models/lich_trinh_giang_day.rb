@@ -53,6 +53,10 @@ class LichTrinhGiangDay < ActiveRecord::Base
       Tuan.all.detect {|t| t.tu_ngay.localtime <= ngay_day.localtime and t.den_ngay.localtime >= ngay_day.localtime }.stt
     end
   end
+  def trangthai
+    "Chờ duyệt" if status == 6
+    "Đã duyệt" if status == 3
+  end
   def wday
     if loai == 2 and status == 3
       if ngay_day_moi.localtime.wday == 0 then

@@ -84,6 +84,7 @@
         %td Phòng    
         %td Môn
         %td Mã lớp
+        %td Trạng thái
       %tbody
         - @lichdkbs.each_with_index do |lich, index|                  
           %tr            
@@ -93,6 +94,7 @@
             %td= lich.phong
             %td= lich.lop_mon_hoc.ten_mon_hoc
             %td= link_to lich.lop_mon_hoc.ma_lop, lop_mon_hoc_path(lich.lop_mon_hoc.id)
+            %td= lich.trangthai
 
   - if @lichbus and @lichbus.count > 0
     %h5 Lịch dạy bù
@@ -105,6 +107,7 @@
         %td Phòng    
         %td Môn
         %td Mã lớp
+        %td Trạng thái
       %tbody
         - @lichbus.each_with_index do |lich, index|
           %tr
@@ -115,3 +118,4 @@
             %td= lich.phong_moi
             %td= lich.lop_mon_hoc.ten_mon_hoc
             %td= link_to lich.lop_mon_hoc.ma_lop, lop_mon_hoc_path(lich.lop_mon_hoc.id)
+            %td= lich.trangthai
