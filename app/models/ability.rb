@@ -34,6 +34,8 @@ class Ability
         end
         cannot :diemdanh, LichTrinhGiangDay do |l|
             [1,2,3,4].include?(l.loai) and l.status == 6
+            or
+            l.loai == 1
         end
         can :manage, ThongBaoLopHoc do |tb|
             user.imageable.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.imageable.is_a?(GiangVien)

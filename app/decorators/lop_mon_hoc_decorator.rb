@@ -61,7 +61,7 @@ from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=#{object.id} and ma_sinh_vie
     from t1.diem_danhs dd
     inner join t1.lich_trinh_giang_days l on l.id = dd.lich_trinh_giang_day_id
     where l.lop_mon_hoc_id = #{object.id}
-    and dd.so_tiet_vang > 0 and l.loai != 1)
+    and dd.so_tiet_vang > 0)
  ) as t
  order by t.ten, t.ho_dem, t.ho, t.ngay_sinh
     eos
