@@ -1,0 +1,30 @@
+%table{:class => "table table-bordered table-condensed"}      
+  %thead
+    %td STT
+    %td Mã sinh viên
+    %td Họ đệm
+    %td Tên     
+    %td Điểm chuyên cần (<= 4)
+    - if @lop_mon_hoc.get_thuc_hanh and @lop_mon_hoc.thang3 == true
+      %td Điểm thực hành (<= 3)    
+    - if  @lop_mon_hoc.so_lan_kt and @lop_mon_hoc.so_lan_kt > 0
+      - if @lop_mon_hoc.get_thuc_hanh  
+        %td= "Điểm Kiểm tra thường xuyên (<= 3)"
+      - else
+        %td= "Điểm Kiểm tra thường xuyên (<= 6)"
+    %td Điểm quá trình 
+    
+  %tbody
+    - @svs.each_with_index do |sv, index|
+      %tr
+        %td= (index+1).to_s
+        %td= sv.ma_sinh_vien
+        %td= sv.hodemdaydu
+        %td= sv.ten
+        %td= text_field_tag "msv[#{sv.ma_sinh_vien}][diemcc]", nil, :value => sv.diem_chuyen_can, :style => "width: 15%" 
+        - if @lop_mon_hoc.get_thuc_hanh
+          - if can? :manage, @lop_mon_hoc
+            %td= text_field_tag "msv[#{sv.ma_sinh_vien}][thuchanh]", nil, :value => sv.diem_thuc_hanh.to_i || "", :style => "width: 15%"              
+        - if @lop_mon_hoc.so_lan_kt and @lop_mon_hoc.so_lan_kt > 0
+          %td= text_field_tag "msv[#{sv.ma_sinh_vien}][diemtbkt]", nil, :value => sv.diem_tbkt
+        %td= sv.diem_qua_trinh

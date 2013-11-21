@@ -1,13 +1,11 @@
+s1 = $("#menu");
+s1.html("");
+s1.html("#{escape_javascript(render 'lop_mon_hoc_sinh_viens/menu')}")
 s = $("table#dssv");
 s.html("");
 s.html("#{escape_javascript(render 'table1')}");
-- if  (@lop_mon_hoc.khoi_luong_phan_bo || 0) < (@lop_mon_hoc.so_tiet_phan_bo) and @lop_mon_hoc.bosung != true
-  :plain
-    s = $("#formdkbs");
-    s.html("");
-    s.html("#{escape_javascript(render 'lop_mon_hoc_sinh_viens/formdkbs')}");
-- else
-  :plain
-    s = $("#formdkbs");
-    s.html("");       
+s2 = $("#formdkbs");
+s2.html("");
+s2.html("#{escape_javascript(render 'lop_mon_hoc_sinh_viens/formdkbs')}");
+
 alert("Thông số lớp học đã được cập nhật thành công");

@@ -52,6 +52,8 @@ Trytest::Application.routes.draw do
       post '/update_hoten' => 'lop_mon_hocs#update_hoten'
       post '/update_diemqt' => 'lop_mon_hocs#update_diemqt'
       post '/update_diemcc' => 'lop_mon_hocs#update_diemcc'
+      get '/nhap_diem_thang_3' => 'lop_mon_hocs#nhapdiemthang3', :as => 'nhapdiemthang3'
+      post '/postnhapdiemthang3' => 'lop_mon_hocs#postnhapdiemthang3', :as => 'postnhapdiemthang3'
       get '/calendar' => 'lop_mon_hocs#calendar'        
       get '/search' => 'lop_mon_hocs#search'
       get '/report' => 'lop_mon_hocs#report'

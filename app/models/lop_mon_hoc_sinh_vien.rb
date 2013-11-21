@@ -84,6 +84,7 @@ class LopMonHocSinhVien < ActiveRecord::Base
     end
   end
   def diemqt    
+    return (diem_chuyen_can || 0) + (diem_thuc_hanh || 0) + (diem_tbkt || 0) if lop_mon_hoc.thang3
     return 0 if diemcc == 0 and diem_chuyen_can == 0
     (diem_chuyen_can || diemcc || 0) + diemtbkt + diemth
   end

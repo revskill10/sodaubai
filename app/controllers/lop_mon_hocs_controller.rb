@@ -9,6 +9,7 @@ class LopMonHocsController < ApplicationController
 
   def nhapdiemthang3
     authorize! :manage, @lop_mon_hoc
+    @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     respond_to do |format|
       format.html
     end
@@ -26,13 +27,13 @@ class LopMonHocsController < ApplicationController
             sv.diem_thuc_hanh = @msvs[sv.ma_sinh_vien][:thuchanh].to_i if @msvs[sv.ma_sinh_vien][:thuchanh].present? and @msvs[sv.ma_sinh_vien][:thuchanh].to_i >= 0 and @msvs[sv.ma_sinh_vien][:thuchanh].to_f <= 3
           end
           sv.diem_tbkt = @msvs[sv.ma_sinh_vien][:diemtbkt].to_i if @msvs[sv.ma_sinh_vien][:diemtbkt].present? and @msvs[sv.ma_sinh_vien][:diemtbkt].to_i >= 0 and @msvs[sv.ma_sinh_vien][:diemtbkt].to_i <= (@lop_mon_hoc.get_thuc_hanh == true ? 3 : 6)
-          sv.diem_qua_trinh = ( @msvs[sv.ma_sinh_vien][:diemqt].to_i if @msvs[sv.ma_sinh_vien][:diemqt] and @msvs[sv.ma_sinh_vien][:diemqt].to_i >= 0 and @msvs[sv.ma_sinh_vien][:diemqt].to_i <= 10 || sv.diemqt )
+          sv.diem_qua_trinh = sv.diemqt
           if sv.diem_chuyen_can == 0 
             sv.note = "TC"
           else
             sv.note = nil
           end
-          sv.create_activity key: "lop_mon_hoc_sinh_vien.updatediemthinhgiang", params: {diemcc: sv.diem_chuyen_can, thuchanh: sv.diem_thuc_hanh, kttx: sv.diem_tbkt}, owner: current_user, recipient: sv.sinh_vien if test == true
+          #sv.create_activity key: "lop_mon_hoc_sinh_vien.updatediemththang3", params: {diemcc: sv.diem_chuyen_can, thuchanh: sv.diem_thuc_hanh, tbkt: sv.diem_tbkt}, owner: current_user, recipient: sv.sinh_vien if test == true
           sv.save! rescue puts "error"
         end
       end
@@ -192,12 +193,13 @@ class LopMonHocsController < ApplicationController
     @sn = params[:so_nhom].to_s.empty? ? 1 : params[:so_nhom].to_i
     @sl = params[:so_lan_kt].to_s.empty? ? 0 : params[:so_lan_kt].to_i
     th = params[:thuc_hanh]
+    @thang3 = params[:thang3] ? true : false
     if @lop_mon_hoc.bosung != true
       @st = (params[:so_tiet_phan_bo] and params[:so_tiet_phan_bo].empty?) ? @lop_mon_hoc.so_tiet : params[:so_tiet_phan_bo].to_f
     end
     
     if @sn <= 0 then @sn = 1 end
-    @lop_mon_hoc.update_attributes(group: @sn, so_lan_kt: @sl, so_tiet_phan_bo: @st) if @sl >= 0 and @sl <= 5 and @sn >= 1 and @lop_mon_hoc.bosung != true
+    @lop_mon_hoc.update_attributes(group: @sn, so_lan_kt: @sl, so_tiet_phan_bo: @st, thang3: @thang3) if @sl >= 0 and @sl <= 5 and @sn >= 1 and @lop_mon_hoc.bosung != true
     @lop_mon_hoc.update_attributes(group: @sn, so_lan_kt: @sl) if @sl >= 0 and @sl <= 5 and @sn >= 1 and @lop_mon_hoc.bosung == true
     @lop_mon_hoc.thuc_hanh = true if th
     @lop_mon_hoc.thuc_hanh = false unless th
