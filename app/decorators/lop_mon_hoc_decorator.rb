@@ -241,8 +241,7 @@ select tt2.tuan, tt2.noidung, tt2.sotiet, tt2.ngayday, to_char(tt1.tu_ngay,'\nTá
 from t1.tuans as tt1
 inner join (select tuan
 , string_agg(noi_dung_day, '\r\n ') as noidung, sum(CASE WHEN loai = 1 THEN 0 ELSE 
-  CASE WHEN loai = 5 and status = 3 THEN so_tiet_day ELSE
-  so_tiet_day_moi END) as sotiet, 
+  CASE WHEN loai = 5 and status = 3 THEN so_tiet_day ELSE so_tiet_day_moi END END) as sotiet, 
 
 replace(string_agg(to_char(ngay_day,'DD/MM/YYYY') ||
   case when ngay_day_moi is not null then
