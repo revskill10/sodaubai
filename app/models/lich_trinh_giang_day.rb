@@ -54,8 +54,8 @@ class LichTrinhGiangDay < ActiveRecord::Base
     end
   end
   def trangthai
-    "Chờ duyệt" if status == 6
-    "Đã duyệt" if status == 3
+    return "Chờ duyệt" if status == 6
+    return "Đã duyệt" if status == 3
   end
   def wday
     if loai == 2 and status == 3
