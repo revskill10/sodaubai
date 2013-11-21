@@ -109,21 +109,21 @@ class LopMonHocsController < ApplicationController
     authorize! :report, @lop_mon_hoc  
     @ld = @lop_mon_hoc.decorate    
     QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "tinhhinh", :label => "#{current_user.username}", :value => "1"}.to_json
-    send_data @ld.tinhhinh(@current_tenant).render, filename: "theo_doi_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.pdf", 
+    send_data @ld.tinhhinh(@current_tenant).render, filename: "theo_doi_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ma_giang_vien}.pdf", 
                       type: "application/pdf"
   end
   def lichtrinh
     authorize! :report, @lop_mon_hoc        
     @ld = @lop_mon_hoc.decorate    
     QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "lichtrinh", :label => "#{current_user.username}", :value => "1"}.to_json
-    send_data @ld.lichtrinh(@current_tenant).render, filename: "lich_trinh_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.pdf", 
+    send_data @ld.lichtrinh(@current_tenant).render, filename: "lich_trinh_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ma_giang_vien}.pdf", 
                           type: "application/pdf"
   end  
   def phieudiem
     authorize! :report, @lop_mon_hoc    
     @ld = @lop_mon_hoc.decorate    
     QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "phieudiem", :label => "#{current_user.username}", :value => "1"}.to_json
-    send_data @ld.phieudiem(@current_tenant), filename: "phieudiem_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ten_giang_vien}.zip", 
+    send_data @ld.phieudiem(@current_tenant), filename: "phieudiem_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ma_giang_vien}.zip", 
                           type: "application/zip"
   end
   def index
