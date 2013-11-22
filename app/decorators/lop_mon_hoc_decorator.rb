@@ -57,7 +57,7 @@ COALESCE("T1",0) + COALESCE("T2",0)+ COALESCE("T3",0)+ COALESCE("T4",0)
 0 as "T7", 0 as "T8", 0 as "T9", 0 as "T10", 0 as "T11", 0 as "T12", 
 0 as "T13", 0 as "T14", 0 as "T15", 0 as "T16", 0 as tongiovang , diem_chuyen_can , diem_thuc_hanh as diemthuchanh,
 lan1, lan2, lan3, diem_goc_tbkt as diemgoctbkt, diem_tbkt as diemtbkt, diem_qua_trinh as diemquatrinh, note as note
-from t1.lop_mon_hoc_sinh_viens where lop_mon_hoc_id=#{object.id} and ma_sinh_vien not in (select dd.ma_sinh_vien
+from t1.lop_mon_hoc_sinh_viens where (status is NULL or status != true) and lop_mon_hoc_id=#{object.id} and ma_sinh_vien not in (select dd.ma_sinh_vien
     from t1.diem_danhs dd
     inner join t1.lich_trinh_giang_days l on l.id = dd.lich_trinh_giang_day_id
     where l.lop_mon_hoc_id = #{object.id}

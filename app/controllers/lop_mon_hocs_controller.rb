@@ -91,8 +91,8 @@ class LopMonHocsController < ApplicationController
     if @svs and @svs.count > 0
       @svs.each do |sv|
         sv.tong_so_tiet = @lop_mon_hoc.so_tiet
-        sv.so_vang_co_phep = @lop_mon_hoc.lich_trinh_giang_days.inject(0){|sum,x| sum + x.diem_danhs.where(ma_sinh_vien: sv.ma_sinh_vien).sum(:so_tiet_vang, :conditions => {:phep => true}) }
-        sv.so_tiet_vang =  @lop_mon_hoc.lich_trinh_giang_days.inject(0){|sum,x| sum + x.diem_danhs.where(ma_sinh_vien: sv.ma_sinh_vien).sum(:so_tiet_vang) }        
+        sv.so_vang_co_phep = @lop_mon_hoc.lich_trinh_giang_days.where("loai is NULL or loai != 1").inject(0){|sum,x| sum + x.diem_danhs.where(ma_sinh_vien: sv.ma_sinh_vien).sum(:so_tiet_vang, :conditions => {:phep => true}) }
+        sv.so_tiet_vang =  @lop_mon_hoc.lich_trinh_giang_days.where("loai is NULL or loai != 1").inject(0){|sum,x| sum + x.diem_danhs.where(ma_sinh_vien: sv.ma_sinh_vien).sum(:so_tiet_vang) }
         sv.diem_chuyen_can = sv.diemcc
         sv.diem_qua_trinh = sv.diemqt
         if sv.diem_chuyen_can == 0 
