@@ -58,7 +58,7 @@ class BuoihocController < ApplicationController
         @lich.tiet_nghi = nil
         @sotietday = @lich.so_tiet_day
       end
-      if (@sotietday and @sotietday > 0 and @buoihoc and @sotietday <= @buoihoc["so_tiet"]) or (@sotietday and @sotietday > 0 and @lich and @lich.loai == 5 and @lich.status == 3)
+      if (@sotietday and @sotietday > 0 and @buoihoc and @sotietday <= @buoihoc["so_tiet"]) or (@sotietday and @sotietday > 0 and @sotietday <= @lich.so_tiet_day and @lich and (@lich.loai == 5 or @lich.loai == 2) and @lich.status == 3)
         @lich.so_tiet_day_moi = @sotietday
         @lich.phong_moi = @phong if @phong
         @lich.nguoi_tao = current_user
@@ -405,7 +405,7 @@ class BuoihocController < ApplicationController
       if @lich.so_tiet_day_moi.nil? or @lich.phong_moi.nil?
         @lich.so_tiet_day = @buoihoc["so_tiet"] if @buoihoc 
         @lich.so_tiet_day_moi = @buoihoc["so_tiet"] if @buoihoc      
-        @lich.phong_moi = @lop_mon_hoc.phong_hoc
+        @lich.phong_moi = @buoihoc["phong"] if @buoihoc
         @lich.save!
       end
       @nhomtruc = @trucnhat[from_zdate(@pid)] if @trucnhat
