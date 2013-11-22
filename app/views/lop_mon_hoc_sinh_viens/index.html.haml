@@ -75,13 +75,11 @@
             %br
             = submit_tag "Thiết lập", :class => "btn",  :data => {disable_with: "Submitting..."} 
             
-      .span7            
-        - if @lop_mon_hoc.bosung and @lichdkbs and @lichdkbs.count > 0
-          #statusdkbs
-            = render "statusdkbs"
-        - else
-          #dkbs
-          #qldkbs
+      .span7                            
+        #dkbs
+        #qldkbs
+        #statusdkbs
+          = render "statusdkbs"
     = form_tag groupupdate_lop_mon_hoc_lop_mon_hoc_sinh_viens_path(@lop_mon_hoc.id), :method => :post, :remote => true do         
       %ul.nav.pull-right
         %li= submit_tag "Cập nhật danh sách nhóm thực hành", :class => "btn btn-primary",  :data => {disable_with: "Submitting..."} 
