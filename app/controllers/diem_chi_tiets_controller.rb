@@ -41,10 +41,10 @@ class DiemChiTietsController < ApplicationController
           sv.lan2 = @msvs[sv.ma_sinh_vien][:lan2].to_f if @msvs[sv.ma_sinh_vien][:lan2].present? and @msvs[sv.ma_sinh_vien][:lan2].to_f >= 0 and @msvs[sv.ma_sinh_vien][:lan2].to_f <= 10
           sv.lan3 = @msvs[sv.ma_sinh_vien][:lan3].to_f if @msvs[sv.ma_sinh_vien][:lan3].present? and @msvs[sv.ma_sinh_vien][:lan3].to_f >= 0 and @msvs[sv.ma_sinh_vien][:lan3].to_f <= 10
           sv.lan4 = @msvs[sv.ma_sinh_vien][:lan4].to_f if @msvs[sv.ma_sinh_vien][:lan4].present? and @msvs[sv.ma_sinh_vien][:lan4].to_f >= 0 and @msvs[sv.ma_sinh_vien][:lan4].to_f <= 10
-          sv.lan5 = @msvs[sv.ma_sinh_vien][:lan5].to_f if @msvs[sv.ma_sinh_vien][:lan5].present? and @msvs[sv.ma_sinh_vien][:lan5].to_f >= 0 and @msvs[sv.ma_sinh_vien][:lan5].to_f <= 10
-          sv.diem_tbkt = sv.diemtbkt          
+          sv.lan5 = @msvs[sv.ma_sinh_vien][:lan5].to_f if @msvs[sv.ma_sinh_vien][:lan5].present? and @msvs[sv.ma_sinh_vien][:lan5].to_f >= 0 and @msvs[sv.ma_sinh_vien][:lan5].to_f <= 10          
           sv.diem_chuyen_can ||= sv.diemcc  
           sv.diem_goc_tbkt = sv.diemtbkt1
+          sv.diem_tbkt = sv.diemtbkt          
           sv.diem_qua_trinh = sv.diemqt
           if sv.diem_chuyen_can == 0 
             sv.note = "TC"

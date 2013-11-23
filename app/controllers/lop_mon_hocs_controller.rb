@@ -71,6 +71,8 @@ class LopMonHocsController < ApplicationController
     @svs = @lop_mon_hoc.lop_mon_hoc_sinh_viens
     if @svs and @svs.count > 0
       @svs.each do |sv|
+        sv.diem_goc_tbkt = sv.diemtbkt1
+        sv.diem_tbkt = sv.diemtbkt          
         sv.diem_qua_trinh = sv.diemqt
         if sv.diem_chuyen_can == 0 
           sv.note = "TC"
@@ -94,6 +96,8 @@ class LopMonHocsController < ApplicationController
         sv.so_vang_co_phep = @lop_mon_hoc.lich_trinh_giang_days.where("loai is NULL or loai != 1").inject(0){|sum,x| sum + x.diem_danhs.where(ma_sinh_vien: sv.ma_sinh_vien).sum(:so_tiet_vang, :conditions => {:phep => true}) }
         sv.so_tiet_vang =  @lop_mon_hoc.lich_trinh_giang_days.where("loai is NULL or loai != 1").inject(0){|sum,x| sum + x.diem_danhs.where(ma_sinh_vien: sv.ma_sinh_vien).sum(:so_tiet_vang) }
         sv.diem_chuyen_can = sv.diemcc
+        sv.diem_goc_tbkt = sv.diemtbkt1
+        sv.diem_tbkt = sv.diemtbkt          
         sv.diem_qua_trinh = sv.diemqt
         if sv.diem_chuyen_can == 0 
           sv.note = "TC"
