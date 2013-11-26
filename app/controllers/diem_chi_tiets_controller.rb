@@ -36,12 +36,12 @@ class DiemChiTietsController < ApplicationController
       @svs.each do   |sv|      
         if @msvs[sv.ma_sinh_vien]
           test = (@msvs[sv.ma_sinh_vien][:thuchanh].present? or @msvs[sv.ma_sinh_vien][:lan1].present? or @msvs[sv.ma_sinh_vien][:lan2].present? or @msvs[sv.ma_sinh_vien][:lan3].present? or @msvs[sv.ma_sinh_vien][:lan4].present? or @msvs[sv.ma_sinh_vien][:lan5].present?)
-          sv.diem_thuc_hanh = @msvs[sv.ma_sinh_vien][:thuchanh].to_f if (@msvs[sv.ma_sinh_vien][:thuchanh].present? and @msvs[sv.ma_sinh_vien][:thuchanh].to_f >= 0 and @msvs[sv.ma_sinh_vien][:thuchanh].to_f <= 10 or !@msvs[sv.ma_sinh_vien][:thuchanh].present? )
-          sv.lan1 = @msvs[sv.ma_sinh_vien][:lan1].to_f if ( @msvs[sv.ma_sinh_vien][:lan1].present? and @msvs[sv.ma_sinh_vien][:lan1].to_f >=0 and @msvs[sv.ma_sinh_vien][:lan1].to_f <= 10 or !@msvs[sv.ma_sinh_vien][:lan1].present? )
-          sv.lan2 = @msvs[sv.ma_sinh_vien][:lan2].to_f if (@msvs[sv.ma_sinh_vien][:lan2].present? and @msvs[sv.ma_sinh_vien][:lan2].to_f >= 0 and @msvs[sv.ma_sinh_vien][:lan2].to_f <= 10 or !@msvs[sv.ma_sinh_vien][:lan2].present?)
-          sv.lan3 = @msvs[sv.ma_sinh_vien][:lan3].to_f if (@msvs[sv.ma_sinh_vien][:lan3].present? and @msvs[sv.ma_sinh_vien][:lan3].to_f >= 0 and @msvs[sv.ma_sinh_vien][:lan3].to_f <= 10 or !@msvs[sv.ma_sinh_vien][:lan3].present?)
-          sv.lan4 = @msvs[sv.ma_sinh_vien][:lan4].to_f if (@msvs[sv.ma_sinh_vien][:lan4].present? and @msvs[sv.ma_sinh_vien][:lan4].to_f >= 0 and @msvs[sv.ma_sinh_vien][:lan4].to_f <= 10 or !@msvs[sv.ma_sinh_vien][:lan4].present?)
-          sv.lan5 = @msvs[sv.ma_sinh_vien][:lan5].to_f if (@msvs[sv.ma_sinh_vien][:lan5].present? and @msvs[sv.ma_sinh_vien][:lan5].to_f >= 0 and @msvs[sv.ma_sinh_vien][:lan5].to_f <= 10 or !@msvs[sv.ma_sinh_vien][:lan5].present?)
+          sv.diem_thuc_hanh = (@msvs[sv.ma_sinh_vien][:thuchanh].to_f if !@msvs[sv.ma_sinh_vien][:thuchanh].nil? and @msvs[sv.ma_sinh_vien][:thuchanh].to_f >= 0 and @msvs[sv.ma_sinh_vien][:thuchanh].to_f <= 10) || (nil if !@msvs[sv.ma_sinh_vien][:thuchanh].present? or @msvs[sv.ma_sinh_vien][:thuchanh].nil? )
+          sv.lan1 = (@msvs[sv.ma_sinh_vien][:lan1].to_f if !@msvs[sv.ma_sinh_vien][:lan1].nil? and @msvs[sv.ma_sinh_vien][:lan1].to_f >=0 and @msvs[sv.ma_sinh_vien][:lan1].to_f <= 10 ) || (nil if !@msvs[sv.ma_sinh_vien][:lan1].present? or @msvs[sv.ma_sinh_vien][:lan1].nil?)
+          sv.lan2 = (@msvs[sv.ma_sinh_vien][:lan2].to_f if !@msvs[sv.ma_sinh_vien][:lan2].nil? and @msvs[sv.ma_sinh_vien][:lan2].to_f >= 0 and @msvs[sv.ma_sinh_vien][:lan2].to_f <= 10) || (nil if !@msvs[sv.ma_sinh_vien][:lan2].present? or @msvs[sv.ma_sinh_vien][:lan2].nil?)
+          sv.lan3 = (@msvs[sv.ma_sinh_vien][:lan3].to_f if !@msvs[sv.ma_sinh_vien][:lan3].nil? and @msvs[sv.ma_sinh_vien][:lan3].to_f >= 0 and @msvs[sv.ma_sinh_vien][:lan3].to_f <= 10) || (nil if !@msvs[sv.ma_sinh_vien][:lan3].present? or @msvs[sv.ma_sinh_vien][:lan3].nil?)
+          sv.lan4 = (@msvs[sv.ma_sinh_vien][:lan4].to_f if !@msvs[sv.ma_sinh_vien][:lan4].nil? and @msvs[sv.ma_sinh_vien][:lan4].to_f >= 0 and @msvs[sv.ma_sinh_vien][:lan4].to_f <= 10) || (nil if !@msvs[sv.ma_sinh_vien][:lan4].nil? or @msvs[sv.ma_sinh_vien][:lan4].nil?)
+          sv.lan5 = (@msvs[sv.ma_sinh_vien][:lan5].to_f if !@msvs[sv.ma_sinh_vien][:lan5].nil? and @msvs[sv.ma_sinh_vien][:lan5].to_f >= 0 and @msvs[sv.ma_sinh_vien][:lan5].to_f <= 10) || (nil if !@msvs[sv.ma_sinh_vien][:lan5].nil?)
           sv.diem_chuyen_can ||= sv.diemcc  
           sv.diem_goc_tbkt = sv.diemtbkt1
           sv.diem_tbkt = sv.diemtbkt   
