@@ -25,6 +25,7 @@ class LopMonHocsController < ApplicationController
           sv.diem_chuyen_can = @msvs[sv.ma_sinh_vien][:diemcc].to_i if @msvs[sv.ma_sinh_vien][:diemcc].present? and @msvs[sv.ma_sinh_vien][:diemcc].to_i >= 0 and @msvs[sv.ma_sinh_vien][:diemcc].to_f <= 4
           if @lop_mon_hoc.get_thuc_hanh == true
             sv.diem_thuc_hanh = @msvs[sv.ma_sinh_vien][:thuchanh].to_i if @msvs[sv.ma_sinh_vien][:thuchanh].present? and @msvs[sv.ma_sinh_vien][:thuchanh].to_i >= 0 and @msvs[sv.ma_sinh_vien][:thuchanh].to_f <= 3
+            sv.diemth = sv.diemth2
           end
           sv.diem_tbkt = @msvs[sv.ma_sinh_vien][:diemtbkt].to_i if @msvs[sv.ma_sinh_vien][:diemtbkt].present? and @msvs[sv.ma_sinh_vien][:diemtbkt].to_i >= 0 and @msvs[sv.ma_sinh_vien][:diemtbkt].to_i <= (@lop_mon_hoc.get_thuc_hanh == true ? 3 : 6)
           sv.diem_qua_trinh = sv.diemqt
