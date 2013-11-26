@@ -44,7 +44,8 @@ class DiemChiTietsController < ApplicationController
           sv.lan5 = @msvs[sv.ma_sinh_vien][:lan5].to_f if @msvs[sv.ma_sinh_vien][:lan5].present? and @msvs[sv.ma_sinh_vien][:lan5].to_f >= 0 and @msvs[sv.ma_sinh_vien][:lan5].to_f <= 10          
           sv.diem_chuyen_can ||= sv.diemcc  
           sv.diem_goc_tbkt = sv.diemtbkt1
-          sv.diem_tbkt = sv.diemtbkt          
+          sv.diem_tbkt = sv.diemtbkt   
+          sv.diemth = sv.diemth2       
           sv.diem_qua_trinh = sv.diemqt
           if sv.diem_chuyen_can == 0 
             sv.note = "TC"

@@ -76,7 +76,7 @@ class LopMonHocSinhVien < ActiveRecord::Base
   def tong_so_tiet    
     (lop_mon_hoc.so_tiet_phan_bo if lop_mon_hoc.so_tiet_phan_bo and lop_mon_hoc.so_tiet_phan_bo.to_i > 0) || lop_mon_hoc.khoi_luong_phan_bo || 1
   end  
-  def diemth
+  def diemth2
     if lop_mon_hoc.get_thuc_hanh
       convert_grade((diem_thuc_hanh.round(0).to_i if diem_thuc_hanh) || 0)
     else
@@ -86,7 +86,7 @@ class LopMonHocSinhVien < ActiveRecord::Base
   def diemqt    
     return (diem_chuyen_can || 0) + (diem_thuc_hanh || 0) + (diem_tbkt || 0) if lop_mon_hoc.thang3
     return 0 if diemcc == 0 and diem_chuyen_can == 0
-    (diem_chuyen_can || diemcc || 0) + diemtbkt + diemth
+    (diem_chuyen_can || diemcc || 0) + diemtbkt + diemth2
   end
   def percent
     return 100 if so_tiet_vang.nil?

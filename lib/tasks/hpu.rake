@@ -858,6 +858,23 @@ namespace :hpu do
       end
     end
   end
+
+  task :capnhatdiemth => :environment do 
+    tenant = Tenant.last
+    PgTools.set_search_path tenant.scheme, false
+    lops = LopMonHoc.all
+    if lops and lops.count > 0
+      lops.each do |lop|
+        lsvs = lop.lop_mon_hoc_sinh_viens
+        if lsvs and lsvs.count > 0
+          lsvs.each do |sv|
+            sv.diemth = sv.diemth2            
+            sv.save!
+          end
+        end
+      end
+    end
+  end
 end
 
 def titleize(str)

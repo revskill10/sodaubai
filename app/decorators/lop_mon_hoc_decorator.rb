@@ -400,13 +400,13 @@ on tt1.stt = tt2.tuan ) as ttt
     #tinchi = object.lop_mon_hoc_sinh_viens.where(lop_tin_chi: true)
     #nienche = (svs - tinchi)
     sql_nienche = <<-eos  
-select ma_sinh_vien, ho_dem, ho, ten,  to_char(ngay_sinh,'DD/MM/YYYY' ) as "ngay_sinh", ma_lop_hanh_chinh, diem_chuyen_can, diem_thuc_hanh, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens  where lop_mon_hoc_id = #{object.id}
+select ma_sinh_vien, ho_dem, ho, ten,  to_char(ngay_sinh,'DD/MM/YYYY' ) as "ngay_sinh", ma_lop_hanh_chinh, diem_chuyen_can, diemth, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens  where lop_mon_hoc_id = #{object.id}
 and lop_tin_chi != true and (status != true or status is NULL) order by ten, ho_dem, ho, ngay_sinh 
     eos
     nienche = ActiveRecord::Base.connection.execute(sql_nienche).to_a
     nienche = nienche.map {|t| t and LSVCompareLienche.new(t)}.sort
     sql_tinchi = <<-eos  
-select ma_sinh_vien, ho_dem, ho, ten ,  to_char(ngay_sinh,'DD/MM/YYYY' ) as "ngay_sinh", ma_lop_hanh_chinh, diem_chuyen_can, diem_thuc_hanh, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens  where lop_mon_hoc_id = #{object.id}
+select ma_sinh_vien, ho_dem, ho, ten ,  to_char(ngay_sinh,'DD/MM/YYYY' ) as "ngay_sinh", ma_lop_hanh_chinh, diem_chuyen_can, diemth, diem_tbkt, diem_qua_trinh, lop_ghep  from t1.lop_mon_hoc_sinh_viens  where lop_mon_hoc_id = #{object.id}
 and lop_tin_chi = true and (status != true or status is NULL) order by ten, ho_dem,  ho,ngay_sinh 
     eos
     tinchi = ActiveRecord::Base.connection.execute(sql_tinchi).to_a
@@ -474,14 +474,14 @@ and lop_tin_chi = true and (status != true or status is NULL) order by ten, ho_d
         tinchiitems2 = ti.each_with_index.map do |item,i|
            [              
           item.diem_chuyen_can,
-          item.diem_thuc_hanh,
+          item.diemth,
           item.diem_tbkt,
           item.diem_qua_trinh
         ]  
         end   
         tinchiitems3 = ti.each_with_index.map do |item,i|
-          [              
-            (item.lop_ghep == true and item.diem_chuyen_can == 0 ?  "GL, TC" : "") || (item.lop_ghep == true and item.diem_chuyen_can > 0 ? "GL" : "") || (!(item.lop_ghep == true) and item.diem_chuyen_can == 0 ? "TC" : "" )
+          [                          
+            ("GL, TC" if item.lop_ghep == true and item.diem_chuyen_can.to_i == 0) || ("GL" if item.lop_ghep == true and item.diem_chuyen_can.to_i > 0) || ("TC" if item.diem_chuyen_can.to_i == 0 ) || ""
           ]
         end
 
@@ -591,14 +591,14 @@ and lop_tin_chi = true and (status != true or status is NULL) order by ten, ho_d
         niencheitems2 = ti.each_with_index.map do |item,i|
            [              
           item.diem_chuyen_can,
-          item.diem_thuc_hanh,
+          item.diemth,
           item.diem_tbkt,
           item.diem_qua_trinh          
         ]  
         end   
         niencheitems3 = ti.each_with_index.map do |item,i|
           [              
-            (item.lop_ghep == true and item.diem_chuyen_can == 0 ?  "GL, TC" : "") || (item.lop_ghep == true and item.diem_chuyen_can > 0 ? "GL" : "") || (!(item.lop_ghep == true) and item.diem_chuyen_can == 0 ? "TC" : "" )
+            ("GL, TC" if item.lop_ghep == true and item.diem_chuyen_can.to_i == 0) || ("GL" if item.lop_ghep == true and item.diem_chuyen_can.to_i > 0) || ("TC" if item.diem_chuyen_can.to_i == 0 ) || ""
           ]
         end
 

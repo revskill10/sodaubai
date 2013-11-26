@@ -3,7 +3,7 @@ require 'date'
 module HPU
 	class LSVCompare
 		include Comparable
-		attr_accessor :stt, :msv, :ma_lop_hanh_chinh, :diem_chuyen_can, :diem_thuc_hanh, :diem_tbkt, :diem_qua_trinh, :ten, :ho_dem, :ho, :ngaysinh, :lop_ghep
+		attr_accessor :stt, :msv, :ma_lop_hanh_chinh, :diem_chuyen_can, :diemth, :diem_tbkt, :diem_qua_trinh, :ten, :ho_dem, :ho, :ngaysinh, :lop_ghep
 		def initialize(h)
 			@lop_ghep = h["lop_ghep"]
 			@ten = h["ten"]
@@ -14,7 +14,7 @@ module HPU
 			@msv = h["ma_sinh_vien"]
 			@ma_lop_hanh_chinh = h["ma_lop_hanh_chinh"]
 			@diem_chuyen_can = h["diem_chuyen_can"]
-			@diem_thuc_hanh = h["diem_thuc_hanh"]
+			@diemth = h["diemth"]
 			@diem_tbkt = h["diem_tbkt"]
 			@diem_qua_trinh = h["diem_qua_trinh"]
 		end
@@ -70,7 +70,7 @@ module HPU
 	end
 	class LSVCompareLienche
 		include Comparable
-		attr_accessor :stt, :msv, :ma_lop_hanh_chinh, :diem_chuyen_can, :diem_thuc_hanh, :diem_tbkt, :diem_qua_trinh, :ten, :ho_dem, :ho, :ngaysinh, :lop_ghep
+		attr_accessor :stt, :msv, :ma_lop_hanh_chinh, :diem_chuyen_can, :diemth, :diem_tbkt, :diem_qua_trinh, :ten, :ho_dem, :ho, :ngaysinh, :lop_ghep
 		def initialize(h)
 			@lop_ghep = h["lop_ghep"]
 			@ten = h["ten"]
@@ -81,7 +81,7 @@ module HPU
 			@msv = h["ma_sinh_vien"]
 			@ma_lop_hanh_chinh = h["ma_lop_hanh_chinh"]
 			@diem_chuyen_can = h["diem_chuyen_can"]
-			@diem_thuc_hanh = h["diem_thuc_hanh"]
+			@diemth = h["diemth"]
 			@diem_tbkt = h["diem_tbkt"]
 			@diem_qua_trinh = h["diem_qua_trinh"]
 		end

@@ -24,7 +24,7 @@ class Ability
           (user.code == lop.ma_giang_vien or user.id == lop.user_id)
         end
         can :manage, LichTrinhGiangDay do |lich|
-            can? :manage, lich.lop_mon_hoc or (user.code == lich.ma_giang_vien_moi and lich.status == 3)
+            (can? :manage, lich.lop_mon_hoc and lich.status != 6) or (user.code == lich.ma_giang_vien_moi and lich.status == 3)
         end  
         cannot :quanly, LichTrinhGiangDay do |lich|
             cannot? :manage, lich
@@ -33,7 +33,7 @@ class Ability
             can :manage, lich
         end
         cannot :diemdanh, LichTrinhGiangDay do |l|
-            [1,2,3,4].include?(l.loai) and l.status == 6            
+            [1,2,3,4,5].include?(l.loai) and l.status == 6            
         end
         can :manage, ThongBaoLopHoc do |tb|
             user.imageable.lop_mon_hocs.map(&:id).include?(tb.lop_mon_hoc.id) if user.imageable.is_a?(GiangVien)
