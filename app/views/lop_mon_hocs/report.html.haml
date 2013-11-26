@@ -56,7 +56,7 @@
             .bar.bar-success{:style => "width: #{sv.percent}%"}= sv.percent.to_s + "%"
           %td= (sv.diem_chuyen_can || sv.diemcc)
           - if @lop_mon_hoc.get_thuc_hanh
-            %td= sv.convert_grade(sv.diem_thuc_hanh)
+            %td= sv.diemth
           %td= sv.diemtbkt
           %td= sv.diemqt
   %hr
