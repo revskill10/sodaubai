@@ -231,7 +231,7 @@ from t1.lop_mon_hoc_sinh_viens where (status is NULL or status != true) and lop_
   
   end
 
-  def lichtrinh(tenant)
+  def lichtrinh(tenant, lang)
     sql = <<-eos  
             
 select 'Tuần:' || tuan || tungay || denngay as tuan, noidung, sotiet, ngayday from (
@@ -272,9 +272,12 @@ on tt1.stt = tt2.tuan ) as ttt
     pdf.font_families.update(
       'Arial' => { :normal => Rails.root.join('app/assets/fonts/arial2.ttf').to_s,
                    :bold   => Rails.root.join('app/assets/fonts/arialbd.ttf').to_s,
-                   :italic => Rails.root.join('app/assets/fonts/arialbi.ttf').to_s}                       
+                   :italic => Rails.root.join('app/assets/fonts/arialbi.ttf').to_s},
+      
     )
-    
+    pdf.font_families.update(
+    'Mandarin' => {:normal => Rails.root.join('app/assets/fonts/chinese.ttf').to_s, :bold => Rails.root.join('app/assets/fonts/chinese.ttf').to_s,
+      :italic => Rails.root.join('app/assets/fonts/chinese.ttf').to_s})
     items = @lichs.map do |item|
       [
         item["tuan"],            
@@ -298,8 +301,9 @@ on tt1.stt = tt2.tuan ) as ttt
           else
             #pdf.text v, :size => 10 unless v.blank?
             pdf.font "Arial"
+            #pdf.font "Mandarin"# if object.language == 1
             dd = [["BỘ GIÁO DỤC VÀ ĐÀO TẠO","","CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM"],["TRƯỜNG ĐẠI HỌC DÂN LẬP HẢI PHÒNG","","Độc lập - Tự do - Hạnh phúc"]]
-            pdf.table dd, :cell_style => {:borders => [], size: 8, :valign => :center}, :column_widths => {0 => 270, 1 => 4, 2 => 300}  do
+            pdf.table dd, :cell_style => {:borders => [], size: 9, :valign => :center}, :column_widths => {0 => 270, 1 => 4, 2 => 300}  do
               
               dd.count.times do |t|                    
                 row(0).columns(0).padding_left = 50
@@ -326,7 +330,7 @@ on tt1.stt = tt2.tuan ) as ttt
           ["Số tiết BT,TN,TH,TKMH ","","...","", "Ngành: .................. Khóa: ..............."],
           ["Tổng số tiết","","#{object.khoi_luong}","", "Lớp: #{object.ma_lop} Học kỳ: #{tenant.hoc_ky} Năm học: #{tenant.nam_hoc}"]
         ]
-        pdf.table data, :cell_style => {:borders => [], :size => 9}, :column_widths => {0 => 200, 2 => 30, 3 => 30} do               
+        pdf.table data, :cell_style => {:borders => [], :size => 10}, :column_widths => {0 => 200, 2 => 30, 3 => 30} do               
           4.times do |t|
             row(t).columns(2).align = :center
           end
@@ -355,10 +359,10 @@ on tt1.stt = tt2.tuan ) as ttt
 
     end
     pdf.move_down(20)
-    
-    pdf.table(items, :header => true, :cell_style => {:size => 9}, :column_widths => {0 => 80,1 => 300, 2 => 40, 3 => 100}, :width => 520) do           
+        
+    pdf.table(items, :header => true, :cell_style => {:size => 10}, :column_widths => {0 => 80,1 => 300, 2 => 40, 3 => 100}, :width => 520) do           
       items.count.times do |t|
-        row(t).columns(0).font_style = :italic
+        row(t).columns(0).font_style = :italic        
         [0,2,3].each do |k|
           row(t).columns(k).valign = :center
           row(t).columns(k).align = :center
@@ -369,24 +373,31 @@ on tt1.stt = tt2.tuan ) as ttt
           row(0).columns(t).valign = :center
         end
       end
+      if lang == 1
+        (items.count - 1).times do |t|
+          row(t+1).columns(1).font = "Mandarin"
+        end
+      end
       row(0).columns(2).valign = :center
-      row(0).columns(2).align = :center          
+      row(0).columns(2).align = :center    
+
     end
-    pdf.move_down(20)        
-    pdf.text "Ghi chú: Lập thành 02 bản - Bộ môn và CBGD thực hiện - Kết thúc học kỳ nộp lại cho phòng ĐT", :size => 7
+    pdf.move_down(20)
+    pdf.font "Arial"        
+    pdf.text "Ghi chú: Lập thành 02 bản - Bộ môn và CBGD thực hiện - Kết thúc học kỳ nộp lại cho phòng ĐT", :size => 8
     d = DateTime.now
     footer = [["","", "Hải phòng, ngày #{d.day} tháng #{d.month} năm #{d.year}"],
     ["CHỦ NHIỆM BỘ MÔN","","GIẢNG VIÊN"]]
-    pdf.table footer, :cell_style => {:borders => [], :size => 9}, :column_widths => {0 => 200, 1 => 100}, :width => 520 do 
+    pdf.table footer, :cell_style => {:borders => [], :size => 10}, :column_widths => {0 => 200, 1 => 100}, :width => 520 do 
       row(0).columns(2).align = :center
       row(0).columns(2).font_style = :italic
       row(1).columns(0).align = :center
       row(1).columns(2).align = :center
     end
     pdf.move_down(20)
-    pdf.text "KÝ DUYỆT KẾ HOẠCH", :size => 7
+    pdf.text "KÝ DUYỆT KẾ HOẠCH", :size => 8
     pdf.move_down(60)
-    pdf.text "KÝ XÁC NHẬN ĐÃ HOÀN THÀNH KẾ HOẠCH"        , :size => 7
+    pdf.text "KÝ XÁC NHẬN ĐÃ HOÀN THÀNH KẾ HOẠCH"        , :size => 8
     
     pdf.repeat(:all) do 
       pdf.draw_text "QC07-B04/1", :at => [10, -10], :size => 8

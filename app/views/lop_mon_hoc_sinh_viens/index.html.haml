@@ -51,6 +51,9 @@
             = check_box_tag :thuc_hanh, nil, @lop_mon_hoc.get_thuc_hanh
             %span Có đầu điểm thực hành? 
             %br
+            = check_box_tag :lang, nil, (@lop_mon_hoc.language == 1)
+            %span Tiếng Trung
+            %br
             = check_box_tag :thang3, nil, @lop_mon_hoc.thang3
             %span Nhập điểm trực tiếp 4-3-3 (Chỉ dành cho các giảng viên thỉnh giảng)? 
             %br

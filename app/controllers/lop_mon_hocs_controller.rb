@@ -126,7 +126,7 @@ class LopMonHocsController < ApplicationController
     authorize! :report, @lop_mon_hoc        
     @ld = @lop_mon_hoc.decorate    
     QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "lichtrinh", :label => "#{current_user.username}", :value => "1"}.to_json
-    send_data @ld.lichtrinh(@current_tenant).render, filename: "lich_trinh_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ma_giang_vien}.pdf", 
+    send_data @ld.lichtrinh(@current_tenant, @lop_mon_hoc.language).render, filename: "lich_trinh_lop_#{@lop_mon_hoc.ma_lop}_#{@lop_mon_hoc.ma_giang_vien}.pdf", 
                           type: "application/pdf"
   end  
   def phieudiem
@@ -203,6 +203,7 @@ class LopMonHocsController < ApplicationController
     @sn = params[:so_nhom].to_s.empty? ? 1 : params[:so_nhom].to_i
     @sl = params[:so_lan_kt].to_s.empty? ? 0 : params[:so_lan_kt].to_i
     th = params[:thuc_hanh]
+    lang = params[:lang]
     @thang3 = params[:thang3] ? true : false
     if @lop_mon_hoc.bosung != true
       @st = (params[:so_tiet_phan_bo] and params[:so_tiet_phan_bo].empty?) ? @lop_mon_hoc.so_tiet : params[:so_tiet_phan_bo].to_f
@@ -213,6 +214,8 @@ class LopMonHocsController < ApplicationController
     @lop_mon_hoc.update_attributes(group: @sn, so_lan_kt: @sl) if @sl >= 0 and @sl <= 5 and @sn >= 1 and @lop_mon_hoc.bosung == true
     @lop_mon_hoc.thuc_hanh = true if th
     @lop_mon_hoc.thuc_hanh = false unless th
+    @lop_mon_hoc.language = nil unless lang
+    @lop_mon_hoc.language = 1 if lang == "on"
     @lop_mon_hoc.da_day_xong = params[:da_day_xong]
 
     if @lop_mon_hoc.save! then 
