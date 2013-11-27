@@ -261,7 +261,8 @@ group by tuan
 order by tuan)
 
 as tt2 
-on tt1.stt = tt2.tuan ) as ttt
+on tt1.stt = tt2.tuan 
+order by tuan) as ttt
 
     eos
     @lichs = ActiveRecord::Base.connection.execute(sql)
