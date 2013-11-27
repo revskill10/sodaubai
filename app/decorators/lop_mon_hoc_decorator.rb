@@ -496,7 +496,7 @@ and lop_tin_chi = true and (status != true or status is NULL) order by ten, ho_d
           ]
         end
 
-        h1 = pdf.make_table [["STT","Mã SV","Họ và tên","Ngày sinh","Lớp"]], :width => 280, :cell_style => {:size => 6.5, :align => :center, :valign => :center, :height => 60}, :column_widths => {0 => 30, 1 => 60, 2 => 90, 3 => 50, 4 => 50}
+        h1 = pdf.make_table [["STT","Mã SV","Họ và tên","Ngày sinh","Lớp"]], :width => 280, :cell_style => {:size => 7, :align => :center, :valign => :center, :height => 60}, :column_widths => {0 => 30, 1 => 60, 2 => 90, 3 => 50, 4 => 50}
         h11 = pdf.make_table tinchiitems, :cell_style => {:size => 6.5, :align => :center, :height => 17}, :column_widths => {0 => 30, 1 => 60, 2 => 90, 3 => 50, 4 => 50}, :width => 280 do 
           tinchiitems.length.times do |i|
             row(i).columns(2).align = :left
@@ -508,7 +508,7 @@ and lop_tin_chi = true and (status != true or status is NULL) order by ten, ho_d
         ]
         h21 = pdf.make_table [["Nội dung"]], :cell_style => {:size => 6.5, :align => :center, :height => 20}, :width => 200
         h22 = pdf.make_table [["Chuyên cần 4/10","Thực hành, TN, Tiểu luận 3/10","Kiểm tra thường xuyên 3/10","Tổng điểm"]], :cell_style => {:height => 40, :size => 7, :align => :center}, :column_widths => {0 => 50, 1 => 50, 2 => 50, 3 => 50}, :width => 200
-        h221 = pdf.make_table tinchiitems2, :cell_style => {:size => 6.5, :height => 17, :align => :center}, :width => 200, :column_widths => {0 => 50, 1 => 50, 2 => 50, 3 => 50}
+        h221 = pdf.make_table tinchiitems2, :cell_style => {:size => 8, :height => 17, :align => :center}, :width => 200, :column_widths => {0 => 50, 1 => 50, 2 => 50, 3 => 50}
         h222 = pdf.make_table [
           [h22],
           [h221]
@@ -614,7 +614,7 @@ and lop_tin_chi = true and (status != true or status is NULL) order by ten, ho_d
         end
 
         h1 = pdf2.make_table [["STT","Mã SV","Họ và tên","Ngày sinh","Lớp"]], :width => 280, :cell_style => {:size => 6.5, :align => :center, :valign => :center, :height => 60}, :column_widths => {0 => 30, 1 => 60, 2 => 90, 3 => 50, 4 => 50}
-        h11 = pdf2.make_table niencheitems, :cell_style => {:size => 6.5, :align => :center, :height => 17}, :column_widths => {0 => 30, 1 => 60, 2 => 90, 3 => 50, 4 => 50}, :width => 280 do 
+        h11 = pdf2.make_table niencheitems, :cell_style => {:size => 8, :align => :center, :height => 17}, :column_widths => {0 => 30, 1 => 60, 2 => 90, 3 => 50, 4 => 50}, :width => 280 do 
           niencheitems.length.times do |i|
             row(i).columns(2).align = :left
           end
