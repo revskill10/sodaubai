@@ -535,6 +535,7 @@ and lop_tin_chi = true and (status != true or status is NULL) order by ten, ho_d
         pdf.move_down 20
         prev = prev + ti.count
       end
+      pdf.start_new_page if tinchi.count % 30 > 27 or tinchi.count % 30 == 0
       pdf.move_down 1
       pdf.text "Nơi gửi: Phòng Đào tạo", :size => 7
       pdf.table [["","Hải Phòng, ngày         tháng        năm"],["Chủ nhiệm bộ môn", "Giảng viên"]], :cell_style => {:size => 8, :borders => [], :align => :center}, :column_widths => {0 => 250, 1 => 250} do 
@@ -652,6 +653,7 @@ and lop_tin_chi = true and (status != true or status is NULL) order by ten, ho_d
         pdf2.move_down 20
         prev2 = prev2 + ti.count
       end
+      pdf2.start_new_page if nienche.count % 30 > 27 or nienche.count % 30 == 0
       pdf2.move_down 1
       pdf2.text "Nơi gửi: Phòng Đào tạo", :size => 7
       pdf2.table [["","Hải Phòng, ngày         tháng        năm"],["Chủ nhiệm bộ môn", "Giảng viên"]], :cell_style => {:size => 8, :borders => [], :align => :center}, :column_widths => {0 => 250, 1 => 250} do 
