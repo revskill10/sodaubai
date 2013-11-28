@@ -1,13 +1,16 @@
+# encoding: utf-8
 require 'spec_helper'
 
-describe "dashboard/index.html.haml" do
-  it "display all lop mon hocs" do 
-  	assign(:current_lops, [
-  		stub_model(LopMonHoc, ma_giang_vien:"dungth", ma_lop:"lop1"),
-  		stub_model(LopMonHoc, ma_giang_vien:"dungth", ma_lop:"lop2")
-  		])
-	render
-	rendered.should contain("lop1")
-	rendered.should contain("lop2")
+describe 'dashboard/index' do
+  include ApplicationRspecHelpers
+
+  describe 'authentication nav' do
+    context 'when authenticated' do
+      it 'should have Log Out' do
+        stub_user
+        render
+        rendered.should have_selector('nav a', text: 'Đăng xuất')
+      end
+    end
   end
 end

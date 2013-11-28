@@ -227,6 +227,7 @@ class LopMonHocsController < ApplicationController
         @groups_arrays[(g+1).to_s] = "Nhóm #{g+1}"
       end      
       QC.enqueue "GoogleAnalytic.perform", {:category => "LopMonHoc", :action => "update", :label => "#{current_user.username}", :value => "1"}.to_json
+      @lop_mon_hoc.create_activity key: "lop_mon_hoc.update" , owner: current_user
       respond_to do |format|
         if @lop_mon_hoc.da_day_xong then 
           format.js { render :update2 }

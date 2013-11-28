@@ -424,11 +424,11 @@ and lop_tin_chi = true and (status != true or status is NULL) order by ten, ho_d
     tinchi = ActiveRecord::Base.connection.execute(sql_tinchi).to_a
     tinchi = tinchi.map {|t| t and LSVCompare.new(t)}.sort
     if nienche.count > 0              
-      tis2 = [nienche[0..27]] + (nienche[28..-1]||[]).each_slice(35).to_a                          
+      tis2 = [nienche[0..30]] + (nienche[31..-1]||[]).each_slice(35).to_a                          
     end
 
     if tinchi.count > 0                
-      tis = [tinchi[0..27]] + (tinchi[28..-1]||[]).each_slice(35).to_a          
+      tis = [tinchi[0..30]] + (tinchi[31..-1]||[]).each_slice(35).to_a          
     end
               
         
@@ -532,7 +532,7 @@ and lop_tin_chi = true and (status != true or status is NULL) order by ten, ho_d
                 h311
               ]
             ]
-        pdf.move_down 10
+        pdf.move_down 20
         prev = prev + ti.count
       end
       pdf.move_down 1
@@ -649,7 +649,7 @@ and lop_tin_chi = true and (status != true or status is NULL) order by ten, ho_d
                 h311
               ]
             ]
-        pdf2.move_down 10
+        pdf2.move_down 20
         prev2 = prev2 + ti.count
       end
       pdf2.move_down 1
