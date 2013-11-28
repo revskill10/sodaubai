@@ -47,7 +47,7 @@
   = form_tag update_lop_mon_hoc_buoihoc_path(@lop_mon_hoc.id, @ngay.strftime("%Y-%m-%d-%H-%M")), :method => :post, :remote => true do
     - if can? :diemdanh, @lich
       = submit_tag "Cập nhật", :class =>"btn btn-primary",  :data => {disable_with: "Submitting..."}
-    .well.sidebar-nav{:style => "font-size: 12px;"}
+    .well.sidebar-nav{:style => "font-size: 12px;"}      
       %table{:class => "table table-bordered"}            
         %thead
           %td{:style => 'font-weight: bold;'} Môn học
@@ -58,13 +58,13 @@
           - if @lich.loai == 5
             %tr
               %td
-                %span= @lop_mon_hoc.ten_mon_hoc
+                %span= @lich.lop_mon_hoc.ten_mon_hoc
               %td
-                %span= @lop_mon_hoc.ten_giang_vien    
+                %span= @lich.lop_mon_hoc.ten_giang_vien    
               %td
-                %span= @lop_mon_hoc.ma_lop   
+                %span= @lich.lop_mon_hoc.ma_lop   
               %td
-                %span= "#{@lop_mon_hoc.khoi_luong} / #{@lop_mon_hoc.so_tiet_phan_bo || @lop_mon_hoc.khoi_luong_phan_bo}"
+                %span= "#{@lich.lop_mon_hoc.khoi_luong} / #{@lich.lop_mon_hoc.so_tiet_phan_bo || @lich.lop_mon_hoc.khoi_luong_phan_bo}"
           - else
             %tr
               %td

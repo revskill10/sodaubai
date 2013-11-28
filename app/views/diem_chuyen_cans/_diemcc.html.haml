@@ -28,8 +28,8 @@
         %td= sv.ten  
         %td= sv.ma_lop_hanh_chinh
         %td.progress  
-          .bar.bar-danger{:style => "width: #{dc(@lop_mon_hoc, sv)}%"}                                        
-          .bar.bar-success{:style => "width: #{100-dc(@lop_mon_hoc, sv)}%"}= (100 - dc(@lop_mon_hoc, sv).round(2)).to_s + "%"                               
+          .bar.bar-danger{:style => "width: #{100 - sv.percent}%"}
+          .bar.bar-success{:style => "width: #{sv.percent}%"}= sv.percent.to_s + "%"                               
         %td= sv.so_vang_co_phep || 0
         %td= sv.so_tiet_vang ||0            
         %td= text_field_tag "msv[#{sv.ma_sinh_vien}", nil, :value => sv.diem_chuyen_can || sv.diemcc || "", :style => "width: 20px;"
