@@ -273,7 +273,3 @@ Devise.setup do |config|
   #   manager.failure_app = DeviseCasAuthenticatable::SingleSignOut::WardenFailureApp
   # end
 end
-RSpec.configure do |config|
-  config.include Devise::TestHelpers, :type => :controller
-  config.include Devise::TestHelpers, :type => :view
-end
