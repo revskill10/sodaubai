@@ -1,7 +1,7 @@
 %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown"} 
   Điểm
   %b.caret
-  - if @lop_mon_hoc.thang3
+  - if @lop_mon_hoc.thang3 == true
     %ul.dropdown-menu
       %li= link_to "Điểm đã quy đổi", lop_mon_hoc_path(@lop_mon_hoc.id) + "/nhap_diem_thang_3"
   - else
