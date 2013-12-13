@@ -1,0 +1,3475 @@
+commit 1dcfe2ca400f37f8f26e6e12e39604708f3f0144
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 30 08:07:01 2013 +0700
+
+    Fix menu in class management
+
+commit 24ec02ef584686f25e9d07c53387a9149b3155fb
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Nov 29 15:10:50 2013 +0700
+
+    Fix: Cap nhat diem chuyen can khi diem danh
+
+commit be6bd092dcddc0a63a521a706361b7059fbe39d0
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Nov 29 13:46:04 2013 +0700
+
+    Fix: Update font
+
+commit e75916e35b9813f3426be798ff13426694f1466d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 28 17:04:26 2013 +0700
+
+    Fix: Phan trang cho phieu diem
+
+commit 9697431ca92e34f9e5290a8fec12b37f5bed075e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 28 16:42:13 2013 +0700
+
+    Fix: Hot fix
+
+commit 44c7c849e850d816995f7f5229c6bfe043e86849
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 28 16:39:40 2013 +0700
+
+    Fix xuat phieu diem qua trinh phan trang
+
+commit 52bbae5a8cb5f1c00d6b3399ad2b62f1a929a6b6
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 28 11:17:48 2013 +0700
+
+    Fix: Cap nhat link day bu cho lop mon hoc
+
+commit 08a76368d9e814dea294298e7d367877cc1b500a
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 28 10:21:16 2013 +0700
+
+    Fix: Cap nhat progress cho diem chuyen can
+
+commit f67b7f364f74de3242a13271fbd2f49ebac53955
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 27 13:41:35 2013 +0700
+
+    Fix: Cap nhat thu tu tuan trong lich trinh giang day
+
+commit 343063dd7cd72ca6323815b2ca3ab12bbb659c24
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 27 13:29:21 2013 +0700
+
+    Fix: Increase font size for remarks
+
+commit 36392d38bf2e403e81523115be27934fc55f1456
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 27 11:11:39 2013 +0700
+
+    Fix: Add chinese font
+
+commit 30b27539190e10d7075c77c6c937cd7c158a41cc
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 26 16:05:38 2013 +0700
+
+    Fix: Cap nhat diem thuc hanh cho thang 3
+
+commit e199123fda69ecc9c123c6a2c08eca1b28273704
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 26 16:00:26 2013 +0700
+
+    Fix: Cap nhat view khi thay doi cach tinh diem thuc hanh
+
+commit 812e821d0a4c76cf46bee7e560e806f456930150
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 26 15:52:28 2013 +0700
+
+    Fix: Cho phep cap nhat diem NULL
+
+commit 146cb659a65415e04c3ce1711a646aca204b9be6
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 26 15:33:35 2013 +0700
+
+    Fix: Cap nhat diem chi tiet controller
+
+commit fe27386475dcc56aaa14881560a623bf2506841d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 26 14:46:01 2013 +0700
+
+    Fix: Cap nhat diem thuc hanh khi xuat phieu
+
+commit 411c05795a4a38e9a286df2efc58b6dbdbc6690d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 23 13:36:26 2013 +0700
+
+    Fix: Cap nhat diem tbkt
+
+commit ea8ce368ef33183877e58fd521ca612a9546fe2c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Nov 22 09:54:35 2013 +0700
+
+    Fix: Cho phep dang ky bo sung nhieu lan
+
+commit 2ed149359cd7aa04aeeec02bf9a4b106deff9a00
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Nov 22 09:47:04 2013 +0700
+
+    Fix: Cap nhat phieu diem
+
+commit c03d3e7f675397ba7c313a43587e9d1e4aaee168
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Nov 22 09:41:58 2013 +0700
+
+    Fix: Cap nhat so sinh vien xuat theo doi
+
+commit be12c63301b9c1d3c272a7a4372c0f96efef75b2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Nov 22 08:19:34 2013 +0700
+
+    Feature: Tinh toan lai so tiet vang trong phan cap nhat diem chuyen can
+
+commit fd0b90667bd157e266a90b03a03e0856975324e0
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Nov 22 08:12:38 2013 +0700
+
+    Fix: Cap nhat so tiet vang diem danh
+
+commit 7957b06f3f8d57847435d528a9f1b6c1a2819ab6
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 21 16:53:37 2013 +0700
+
+    Fix: Cap nhat xuat theo doi
+
+commit fa2e48bb8d9144ef98c6c099246b205b090a948a
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 21 16:50:37 2013 +0700
+
+    Fix: Cap nhat xuat theo doi
+
+commit 5a0b58aadc7e9ab89712a73797d8af04df0caf80
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 21 16:05:22 2013 +0700
+
+    Fix: Khong tinh so tiet vang cho cac lop nghi day
+
+commit f702189db0d0f1d1adcab316f0a5f56609d62094
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 21 15:47:01 2013 +0700
+
+    Cap nhat trang thai hien thi
+
+commit 660e462666c03b5f6952d4cbb3f2155233e9e3ae
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 21 15:26:05 2013 +0700
+
+    Fix: Cap nhat so tiet day cho buoi nghi khi xuat lich giang day
+
+commit 95b457c05211224b430c856a7307adcfc7efccc6
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 21 15:19:27 2013 +0700
+
+    Fix: Cap nhat so tiet day cho buoi nghi khi xuat lich giang day
+
+commit 7cccb20d306a168d03fb5823ee1ad76d99519d16
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 21 15:14:55 2013 +0700
+
+    Fix: Cap nhat so tiet day cho buoi nghi khi xuat lich giang day
+
+commit 93eea82b7d51eb95c9d108c5659e4d495ea7bc59
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 21 14:35:47 2013 +0700
+
+    Cap nhat trang thai cho lich dkbs
+
+commit e794668a94e22d7760c7598ff62cf52a0a96787e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 21 14:14:41 2013 +0700
+
+    Fix: Cap nhat huong dan nhap diem truc tiep 4-3-3
+
+commit c718ca0cf5d5ffb4675a09f98193d4abfa00f94a
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 21 13:57:16 2013 +0700
+
+    Fix: Doi ten file khi xuat report
+
+commit 06e59ec45e073885a82a3d0dd05790e96e11b66b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 21 13:18:47 2013 +0700
+
+    Fix: Cap nhat label cho tinh hinh vang
+
+commit a2ad395cd593fe2b8ebd1789480217ad8ef7d26f
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 21 08:57:51 2013 +0700
+
+    Feature: Nhap diem thang diem 3
+
+commit 5738acd3c43f467454ddc45dcf3e739602677988
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 20 16:09:32 2013 +0700
+
+    Fix: Cap nhat so thu tu trong phieu diem qua trinh
+
+commit 0b16329348cdf75562914f35f2501733501e076e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 20 11:25:14 2013 +0700
+
+    Fix: Cap nhat diem qua trinh nien che
+
+commit d5094259bdfa42fafc9e957f4cc01857a0a69853
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 20 08:48:14 2013 +0700
+
+    Fix: Sap xep thu tu ten sinh vien
+
+commit ce036b8c76145901492ae5d2bc7dc04d93cbf93c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 19 15:49:41 2013 +0700
+
+    Fix: Cap nhat quyen sinh vien
+
+commit c3f509b80d3a1a0f8fb9835278e5be5fdac75c55
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 19 15:10:05 2013 +0700
+
+    Fix: Cap nhat phieu diem qua trinh
+
+commit c12ae8b9cd55129480df59903a7f71a17bdb698a
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 19 14:59:19 2013 +0700
+
+    Fix: Cap nhat rake task load sv
+
+commit d0e6c3c503ee3fc3cd044436e1929563b1dd283c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 19 14:55:49 2013 +0700
+
+    Fix: Khong cho dang ky day bu vao buoi nghi
+
+commit 0140160e8b170dd2d6d20755953c8204d284fa49
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 19 14:50:23 2013 +0700
+
+    Feature: Them lich day bu vao calendar lop
+
+commit d9412e0c822c55c920232f4d2dcdb4d5656f563a
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 19 14:23:56 2013 +0700
+
+    Fix: Cap nhat dang ky bo sung
+
+commit 16a4c208fa9a9f71af8e81b23f259e354266176c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 19 13:57:01 2013 +0700
+
+    Fix: Cap nhat thong tin lop diem chuyen can
+
+commit 21de46e540b8508d5fee3ec0bb4abaf4f8aeb407
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 19 10:41:10 2013 +0700
+
+    Fix: tinh toan lai diem chuyen can
+
+commit 4991994e25e0c8a154b5f49981e66669765a183c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 19 08:23:52 2013 +0700
+
+    Fix: Cap nhat day bu cho buoi nghi
+
+commit 13b08d384353ea5bd1c5f78884996206617fa920
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 19 08:20:37 2013 +0700
+
+    Fix: Lich day bu cho buoi nghi
+
+commit 747fd949c7da03e5ccdd4f6f05b9df071a0fd436
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 19 08:01:14 2013 +0700
+
+    Fix: Mo rong truong hovaten khi xuat bang theo doi tinh hinh mon hoc
+
+commit 776d32af70f2b630532a44f374ca9e3b0d9cd70e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Nov 18 16:42:00 2013 +0700
+
+    Fix: Bo sinh vien trung trong xuat phieu diem qua trinh
+
+commit c0f31b4208c1c33064c28892f27684a4bbe43403
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Nov 18 15:53:14 2013 +0700
+
+    Fix: Cap nhat rake task tinh toan lai diem qua trinh
+
+commit ee6d79cd1c21c048c4fc5acfead3c4f977d10ee6
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Nov 18 15:40:18 2013 +0700
+
+    Fix: Tinh lop da day xong
+
+commit 661a0dc05f9e82650bda6610bba0e64ae9ca4827
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Nov 18 15:38:45 2013 +0700
+
+    Fix: Cap nhat diem qua trinh cho tat ca sinh vien
+
+commit f2b03a12b184f4b036820b672f3fd802abd01875
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Nov 18 15:38:27 2013 +0700
+
+    Fix: Cap nhat diem qua trinh cho tat ca sinh vien
+
+commit 606e7188e05b896d1c46c672efa2419b0c8b8d2b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Nov 18 15:28:59 2013 +0700
+
+    Fix: Cap nhat lich trinh giang day
+
+commit 9592f6dfb203a3887b3ca7c5894dc0eb040fc3a6
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Nov 18 15:22:54 2013 +0700
+
+    Fix: Cap nhat ghi chu diem chuyen can
+
+commit 006245993a53744599187fc1bb4c892a5b51b31e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Nov 18 10:28:57 2013 +0700
+
+    Fix: Cap nhat phieu diem voi sinh vien khong co lop hanh chinh
+
+commit e75adf9df1c263a755a2f7aede9dda02b30f55e2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Nov 18 09:10:59 2013 +0700
+
+    Fix: Cap nhat ngay thua trong tkb
+
+commit 52669aca6886d03fee42d2442bd5f77501870bab
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Nov 18 09:05:20 2013 +0700
+
+    Fix: Cap nhat ngay thua
+
+commit c96859aedba6f2660829504ec03d9f732cafe957
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 16 15:59:25 2013 +0700
+
+    Fix: Cap nhat xuat lich trinh giang day
+
+commit bd2fcad21ab014869113ad47e179702d0d78768a
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 16 15:57:00 2013 +0700
+
+    Fix: Cap nhat xuat lich trinh giang day
+
+commit 0cf0f8d61c57267de27db691fb0dc3f6ed5f67ed
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 16 15:53:00 2013 +0700
+
+    Fix: Cap nhat xuat lich trinh giang day
+
+commit 704da3482c87bcbd7d6f0eef20abec1f33aadfbc
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 16 15:12:40 2013 +0700
+
+    Feature: Them chuc nang tu cap nhat hoten, diemcc, diemqt cho giang vien
+
+commit 61684d044d906d2a36e7ca5fba9d725af305802d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 16 14:37:11 2013 +0700
+
+    Feature: Them chuc nang tinh toan lai diem chuyen can
+
+commit af8a5d35b33525ddf80fe733e8a10f8bd57830cc
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 16 14:17:27 2013 +0700
+
+    Fix: Render diemchuyencan
+
+commit 7503adb854ed42dfc357bd1db264c3b41d6c0b22
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 16 14:10:35 2013 +0700
+
+    Fix: Render diemchuyencan
+
+commit b8fd3ec7e5584455776f63cb73922774693bf6fb
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 16 14:07:16 2013 +0700
+
+    Fix: Dashboard fix lop da day xong
+
+commit f85712806b49d632da0d0a3cab58271e02356545
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 16 14:04:28 2013 +0700
+
+    Fix: Dashboard fix lop da day xong
+
+commit 7b4950ac9879af1929caf147ba3b69cbed59074b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 16 14:02:05 2013 +0700
+
+    Fix: Dashboard fix lop da day xong
+
+commit 4f0630b76e7c9ba4fb314b1fcec00989229c8530
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 16 14:01:35 2013 +0700
+
+    Fix: Dashboard fix lop da day xong
+
+commit 532a0cf23a0edd364277340a04ff2c093bf73e49
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 16 13:44:45 2013 +0700
+
+    Feature: Them chuc nang xoa tiet thua cho cac lop phan bo thua gio
+
+commit 36a23f1074d4dc8179de06f01b95278c4b5b4a61
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 14 16:59:03 2013 +0700
+
+    Feature: Add newrelic
+
+commit 251ca324dc1495b0744b6738f21245b1468dc46e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 14 16:47:56 2013 +0700
+
+    Feature: Add newrelic
+
+commit 84847cf092e315bedb7d9585ee547b370c967889
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 14 16:26:56 2013 +0700
+
+    Fix: Update ngay goc trong dashboard
+
+commit 55758fca5084d59520cb6edf34a22980f53698ab
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 14 16:18:43 2013 +0700
+
+    Fix: Lich day bu o dashboard
+
+commit ec0cb3a2e7c7e26ed5266304f9903426076567f3
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 14 15:06:51 2013 +0700
+
+    Feature: Added queue_classic
+
+commit 0b9341ee273dc7c9cc09a992d4fa0ca64c7bbaa0
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 14 13:46:07 2013 +0700
+
+    Update queue
+
+commit ca0df17f4228075cfc3867535e6650727431fed4
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 14 13:36:50 2013 +0700
+
+    Feature: Added google analytics server-side
+
+commit adef73497d69a79abf4212d1152519f0655e009c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 14 12:06:09 2013 +0700
+
+    Update activity cho diem chi tiet
+
+commit 960013e49606fb7935b1cd7be9d22155c14b16ed
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 14 11:17:26 2013 +0700
+
+    Fix: Check diem chi tiet
+
+commit 0778b110499a8b6d7d23c3d30ae7da63cb018256
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 14 09:36:28 2013 +0700
+
+    Fix: Cap nhat diem qua trinh khi diem chuyen can = 0
+
+commit 76101c04cf26592f04d9a99db7ab64b5b4888f10
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 14 09:32:30 2013 +0700
+
+    Fix: Cap nhat diem qua trinh khi diem chuyen can = 0
+
+commit 0f4a0c9c63fb379919c4efe8d5328a1f9b8beab7
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 14 09:17:14 2013 +0700
+
+    Fix: Thiet lap thong so so tiet phan bo doi voi truong hop da dang ky bo sung
+
+commit 6a5830dacb39eb530a7f754f2e9c24757361fa8e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 14 07:53:58 2013 +0700
+
+    Feature: Them kaminari cho activity
+
+commit 56c226accf164ce4a967b2f54fd5c0e181cfc2bf
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 13 15:48:48 2013 +0700
+
+    Fix: Public activity for diem thuc hanh
+
+commit d45500829d5e5f2c80e5cc6acbc2de49eedb2c16
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 13 14:33:55 2013 +0700
+
+    Feature: Them log cho diem qua trinh
+
+commit 088d559cc38c3d1984def005f86c3ac9dd7d783e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 13 13:55:21 2013 +0700
+
+    Feature: Refactor public_activity for diemdanh
+
+commit 8ab276d1052974100177c7bf44627f6cc3c1cd2b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 13 11:19:33 2013 +0700
+
+    Update README
+
+commit 3c08f37e022fe88f2354e75fa8f46ffa678a24e5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 13 11:11:37 2013 +0700
+
+    Feature: Add activity to dasboard
+
+commit 2f4dcb0c660d1599a6bf4a505cac2ad3e9762b52
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 13 09:13:48 2013 +0700
+
+    Fix: Cap nhat calendar lich day bu
+
+commit dcdda3b4c2fae734eb8d0de3ddafdd1ff888fe58
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 13 08:47:44 2013 +0700
+
+    Fix: Cap nhat hien thi diem chuyen can
+
+commit 0385d8eebfa28e1fc18d2a8f88521e00bc802979
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 13 08:22:09 2013 +0700
+
+    Fix: Update template public_activity
+
+commit dd33305b91c3b9905f15b46e7db12ced45070e63
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 13 08:11:02 2013 +0700
+
+    Fix: Cap nhat admin lop mon hoc
+
+commit 2a1964e2682b1f28a93e03aba8dcc44dd9f2eec1
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 12 11:14:15 2013 +0700
+
+    Fix: Cap nhat report cho buoi day bu
+
+commit ebb5d21e47404a67dccfec0658cdf7df672135c0
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 12 11:11:01 2013 +0700
+
+    Fix: Update report
+
+commit 10010d7b5885c49c8c27d9dc3e78395947f2b81c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 12 11:06:51 2013 +0700
+
+    Fix: Update report
+
+commit 5b511f4ae994ed518a9f6821749199d61a159ccc
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 12 11:02:24 2013 +0700
+
+    Fix: Cap nhat report cho buoi day bu
+
+commit b60f0759bdb0ac583085e544d953b2001afce358
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 12 10:51:32 2013 +0700
+
+    Fix: Cap nhat diem chuyen can
+
+commit 3be8e138d279c3027c2b2e6b489e3356db877c5b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 12 09:06:55 2013 +0700
+
+    Fix: sua ho va ten sinh vien trong report
+
+commit 9ff1856e7575ca89187aeebe6195a55fd14f8d38
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 12 08:28:20 2013 +0700
+
+    Feature: Them activity
+
+commit ae7f08dd8cf75b33610307f4e4caa0607dfa57a0
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 9 15:07:07 2013 +0700
+
+    Feature: Add public_activity
+
+commit e081c16c4278ab48b1be01bc71749e410a5962ae
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 9 09:20:30 2013 +0700
+
+    Fix: Cap nhat sinh vien co ngay sinh null 2
+
+commit 3e2fb88c80ae01c53296fd52ff9688b78e1800de
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 9 09:08:58 2013 +0700
+
+    Fix: Cap nhat sinh vien co ngay sinh null
+
+commit 8e9eea79000be39578400450685d0cc946885c4e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 9 08:50:37 2013 +0700
+
+    Fix: Sua buoi hoc day bo sung
+
+commit f341e0a1b6d6c745b889392a1cc81ec6862a16ee
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Nov 8 08:48:14 2013 +0700
+
+    Fix: Cap nhat dang ky bo sung - so tiet bo sung <= so buoi bo sung
+
+commit 68b0b18831df1b6e271aef7a08cb7cf2f47fb5ac
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Nov 8 08:16:58 2013 +0700
+
+    Fix: Cap nhat gio hoc cho lop bo sung
+
+commit 832a832fd0ff7b6b1fe63df3c7690271f377839c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 7 15:07:38 2013 +0700
+
+    Fix: Thay doi type so tiet bo sung
+
+commit 43106856491ee84f0072d9efe23321faf5e1135e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Nov 7 07:52:50 2013 +0700
+
+    Fix: Cap nhat danh sach day bu nil trong calendar
+
+commit 871add5726000a166cf5cb0f5386bee39fc676b5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 6 10:37:14 2013 +0700
+
+    Feature: Them lich thuc hien cho lop mon hoc report
+
+commit 86330bc4489f86bcfcc0d8e4c6e34a5e143bac42
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 6 10:05:19 2013 +0700
+
+    Fix: So tiet phan bo null
+
+commit 4bef2000b3f9002fbc1a8e37d0a0e5ece23c5db7
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Nov 6 08:31:40 2013 +0700
+
+    Fix: Sap xep thu tu thoi gian trong lich giang day
+
+commit f23fc682b4afd92cbc2e753341b8a8d9a6671474
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 5 14:50:32 2013 +0700
+
+    Fix: Dashboard null lich day bu
+
+commit b7e0c0bbace0ee59b5563fdf46a0ab813cdc41b8
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 5 14:43:26 2013 +0700
+
+    Xuat lich hoc tap sinh vien
+
+commit dacd580aa8871a3076070861a583861269b329f8
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Nov 5 10:33:08 2013 +0700
+
+    Fix: Cap nhat danh sach lich day bo sung
+
+commit a6df0425c773405159c41a0ed4c4857479b60c19
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 2 14:59:20 2013 +0700
+
+    Fix: Cap nhat report them destroyed_at is null
+
+commit c9cf37ec17c154867bb803d5a105393a4267c4be
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Nov 2 09:59:55 2013 +0700
+
+    Cap nhat timezone trong dang ky bo sung
+
+commit 86a6e03a6c7b505b1e8e480d7e0512a01f29a717
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Nov 1 14:41:31 2013 +0700
+
+    Them audit lich trinh va lop sinh vien
+
+commit 49bb8311e75d46121e1ce3b8632fcf7b221b5e5a
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Nov 1 07:41:59 2013 +0700
+
+    Fix: Sap xep phieu diem nien che
+
+commit e90528f857c94ca888107950d74789d962e7a6ae
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Oct 31 15:22:23 2013 +0700
+
+    Fix: http instead of https for gem
+
+commit 94590b702f6f820ba853a5eeba7e059a4e3074b5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Oct 31 15:18:39 2013 +0700
+
+    Fix: Cap nhat phieu diem qua trinh
+
+commit f466bf622610018beff8a8d5d5541f14bcb7c0b5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Oct 30 14:32:59 2013 +0700
+
+    Feature: Step 1 refactor with decorators with gem drapper
+
+commit c6104eccc185c89ce79d31ab6f216b5308bbe1a2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Oct 29 09:47:40 2013 +0700
+
+    Feature: Thay doi lich trinh giang day
+
+commit 11f6fc4ca28b2728e8a4033a3ce7d081ba4f78b5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Oct 29 09:34:19 2013 +0700
+
+    Feature: Them lich bo sung vao thoi khoa bieu
+
+commit bed0a4ee429b5df7162f03ea7347630608ed6bdf
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Oct 29 09:05:39 2013 +0700
+
+    Feature: Giang vien dang ky bo sung
+
+commit 5106629c8bde5b5850be6093d99c88439a2c1c18
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 28 16:30:22 2013 +0700
+
+    Fix: Cap nhat  monitor
+
+commit f8089425db3b4feac71f06b9856b3e62b4c9d171
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 28 16:26:58 2013 +0700
+
+    Fix: Cap nhat  monitor
+
+commit 8d18f03ae05004377dc1aecca8c3b26a29be9cfc
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 28 15:34:08 2013 +0700
+
+    Fix: Null ngay sinh exporting phieudiem
+
+commit 54852c9301020b2cbe8086a41f1b5e23a8e1ceb3
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 28 10:22:41 2013 +0700
+
+    Fix: Lich day bu trong ngay
+
+commit c1fbf1daf31740644a21d258b8217a359a1805d2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 28 10:21:43 2013 +0700
+
+    Fix: Lich day bu trong ngay
+
+commit 13c371770eb8f477fd26153ecb223641c3b14c74
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 28 10:10:22 2013 +0700
+
+    Feature: Them lich day bu vao monitor
+
+commit 347dc14db3d2a6f5def9bfbf7325ff50ef71b187
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 28 09:18:04 2013 +0700
+
+    Fix: Diem chuyen can 0 => diem qua trinh 0
+
+commit 23e6e7a4c637eb8b523d4d95fb7d76346682aca9
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Oct 25 14:59:46 2013 +0700
+
+    Fix: Xoa lap chu ky phieu diem qua trinh
+
+commit fa16060fde3aa45ba70c4607db0240dbdb98deec
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Oct 25 14:47:32 2013 +0700
+
+    Feature: Xuat phieu diem qua trinh
+
+commit 9c5a9942ee18805d16febc225826603a79daf3bc
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Oct 25 12:07:47 2013 +0700
+
+    Fix: Bo nhom truc diem danh
+
+commit de832fa7f057d8ed9e1680e9cdbf4884f4143c92
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Oct 22 08:18:16 2013 +0700
+
+    Fix: Lich giang day is null
+
+commit 4e2c5952bb4bb83f7f0b74436a712db9d11ac2db
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 21 08:56:21 2013 +0700
+
+    Fix: Cap nhat xuat lich giang day
+
+commit 2605768a687212f8f784a1085892380474432092
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Oct 19 09:35:28 2013 +0700
+
+    Fix: Cap nhat round cho diem tbkt
+
+commit 8aa6f05b6058dda62d3d6c217f6225d41e22e669
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Oct 18 17:09:34 2013 +0700
+
+    Fix: Cap nhat quyen
+
+commit 2937a973b05a98a2b81ad58d4c41902dfbdbaead
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Oct 18 17:08:49 2013 +0700
+
+    Feature: Xuat lich giang day
+
+commit 6080e1d3e74495f44d9ea51951c8250bc9b47aa9
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Oct 18 15:19:50 2013 +0700
+
+    Fix bang theo doi
+
+commit f93dfdb45fad342a3473cdd2339cf7270c702482
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Oct 18 15:04:49 2013 +0700
+
+    Feature: Xuat bang theo doi tinh hinh mon hoc
+
+commit 8b38e74580a3ecdf4c002ef11c0864dc20b2f601
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Oct 16 17:27:23 2013 +0700
+
+    Fix: UTF-8 in diemchitietcontroller
+
+commit 919a6786cdc9d16f0e46d7a89948896527525f0e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Oct 16 17:15:56 2013 +0700
+
+    Feature: Xuat bao cao pdf
+
+commit 473b81b81155ea3d8d11f4a0ba81fe759f9afb4f
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 14 09:42:39 2013 +0700
+
+    Fix: Remove helloreport
+
+commit 949c08885492af4fc896a875e5ef970c46509f40
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 14 09:38:37 2013 +0700
+
+    Feature: Add prawn, update day bu trong tkb
+
+commit 8185402a6779ad4ecc614c781f87db0916b28a92
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Oct 8 09:16:21 2013 +0700
+
+    Fix: Cap nhat cach tinh thoi khoa bieu
+
+commit d62faaa5b60219f12d9a6a0031c357579e0c9434
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 7 12:46:06 2013 +0700
+
+    Fix: Cap nhat khoi luong giang day
+
+commit 7c545e5736305b0552de3c0d8631059f887ced43
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 7 10:53:25 2013 +0700
+
+    Fix: Cap nhat khoi luong theo de cuong
+
+commit fa9e067093202d5e1e2a433b3a6b5316d6126cf3
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 7 09:48:55 2013 +0700
+
+    Feature: Cap nhat so tiet phan bo
+
+commit 599f3110372ddfa99548f935e215a1c9f048a72e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 7 09:42:01 2013 +0700
+
+    Fix: Cap nhat khoi luong phan bo
+
+commit ba65e67cb02f10c66751b4799ceba6f3a9cb1bb6
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 7 08:02:09 2013 +0700
+
+    Fix: Them Gemfile.lock vao gitignore
+
+commit 7119f09aeb755a294804844e01a2287b4c250411
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Oct 7 08:00:40 2013 +0700
+
+    Fix: Cap nhat day bu cho ngay truoc ngay hien tai
+
+commit 5283fa2ff5f7fbd018abb74fee7d944ae7cd5ec1
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Oct 3 14:38:44 2013 +0700
+
+    Fix: Cap nhat tieu de cho khoi luong phan bo
+
+commit 6b0a9aa903b937e124de7d30c27ffe1f54bac192
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Oct 3 10:20:03 2013 +0700
+
+    Fix: Cap nhat day bu
+
+commit 1f88e3db6985a0262f64e03c3bfcf8bf805d8e4f
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Oct 3 08:44:02 2013 +0700
+
+    Fix: Bo lop null
+
+commit e6da32f1cfb01e1cd826d35fe874af5cf097fb2d
+Merge: d65feea 79862cd
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Thu Oct 3 08:21:23 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit d65feea8ec018ba441ae55c9e00b3361f2665451
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Thu Oct 3 08:21:19 2013 +0700
+
+    ! gemfile.lock
+
+commit 79862cd786dfeb92c0de110675ba1a30b8520f2e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Oct 3 08:19:28 2013 +0700
+
+    Fix: Cap nhat report gem
+
+commit 6751cd4c85da459ef7d437b6eb9bc7ce94e961fa
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Oct 2 16:29:50 2013 +0700
+
+    Fix: Cap nhat rake task cap nhat lop mon hoc sinh vien
+
+commit abb393dbd69b6e89f645052c1290e70feb87e702
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Oct 2 16:12:26 2013 +0700
+
+    Feature: Cap nhat gem report, them khoi luong thuc hien vao phan hien thi lop mon
+
+commit de17ffe2522c964b03a5cce5bcb5c34e0c4720b8
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Oct 2 16:08:07 2013 +0700
+
+    Feature: Cap nhat gem report, them khoi luong thuc hien vao phan hien thi lop mon
+
+commit 273723f2fc1bcd88445629d0bcf0c09ad483dc80
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Oct 2 14:16:20 2013 +0700
+
+    Fix: Cap nhat phong trong tra cuu giang vien
+
+commit 707842fd6300559ca27fc6de4e822c1f8931500d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Oct 2 14:15:01 2013 +0700
+
+    Feature: Cap nhat xuat bang diem
+
+commit 183edaa7d1f93cf926fcd4fcfde36448c0261431
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Oct 2 14:08:52 2013 +0700
+
+    Fix: Cap nhat phong trong tra cuu giang vien
+
+commit 18e1a1d4185ce03471bb91ba10a292b89eeb3a0b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Oct 2 14:03:20 2013 +0700
+
+    Fix: Cap nhat phong trong tra cuu giang vien
+
+commit 29f0c56bec5900ff37cee57c283e328935f74a4d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Oct 2 10:09:15 2013 +0700
+
+    Fix: Cap nhat facet tra cuu sinh vien
+
+commit ca91bed38ae2a1d14454e9f3f1bb18834217d4d9
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Oct 2 09:54:46 2013 +0700
+
+    Fix: Cap nhat tra cuu sinh vien
+
+commit f5fb4b321b5597a08aeb85b000b6f66cd796819c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Oct 2 09:27:55 2013 +0700
+
+    Fix: Them so tiet day khi tra cuu giang vien
+
+commit ffba0a7845a8db95286ebfe8eb81edcf36719a75
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Oct 2 09:22:17 2013 +0700
+
+    Fix: Cap nhat khoi luong phan bo
+
+commit bc4fd49cef461bb355b04bbca9d24a4e93edbccd
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Oct 2 08:57:06 2013 +0700
+
+    Enhancement: Cap nhat khoi luong phan bo lop mon hoc
+
+commit 292c325558bac56b7971e639145a7436fb47c8e6
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Oct 1 15:27:11 2013 +0700
+
+    Refactor: Update phong for tkb
+
+commit 2c1d855851f0169e4dc8ae06a5e214a67482dccd
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Oct 1 15:19:47 2013 +0700
+
+    Fix: Cap nhat days cho tkb giang viens
+
+commit c2f1f4a4cb1d3dff282fd9533e1c25e17a91d94c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Oct 1 15:15:33 2013 +0700
+
+    Fix: Cap nhat days cho tkb giang viens
+
+commit a3a4aafa988621acb1711f93014cbcb77354b9e7
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Oct 1 15:14:01 2013 +0700
+
+    Fix: Cap nhat days cho tkb giang viens
+
+commit f707b950391f6f77e7b77a1968181f343919ada0
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Oct 1 14:30:04 2013 +0700
+
+    Cap nhat service lop mon hoc sinh vien
+
+commit 352fd0668cf767a34780caf0384066c60812e217
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Oct 1 14:28:36 2013 +0700
+
+    Cap nhat service lop mon hoc sinh vien
+
+commit 7d4b28771c33dbee07437e30a395d1cea9815380
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Oct 1 11:10:53 2013 +0700
+
+    Fix: Cap nhat quyen sinh vien thay doi thong so lop hoc
+
+commit 4ebb3076a9c27a8f9990cdafae9c602514ffbd11
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Oct 1 06:28:20 2013 +0700
+
+    Fix: Cap nhat rake task lay thoi khoa bieu
+
+commit e4967a26e7fd0ca5973e45478935c5588b973f7b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Oct 1 06:18:51 2013 +0700
+
+    Refactor: Update phong for tkb
+
+commit abb8ed3d761c8a9bfee30b97b9c05102f8bdd1a5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Oct 1 06:15:43 2013 +0700
+
+    Fix: Cap nhat rake task lay thoi khoa bieu
+
+commit c74ad9d8f8ec97da0661cf9a6a0dcf1edc14fa6e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 30 16:00:40 2013 +0700
+
+    Enhancement: Dua tiet vao dang ky day bu
+
+commit 2de3503d2984eaac70c03f66accf4f3a201e7295
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 30 15:58:14 2013 +0700
+
+    Enhancement: Dua tiet vao dang ky day bu
+
+commit 8f52be526f2f28346ed8203bbe2b87b6501eabd5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 30 14:55:21 2013 +0700
+
+    Feature: Them admin vao he thong
+
+commit 5b1b82a12c3a6b2fcb705b96bba2bda16c09896a
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 30 14:52:39 2013 +0700
+
+    Feature: Them admin vao he thong
+
+commit d00a836d73d2361bc5fb612eba0a65ec6e0c9763
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 30 11:08:09 2013 +0700
+
+    Fix: Cap nhat menu vi pham
+
+commit 84c1f59d8799f6a41e385c3423441efbc937f59e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 30 11:06:52 2013 +0700
+
+    Fix: Cap nhat dashboard
+
+commit e506b7186933b72aa83c5f0602403964727a6286
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 30 11:04:02 2013 +0700
+
+    Fix: Cap nhat menu vi pham
+
+commit 2f5a935a0dbef339fac1d47257cab7d2bca38412
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 30 10:45:36 2013 +0700
+
+    Fix: Cap nhat dashboard sinh vien co phan tra cuu
+
+commit f6785a5d9ed63aba4385b60fc7b8051fe2cbabf0
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 30 10:34:59 2013 +0700
+
+    Fix: Cap nhat quan ly lop hoc
+
+commit d7100cfaed19eaaad8009571c08496b9638b4560
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 30 09:15:36 2013 +0700
+
+    Fix: Cap nhat menu cho quan ly
+
+commit 8823dc35c26936135c128a4b7152a26444bfd152
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 30 09:07:38 2013 +0700
+
+    Fix: Cap nhat quyen doc SinhVien cho tat ca doi tuong quan ly
+
+commit d6ca96ee9bd4ec8739c4dabe46b827234179bd63
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 30 09:05:49 2013 +0700
+
+    Feature: Them chuc nang thanh tra va quan ly vi pham
+
+commit 5526d35846cc33faf51d1429ca61147fbbe3b898
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Sep 27 14:12:32 2013 +0700
+
+    Enhancement: Them tuan vao lich truc nhat
+
+commit 69478adf92ac9dddaf091a4fb30fb90841c8c1dd
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Sep 27 09:40:10 2013 +0700
+
+    Refactor: Update link to all report form
+
+commit 8c686948d01bacf98b3c6f0bddb62d5b2ac6118d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Sep 27 08:27:19 2013 +0700
+
+    Fix: Cap nhat phong trong cho lich trinh thuc hien sinh vien
+
+commit 52a83451ec0c17a7abc4fabad7ba88f97beaa55b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Sep 27 08:16:05 2013 +0700
+
+    Refactor: Update menu for manager
+
+commit 6d6f9401fd5ae4b4c2cd4c0a2a3f96a9798447fe
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Sep 27 07:42:33 2013 +0700
+
+    Fix: Cap nhat dang nhap cho monitor
+
+commit 0fdb46bba543f4841b8e614c1680b0a73125a82d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Sep 26 16:17:43 2013 +0700
+
+    Fix: Cap nhat sinh vien vang
+
+commit fa32de7446acc86486a2145777adaaffbecf14dd
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Sep 26 16:14:37 2013 +0700
+
+    Fix: Diem danh thay cho sinh vien
+
+commit dbd038fe8ed5548b7110723e479260caf953615d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Sep 26 16:07:00 2013 +0700
+
+    Feature: Them sinh vien vang vao truc nhat
+
+commit 6f9b5ec857c056f110c3210c1060b2dfb4aa245b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Sep 26 15:57:50 2013 +0700
+
+    Feature: Them truc nhat :)
+
+commit 3729fc659b6dbc00c777556cd077303a287dd46c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Sep 26 09:55:30 2013 +0700
+
+    Fix: Cap nhat nghi day hang loat cho nghi le ngoai tru lich day bu
+
+commit 56c5176bf25a9e8a1f6b8d4ddf7a9c4f94b554a0
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Sep 26 09:04:24 2013 +0700
+
+    Fix: Remove DEVISE stuff in UsersGroup!!
+
+commit efe67118eb71d7092bc59a1324984cd67f1201da
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Sep 26 09:00:17 2013 +0700
+
+    Fix: Replace email with username
+
+commit 80a404343033999f4f35273f6572cef18bfbe671
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 25 16:09:09 2013 +0700
+
+    Enhancement: Update email for moderator
+
+commit b34fbc52cec956560bcdde2a62bb34f7e10be38c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 25 14:12:37 2013 +0700
+
+    Fix: Cap nhat quyen cho nhom Dao tao
+
+commit c826e2f51fe049460b6becf47acbe2f00b2e2fa7
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 25 13:54:40 2013 +0700
+
+    Enhancement: Doi nut nghi day thanh cap nhat
+
+commit e89e788741dd97409ef7a5d0ebf6c73fda3a2cda
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 25 10:44:44 2013 +0700
+
+    Fix: Cap nhat thoi khoa bieu theo tuan cua lop
+
+commit 4ad9190807fd53cfd40ec7789c5d83c63b6628d7
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 25 09:05:42 2013 +0700
+
+    Fix: Doi thuat toan tinh trung lich day bu
+
+commit 02e9a62238e96af92b97579a939c17d6c6d548d1
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Sep 24 16:31:48 2013 +0700
+
+    Fix: Bo chuc nang huy nghi day cho quan ly
+
+commit bacb41f96d214b020dc6d370136c264e2206d45e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Sep 24 16:06:57 2013 +0700
+
+    Fix: Them nghi le
+
+commit 8d886fe53bfea0ef6cfe8c8714e1f8894906f22a
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Sep 24 16:00:34 2013 +0700
+
+    Feature: Them lich truc nhat
+
+commit 99ebdec974497af368ced0b997f146b75d145bb3
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Sep 24 14:47:16 2013 +0700
+
+    Feature: Them form xu ly truc nhat
+
+commit c6e48a066da496da1f9e87c3ca2b4a5bd38f91c0
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 23 14:30:31 2013 +0700
+
+    Fix: Cap nhat li do nghi day
+
+commit b4703dd7daa688226ffb6ca63521011a1c5b9e66
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 23 14:16:53 2013 +0700
+
+    Fix: Them menu dang ky nghi day cho giang vien
+
+commit bda04639064d48e4e32bb0de62fbf5fe98c35170
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 23 14:12:53 2013 +0700
+
+    Feature: Huy dang ky nghi day cho cac lop da dang ky
+
+commit 99a4815f02c37c87893291c39daa4c73c19c17b2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 23 09:15:55 2013 +0700
+
+    Fix: round2 trong diem chuyen can
+
+commit 5de56acbe72f7365b049bf387c72351bf0fa6231
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 23 08:55:39 2013 +0700
+
+    Sua ti le bang search
+
+commit 948037439bf1ab9b0a8c955ed385a4b114b569ae
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 23 08:51:07 2013 +0700
+
+    Them thong ke theo phong
+
+commit ee28da63d759cb21bfa4e21c32c8f0cd1a91f666
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 23 08:23:22 2013 +0700
+
+    Fix: Thay report lop mon hoc bang thong tin diem
+
+commit 419bd162947fac05aa3e989241f624568bd4b4d6
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 23 08:12:34 2013 +0700
+
+    Fix: khoi_luong method for nil object
+
+commit 7250105db91a25dbe1b14250fcd56b522f86f202
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Sep 20 17:02:43 2013 +0700
+
+    Feature: Duyet nghi day hang loat cho dao tao
+
+commit b03c284f540fe91a0620ae63036f7d2e2d9a3745
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Sep 20 14:43:59 2013 +0700
+
+    Fix phong trong
+
+commit 2145dba08e1fa86d6abee1633720085b1da05d0b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Sep 20 14:36:54 2013 +0700
+
+    Fix menu
+
+commit 48e6efb56655301bdd8e15ae3700154d34d18df3
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Sep 20 07:43:34 2013 +0700
+
+    Fix: Rake task update tkb
+
+commit 96201295d4eed697ecfbbe75b3ba38513e463559
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Sep 19 15:54:40 2013 +0700
+
+    Feature: Them tra cuu phong trong cho quan ly
+
+commit ec6441446b76bb44252f4fdb4d933066e3a12652
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Sep 19 10:06:01 2013 +0700
+
+    Feature: Them khoi luong giang day
+
+commit 413d4061bc2bfeec8178ad15ff2a4f8784d49288
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Sep 19 09:34:10 2013 +0700
+
+    Feature: Them nguoi duyet cho lich nghi day va day bu
+
+commit d7bf4aa0ee1606fb3b7e5ea141e2c73ff8c50dd1
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 18 16:48:25 2013 +0700
+
+    Fix: Cap nhat round 2 cho phan tram vang
+
+commit 9f26d8de8c67e425df6096d0e1912122c24f5ce3
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 18 16:44:15 2013 +0700
+
+    Them log nguoi dung duyet lich giang day
+
+commit 226f3e6a0421c136f341ebe707de13c0bf40610e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 18 07:49:14 2013 +0700
+
+    Feature: Them thong ke giang vien khong ghi lich trinh giang day
+
+commit 6d6bd59d02875a8a9e00640c80b76833a1779df4
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Sep 17 16:58:51 2013 +0700
+
+    Feature: Them thong ke sinh vien vang qua 20% va sinh vien vang nhieu theo tuan
+
+commit 51a10c6413d9535e885864706fbb2a7cb829a048
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Sep 17 16:33:44 2013 +0700
+
+    Fix: Sap xep lich giang day buoi hoc theo thu tu tang dan
+
+commit 6576b4c8a212a8e65c74fde0bfe6fd24ab210815
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Sep 17 16:02:28 2013 +0700
+
+    Fix: Cap nhat paginate cho report2
+
+commit a69c1e346db307864a2743b1a3dacbee2c22261a
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Sep 17 13:59:24 2013 +0700
+
+    Fix: Cap nhat timeout
+
+commit 1b4daff0399bb49fba6839b9ba0e1cddf575fce1
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 16 18:14:14 2013 +0700
+
+    Fix: Cap nhat index
+
+commit e6215777bc9d9e5e1e4cf6078d7054e211a9e180
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 16 18:09:20 2013 +0700
+
+    Fix: Cap nhat so tiet phan bo cua lop
+
+commit 4e949ce6b638ba5ea1b20a5a7d978a80d0b0b5d9
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 16 17:41:46 2013 +0700
+
+    Cap nhat lop sinh vien
+
+commit fd27d8e250bdb58321d823f73879ab4e10667478
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 16 15:48:37 2013 +0700
+
+    Feature: Them thong ke
+
+commit fd438e5c664ffd4ff507dc621c589b0d3f6bfb60
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 16 10:05:40 2013 +0700
+
+    Fix: Bo quyen xem thong ke
+
+commit 1b7b8c488d81a372cd343ce4414f7e8ef39e4584
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 16 10:03:53 2013 +0700
+
+    Feature: Xuat thong ke ket qua hoc tap
+
+commit 53b1396c74c96b4eed3d46e538aa9937197db7bf
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Sep 14 15:59:58 2013 +0700
+
+    Them report giang vien
+
+commit 60bf26760c3848c420e129085337d85864ab6240
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Sep 14 15:17:50 2013 +0700
+
+    Feature: Them cac lich trinh da duyet vao quan ly
+
+commit 03020d9783eb80e060ec597e1298a6f0c464bec7
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Sep 12 08:25:02 2013 +0700
+
+    Feature: Cap nhat search
+
+commit c29df2e30341dbc4cc1ff19ab90f9d82e613b5b2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 11 16:57:32 2013 +0700
+
+    Feature: Add resque_schedule
+
+commit b81c07783d4dc080d964522c2da55573d1562ea1
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 11 16:47:09 2013 +0700
+
+    Feature: Add resque
+
+commit 777d111ba042cc20e821a75100f2c1b33a8cc88b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 11 09:06:51 2013 +0700
+
+    Fix: Null search result
+
+commit 933edc16bc6187fd4ef8867ea52d3b6db6df4c03
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Sep 10 15:52:21 2013 +0700
+
+    Feature: Add active_admin, fixbug: Ngay day bu khong hop le
+
+commit 774a25e9015249f7697be4e8154ff0a2737a7084
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 9 17:29:37 2013 +0700
+
+    Fix: Remove spec
+
+commit 7a1b269b274c668a1cc4d848117d504083c77507
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Sep 9 08:48:15 2013 +0700
+
+    Feature: Lay redis lam session store o server
+
+commit 72ef0217f693904dd234fac5ab8d09723f9df15e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Sep 7 13:47:21 2013 +0700
+
+    FIx bug: Cap nhat so tiet day buoi hoc
+
+commit 6304262c5e62b0b55d1ed14e66daf4076b8568ab
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Sep 7 10:32:18 2013 +0700
+
+    Feature: Them gio vao xuat excel
+
+commit 7d8e44380ffb99a7834d6ffe647175cd89d6950d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Sep 7 10:25:53 2013 +0700
+
+    Feature: Cap nhat so tiet nghi cho buoi hoc
+
+commit c103f9105c0f071a21f382496d1a41b95b327103
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Sep 7 07:55:14 2013 +0700
+
+    Feature: Solr index within words
+
+commit 9a7ee2539b8526c18529720fe63bf1eba33912ac
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Sep 6 17:16:24 2013 +0700
+
+    Feature: Sinh vien reporting
+
+commit 59e3684cfb231925212cb7daa6759058f7dfdedb
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Sep 6 16:10:47 2013 +0700
+
+    Feature: Clickable link for all classes
+
+commit e14369c7a4264c923d33864c48b6a05f09545b11
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Sep 6 15:07:29 2013 +0700
+
+    Remove papertrail
+
+commit 8bc3d15e40f766c555909aaa141f78d05441130b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Sep 6 14:19:44 2013 +0700
+
+    Feature: Them so tiet phan bo vao lop mon hoc
+
+commit 99da86825f5bb170fe009aa64b91366577153ce4
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Sep 6 11:11:58 2013 +0700
+
+    Fix bug#4: Cap nhat tinh toan % vang
+
+commit 7c64ec796fa70ad12dfaf3e2538af1ab8284340f
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Sep 5 10:54:40 2013 +0700
+
+    Update admin for one user ;)
+
+commit 0c24b067ab89d9b6f559d67aadb9bf467512025e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Sep 5 10:45:33 2013 +0700
+
+    Fix bug#3: Cap nhat thoi khoa bieu khi vao buoi hoc
+
+commit ff8b368b88b7d04df98551acd15e140c3476ca8c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Sep 5 07:46:51 2013 +0700
+
+    Fix: Update search
+
+commit a3491556a33cb0a3b455b210d4369132806d7044
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 4 16:43:08 2013 +0700
+
+    Fix: Update multiselect
+
+commit 3b256cb0a47c566373b987649fab320fd4f617b9
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 4 16:29:52 2013 +0700
+
+    Fix: Cap nhat quyen tra cuu, thay doi facet cho lop mon hoc va sinh vien
+
+commit a7eef1cb91663f67ac03186538dc21d3cacc20d5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 4 16:21:05 2013 +0700
+
+    Fix: Cap nhat quyen tra cuu, thay doi facet cho lop mon hoc va sinh vien
+
+commit beccd87587b52fa285abd607f4209af5f48b60c2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 4 16:19:34 2013 +0700
+
+    Fix: Cap nhat quyen tra cuu, thay doi facet cho lop mon hoc va sinh vien
+
+commit 324b6b22e41905a99e44005771a995d3f66538bd
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 4 16:18:03 2013 +0700
+
+    Fix: Cap nhat quyen tra cuu, thay doi facet cho lop mon hoc va sinh vien
+
+commit 01d64d5413ccc3bfd1b1e9ce840e1393ec3ed821
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 4 16:07:23 2013 +0700
+
+    Fix: Cap nhat quyen tra cuu, thay doi facet cho lop mon hoc va sinh vien
+
+commit 93dd2cae180c6284aadb03c69a4cfbdd24238055
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Sep 4 15:24:33 2013 +0700
+
+    Feature: Them tra cuu va xuat danh sach truc nhat
+
+commit 7c67489192b4d721efa6b960a50c86be853f6f39
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Tue Sep 3 21:02:26 2013 +0700
+
+    Fix: Remove current lich trinh giang day from monitor
+
+commit d3b1764103fbfe49f946653ade33883bf4e29b02
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Sep 3 15:35:21 2013 +0700
+
+    Fix bug: Cap nhat quyen buoi hoc
+
+commit fffaa1ce6ea895543014be6928d7a0d70afcd40b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Sep 3 15:33:06 2013 +0700
+
+    Fix bug: Cap nhat quyen buoi hoc
+
+commit 22929c5205a620f70d8fa4fb826beabe6fdc927e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Sep 3 10:11:41 2013 +0700
+
+    Feature: Sua service bo sung sinh vien va cap nhat SOLR index
+
+commit 88db66812599019f86a00b4528d7d0dd904b3ab4
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Sep 3 09:56:29 2013 +0700
+
+    Feature: Thay doi table hien thi monitor
+
+commit e4d4773f9d5dc54c9b252c808432cbe7ea3045f9
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Tue Sep 3 06:58:51 2013 +0700
+
+    Feature: Add SOLR fulltext search
+
+commit 334bd60c01c229261dc0fae2b1810208dac04ee0
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Sat Aug 31 17:25:56 2013 +0700
+
+    Remove foundation
+
+commit a34793814ddf2fe88f5e025c436c66b856fdb898
+Merge: 609ec81 4846d56
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Sat Aug 31 17:18:18 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 609ec8179f32792754888e231c37170f2bf809b2
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Sat Aug 31 17:16:30 2013 +0700
+
+    Fix bug: Cap nhat buoi hoc
+
+commit 4846d56f78a3ef5419f9aa17be7ed88589d595a0
+Merge: 9aaa4f8 aa5d67a
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 16:05:58 2013 +0700
+
+    Merge branch 'tracuu'
+
+commit 9aaa4f80cb74be7db088a0e5f8a1b94aa8e33066
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 16:05:14 2013 +0700
+
+    Update solr
+
+commit aa5d67a3bb6e2813ef94d2470e3d20ce5f07c6f4
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 16:03:36 2013 +0700
+
+    Feature: Them tra cuu
+
+commit 4700a268d029d10bf7dc22e95069db61bb73848f
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 13:20:46 2013 +0700
+
+    Cap nhat monitor
+
+commit 3c836e249ec037e6bc055d3495acb7c0ca80f9ab
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 13:01:45 2013 +0700
+
+    Cap nhat monitor
+
+commit 0f28d8e6c3c0d5597442e4cadb864eb9d100cdd2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 12:56:05 2013 +0700
+
+    Cap nhat monitor truc nhat
+
+commit a3a602f1ea9731b315f9b63c4c17be246e2382b7
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 12:54:25 2013 +0700
+
+    Cap nhat monitor
+
+commit 80ec9dc307f96d4b680f3f0ac9bd439fd6cadbf7
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 12:50:40 2013 +0700
+
+    Cap nhat monitor
+
+commit e7107ae47e02694e267a06680a3b19f5c4371751
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 12:49:40 2013 +0700
+
+    Cap nhat monitor
+
+commit 057e6cd82da85ae649e3540d42659b0666fb4fee
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 12:48:05 2013 +0700
+
+    Cap nhat monitor truc nhat
+
+commit aa344aeed7b3ffd26b9530ee7a2b92106426ca7f
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 12:45:04 2013 +0700
+
+    Cap nhat monitor
+
+commit c7170dfdc3bf73c0babec73137d0a27d194058f2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 11:23:46 2013 +0700
+
+    Feature: Cap nhat theo doi
+
+commit a1dea16154b1cd0bb28fcb3cd21bb11e5dab4bd2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 11:22:05 2013 +0700
+
+    Feature: Cap nhat theo doi
+
+commit 9069453e20c049af088d7173bb67b633e2359312
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 11:20:59 2013 +0700
+
+    Feature: Cap nhat theo doi
+
+commit 9dcdbb3c6b7d8761ba6b5fbd328afd9ff02fa035
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 11:19:16 2013 +0700
+
+    Feature: Cap nhat theo doi
+
+commit d6c2b5d250b09a9f0015e518ea24d8d04edec8db
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 10:52:49 2013 +0700
+
+    Fix bug: Cap nhat diem danh cho cac buoi hoc truoc, can lay tuan tu tham so ngay
+
+commit bb788a70de1097001a7dd9336bc0e59598253912
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 10:21:36 2013 +0700
+
+    Fix bug: Cap nhat buoi hoc khong co sinh vien va cap nhat monitor
+
+commit cd58c230767dc0290b89eb2c5519a04413d913bd
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 10:19:06 2013 +0700
+
+    Fix bug: Cap nhat buoi hoc khong co sinh vien va cap nhat monitor
+
+commit 2891b60943900188f7747d6877d6023d7bd59510
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 10:17:16 2013 +0700
+
+    Fix bug: Cap nhat ngay the hien trong monitor
+
+commit 148f2fcbd8773679957f6f6cdf002f3122fc5051
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 10:12:34 2013 +0700
+
+    Fix bug: Cap nhat ngay the hien trong monitor
+
+commit 55f1dd6d2d8bb50473a4730a518b11a9540bbd06
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 10:09:16 2013 +0700
+
+    Fix bug: Cap nhat buoi hoc khong co sinh vien va cap nhat monitor
+
+commit 962198c758452311ce66aefdbebf3643f5b5f451
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 31 09:29:34 2013 +0700
+
+    Fix bug: Cap nhat chinh xac thoi khoa bieu cho cac lop hoc nhieu giai doan
+
+commit 711f9d3fd3f061f74d8984432601c283b073a36d
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sat Aug 31 07:01:48 2013 +0700
+
+    Cap nhat danh sach phong
+
+commit bd2845a389a51ac9a8e87ed8239c3364068ba7f8
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 30 17:00:58 2013 +0700
+
+    Fix: Cap nhat monitor
+
+commit 898a8f47bbef43c2f12cfaaadb8183232e0559b5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 30 15:57:04 2013 +0700
+
+    Feature: Loc danh sach buoi hoc co diem danh
+
+commit a0b12161664e58b4d02527680ef693d252767663
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 30 10:17:53 2013 +0700
+
+    Feature: Lay danh sach cac gio hoc trong ngay
+
+commit d2a1161403a0c2d22d7581dce2540e8d5732be2e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 30 09:09:09 2013 +0700
+
+    Fix bug: Cap nhat phong day
+
+commit 3a91f22cfb9389b0023b994a8da73386e10ad712
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 29 17:10:00 2013 +0700
+
+    Update monitor
+
+commit 035df525ed8d56037d4019756049383d960d81f8
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 29 11:03:47 2013 +0700
+
+    Feature: Cap nhat lich truc nhat cho buoi hoc
+
+commit ba63a6855666a6595926ecea5ca5187753f83b49
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Wed Aug 28 21:42:26 2013 +0700
+
+    Update title
+
+commit dfb067ddcad493abc41b0c164f957b3a7f98a9a1
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Wed Aug 28 21:20:49 2013 +0700
+
+    Fix bug: Update diem danh chi tiet cho sinh vien
+
+commit b49dedf110a4fd9ec2db32b9c3e66be168343c92
+Merge: b531eaa 241b4d3
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Wed Aug 28 21:09:05 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit b531eaa22307e9bd91e2c21cfb35424f2fff9342
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Wed Aug 28 21:08:49 2013 +0700
+
+    Update gem
+
+commit 241b4d37cb097359b106bf323c381a0c9c7fd7b1
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 28 16:48:30 2013 +0700
+
+    Fix bug: Cap nhat quyen xem buoi hoc sinh vien
+
+commit bd8a049aa5940544fc8c46dfbda4e287aab82265
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 28 15:59:00 2013 +0700
+
+    Update lich trinh giang day
+
+commit 7dcb96043377fab290339280b8ea69d7156fa018
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 28 15:32:18 2013 +0700
+
+    Fix bug data: lich trinh giang day co lop mon hoc is null
+
+commit 9b55a15ed797cd2405d6e36047e9ac7da72d558c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 28 14:44:16 2013 +0700
+
+    Update day bu cho gio trung
+
+commit dcd1425aae844fdc0590d78b27efc0799d742d0f
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 28 11:20:14 2013 +0700
+
+    Update tkb giang vien and lop mon hoc
+
+commit c2fee34e08ace38bd055241a9e4e290fa8fb3e09
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 28 10:25:11 2013 +0700
+
+    Cap nhat diem ko co thuc hanh
+
+commit 7c825f17aaead1c9720ce6a1c8a5b0f7ac4bd2fe
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 28 10:23:21 2013 +0700
+
+    Cap nhat diem ko co thuc hanh
+
+commit 158d064a681ab29c52fb6707a3478b87707531f1
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 28 10:14:34 2013 +0700
+
+    Cap nhat user va sinh vien
+
+commit 2490b2f8f252fce6e8917d88d9dc92bb96b16c50
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 28 10:05:52 2013 +0700
+
+    Update trang chu sinh vien ve thoi khoa bieu
+
+commit c45b0e9f384621a2d57bd53399f3430a5363769b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 28 09:58:10 2013 +0700
+
+    Update masinh vien upcase
+
+commit 6e920c0b320501fdbe4bead985a39cfa42fb2655
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 28 09:16:51 2013 +0700
+
+    Fix: cap nhat du lieu sinh vien sau khi diem danh
+
+commit c24865c5c5178e4250d26036347225ecd48c08ed
+Merge: 4d3cbe2 e11b0da
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Tue Aug 27 23:57:15 2013 +0700
+
+    Update css
+
+commit 4d3cbe2330ca0523bdd7ff65afb127f8d9cb0f2a
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Tue Aug 27 23:53:50 2013 +0700
+
+    Update application.js
+
+commit e11b0da4b500ea50173769419e68256498f87c85
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 27 16:08:30 2013 +0700
+
+    Update quyen admin buoi hoc
+
+commit 3430c24d1566701b6105ae6975198d3fbbe85a0e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 27 15:38:02 2013 +0700
+
+    Fix: cap nhat quyen cho admin
+
+commit 08239580b70ccd534dfbd932d80091e324ee01be
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 27 15:34:13 2013 +0700
+
+    Fix: cap nhat quyen cho admin
+
+commit 92b4ccc6c0549fea8a68fe342d10d8c5958ff969
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 27 15:29:14 2013 +0700
+
+    Fix: cap nhat buoi hoc trong
+
+commit 47fd6b96ba11949261d1e11f16e1c6c91ae99b21
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 27 15:27:21 2013 +0700
+
+    Fix: cap nhat buoi hoc trong
+
+commit 697082a85d92bdb4f2110ead4dbd948fcdbbcafb
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 27 15:21:23 2013 +0700
+
+    Fix: cap nhat thoi gian quan ly nghi day
+
+commit 21f21f5dbd6e3afebd221560fc4b2c66bda4f948
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 27 15:09:03 2013 +0700
+
+    Nghi day, day bu
+
+commit 74e6db9f2c05488c2cc8f91c972e1daf0bcf7724
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 26 17:18:59 2013 +0700
+
+    Update nghi day
+
+commit 8c3af7f10127dec11bbee6bcc15f4b93a5722e6f
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 26 14:26:07 2013 +0700
+
+    Update rake
+
+commit 01826c3cc048da65a93f2cf1fd00543dc0f2813d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 26 09:43:28 2013 +0700
+
+    Update rake task get sinh vien: ten
+
+commit 48eccfe9316bff8666316fb6442d04aefe0a0868
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 26 09:38:40 2013 +0700
+
+    Update rake task get sinh vien: ten
+
+commit 6de411fcbc366fc2d0aa2ee60e10f0e6a70f1a40
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 26 09:34:13 2013 +0700
+
+    Update rake task get sinh vien
+
+commit 80e3799f76c2f97c2655643a91cda88ff12f7140
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 26 09:26:50 2013 +0700
+
+    Update rake task get sinh vien
+
+commit 5e619e7348497edd47ff5b695516dedaa0cc8b9e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 26 08:08:27 2013 +0700
+
+    Update end
+
+commit 677b52cf6001f4ed9bea96bc233342e729e980e2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 26 08:06:13 2013 +0700
+
+    Update tuan
+
+commit d312f44dd143bc86614102698cb92f35ba43444a
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 23 16:58:58 2013 +0700
+
+    Update lich nghi day
+
+commit 917f3d0a2c2518b68db6a865cacdac00cdcfca3d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 23 09:40:02 2013 +0700
+
+    Update diem
+
+commit 59b7012f7a284e0cfaf5369da3c4212ce81fbbea
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 23 09:37:16 2013 +0700
+
+    Update diem
+
+commit 0629987b05f0d09fe4a4835cbc03b7f41d926415
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 23 09:13:48 2013 +0700
+
+    Update diem tbkt
+
+commit 492daf9e3ef21f3c47d93d66918b2e724da23432
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 22 14:03:03 2013 +0700
+
+    Update tong so tiet
+
+commit 1e406885e93bfacbff08a1ca3fcbaa5f78cbd557
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 22 11:11:50 2013 +0700
+
+    Update sinh vien truc nhat
+
+commit 6b3c0f5893a41f463e0ea30418872245b945d3b1
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 22 10:41:36 2013 +0700
+
+    Update nut cap nhat
+
+commit 3aa5bdd1fa1ece51a1af719d4395d6323d4a43fb
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 22 10:10:59 2013 +0700
+
+    Update rake lich truc nhat
+
+commit 44ed992df504378c7f31a7b6b8ceb94faa027132
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 22 09:59:51 2013 +0700
+
+    Update api truc nhat
+
+commit 463068bbbdb49bef056f872358b01b089d774fb2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 22 09:47:32 2013 +0700
+
+    Update api va thoi khoa bieu
+
+commit 286c4213591897d75842acad6b6c50be3cabe40d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 22 09:25:04 2013 +0700
+
+    Update tuan
+
+commit 8cadcb2961a72bb63d759d091c553e059f8ea9a5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 22 09:22:29 2013 +0700
+
+    Update lich truc nhat
+
+commit 9ad4d9a866561d577a3e30e8c7c117b6ab49f45f
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Thu Aug 22 07:03:13 2013 +0700
+
+    Update lich truc nhat
+
+commit 7583e95491262c56cf4f05db3b3cdf7307096dfa
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Thu Aug 22 07:01:29 2013 +0700
+
+    Update lich truc nhat
+
+commit fbed70fe3d289aec4355e9df13384b9242cfd49a
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Thu Aug 22 06:54:55 2013 +0700
+
+    Update lich truc nhat
+
+commit 18a01d84086fe2592dd3dcdd55cbd0507c47f656
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Thu Aug 22 06:48:42 2013 +0700
+
+    Update lich truc nhat
+
+commit ff46687af1ae240d45a0b31f4fbe0c3807327914
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 21 17:10:02 2013 +0700
+
+    Update lich truc nhat
+
+commit 8339e63a0a959b7831fa59f0fd0201b563456b59
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 21 17:02:06 2013 +0700
+
+    Update lich truc nhat
+
+commit a65f1324394279ffe75c54e3e5b72591a067e8db
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 21 15:59:43 2013 +0700
+
+    Update thoi khoa bieu
+
+commit 2757ebaee9df397651bf596cf8d2daf478bc806b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 21 14:35:00 2013 +0700
+
+    Update ho va ten
+
+commit 0d1790ceee9c72eb105b85d8c65fba24253a2f77
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 21 14:29:04 2013 +0700
+
+    Update cap nhat
+
+commit 767a9ed1e13c0abacb55479289b3d560a2719e35
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 21 10:33:33 2013 +0700
+
+    Add api
+
+commit 687e46f844a4b8f31431499d3b31f2cdab405334
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 21 08:40:14 2013 +0700
+
+    Update rake task: update ho ten
+
+commit 1bfcd460b34a693bb13e51a83a3209f71e119ae8
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 20 16:52:21 2013 +0700
+
+    Update sinh vien
+
+commit fc6ea17a1d9016ad9c56fafe939f5edf5d152e75
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 20 15:59:10 2013 +0700
+
+    Them sinh vien
+
+commit 8ffea9ec8e30805a0fbf230d785923984ae85e81
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 20 14:52:51 2013 +0700
+
+    Fix quan ly
+
+commit 102cbe744cad0bcd9b91687d9d78868599b59897
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 20 14:46:53 2013 +0700
+
+    Update quan ly
+
+commit cc9277612841e8c5f77feaa3251b2141807cf336
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 20 14:14:50 2013 +0700
+
+    Update lop mon hoc
+
+commit 689f561bbfca1c5d16b29b3a74e2d1236cbf016c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 20 11:17:46 2013 +0700
+
+    Update lop sinh vien
+
+commit c827d1da37c5c6a0ee1a1a17e6511e5d07342f62
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 20 09:30:07 2013 +0700
+
+    Update rake lmhsv
+
+commit 5c793abb9e8630a173f649c012703ef25a7c0765
+Merge: f48cc28 42e30c4
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 20 09:23:54 2013 +0700
+
+    Merge branch 'nghiday'
+
+commit 42e30c4c3528aadb46e1faa4243b3d47aa6be293
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 20 09:23:48 2013 +0700
+
+    Update nghi day va day bu
+
+commit f48cc28e28fe82989eca9a1ea5b21cde03e4e864
+Merge: 320f516 a2a82f6
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 20 08:12:24 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 320f5168c5edf68c8165b9191800f7a8ab0f4d2f
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 20 08:07:27 2013 +0700
+
+    Update lop ghep
+
+commit a2a82f60bd0b3ec983f28e47a18190577094427d
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Tue Aug 20 06:27:23 2013 +0700
+
+    Add responsive
+
+commit 4ddec0ae891057a686aecf19d10cad4ba2f39d07
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Tue Aug 20 06:16:23 2013 +0700
+
+    Add responsive
+
+commit 10b037d4e1ca18b11fd2e479a6d550156e013b38
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Tue Aug 20 06:13:47 2013 +0700
+
+    Add responsive
+
+commit 10cf770708ec114a8d0cf1c3cdbda1d8464550d7
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 19 16:39:02 2013 +0700
+
+    Add bootstrap
+
+commit 8456b22f207261591973474ee222f9a079d67005
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 19 09:02:40 2013 +0700
+
+    Update rake: Delete versions table
+
+commit 0a3e92bfa5422ec4c527f34eaab0c85978183429
+Merge: 64e85b7 f3dee04
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 19 08:00:09 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 64e85b74dffe6c21a4d00cc840dc4cf8650359c5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 19 07:59:46 2013 +0700
+
+    Phuc hoi diem chi tiet
+
+commit f3dee04b4815bbc2e305c6cffe9ad6b677174cfe
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 19 07:25:31 2013 +0700
+
+    Update tuan
+
+commit b9485045c49e51b8acc91973e2be5f174ae09b48
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 19 07:13:31 2013 +0700
+
+    Update rake
+
+commit 644371609aaea57ed1bf7f78e25639e0a6f0a79b
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 19 07:10:15 2013 +0700
+
+    Update rake
+
+commit 91815e6d318b6e695b9e244a573f3e0d7051d180
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 19 07:07:52 2013 +0700
+
+    Update rake
+
+commit db5aaf212a26c6a1618943ddac3e84045489fc2d
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 19 07:04:23 2013 +0700
+
+    Update rake
+
+commit 1edde6a8a7a22007881c6fe273cf8026f2ef71a1
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 19 06:34:42 2013 +0700
+
+    Update lop mon
+
+commit fd5a9fb7b7d885e34631141f52d9fbecfb0edb28
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 19 06:31:20 2013 +0700
+
+    Update tkb
+
+commit be9536f7f56cd4b58d437fd849357e72112260c6
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 19 06:28:21 2013 +0700
+
+    Update rake
+
+commit 3641d96beea118be6a3103922d00437800fe7c0a
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 19 06:24:36 2013 +0700
+
+    Update rake
+
+commit 8412bae93d3ad8191fd78d951bcd1ffe54d9bdc2
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 19 06:12:39 2013 +0700
+
+    Update migrations
+
+commit 01ae8fad1761b27eb08c52a09fc52476eb03c3b2
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 19 03:07:11 2013 +0700
+
+    Fully reloaded
+
+commit b89ebf08a798c3cd3d80220be66a311504ab82af
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sun Aug 18 11:46:54 2013 +0700
+
+    Add doi gio
+
+commit 3e19552d0f763cb862011c492abab1cf486117a8
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sun Aug 18 09:25:26 2013 +0700
+
+    Add migration lich trinh giang day
+
+commit 3fae2ded2ead50becf95ae1ce1dc5e2bf7f0ec4a
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sun Aug 18 08:24:28 2013 +0700
+
+    Add paper trail
+
+commit 92618d0e085972cdf3d1c6fdea321afa6e69be9d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 17 15:54:45 2013 +0700
+
+    Update lop ghep
+
+commit 784c1fb03a6ca186df813fe1bc10f9b7563f5bbd
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 17 15:25:04 2013 +0700
+
+    Update diem danh
+
+commit b9c6211e1dac0ab3e218bb1c132ce2ac72c32ed1
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 17 07:39:10 2013 +0700
+
+    Chuyen diem tu integer ve decimal
+
+commit 6d9714ca1a3965701de7c28dce63a563137f21b2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 16 13:59:57 2013 +0700
+
+    Update quyen giang vien
+
+commit 16e9f44e78f6ed845fd705c01b7cb1cd55df3082
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 16 11:19:35 2013 +0700
+
+    Update tro giang
+
+commit 5c7b602550cde71b3833cc3c1ecaa815e1afc4db
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 16 11:01:55 2013 +0700
+
+    Update hodem
+
+commit f4c997d7a69bf2985fb53fc7dcd1706ae4926b31
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 16 10:48:42 2013 +0700
+
+    Fix javascript
+
+commit 4a1d3be267fece0d578c98938130f35ef2bf7530
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 16 10:36:49 2013 +0700
+
+    Update ghep lop
+
+commit 9e8107a165f98538141c29b07f608dffec25acde
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 16 09:16:26 2013 +0700
+
+    Update destroy
+
+commit 047b298dc97dbc299644ab79d1f3282935bd2ec1
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 16 08:16:39 2013 +0700
+
+    Update time
+
+commit 10f7564f4f7a8e1ff19a09c2f1c57a8e5e6d11d2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 15 17:00:46 2013 +0700
+
+    Them sinh vien vao lop tin chi
+
+commit e49336c049ed8ff976ce407559dba795a4c8f7a5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 15 10:20:55 2013 +0700
+
+    Update views
+
+commit 0e54e4593fbdb42b5578e58ff3ac55671e7ef6d5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 14 17:03:34 2013 +0700
+
+    Add quan ly lop tach
+
+commit 995f3ecf681150e399b3e77783aa11b36b00c6aa
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 14 15:33:19 2013 +0700
+
+    Update pjax in buoihoc
+
+commit be3557ce8f1e1404de00cbd4ed3379d1c38600d3
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 14 14:16:43 2013 +0700
+
+    Update sinh vien views
+
+commit 3cae5146c55f260dab5d274aad2bb278e9352fe0
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 14 14:06:23 2013 +0700
+
+    Update ho ten dem
+
+commit 54cbb51b9d088862df01d10530e32f7192a128ab
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 14 13:55:17 2013 +0700
+
+    remove duplicate
+
+commit a51f151a1ae2926e4dc0bcc6d73cec87c7f859a4
+Merge: d38a617 46d54c0
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 14 13:51:08 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit d38a617487d4fe692e6986d80efefea2ffe4a2ef
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 14 13:45:40 2013 +0700
+
+    Remove duplicate
+
+commit 46d54c076b591148681fa55a6d996d37b46b32b2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 14 13:36:32 2013 +0700
+
+    Update duplicate calendar
+
+commit dc0acdd7ac4c6da21a3030b0e76464a73a88d5cc
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 14 10:37:12 2013 +0700
+
+    Fix sinh vien bug
+
+commit 1d8212cd9c0d558cadaf615d896f151e7c9bd007
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 14 09:19:29 2013 +0700
+
+    Update ho dem
+
+commit 97fc3779c60d0629886e747d3ce95c4b287c70ab
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 14 09:14:21 2013 +0700
+
+    Update lop sinh vien
+
+commit ec488aa45587adbf9b48234421ccad67306b96c4
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 14 08:33:36 2013 +0700
+
+    Update view
+
+commit e1832c8ea79be9a5206317511c764f8f5cd7b8a7
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Tue Aug 13 19:28:47 2013 +0700
+
+    Update database
+
+commit 1a8501e970475e32199717dbb4c4bfe4670b19c6
+Merge: df7b179 663c024
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Tue Aug 13 17:38:41 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 663c0245ded1168b64d5c327520a4ad583368bd1
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 13 17:37:35 2013 +0700
+
+    Update database
+
+commit df7b1795c1a5b47f823a43de0979c167fb8a7156
+Merge: c68c3f6 cf960f0
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Mon Aug 12 17:34:10 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit cf960f09e47d34e066640c4448cecdf156e80ffb
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 12 17:26:13 2013 +0700
+
+    Them quyen sinh vien
+
+commit c68c3f6ec62a1b345364c6c212671ded03f02fc0
+Merge: c2d6a46 217cd58
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Mon Aug 12 15:51:48 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 217cd581d849e83da1392dad65ea12a84dba199d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 12 15:51:47 2013 +0700
+
+    Update noi dung buoi hoc
+
+commit c2d6a460f964980132e2e8b5cd45bd0a0dd12f4b
+Merge: 2499308 3d6b613
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Mon Aug 12 15:38:18 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 3d6b61335f7233bee76aa9c9cbc0f8d759f9262c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 12 15:37:59 2013 +0700
+
+    Update unique code
+
+commit 24993089dddaca6f554ce345c471b6ec5b82fbf4
+Merge: 842ad5b 062ce6c
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Mon Aug 12 15:31:55 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 062ce6cb3cce75d0994ffce2ea165ff16e78fd45
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 12 15:31:49 2013 +0700
+
+    Update buoi hoc
+
+commit 842ad5bd18d15ebae9b7ce32bd9b1b4406eeccb6
+Merge: 9cc00b0 67bb719
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Mon Aug 12 14:19:08 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 67bb719c0905cb05a39d907838e6bd6c5837e452
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 12 14:19:08 2013 +0700
+
+    Update quyen tro giang
+
+commit 9cc00b070b3c11771781f6dcf7e686ac6355d939
+Merge: 940e750 93783fb
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Mon Aug 12 14:12:31 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 93783fb5f54467de0bcab2f2333264391cc6bb00
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 12 14:12:30 2013 +0700
+
+    Update quyen tro giang
+
+commit 940e7505d0a5d1ba7b2599b6fbfba16c6b68d2e7
+Merge: 3157096 420652a
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Mon Aug 12 14:06:38 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 420652a08fd19450c4f32c58a0b2926065bc6858
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 12 14:06:18 2013 +0700
+
+    Update quyen cho tro giang
+
+commit 3157096c19c8a434481b1a07d261ebfc8613dedc
+Merge: 44a38d5 3999925
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Mon Aug 12 14:05:22 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 399992525c285bb455b4fb83843f6155b5b9e7aa
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 12 14:05:14 2013 +0700
+
+    Update quyen cho tro giang
+
+commit 44a38d54c500e5e66afa1a9ea11b9c7035c5be9c
+Merge: 377b528 59d9abb
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Mon Aug 12 14:01:39 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 59d9abb24646f29a52879b724ac76aa0b938810f
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 12 14:01:13 2013 +0700
+
+    Update quyen cho tro giang
+
+commit 377b5280d36c15463682718f73e289127475eaf4
+Merge: 4cb4d8c 4983516
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Mon Aug 12 13:41:22 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 4983516bf3183269c28e5078164a80d78d8a9bb6
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 12 13:37:19 2013 +0700
+
+    Update views
+
+commit 4cb4d8c0596d6b7b2b5473ea532d2361d13af1de
+Merge: 47bf4eb 69176c4
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Mon Aug 12 07:00:53 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 69176c42248d9ac4bb865f0dd6779ef2d570143e
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 12 07:00:35 2013 +0700
+
+    Remove buoihocpjax
+
+commit 47bf4ebb0c73edb85480f8df1cf0f6cc7fb1c664
+Merge: a2d80ac b7ece61
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Mon Aug 12 06:50:30 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit b7ece618f5563ba1bf3265c695830660068a3446
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 12 06:50:16 2013 +0700
+
+    Fix update
+
+commit a2d80ac6ba56a59076f6dc3cfc7e4619061addb0
+Merge: e0dfa19 142d759
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Mon Aug 12 06:40:19 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 142d759597e2aa1ddcc95b95482fc321c3806d32
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 12 06:40:04 2013 +0700
+
+    Update tong so tiet
+
+commit e0dfa1987d6620ad1ce704b85be1ad04ef94f8b1
+Merge: 4fe8224 7d16f59
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Mon Aug 12 06:31:51 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 7d16f5936275b42fe4d8dabb6a3d0dbb80eff49b
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 12 06:31:09 2013 +0700
+
+    Update diem danh chi tiet
+
+commit 018c0d76c104cea73cdd84c84ae0ae149be8c71d
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 12 06:17:25 2013 +0700
+
+    Update buoihoccontroller for trogiang
+
+commit e0d0e7866ebe7be3e1c3f9bac9dac2776cb01436
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sun Aug 11 18:20:50 2013 +0700
+
+    Update lll
+
+commit 4fe822451f8cc995fe3c09f5d9c6995940afa234
+Merge: d97ec5d 6a9a392
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Sun Aug 11 16:29:33 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit d97ec5dbcf72d7b741a09c9ab73856399bf93bec
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Sun Aug 11 16:29:25 2013 +0700
+
+    Update lopghep
+
+commit 6a9a3923b4e2d9b4799f272ed7e5736ba4b36d17
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sun Aug 11 16:26:50 2013 +0700
+
+    Fix calendar
+
+commit 20c26ed23011cf3926d2a81a45abebf2606cc59e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 10 16:13:52 2013 +0700
+
+    Update authorization
+
+commit 8a3205862477733700200e2ef43c2af4989e8681
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 10 16:05:36 2013 +0700
+
+    Update callback lopmonhoc
+
+commit ccda23522245b5aee547b458a5cdd6a0fb64ac7b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 10 15:59:22 2013 +0700
+
+    Update identication
+
+commit fa1a14958b8c4e1c93ef44db2fc337667187bba9
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 10 15:54:34 2013 +0700
+
+    Update lich for tro giang
+
+commit 4dc49bc720c572b581fa91fc9b5f72cc9701a43a
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 10 15:46:44 2013 +0700
+
+    Update color map tro giang
+
+commit 4546da0f6d9a839e83db2675174e25c8f8108c66
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 10 15:37:58 2013 +0700
+
+    Update count
+
+commit b4899d71a396606e69fce41363d02b4fd802438b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 10 15:36:08 2013 +0700
+
+    Add lop hanh chinh
+
+commit b2897cf4fc33242f5443602afe90b6ead20ab239
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 10 14:48:32 2013 +0700
+
+    Update sinh vien task
+
+commit 8566f41eb1bd3cf932a6ae513a5c6c414885f8b7
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 10 14:32:34 2013 +0700
+
+    Update authorization
+
+commit a6703e4abba3008c0c5818885d3589ebc0eba1ee
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 10 13:15:34 2013 +0700
+
+    Update authorization active admin with cancan
+
+commit a75c30bb8001eb9ed1bdb3ea108eaebd1aff1eaa
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 10 08:33:59 2013 +0700
+
+    Refactor ability
+
+commit eb0f0a2f7350f195e3416f63f3482d493210de74
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Aug 10 08:06:38 2013 +0700
+
+    refactor right
+
+commit 50ad07f32e439cc025459afb496b9d36a2040212
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sat Aug 10 07:03:05 2013 +0700
+
+    update pjax
+
+commit d17cfbd4cc9a2dc913305baa55194bfef983ccae
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sat Aug 10 06:54:26 2013 +0700
+
+    Add redis cache
+
+commit b99f743cf43f32a0329c7f4b87da9b7dd822d565
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sat Aug 10 06:44:37 2013 +0700
+
+    Removing pjax
+
+commit 2fdd4ab0d5fb21f13cf5d9785957351077b11f11
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sat Aug 10 06:28:17 2013 +0700
+
+    Refactor authorization
+
+commit b8f0c0f8c79c273df62ae581bd7b5242f6964fbf
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 9 16:55:09 2013 +0700
+
+    Try removing pjax
+
+commit 3224d86950b9e87ce272676c3fb3f335d8a98b62
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 9 14:25:23 2013 +0700
+
+    Update group grade
+
+commit 933919f71016df43952bb3985ab5a824c6cf77ed
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 9 10:57:00 2013 +0700
+
+    Update assets
+
+commit 2e47e74ac46291ce6a26017ce35aa2c8eba9bca9
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 9 10:45:02 2013 +0700
+
+    Update tinh hinh vng
+
+commit cf1f49874b91e05a99d1eca0382d51e794cd63d5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 9 10:35:33 2013 +0700
+
+    Update lich
+
+commit d608917d913edde856479fe8bbcc93a3b5875161
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 9 10:29:35 2013 +0700
+
+    Update form diem danh
+
+commit 8ca4bef883b451c9ec0bf1572b07969371aa88c7
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 9 10:07:52 2013 +0700
+
+    Update tro giang tkb
+
+commit b13144ce0d6e9f7a183ab2ea63e664682dc9b959
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 9 09:15:43 2013 +0700
+
+    Update template
+
+commit 860210dcd7f7e0248b0951685b9edc9ad7e7e0c0
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 9 08:51:33 2013 +0700
+
+    Update trang chu
+
+commit 0453b01e752f811e55257f193ffd17e5e4a4104c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 9 08:33:10 2013 +0700
+
+    Them lop tro giang
+
+commit 2e5144ba0870f21d5df2888e04ca92e6dddad690
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Fri Aug 9 08:04:41 2013 +0700
+
+    Database
+
+commit c2dd25c92228f24c295f8e1a463861897930653f
+Merge: b5db6c1 731e119
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Fri Aug 9 07:58:19 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit b5db6c13230a4e64f3d808d6e3f642696b64c12f
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Fri Aug 9 07:57:55 2013 +0700
+
+    Refactor
+
+commit 731e119c2399bea81fa1655b5ca7a5d3c0cf6a3c
+Merge: 436ce0e 06417bc
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 8 17:03:20 2013 +0700
+
+    Merge branch 'master' of https://github.com/checkraiser/sodaubai
+
+commit 436ce0ef89577291d8a1d18852a1876527dcb30c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 8 17:03:08 2013 +0700
+
+    Cap nhat giang vien
+
+commit 06417bca51bf8f5e48951ff6001b0264e8fccd1d
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Thu Aug 8 17:01:41 2013 +0700
+
+    Update admin
+
+commit 9447ad9303ebcac9b23acdf2c13ee23a65eea19c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 8 13:37:46 2013 +0700
+
+    Check null calendar
+
+commit 07764be7fcef56d6445b013f9ed8309644763657
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Thu Aug 8 13:36:22 2013 +0700
+
+    Add css
+
+commit 108c6f7a0c866f30aec42851e87cb55dd6e262c9
+Author: Truong Hoang Dung <checkraiser11@gmail.com>
+Date:   Thu Aug 8 13:34:47 2013 +0700
+
+    Update production
+
+commit 747bf803f3aa08a3cbd6fed4de43d15b22249774
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Aug 8 08:12:44 2013 +0700
+
+    Update upcase
+
+commit 99c51575c7b808fad63db2fbc9b93861091ae119
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 7 17:28:31 2013 +0700
+
+    Refactor rake tasks
+
+commit f0b93a71f80dff74ef38c03a0ec9d6a84c9f8acf
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 7 15:39:04 2013 +0700
+
+    cap nhat thong so
+
+commit a03f8c9e3f8aa92f1f5b8ee69a9b297bb0f1242f
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 7 15:28:28 2013 +0700
+
+    Add so lan kiem tra
+
+commit 325968681b64ae9b7a9c84801c0f6284cdbe3980
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 7 13:37:01 2013 +0700
+
+    Add users
+
+commit 4e3f8d97ae2cea1b4aaf6baa0dd03185097c4306
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Aug 7 08:30:22 2013 +0700
+
+    Refactor menu
+
+commit bb6d820ad8ab59ebcfb28e8234b450cb7eb99986
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 6 16:17:20 2013 +0700
+
+    Add forum
+
+commit 9989a6de0c860629da0f2af3d191ea743964f081
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Aug 6 11:20:47 2013 +0700
+
+    Update group
+
+commit 845b4761d6af739d3e42c2b4eb4965d03431c266
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 5 16:58:06 2013 +0700
+
+    Refactor rating
+
+commit c7248cee206d2ab14ab6865781414f420352a0be
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 5 14:52:39 2013 +0700
+
+    Refactor sinh vien
+
+commit f13435df6d03cefb2abb2d527f48bfaf983366a5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Aug 5 10:03:03 2013 +0700
+
+    Check conflict
+
+commit 09e102588fb42e723a22da2975b93b00d6dc01ca
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Aug 5 07:09:08 2013 +0700
+
+    Refactor buoihoc
+
+commit 3ab964ea96270c669a8fec88d10f60d82cfb6f67
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sun Aug 4 14:11:26 2013 +0700
+
+    Refactor controller
+
+commit 203fe5f8ad8569eed58dd8b9c0ab2865653a467e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Aug 2 17:31:00 2013 +0700
+
+    Refactor table
+
+commit 8381e78ba464e695f3db1214c9642fc954b38d29
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Jul 30 10:35:20 2013 +0700
+
+    Refactor diem danh
+
+commit 0029f59d2db4aaf7565d2539569f507adefd415e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Jul 29 10:05:06 2013 +0700
+
+    refactor acts_as_alsx
+
+commit a3658c999c0efc32c5b3f397f80b4704e4084afa
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sun Jul 28 19:17:44 2013 +0700
+
+    Add redactor
+
+commit b65e03029703abf727b98ab3337f3b13585bfdbe
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sun Jul 28 12:21:40 2013 +0700
+
+    Add active_admin
+
+commit 4807eec3571cf181257ab7626f4cd1105fc0c533
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Jul 27 16:43:19 2013 +0700
+
+    Add drag drop
+
+commit fe4a23578dc68c450863b572e75e3cac718e7f60
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Jul 27 09:07:24 2013 +0700
+
+    refactor show
+
+commit 6f6fb8529bb564a5ef5a81d5a9ba7c3cea1bf42f
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Jul 26 17:19:51 2013 +0700
+
+    Add drag drop
+
+commit 28d4d8caef37a3608fefae8eaf4be422c125c114
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Fri Jul 26 07:07:03 2013 +0700
+
+    Add thong bao
+
+commit 6d80f025f26b907c7a22bd30d58c823c43b75631
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Fri Jul 26 05:57:20 2013 +0700
+
+    Refactor diemdanh
+
+commit fd1393d4e29303f5bbceaceef260c6042edd738e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Jul 25 16:41:04 2013 +0700
+
+    Add diem danh
+
+commit 89c24f0bd5a9792788137d577f73de54948da8ab
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Jul 24 16:59:28 2013 +0700
+
+    release 1
+
+commit ecdcd586631c07f3c7dca99b44c1922d46424e79
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Jul 23 16:17:46 2013 +0700
+
+    Add diem to group
+
+commit 5d859f24b18dcc9e7164e94cc8e9ec103410330e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Jul 22 17:36:29 2013 +0700
+
+    add sinh vien
+
+commit 26e1bb3ac96d873f6795601a72adc05d97a278d1
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sun Jul 21 17:33:29 2013 +0700
+
+    Add group form
+
+commit a6e6ef9357870c4b33ac44bc7a557081c6e8921c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Jul 20 16:29:53 2013 +0700
+
+    Add group
+
+commit 78808960d33bd4503087a77f15da2faa66931d8a
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Fri Jul 19 06:59:07 2013 +0700
+
+    Add enrollments
+
+commit a2d37b2db2055a8ccd52a891350a30fdd1258567
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sat Jul 13 07:03:50 2013 +0700
+
+    Add diem chi tiet
+
+commit c4630839011b0ecefe1e221201016d3d1f6920ac
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Jul 12 17:02:35 2013 +0700
+
+    Factor
+
+commit dcfa6156e77e60c3fc8a69f5c287618a9578ee69
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Jul 12 16:24:04 2013 +0700
+
+    factor
+
+commit 5e7c154e36922e052a333b8e8b7e6af22bd36be6
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Jul 11 17:03:56 2013 +0700
+
+    refactor views
+
+commit 850c711af7fb018286c941a3c894ca1021cf4ba7
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Jul 5 17:50:30 2013 +0700
+
+    Add diem thuong xuyen
+
+commit 7f8a86209e8aec59897bb2f05c252195c07f043b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Jul 5 15:12:36 2013 +0700
+
+    Update show page
+
+commit 9b42aae35977980c4871f808a8e67d47b116d9b8
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Jul 3 16:22:53 2013 +0700
+
+    Add lich trinh giang day
+
+commit 029b57a3c5c94054d7500313f2f1e6a58aa3c812
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Jul 1 16:53:43 2013 +0700
+
+    Add lichtrinh
+
+commit c21e8ad6700b454e6f75f5c2e20ff2dd2060a116
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Jul 1 11:07:52 2013 +0700
+
+    Add tenant for semester
+
+commit 158eb9f2b9ed3025f5f729b1ef9a65b78f1c30c5
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Jun 29 16:31:13 2013 +0700
+
+    Added tenant
+
+commit bb3cc7673f858152cbc8e886d6664fb3a2be4499
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Jun 29 10:53:42 2013 +0700
+
+    Update rake tasks
+
+commit e8ea94bb074faedfbd0bfe7776f0ae5cdad415cf
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Fri Jun 28 14:02:00 2013 +0700
+
+    Update task
+
+commit aaf953122f22b92f93f59b459d1f382fb08daa4d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Jun 27 17:48:24 2013 +0700
+
+    Add pjax
+
+commit 068d058ebff89c7a2a5d51ea7868f69c01ea7628
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Jun 26 14:10:12 2013 +0700
+
+    Add sotiet
+
+commit 2a5e1037ebfcd4829d7933fcdf33eff4b2375fc8
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Jun 26 13:37:57 2013 +0700
+
+    Add datatable
+
+commit 4b6004dc093bdb8f157df77873455891827540a0
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Jun 26 09:31:01 2013 +0700
+
+    Update dashboard to show calendar
+
+commit 9ed98708dc153b4133ad00f2f180cba52c0180b7
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Jun 25 17:05:31 2013 +0700
+
+    Update days
+
+commit 94e456223fae6a75734e6400209e144e88db435e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Jun 25 14:11:31 2013 +0700
+
+    Update models
+
+commit 946cccef0834fb12376951bafc932bd4e3730faf
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Jun 25 09:01:12 2013 +0700
+
+    Update rake tasks
+
+commit 8b153bcad49e1ffdb7d450e11c26218b714e0214
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Jun 22 08:30:27 2013 +0700
+
+    Update Gemfile.lock
+
+commit 590d06c5453934f9d89948ea243147c0acd0e871
+Merge: 5816ca4 77549db
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Jun 22 08:25:29 2013 +0700
+
+    Merge branch 'thong_bao_lop_hoc' of https://github.com/checkraiser/sodaubai into thong_bao_lop_hoc
+
+commit 5816ca41456cce8e53c52a7cae2035270fb8d529
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Jun 22 08:23:22 2013 +0700
+
+    Edit readme
+
+commit 77549db941e1814e49c4baf41b72cbd18f22adba
+Merge: 867f99f cd5437b
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Wed Jun 19 21:53:31 2013 +0700
+
+    Merge today
+
+commit 867f99fc7ebd24d2ed6f5c89572f90d17eb6c4f5
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Wed Jun 19 21:50:28 2013 +0700
+
+    Update Gemfile
+
+commit cd5437b63d66aaa1586811bed4eff88f6b12b946
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Jun 19 17:01:11 2013 +0700
+
+    Update current week
+
+commit 2e77548bf241ca52ce529bb93114ba466b2b9d68
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Jun 18 16:30:18 2013 +0700
+
+    Update dashboard to get current week
+
+commit 767e6d9252a03a7c7a3a055f4cc4d9f680f3120a
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Jun 18 10:47:26 2013 +0700
+
+    Add ckeditor
+
+commit 088d5af0b29c74ddabb55559e857ed4cbfc7adda
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Jun 18 10:46:35 2013 +0700
+
+    Add ckeditor
+
+commit 6d01e370c08dc443a65d1c3051f52ee57f07fc5b
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Jun 18 08:10:24 2013 +0700
+
+    Add dashboard
+
+commit 454990fe15c0e6bcc950c7239de55798742d0894
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sun Jun 16 20:55:55 2013 +0700
+
+    Add capybara support
+
+commit a2bcca7b2a1ea05197a7dabf6fc452790ea2867a
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sun Jun 16 19:31:14 2013 +0700
+
+    add sign in spec
+
+commit 0266162c3941d0ef99d606d07e558c9b0d9318d3
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sun Jun 16 18:35:42 2013 +0700
+
+    Add capybara
+
+commit 56bf4b3ffc2736dd05d5c264ba29024257323a23
+Merge: 0123d0d a69cda6
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sun Jun 16 16:46:10 2013 +0700
+
+    Merge branch 'diemdanh' of https://github.com/checkraiser/sodaubai into diemdanh
+
+commit 0123d0d62c7f4dabf88a308900e9958e5927af15
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sun Jun 16 16:46:00 2013 +0700
+
+    add noti
+
+commit a69cda615babb47ecf184dc7c0e1c9472462ae3f
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sun Jun 16 12:12:35 2013 +0700
+
+    >
+
+commit 2247a10db8e57af1ff28cca7990be231ee5ba0da
+Merge: db3269b b9b9a13
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sat Jun 15 18:32:06 2013 +0700
+
+    Merge branch 'diemdanh' of https://github.com/checkraiser/sodaubai into diemdanh
+
+commit db3269bc8fb588fd789a6963e22543b835d0e83f
+Merge: 307cb17 964dd90
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sat Jun 15 18:31:25 2013 +0700
+
+    >
+
+commit 307cb1797312d8a4b6419b5cd9bdfd1621ccf015
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sat Jun 15 18:30:11 2013 +0700
+
+    test
+
+commit b9b9a132ac842c4b1ea0d447219c5dde8ebc6e1c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Jun 15 17:17:00 2013 +0700
+
+    add seeds
+
+commit d473dd275a7fa679ca4fb4b9882528d5ab5e679c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Jun 15 12:03:44 2013 +0700
+
+    Update table
+
+commit 387ee8a1ba8da755a14cefc0501d602dbb71d6b3
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Sat Jun 15 09:14:44 2013 +0700
+
+    Support for non-credit class
+
+commit 9b547796e8403bf17c85f43d8c852fa9d229410d
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Jun 13 17:20:03 2013 +0700
+
+    Add diem danh
+
+commit 964dd900f0861a5812bfbccafc8c52161db1e42e
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Thu Jun 13 13:43:34 2013 +0700
+
+    Add diemdanh
+
+commit 50bdca4dd4092383223a4b9de6854e629a0c3fab
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Jun 12 16:42:54 2013 +0700
+
+    Add buoi hoc
+
+commit 7eb2c5d7cbf5e940d185b8bc4024f8fded9cdec4
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Jun 12 15:15:06 2013 +0700
+
+    Add ice_cube
+
+commit 29d37b32bf94bac7c9f3fd7aae5dc8c2a43b0d4c
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Wed Jun 12 11:08:46 2013 +0700
+
+    Add ice_cube
+
+commit 322cc03579027b175d1d458fa579691e840f8e74
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Wed Jun 12 07:05:51 2013 +0700
+
+    Add authorization
+
+commit 47d64ff2e08973f1ae55a88042552336f9a5438f
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Jun 11 17:30:57 2013 +0700
+
+    Add controller testing
+
+commit aea52a40f9db1f0a923d1546d8ae3b1c8443e7f2
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Tue Jun 11 09:57:58 2013 +0700
+
+    Add rolify
+
+commit 6242cbc2a2453d396b93a749fc0373d8f52ec03f
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Tue Jun 11 06:56:37 2013 +0700
+
+    Add rails_admin
+
+commit f68aeba0a55d4101d57665b3449b0d44d9ba5dd8
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Jun 10 20:29:02 2013 +0700
+
+    Delete index.html
+
+commit c42c54098423a629d5a5d1bec66155b8d5ea65d0
+Author: Truong Hoang Dung <revskill09@gmail.com>
+Date:   Mon Jun 10 17:11:19 2013 +0700
+
+    Add testing
+
+commit 137fc4292b89cbc9138422be11dc9e9f4da8c551
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Jun 10 06:35:08 2013 +0700
+
+    Add thong bao
+
+commit 040fd64e9c3ff6107c42e6569b4bfbc8cb29d42f
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Mon Jun 10 00:35:25 2013 +0700
+
+    Add all models and factories
+
+commit 787ac74ee1da305fc4c60f352d12016c6603b822
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sun Jun 9 13:43:23 2013 +0700
+
+    Add scaffolds
+
+commit 5a1c2803c1ae2ef6f9f48973fe3f5962691d28bc
+Author: Truong Hoang Dung <dungth@hpu.edu.vn>
+Date:   Sun Jun 9 12:56:30 2013 +0700
+
+    Init

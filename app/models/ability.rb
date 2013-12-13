@@ -57,19 +57,23 @@ class Ability
         can :read, SinhVien         
         can :manage, LopMonHocSinhVien
         can :manage, LichTrinhGiangDay
+        can :thongke, SinhVien
     end
     if user.groups.count > 0 and user.groups.map(&:name).include?("qlsv") 
         can :read, SinhVien  
         can :quanly, SinhVien
+        can :thongke, SinhVien
     end
     if user.groups.count > 0 and user.groups.map(&:name).include?("thanhtra") 
         can :read, SinhVien  
         can :quanly, GiangVien
+        can :thongke, SinhVien
     end
     if user.groups.count > 0 and user.groups.map(&:name).include?("qlthanhtra") 
         can :read, SinhVien  
         can :quanly, GiangVien
         can :thanhtra, GiangVien
+        can :thongke, SinhVien
     end
     if user.groups.count > 0 and user.groups.map(&:name).include?("admin") 
         can :manage, :all     

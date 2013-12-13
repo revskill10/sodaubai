@@ -49,7 +49,9 @@ group :development, :test do
   gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'guard-bundler'
   gem 'guard-rspec'
+  gem 'spork-rails'
   gem 'guard-spork'
+  gem 'childprocess'
   gem 'rb-notifu'
   gem 'win32console'
   gem 'wdm'
@@ -57,9 +59,8 @@ group :development, :test do
   gem 'thin'
   gem "shoulda-matchers"
   gem "database_cleaner"
-   gem "webrat"
-   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
-   gem 'launchy'
+  gem 'selenium-webdriver', '2.35.1'
+  gem 'capybara', '2.1.0'
 end
 group :development do
   gem "better_errors"
