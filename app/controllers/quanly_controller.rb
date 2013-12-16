@@ -357,7 +357,7 @@ class QuanlyController < ApplicationController
   # Danh sach giang vien dang ky nghi day
   def report1  	    
     authorize! :thongke, SinhVien
-    sql = "SELECT l1.id, l1.ma_giang_vien,l1.ten_giang_vien,l1.ma_lop,l1.ten_mon_hoc,l.phong_moi,l.tuan,l.ngay_day,l.so_tiet_day,Case when l.status=3 then 'Duyet' when l.status=6 then 'Chua duyet' when l.status=4 then 'Khong duyet' END  as TrangThai  FROM t1.lich_trinh_giang_days l inner join t1.lop_mon_hocs l1 on l.lop_mon_hoc_id=l1.id where l.loai=1 and l.tuan=4 Order by l.ngay_day"
+    sql = "SELECT l1.id, l1.ma_giang_vien,l1.ten_giang_vien,l1.ma_lop,l1.ten_mon_hoc,l.phong_moi,l.tuan,l.ngay_day,l.so_tiet_day,Case when l.status=3 then 'Duyet' when l.status=6 then 'Chua duyet' when l.status=4 then 'Khong duyet' END  as TrangThai  FROM t1.lich_trinh_giang_days l inner join t1.lop_mon_hocs l1 on l.lop_mon_hoc_id=l1.id where l.loai=1 Order by l.ngay_day"
     #@res = LichTrinhGiangDay.paginate_by_sql(sql, :page => params[:page] || 1, :per_page => 50)
     @res = ActiveRecord::Base.connection.execute(sql)    
     QC.enqueue "GoogleAnalytic.perform", {:category => "Quanly", :action => "report1", :label => "#{current_user.username}", :value => "1"}.to_json
