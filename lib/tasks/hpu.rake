@@ -840,7 +840,7 @@ namespace :hpu do
     tenant = Tenant.last
     PgTools.set_search_path tenant.scheme, false
     lop = LopMonHoc.first.decorate
-    lop.tinhhinh(tenant).render_file("D:/exports/#{lop.ma_lop}_tinhhinh.pdf")
+    lop.tinhhinh(tenant).render_file("E:/exports/#{lop.ma_lop}_tinhhinh.pdf")
   end
 
   task :capnhatghichudiemcc => :environment do 
